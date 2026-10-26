@@ -788,6 +788,11 @@ $("#bookForm").addEventListener("submit", async (e) => {
     f.time.value.trim() && `Час: ${f.time.value.trim()}`,
     f.request.value.trim() && `Запит: ${f.request.value.trim()}`,
   ].filter(Boolean).join("\n");
+  if (location.protocol === "file:") { // тестовий режим: файл відкрито локально, без сервера
+    alert("ТЕСТОВИЙ РЕЖИМ — заявка не надсилається.\nОсь що прийде в Telegram на справжньому сайті:\n\n" + text);
+    f.reset(); fillServices();
+    return show("Тестовий режим: форма працює. На опублікованому сайті заявка прийде в Telegram.", true);
+  }
   const btn = f.querySelector("button[type=submit]");
   btn.disabled = true; btn.textContent = "Надсилаємо…";
   try {
