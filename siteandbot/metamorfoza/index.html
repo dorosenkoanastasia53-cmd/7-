@@ -3,14 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Метаморфоза — психологічний простір</title>
-<meta name="description" content="Метаморфоза — психологічний простір: індивідуальна, парна та групова терапія, івенти і підтримка. Оберіть свого фахівця, перегляньте вартість і вільні години.">
+<title>Метаморфоза — психологічний центр</title>
+<link rel="icon" type="image/png" href="img/favicon.png">
+<meta name="description" content="Метаморфоза (Metamorphosis) — психологічний центр: індивідуальна, парна та групова терапія, івенти і підтримка. Оберіть свого фахівця, перегляньте вартість і вільні години.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#FBF8F5;--sand:#EFE8E2;--clay:#D9C5BA;--accent:#8A6E9E;--accent-h:#735986;
-  --gold:#B8845A;--sage:#7E9A86;--dark:#2C2018;--mid:#6B5A50;--light:#9A8880;--white:#fff;
+  --bg:#FBF8F5;--sand:#EFE8E2;--clay:#D9C5BA;--accent:#133512;--accent-h:#0B240A;--accent-soft:#E3EBE0;
+  --gold:#C9A034;--gold-l:#E8C766;--sage:#7E9A86;--dark:#2C2018;--mid:#6B5A50;--light:#9A8880;--white:#fff;
   --ok:#5E8C6A;--warn:#C08A3E;--busy:#A86464;
   --serif:'Cormorant Garamond',Georgia,serif;--sans:'Jost',system-ui,sans-serif;
   --r:14px;--shadow:0 6px 28px rgba(44,32,24,.08)
@@ -36,7 +37,7 @@ section{padding:96px 0}
 nav{position:sticky;top:0;z-index:100;background:rgba(251,248,245,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--clay)}
 .nav-in{display:flex;align-items:center;justify-content:space-between;height:64px}
 .logo{font-family:var(--serif);font-size:24px;text-decoration:none;display:flex;align-items:center;gap:10px}
-.logo svg{width:30px;height:30px}
+.logo img{width:38px;height:auto}
 .logo small{display:block;font-family:var(--sans);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--light);margin-top:-4px}
 .nav-links{display:flex;gap:26px}
 .nav-links a{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--mid);text-decoration:none}
@@ -44,21 +45,24 @@ nav{position:sticky;top:0;z-index:100;background:rgba(251,248,245,.94);backdrop-
 .burger{display:none;background:none;border:none;font-size:26px;color:var(--dark)}
 
 /* HERO */
-.hero{padding:0;background:linear-gradient(135deg,var(--sand) 0%,var(--bg) 60%)}
+.hero{padding:0;background:radial-gradient(ellipse at 20% 30%,#1E4A1C 0%,var(--accent) 55%,#0B240A 100%);color:#F3EEDF}
 .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;min-height:620px;padding:56px 0}
-.hero-tag{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:18px}
+.hero-tag{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-l);font-weight:500;margin-bottom:18px}
 .hero h1{font-family:var(--serif);font-size:76px;font-weight:300;line-height:1;margin-bottom:22px}
-.hero h1 em{color:var(--accent)}
-.hero p{font-size:17px;color:var(--mid);max-width:480px;margin-bottom:34px}
+.hero h1{color:#F3EEDF}.hero h1 em{color:var(--gold-l)}
+.hero-logo{width:150px;margin-bottom:18px;filter:drop-shadow(0 6px 24px rgba(232,199,102,.25))}
+.hero .btn-main{background:var(--gold);color:var(--accent)}.hero .btn-main:hover{background:var(--gold-l)}
+.hero .btn-out{border-color:#F3EEDF;color:#F3EEDF}.hero .btn-out:hover{background:#F3EEDF;color:var(--accent)}
+.hero p{font-size:17px;color:#D6DCCF;max-width:480px;margin-bottom:34px}
 .hero-btns{display:flex;gap:12px;flex-wrap:wrap}
 .hero-stats{display:flex;gap:36px;margin-top:48px;flex-wrap:wrap}
-.hero-stats b{display:block;font-family:var(--serif);font-size:36px;font-weight:400;color:var(--dark)}
-.hero-stats span{font-size:12px;color:var(--light);letter-spacing:.5px}
+.hero-stats b{display:block;font-family:var(--serif);font-size:36px;font-weight:400;color:var(--gold-l)}
+.hero-stats span{font-size:12px;color:#B9C4B4;letter-spacing:.5px}
 .hero-photos{position:relative;height:540px}
 .hero-photos img{position:absolute;object-fit:cover;border-radius:200px 200px var(--r) var(--r);box-shadow:var(--shadow)}
 .hero-photos .p1{width:62%;height:88%;right:0;top:0}
-.hero-photos .p2{width:44%;height:56%;left:0;bottom:0;border-radius:var(--r);border:6px solid var(--bg)}
-.hero-badge{position:absolute;left:8%;top:12%;background:#fff;border-radius:var(--r);padding:14px 18px;box-shadow:var(--shadow);font-size:13px;max-width:200px}
+.hero-photos .p2{width:44%;height:56%;left:0;bottom:0;border-radius:var(--r);border:6px solid var(--accent)}
+.hero-badge{position:absolute;left:8%;top:12%;background:#fff;color:var(--dark);border-radius:var(--r);padding:14px 18px;box-shadow:var(--shadow);font-size:13px;max-width:200px}
 .hero-badge b{color:var(--ok)}
 
 /* ADVANTAGES */
@@ -85,12 +89,12 @@ nav{position:sticky;top:0;z-index:100;background:rgba(251,248,245,.94);backdrop-
 .pill.on{background:var(--accent);color:#fff}
 .ev-list{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
 .ev{display:grid;grid-template-columns:110px 1fr;background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
-.ev-date{background:var(--accent);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px 8px;text-align:center}
-.ev-date b{font-family:var(--serif);font-size:44px;font-weight:400;line-height:1}
+.ev-date{background:linear-gradient(160deg,#1E4A1C,var(--accent));color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px 8px;text-align:center}
+.ev-date b{font-family:var(--serif);font-size:44px;font-weight:400;line-height:1;color:var(--gold-l)}
 .ev-date span{font-size:11px;letter-spacing:2px;text-transform:uppercase}
 .ev-date small{font-size:12px;margin-top:6px;opacity:.85}
 .ev-body{padding:22px 24px}
-.ev-type{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:500}
+.ev-type{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#9C7A1E;font-weight:500}
 .ev h3{font-family:var(--serif);font-size:24px;font-weight:400;line-height:1.2;margin:4px 0 8px}
 .ev p{font-size:14px;color:var(--mid);margin-bottom:12px}
 .ev-meta{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--light);margin-bottom:14px}
@@ -132,7 +136,7 @@ td.num{font-family:var(--serif);font-size:19px;white-space:nowrap}
 .packs{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:36px}
 .pack{background:#fff;border-radius:var(--r);padding:30px;box-shadow:var(--shadow);text-align:center;position:relative}
 .pack.hot{border:2px solid var(--accent)}
-.pack .lbl{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:4px 14px;border-radius:100px}
+.pack .lbl{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold);color:#fff;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:4px 14px;border-radius:100px}
 .pack h4{font-family:var(--serif);font-size:26px;font-weight:400}
 .pack .big{font-family:var(--serif);font-size:40px;margin:8px 0}
 .pack p{font-size:13px;color:var(--mid)}
@@ -151,7 +155,7 @@ select:focus,input:focus,textarea:focus{outline:none;border-color:var(--accent)}
 .day h5{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--light);font-weight:500;margin-bottom:2px}
 .day .d{font-family:var(--serif);font-size:22px;margin-bottom:10px}
 .slot{display:block;width:100%;border:none;border-radius:8px;padding:7px 4px;font-size:13px;margin-bottom:6px;text-align:center}
-.slot.free{background:#E6F0E8;color:var(--ok)}.slot.free:hover{background:var(--ok);color:#fff}
+.slot.free{background:var(--accent-soft);color:var(--ok)}.slot.free:hover{background:var(--accent);color:#fff}
 .slot.busy{background:var(--sand);color:var(--light);text-decoration:line-through;cursor:not-allowed}
 .day .none{font-size:12px;color:var(--light)}
 .av-note{font-size:13px;color:var(--mid);margin-top:18px}
@@ -165,7 +169,8 @@ select:focus,input:focus,textarea:focus{outline:none;border-color:var(--accent)}
 .faq-item.open .faq-q span{transform:rotate(45deg)}
 
 /* BOOKING */
-.booking{background:var(--dark);color:#fff}
+.booking{background:var(--accent);color:#fff}
+.booking .s-label{color:var(--gold-l)}.booking .s-label::before{background:var(--gold-l)}
 .booking .s-title{color:#fff}.booking .s-sub{color:var(--clay)}
 .book-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px}
 .contacts{display:grid;gap:16px;align-content:start}
@@ -179,7 +184,7 @@ form .full{grid-column:1/-1}
 .form-msg{grid-column:1/-1;font-size:14px;display:none;padding:12px 14px;border-radius:10px}
 
 /* FOOTER */
-footer{background:#1F1611;color:var(--light);padding:40px 0;font-size:13px}
+footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
 .foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
 .help{background:rgba(255,255,255,.05);border-radius:10px;padding:12px 16px;margin-top:20px;font-size:12px}
 
@@ -218,6 +223,8 @@ footer{background:#1F1611;color:var(--light);padding:40px 0;font-size:13px}
   .nav-links.open{display:flex}
   .burger{display:block}
   .nav-in>.btn{display:none}
+  .hero-grid{padding:40px 16px 48px}
+  .hero-logo{width:110px}
   .hero h1{font-size:52px}
   .s-title{font-size:34px}
   .hero-photos{height:340px}
@@ -238,8 +245,8 @@ footer{background:#1F1611;color:var(--light);padding:40px 0;font-size:13px}
 <nav>
   <div class="wrap nav-in">
     <a href="#top" class="logo">
-      <svg viewBox="0 0 40 40" fill="none" stroke="#8A6E9E" stroke-width="1.6"><path d="M20 8v26"/><path d="M20 14C14 4 3 6 5 15c1.5 6 9 7 15 4"/><path d="M20 14c6-10 17-8 15 1-1.5 6-9 7-15 4"/><path d="M20 20c-5 1-11 4-10 10 1 4 7 4 10-3"/><path d="M20 20c5 1 11 4 10 10-1 4-7 4-10-3"/></svg>
-      <span>Метаморфоза<small>психологічний простір</small></span>
+      <img src="img/emblem.webp" alt="" width="38" height="43">
+      <span>Метаморфоза<small>психологічний центр</small></span>
     </a>
     <div class="nav-links" id="navLinks">
       <a href="#about">Переваги</a>
@@ -259,7 +266,8 @@ footer{background:#1F1611;color:var(--light);padding:40px 0;font-size:13px}
 <section class="hero" id="top">
   <div class="wrap hero-grid">
     <div>
-      <div class="hero-tag">Психологічний простір</div>
+      <img class="hero-logo" src="img/emblem.webp" alt="Логотип Метаморфоза">
+      <div class="hero-tag">Психологічний центр · Metamorphosis</div>
       <h1>Мета<em>морфоза</em></h1>
       <p>Місце, де зміни стають можливими. Команда фахівців, яка допоможе пройти шлях від тривоги та розгубленості — до опори, ясності й контакту з собою.</p>
       <div class="hero-btns">
@@ -269,8 +277,8 @@ footer{background:#1F1611;color:var(--light);padding:40px 0;font-size:13px}
       <div class="hero-stats" id="heroStats"></div>
     </div>
     <div class="hero-photos">
-      <img class="p1" src="../images/img07.jpg" alt="Простір Метаморфоза">
-      <img class="p2" src="../images/img03.jpg" alt="Робоче місце психолога">
+      <img class="p1" src="img/room-lounge.jpg" alt="Кабінет для консультацій у центрі Метаморфоза">
+      <img class="p2" src="img/room-cabinet.jpg" alt="Затишний куточок кабінету">
       <div class="hero-badge" id="heroBadge"></div>
     </div>
   </div>
@@ -281,7 +289,7 @@ footer{background:#1F1611;color:var(--light);padding:40px 0;font-size:13px}
   <div class="wrap">
     <div class="s-label">Чому Метаморфоза</div>
     <h2 class="s-title">Наші переваги</h2>
-    <p class="s-sub">Ми створили простір, у якому безпечно говорити про найважливіше — і де кожен знайде свого фахівця та свій формат.</p>
+    <p class="s-sub">Ми створили центр, у якому безпечно говорити про найважливіше — і де кожен знайде свого фахівця та свій формат.</p>
     <div class="adv-grid" id="advGrid"></div>
   </div>
 </section>
@@ -291,7 +299,7 @@ footer{background:#1F1611;color:var(--light);padding:40px 0;font-size:13px}
   <div class="wrap">
     <div class="s-label">Фото</div>
     <h2 class="s-title">Наш простір</h2>
-    <p class="s-sub">Світло, тиша і затишок — атмосфера, у якій хочеться видихнути.</p>
+    <p class="s-sub">Кабінети для індивідуальних і парних сесій, зала для груп і лекцій. Світло, тиша і затишок — атмосфера, у якій хочеться видихнути.</p>
     <div class="gal-grid" id="galGrid"></div>
   </div>
 </section>
@@ -384,7 +392,7 @@ footer{background:#1F1611;color:var(--light);padding:40px 0;font-size:13px}
 <footer>
   <div class="wrap">
     <div class="foot">
-      <div><b style="font-family:var(--serif);font-size:20px;color:#fff;font-weight:400">Метаморфоза</b> · психологічний простір</div>
+      <div style="display:flex;align-items:center;gap:14px"><img src="img/logo.webp" alt="Metamorphosis — психологічний центр" style="width:110px"><div><b style="font-family:var(--serif);font-size:22px;color:var(--gold-l);font-weight:400">Метаморфоза</b><br>психологічний центр</div></div>
       <div id="footYear"></div>
     </div>
     <div class="help">Якщо вам або близьким загрожує небезпека — телефонуйте 112. Лінія психологічної підтримки Lifeline Ukraine: 7333 (цілодобово, безкоштовно). Психологічна консультація не замінює екстрену допомогу.</div>
@@ -417,12 +425,11 @@ const ADVANTAGES = [
 ];
 
 const GALLERY = [
-  { src: "../images/img01.jpg", caption: "Кабінет для індивідуальних сесій", cls: "g-tall" },
-  { src: "../images/img04.jpg", caption: "Робочі зошити між сесіями" },
-  { src: "../images/img06.jpg", caption: "Колесо емоцій" },
-  { src: "../images/img02.jpg", caption: "Світло і тиша", cls: "g-tall" },
-  { src: "../images/img22.jpg", caption: "Марафон «Я, яка любить»", cls: "g-tall" },
-  { src: "../images/img23.jpg", caption: "Вебінари та лекції", cls: "g-wide" },
+  { src: "img/room-lounge.jpg", caption: "Кабінет для індивідуальних і парних сесій", cls: "g-wide g-tall" },
+  { src: "img/room-cabinet.jpg", caption: "Куточок для консультацій", cls: "g-tall" },
+  { src: "img/room-group.jpg", caption: "Зала для груп, лекцій і воркшопів", cls: "g-tall" },
+  { src: "../images/img04.jpg", caption: "Робочі зошити між сесіями", cls: "g-wide" },
+  { src: "../images/img06.jpg", caption: "Колесо емоцій", cls: "g-wide" },
 ];
 
 /* status: "free" — є вільні місця, "few" — мало місць, "full" — лист очікування
@@ -431,7 +438,7 @@ const SPECIALISTS = [
   {
     id: "anastasiia",
     name: "Анастасія Дорошенко",
-    role: "Психологиня, сексологиня, засновниця простору",
+    role: "Психологиня, сексологиня, засновниця центру",
     photo: "../images/img01.jpg",
     experience: "3+ роки · 2000+ консультацій",
     approach: "Інтегративний підхід: КПТ · МАК · сексологія · сімейна психологія",
@@ -576,7 +583,7 @@ const minPrice = (sp) => Math.min(...sp.prices.map((p) => p.price));
 const initials = (n) => n.split(" ").map((w) => w[0]).join("").slice(0, 2);
 const photoHTML = (sp) => sp.photo
   ? `<img src="${esc(sp.photo)}" alt="${esc(sp.name)}" loading="lazy">`
-  : `<div class="sp-initials" style="background:${["#B9A3C7", "#A9BFAF", "#D4B59A", "#C9A3A3"][SPECIALISTS.indexOf(sp) % 4]}">${initials(sp.name)}</div>`;
+  : `<div class="sp-initials" style="background:${["#4F7A4B", "#B99A4A", "#7E9A86", "#2F5A2C"][SPECIALISTS.indexOf(sp) % 4]}">${initials(sp.name)}</div>`;
 
 // hero
 const allTopics = [...new Set(SPECIALISTS.flatMap((s) => s.topics))];
@@ -772,7 +779,7 @@ $("#bookForm").addEventListener("submit", async (e) => {
   if (!f.agree.checked) return show("Потрібна згода на обробку даних.", false);
   const spec = byId(f.specialist.value);
   const text = [
-    "🦋 Нова заявка — Метаморфоза",
+    "🦋 Нова заявка — Метаморфоза (психологічний центр)",
     `Ім'я: ${f.name.value.trim()}`,
     `Контакт: ${f.contact.value.trim()}`,
     `Фахівець: ${spec ? spec.name : "допомогти обрати"}`,
