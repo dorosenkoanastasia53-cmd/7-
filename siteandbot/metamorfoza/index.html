@@ -55,6 +55,9 @@ nav{position:sticky;top:0;z-index:100;background:rgba(251,248,245,.94);backdrop-
 .hero .btn-out{border-color:#F3EEDF;color:#F3EEDF}.hero .btn-out:hover{background:#F3EEDF;color:var(--accent)}
 .hero p{font-size:17px;color:#D6DCCF;max-width:480px;margin-bottom:34px}
 .hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.hero-promo{display:inline-flex;align-items:center;gap:12px;margin-top:22px;color:#F3EEDF;text-decoration:none;font-size:14px;border-bottom:1px solid rgba(232,199,102,.4);padding-bottom:4px}
+.hero-promo b{background:var(--gold-l);color:var(--accent);border-radius:100px;padding:3px 10px;font-weight:500}
+.hero-promo:hover{color:var(--gold-l)}
 .hero-stats{display:flex;gap:36px;margin-top:48px;flex-wrap:wrap}
 .hero-stats b{display:block;font-family:var(--serif);font-size:36px;font-weight:400;color:var(--gold-l)}
 .hero-stats span{font-size:12px;color:#B9C4B4;letter-spacing:.5px}
@@ -72,6 +75,38 @@ nav{position:sticky;top:0;z-index:100;background:rgba(251,248,245,.94);backdrop-
 .adv-ico{width:52px;height:52px;border-radius:50%;background:var(--sand);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:18px}
 .adv h3{font-family:var(--serif);font-size:24px;font-weight:400;margin-bottom:8px}
 .adv p{color:var(--mid);font-size:14px}
+
+/* MISSION */
+#mission{background:#fff}
+.mission-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:64px;align-items:center}
+.mission-photo{width:100%;height:560px;object-fit:cover;border-radius:var(--r) 200px var(--r) var(--r);box-shadow:var(--shadow)}
+.mission-text{color:var(--mid);font-size:16px;margin-bottom:14px;max-width:620px}
+.mission-text b{color:var(--accent);font-weight:500}
+.comfort{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0}
+.comfort span{background:var(--accent-soft);color:var(--accent);border-radius:100px;padding:8px 16px;font-size:13px}
+.mission-sign{font-family:var(--serif);font-size:22px;font-style:italic;color:var(--accent)}
+
+/* FIRST SESSION */
+#first{background:var(--accent-soft)}
+.first-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:56px;align-items:start}
+.steps{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+.step{background:#fff;border-radius:var(--r);padding:22px}
+.step i{font-style:normal;font-family:var(--serif);font-size:30px;color:var(--gold)}
+.step b{display:block;font-family:var(--serif);font-size:22px;font-weight:400;margin:2px 0 6px}
+.step p{font-size:14px;color:var(--mid)}
+.no-block{display:flex;flex-wrap:wrap;gap:10px}
+.no-block span{background:#fff;border:1.5px solid var(--accent);color:var(--accent);border-radius:100px;padding:8px 16px;font-size:13px}
+.no-block span::before{content:"✓ "}
+.first-card{background:var(--accent);color:#F3EEDF;border-radius:20px;padding:34px;position:sticky;top:90px;box-shadow:var(--shadow)}
+.first-badge{display:inline-block;background:var(--gold-l);color:var(--accent);font-family:var(--serif);font-size:40px;font-weight:500;border-radius:14px;padding:2px 16px;margin-bottom:14px}
+.first-card h3{font-family:var(--serif);font-size:30px;font-weight:300}
+.first-card>p{color:#C9D2C4;font-size:14px}
+.first-prices{margin-top:18px;display:grid;gap:4px}
+.first-prices div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed rgba(232,199,102,.3);padding:8px 0;font-size:14px}
+.first-prices s{color:#8FA08A;margin-right:8px;font-size:13px}
+.first-prices b{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--gold-l)}
+.first-note{font-size:12px;color:#B9C4B4;margin-top:14px}
+.first-card .btn-main{background:var(--gold);color:var(--accent)}.first-card .btn-main:hover{background:var(--gold-l)}
 
 /* GALLERY */
 .gallery{background:var(--sand)}
@@ -244,7 +279,9 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
 
 /* RESPONSIVE */
 @media(max-width:1000px){
-  .hero-grid,.book-grid,.shop-grid{grid-template-columns:1fr}
+  .hero-grid,.book-grid,.shop-grid,.mission-grid,.first-grid{grid-template-columns:1fr}
+  .first-card{position:static}
+  .mission-photo{height:380px}
   .hero-photos{height:420px}
   .adv-grid,.sp-grid{grid-template-columns:1fr 1fr}
   .ev-list{grid-template-columns:1fr}
@@ -263,7 +300,9 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
   .hero h1{font-size:52px}
   .s-title{font-size:34px}
   .hero-photos{height:340px}
-  .adv-grid,.sp-grid,.shop-items,.deals{grid-template-columns:1fr}
+  .adv-grid,.sp-grid,.shop-items,.deals,.steps{grid-template-columns:1fr}
+  .mission-photo{height:300px}
+  .first-card{padding:26px 20px}
   .perks{grid-template-columns:1fr 1fr}
   .opening{padding:26px 20px}
   .opening h3{font-size:28px}
@@ -289,7 +328,8 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
       <span>Метаморфоза<small>психологічний центр</small></span>
     </a>
     <div class="nav-links" id="navLinks">
-      <a href="#about">Переваги</a>
+      <a href="#mission">Про центр</a>
+      <a href="#first">Перша зустріч</a>
       <a href="#gallery">Простір</a>
       <a href="#events">Події</a>
       <a href="#specialists">Фахівці</a>
@@ -314,12 +354,29 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
         <a href="#specialists" class="btn btn-main">Обрати фахівця</a>
         <a href="#events" class="btn btn-out">Відкриття 7–8 листопада</a>
       </div>
+      <a href="#first" class="hero-promo"><b>−20%</b> на діагностичну сесію — прийдіть познайомитися з фахівцем →</a>
       <div class="hero-stats" id="heroStats"></div>
     </div>
     <div class="hero-photos">
       <img class="p1" src="img/room-lounge.jpg" alt="Кабінет для консультацій у центрі Метаморфоза">
       <img class="p2" src="img/room-cabinet.jpg" alt="Затишний куточок кабінету">
       <div class="hero-badge" id="heroBadge"></div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section id="mission">
+  <div class="wrap mission-grid">
+    <img class="mission-photo" src="../images/img07.jpg" alt="Анастасія Дорошенко, засновниця центру" loading="lazy">
+    <div>
+      <div class="s-label">Про центр</div>
+      <h2 class="s-title">Якісна допомога, яка вам доступна</h2>
+      <p class="mission-text">Створюючи «Метаморфозу», я мала одну мету — надавати людям перш за все <b>якісну</b> психологічну допомогу, але при цьому <b>доступну</b>. Тож якщо шукаєте психолога не за всі гроші світу — вам точно до нас.</p>
+      <p class="mission-text">Кожен фахівець центру пройшов детальний відбір. Як власниця, я обрала найкваліфікованіших і водночас найприємніших у спілкуванні спеціалістів — щоб поруч із вами була людина, якій хочеться довіряти.</p>
+      <p class="mission-text">А ще мені хотілося створити по-справжньому комфортне місце для вашої трансформації — вашої власної метаморфози.</p>
+      <div class="comfort" id="comfort"></div>
+      <div class="mission-sign">— Анастасія Дорошенко, засновниця «Метаморфози»</div>
     </div>
   </div>
 </section>
@@ -334,12 +391,33 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
   </div>
 </section>
 
+<!-- FIRST SESSION -->
+<section id="first">
+  <div class="wrap first-grid">
+    <div>
+      <div class="s-label">Перша зустріч</div>
+      <h2 class="s-title">Прийдіть і познайомтеся з фахівцем</h2>
+      <p class="s-sub">Почати терапію буває страшно: невідомо, як усе відбуватиметься, чи підійде фахівець і чи варто це грошей. Тому перша зустріч у нас — діагностична сесія зі знижкою 20%. Це спокійне знайомство, після якого ви самі вирішите, чи продовжувати.</p>
+      <div class="steps" id="firstSteps"></div>
+      <div class="no-block" id="noBlock"></div>
+    </div>
+    <div class="first-card">
+      <div class="first-badge">−20%</div>
+      <h3>Діагностична сесія</h3>
+      <p>Знижка 20% від вартості консультації обраного фахівця</p>
+      <div class="first-prices" id="firstPrices"></div>
+      <button class="btn btn-main" style="width:100%;margin-top:22px" onclick="bookFirst()">Записатися на знайомство</button>
+      <p class="first-note">Не знаєте, кого обрати? Залиште заявку — адміністратор підбере фахівця під ваш запит.</p>
+    </div>
+  </div>
+</section>
+
 <!-- GALLERY -->
 <section class="gallery" id="gallery">
   <div class="wrap">
     <div class="s-label">Фото</div>
     <h2 class="s-title">Наш простір</h2>
-    <p class="s-sub">Кабінети для індивідуальних і парних сесій, зала для груп і лекцій. Світло, тиша і затишок — атмосфера, у якій хочеться видихнути.</p>
+    <p class="s-sub">Кабінети для індивідуальних і парних сесій, зала для груп і лекцій. Мʼякі крісла, диван, чай, кава і смаколики, власна вбиральня — атмосфера, у якій хочеться видихнути.</p>
     <div class="gal-grid" id="galGrid"></div>
   </div>
 </section>
@@ -480,13 +558,24 @@ const CONTACTS = [
 ];
 
 const ADVANTAGES = [
-  { icon: "🦋", title: "Команда фахівців", text: "Психологи, психотерапевти, сексологи та сімейні консультанти — підберемо того, хто підходить саме вам." },
+  { icon: "🦋", title: "Ретельний відбір", text: "Кожен фахівець пройшов детальний відбір: у команді — найкваліфікованіші й найприємніші в контакті спеціалісти." },
   { icon: "🔒", title: "Конфіденційність", text: "Дотримуємось етичного кодексу НПАУ. Все, що ви розповідаєте, залишається між вами і фахівцем." },
-  { icon: "🎓", title: "Перевірена кваліфікація", text: "Профільна вища освіта, сертифіковані методи та регулярні супервізії кожного спеціаліста." },
+  { icon: "🤝", title: "Перша зустріч −20%", text: "Діагностична сесія зі знижкою: познайомтеся з фахівцем і вирішіть, чи комфортно вам працювати разом." },
   { icon: "💻", title: "Онлайн і офлайн", text: "Затишні кабінети в Києві біля м. Кловська або зустрічі через Zoom / Google Meet — з будь-якої точки світу." },
   { icon: "🛍", title: "Все в одному місці", text: "Антистреси, книги, робочі зошити та блокноти можна придбати прямо в центрі — не треба потім шукати по магазинах." },
-  { icon: "💛", title: "Прозорі ціни", text: "Вартість консультації кожного фахівця вказана на сайті — без прихованих доплат." },
+  { icon: "💛", title: "Якісно і доступно", text: "Шукаєте психолога не за всі гроші світу? Вам точно до нас. Ціни кожного фахівця — відкрито на сайті." },
 ];
+
+const COMFORT = ["🛋 Мʼякі крісла і диван", "☕ Чай і кава", "🍪 Смаколики", "🚻 Власна вбиральня", "🪴 Тиша, світло і затишок", "🌿 Затишні кабінети"];
+
+const FIRST_STEPS = [
+  { title: "Знайомство", text: "Ви знайомитеся з фахівцем у спокійній атмосфері — без поспіху й оцінок." },
+  { title: "Діагностика стану", text: "Фахівець ставить уточнювальні запитання, щоб зрозуміти, що з вами відбувається і що турбує." },
+  { title: "Як піде робота", text: "Вам детально розповідають, як буде побудована робота і чого можна очікувати від зустрічей." },
+  { title: "Ваше рішення", text: "Після зустрічі ви вирішуєте, чи комфортно вам у контакті з цією людиною. Без жодних зобовʼязань." },
+];
+const NO_BLOCKERS = ["Ні до чого не зобовʼязує", "Не треба знати, з чого почати", "Конфіденційно", "Офлайн або онлайн"];
+const FIRST_DISCOUNT = 20; // % знижки на діагностичну сесію
 
 const SHOP = [
   { icon: "🧸", title: "Антистреси", text: "Сквіші, м'ячики та інші дрібнички, щоб зняти напругу" },
@@ -528,7 +617,7 @@ const SPECIALISTS = [
       "Член НПАУ",
     ],
     prices: [
-      { service: "Діагностична сесія", duration: "60 хв", price: 800 },
+      { service: "Діагностична сесія", duration: "60 хв", price: 800 }, // = −20% від 1 000 грн
       { service: "Індивідуальна консультація", duration: "60 хв", price: 1000 },
       { service: "Парна сесія", duration: "60 хв", price: 1200 },
       { service: "МАК-сесія", duration: "90 хв", price: 1200 },
@@ -758,7 +847,7 @@ const EVENT_TYPES = { meetup: "Тематична зустріч", practice: "П
 
 const FAQ = [
   ["Як обрати фахівця?", "Подивіться картки фахівців: напрям, теми та формат. Якщо сумніваєтеся — залиште заявку з коротким описом запиту, адміністратор порекомендує спеціаліста."],
-  ["Як проходить перша зустріч?", "Це знайомство: ви розповідаєте про запит, фахівець ставить уточнювальні запитання, і разом ви окреслюєте план роботи. Після зустрічі можна вирішити, чи продовжувати."],
+  ["Як проходить перша зустріч?", "Перша зустріч — діагностична сесія зі знижкою 20%. Фахівець знайомиться з вами, проводить діагностику вашого стану і детально розповідає, як піде робота та чого очікувати. Після цього ви вирішуєте, чи комфортно вам продовжувати з цією людиною."],
   ["Онлайн-сесії так само ефективні?", "Так, дослідження підтверджують співставну ефективність. Потрібні тільки тихе приватне місце, навушники і стабільний інтернет."],
   ["Як скасувати або перенести сесію?", "Повідомте не пізніше ніж за 24 години — і ми перенесемо зустріч без оплати. Пізніше скасування оплачується, крім форс-мажорів."],
   ["Де ви знаходитесь?", "Київ, вул. Первомайського, 5А — поруч зі станцією метро «Кловська». Також можна працювати онлайн."],
@@ -780,7 +869,14 @@ const DAYS = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд"];
 const MONTHS = ["січ", "лют", "бер", "кві", "тра", "чер", "лип", "сер", "вер", "жов", "лис", "гру"];
 const STATUS = { free: "Є вільні години", few: "Мало вільних годин", full: "Лист очікування", ask: "Запис через адміністратора" };
 const byId = (id) => SPECIALISTS.find((s) => s.id === id);
-const known = (sp) => sp.prices.map((p) => p.price).filter((n) => n != null);
+const isDiag = (p) => p.service.startsWith("Діагностична");
+// Кожному фахівцю — діагностична сесія −20% від консультації (якщо її не вказано окремо)
+SPECIALISTS.forEach((sp) => {
+  const base = sp.prices.find((p) => !isDiag(p) && p.price != null);
+  if (!sp.prices.some(isDiag) && base) sp.prices.unshift({ service: "Діагностична сесія", duration: base.duration, price: Math.round(base.price * (1 - FIRST_DISCOUNT / 100)) });
+  const d = sp.prices.find(isDiag); if (d && base) { d.full = base.price; d.service = `Діагностична сесія (−${FIRST_DISCOUNT}%)`; }
+});
+const known = (sp) => sp.prices.filter((p) => !isDiag(p)).map((p) => p.price).filter((n) => n != null);
 const priceFrom = (sp) => known(sp).length ? `<small>від</small> ${money(Math.min(...known(sp)))}` : `<small>ціна</small> за запитом`;
 const dur = (p) => p.duration ? ` · ${esc(p.duration)}` : "";
 const hasSchedule = (sp) => Object.keys(sp.slots).length + Object.keys(sp.busy).length > 0;
@@ -788,6 +884,15 @@ const initials = (n) => n.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpp
 const photoHTML = (sp) => sp.photo
   ? `<img src="${esc(sp.photo)}" alt="${esc(sp.name)}" loading="lazy">`
   : `<div class="sp-initials" style="background:${["#4F7A4B", "#B99A4A", "#7E9A86", "#2F5A2C"][SPECIALISTS.indexOf(sp) % 4]}">${initials(sp.name)}</div>`;
+
+// mission & first session
+$("#comfort").innerHTML = COMFORT.map((c) => `<span>${esc(c)}</span>`).join("");
+$("#firstSteps").innerHTML = FIRST_STEPS.map((x, i) => `<div class="step"><i>0${i + 1}</i><b>${esc(x.title)}</b><p>${esc(x.text)}</p></div>`).join("");
+$("#noBlock").innerHTML = NO_BLOCKERS.map((x) => `<span>${esc(x)}</span>`).join("");
+$("#firstPrices").innerHTML = SPECIALISTS.filter((sp) => sp.prices.some(isDiag)).map((sp) => {
+  const d = sp.prices.find(isDiag);
+  return `<div><span>${esc(sp.name)}</span><span>${d.full ? `<s>${money(d.full)}</s>` : ""}<b>${money(d.price)}</b></span></div>`;
+}).join("");
 
 // hero
 const allTopics = [...new Set(SPECIALISTS.flatMap((s) => s.topics))];
@@ -994,7 +1099,7 @@ $("#footYear").innerHTML = `${esc(ADDRESS)}<br>© ${new Date().getFullYear()} ·
 $("#fSpec").innerHTML = `<option value="">Допоможіть обрати</option>` + SPECIALISTS.map((s) => `<option value="${s.id}">${esc(s.name)}</option>`).join("");
 function fillServices() {
   const s = byId($("#fSpec").value);
-  const services = s ? s.prices.map((p) => `${p.service} (${money(p.price)})`) : ["Перша консультація"];
+  const services = s ? s.prices.map((p) => `${p.service} (${money(p.price)})`) : [`Діагностична сесія (−${FIRST_DISCOUNT}%)`];
   const events = upcoming().filter((e) => !s || e.host === s.id).map(evLabel);
   $("#fService").innerHTML = [...services, ...events].map((x) => `<option>${esc(x)}</option>`).join("");
 }
@@ -1008,6 +1113,7 @@ function bookSpec(id, time) {
   $("#booking").scrollIntoView();
 }
 function pickSlot(id, time) { bookSpec(id, time); }
+function bookFirst() { $("#fSpec").value = ""; fillServices(); $("#booking").scrollIntoView(); }
 function bookEvent(i) {
   const ev = EVENTS[i];
   closeModal();
