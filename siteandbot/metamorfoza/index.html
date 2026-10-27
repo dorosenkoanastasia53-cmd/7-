@@ -114,7 +114,10 @@ nav{position:sticky;top:0;z-index:100;background:rgba(251,248,245,.94);backdrop-
 .sp-initials{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:84px;color:#fff;font-weight:300}
 .status{position:absolute;top:14px;left:14px;background:#fff;border-radius:100px;padding:6px 12px;font-size:12px;display:flex;align-items:center;gap:6px;font-weight:400}
 .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
-.dot.free{background:var(--ok)}.dot.few{background:var(--warn)}.dot.full{background:var(--busy)}
+.dot.free{background:var(--ok)}.dot.few{background:var(--warn)}.dot.full{background:var(--busy)}.dot.ask{background:var(--gold)}
+.m-body ul.no li::marker{content:"× ";color:var(--busy)}
+.m-body p+p{margin-top:10px}
+.week-empty{grid-column:1/-1;background:#fff;border-radius:var(--r);padding:28px;color:var(--mid);font-size:15px}
 .sp-body{padding:22px 24px 24px;display:flex;flex-direction:column;flex:1}
 .sp h3{font-family:var(--serif);font-size:26px;font-weight:400;line-height:1.15}
 .sp-role{font-size:13px;color:var(--accent);margin:4px 0 12px}
@@ -432,7 +435,10 @@ const GALLERY = [
   { src: "../images/img06.jpg", caption: "Колесо емоцій", cls: "g-wide" },
 ];
 
-/* status: "free" — є вільні місця, "few" — мало місць, "full" — лист очікування
+/* status: "free" — є вільні місця, "few" — мало місць, "full" — лист очікування, "ask" — запис через адміністратора
+   Необов'язкові поля: experience, languages, requests (повний список запитів), notWith (з чим не працює),
+   docs (посилання на документи про освіту).
+   price: null — ціна «за запитом»; порожні slots і busy — розклад узгоджується індивідуально
    slots: вільні години на тиждень (1 = Пн ... 7 = Нд); busy — зайняті години */
 const SPECIALISTS = [
   {
@@ -464,6 +470,86 @@ const SPECIALISTS = [
     status: "few",
     slots: { 1: ["17:00", "19:00"], 2: ["11:00"], 3: ["17:00", "19:00"], 4: ["13:00"], 5: ["11:00", "15:00"], 6: ["11:00"] },
     busy:  { 1: ["11:00", "13:00"], 2: ["13:00", "15:00", "17:00"], 3: ["11:00"], 4: ["17:00", "19:00"], 5: ["17:00"] },
+  },
+  {
+    id: "olha",
+    name: "Ольга Ситніченко",
+    role: "Психологиня, нейропсихологиня · КПТ",
+    photo: "img/olha-sytnichenko.jpg",
+    approach: "Когнітивно-поведінкова терапія (КПТ) в інтегративному підході з опорою на нейропсихологію. Методи з доказовою ефективністю, рекомендовані NICE, МОЗ та іншими міжнародними інститутами психічного здоров'я.",
+    formats: ["Онлайн", "Офлайн"],
+    clients: ["Дорослі 18+", "Підлітки 14+ (індивідуально)"],
+    topics: ["Тривожність", "Панічні атаки", "Депресія", "Психотравма", "Втрата і горе", "Стосунки", "Самооцінка", "Вигорання", "Емоційна регуляція", "Адаптація"],
+    about: "Мені близька психологія, яка не лише пояснює, чому нам буває складно, а й допомагає знаходити шляхи до змін. У своїй практиці поєдную науково обґрунтовані методи психологічної допомоги, знання з нейропсихології та уважність до індивідуальної історії кожної людини. Працюю з дорослими, які стикаються з тривогою, емоційним виснаженням, життєвими кризами, труднощами у стосунках та наслідками травматичного досвіду.\n\nДотримуюся міждисциплінарного підходу, адже психічне та фізичне здоров'я тісно пов'язані, тому за потреби співпрацюю з психіатрами, неврологами та іншими лікарями. Для мене важливо бачити за кожним запитом не лише симптоми, а передусім людину з її історією, досвідом і можливостями, допомагаючи їй не просто зрозуміти свій стан, а й знайти дієві способи покращити якість життя.",
+    requests: [
+      "Травма, переживання втрати і горя, посттравматичний стресовий розлад",
+      "Наслідки дитячих травм",
+      "Депресія, депресивні стани",
+      "Тривожні стани, генералізований тривожний розлад",
+      "Панічні атаки (панічний розлад)",
+      "Надмірна тривога про здоров'я",
+      "Соціальна тривога",
+      "Міжособистісні стосунки: розуміння потреб, очікувань і характеру взаємодії, плекання стосунків",
+      "Труднощі емоційної регуляції: менеджмент і регуляція злості, самоцінність, навички асертивності",
+      "Низька самооцінка, невпевненість у собі",
+      "Вигорання",
+      "Труднощі в навчальному / робочому процесі, хронічний стрес, вирішення конфліктів",
+      "Адаптація до нових умов і обставин життя, емоційна нестійкість",
+      "Самоактуалізація, саморозвиток, внутрішній ресурс і стресостійкість",
+      "Невизначеність у житті, пошук цінностей і цілей, планування життя на основі цінностей",
+    ],
+    notWith: [
+      "Залежності (наркотична, важка лудоманія)",
+      "Розлади харчової поведінки (РХП)",
+      "Тяжкі психічні розлади: шизофренія та шизотипові розлади (F20)",
+      "Органічні психічні розлади (F00–F09)",
+    ],
+    education: [
+      "Психологиня, нейропсихологиня за освітою",
+      "Когнітивно-поведінкова терапія (КПТ)",
+      "Міждисциплінарна співпраця з психіатрами, неврологами та іншими лікарями",
+    ],
+    docs: "https://fex.net/uk/s/1mftlm2",
+    // Вартість і тривалість — уточнити (price: null показується як «за запитом»)
+    prices: [
+      { service: "Індивідуальна консультація", duration: "", price: null },
+    ],
+    status: "ask",
+    slots: {},
+    busy: {},
+  },
+  {
+    id: "anastasiia-k",
+    name: "Анастасія",
+    role: "Психологиня-консультантка",
+    photo: "",
+    approach: "Інтегративний підхід",
+    formats: ["Онлайн", "Офлайн"],
+    clients: ["Дорослі", "Підлітки 14+", "Сім'ї", "Групи"],
+    topics: ["Самооцінка", "Сепарація", "Вікові кризи", "Стосунки", "Харчова поведінка", "Депресія", "Тривожність", "Самотність", "Психотравма"],
+    about: "Вітаю! Мене звати Анастасія — я психологиня-консультантка.\n\nМій шлях у психології почався з прагнення допомагати ще у шкільному віці. Уже тоді я переконалась, що вміння формулювати думки й почуття словами творить дива, тому спираюсь на цей принцип у своїй роботі і зараз. Я ціную прояви особистості, тому консультація зі мною — це ваш простір, де я буду підтримувати вас на кожному кроці до вирішення вашого запиту.\n\nЗапрошую вас до себе на консультацію!",
+    requests: [
+      "Самооцінка",
+      "Самовизначення і самобутність",
+      "Сепарація",
+      "Вікові кризи",
+      "Міжособистісні стосунки",
+      "Розлади харчової поведінки",
+      "Депресивні і тривожні стани",
+      "Самотність",
+      "Травматичні події",
+    ],
+    notWith: ["Переживання втрати"],
+    education: ["Психологиня-консультантка", "Зараз завершує кілька навчань — документи доповнюються"],
+    docs: "https://drive.google.com/drive/folders/13-ilbiNjvFdMWKV9WYFYL7SBzl5DChy8?usp=sharing",
+    // Вартість і тривалість — уточнити
+    prices: [
+      { service: "Індивідуальна консультація", duration: "", price: null },
+      { service: "Сімейна консультація", duration: "", price: null },
+    ],
+    status: "ask",
+    slots: {},
+    busy: {},
   },
   // ПРИКЛАД — замініть на реального фахівця (ім'я, фото, освіта, ціни)
   {
@@ -574,13 +660,16 @@ const SEND_URL = "/.netlify/functions/send";
    ===================================================================== */
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-const money = (n) => n === 0 ? "Безкоштовно" : n.toLocaleString("uk-UA") + " грн";
+const money = (n) => n == null ? "за запитом" : n === 0 ? "Безкоштовно" : n.toLocaleString("uk-UA") + " грн";
 const DAYS = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд"];
 const MONTHS = ["січ", "лют", "бер", "кві", "тра", "чер", "лип", "сер", "вер", "жов", "лис", "гру"];
-const STATUS = { free: "Є вільні години", few: "Мало вільних годин", full: "Лист очікування" };
+const STATUS = { free: "Є вільні години", few: "Мало вільних годин", full: "Лист очікування", ask: "Запис через адміністратора" };
 const byId = (id) => SPECIALISTS.find((s) => s.id === id);
-const minPrice = (sp) => Math.min(...sp.prices.map((p) => p.price));
-const initials = (n) => n.split(" ").map((w) => w[0]).join("").slice(0, 2);
+const known = (sp) => sp.prices.map((p) => p.price).filter((n) => n != null);
+const priceFrom = (sp) => known(sp).length ? `<small>від</small> ${money(Math.min(...known(sp)))}` : `<small>ціна</small> за запитом`;
+const dur = (p) => p.duration ? ` · ${esc(p.duration)}` : "";
+const hasSchedule = (sp) => Object.keys(sp.slots).length + Object.keys(sp.busy).length > 0;
+const initials = (n) => n.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase();
 const photoHTML = (sp) => sp.photo
   ? `<img src="${esc(sp.photo)}" alt="${esc(sp.name)}" loading="lazy">`
   : `<div class="sp-initials" style="background:${["#4F7A4B", "#B99A4A", "#7E9A86", "#2F5A2C"][SPECIALISTS.indexOf(sp) % 4]}">${initials(sp.name)}</div>`;
@@ -590,7 +679,7 @@ const allTopics = [...new Set(SPECIALISTS.flatMap((s) => s.topics))];
 $("#heroStats").innerHTML = [
   [SPECIALISTS.length, "фахівців"], [allTopics.length + "+", "напрямів роботи"], [EVENTS.length, "івентів цього сезону"],
 ].map(([n, t]) => `<div><b>${n}</b><span>${t}</span></div>`).join("");
-const freeNow = SPECIALISTS.filter((s) => s.status !== "full").length;
+const freeNow = SPECIALISTS.filter((s) => s.status === "free" || s.status === "few").length;
 $("#heroBadge").innerHTML = `<b>●</b> ${freeNow} з ${SPECIALISTS.length} фахівців мають вільні години цього тижня`;
 
 // advantages
@@ -650,12 +739,12 @@ function renderSpecialists() {
         <div class="sp-role">${esc(s.role)}</div>
         <div class="tags">${s.topics.slice(0, 4).map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>
         <div class="sp-info">
-          <div>Досвід: <b>${esc(s.experience)}</b></div>
+          ${s.experience ? `<div>Досвід: <b>${esc(s.experience)}</b></div>` : ""}
           <div>Формат: <b>${s.formats.join(", ")}</b></div>
           <div>Працює з: <b>${s.clients.join(", ")}</b></div>
         </div>
         <div class="sp-foot">
-          <div class="sp-price"><small>від</small> ${money(minPrice(s))}</div>
+          <div class="sp-price">${priceFrom(s)}</div>
           <span class="btn btn-out btn-sm">Детальніше</span>
         </div>
       </div>
@@ -672,21 +761,25 @@ function openModal(id) {
     <button class="modal-close" onclick="closeModal()" aria-label="Закрити">×</button>
     <div class="m-photo">${photoHTML(s)}</div>
     <div class="m-body">
-      <div class="status" style="position:static;display:inline-flex;background:var(--bg);margin-bottom:12px"><i class="dot ${s.status}"></i>${STATUS[s.status]} · ${slotCount(s)} вільних год/тиждень</div>
+      <div class="status" style="position:static;display:inline-flex;background:var(--bg);margin-bottom:12px"><i class="dot ${s.status}"></i>${STATUS[s.status]}${hasSchedule(s) ? ` · ${slotCount(s)} вільних год/тиждень` : ""}</div>
       <h3>${esc(s.name)}</h3>
       <div class="sp-role">${esc(s.role)}</div>
-      <p>${esc(s.about)}</p>
+      ${s.about.split("\n\n").map((t) => `<p>${esc(t)}</p>`).join("")}
       <h4>Підхід</h4><p>${esc(s.approach)}</p>
-      <h4>З якими запитами працює</h4><div class="tags">${s.topics.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>
+      <h4>З якими запитами працює</h4>${s.requests
+        ? `<ul>${s.requests.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>`
+        : `<div class="tags">${s.topics.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>`}
+      ${s.notWith ? `<h4>З чим не працює</h4><ul class="no">${s.notWith.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}
       <h4>Освіта і кваліфікація</h4><ul>${s.education.map((e) => `<li>${esc(e)}</li>`).join("")}</ul>
+      ${s.docs ? `<p style="margin-top:10px"><a href="${esc(s.docs)}" target="_blank" rel="noopener" style="color:var(--accent);font-weight:400">Документи про освіту ↗</a></p>` : ""}
       <h4>Вартість</h4>
-      <div class="m-prices">${s.prices.map((p) => `<div><span>${esc(p.service)} · ${esc(p.duration)}</span><b>${money(p.price)}</b></div>`).join("")}</div>
+      <div class="m-prices">${s.prices.map((p) => `<div><span>${esc(p.service)}${dur(p)}</span><b>${money(p.price)}</b></div>`).join("")}</div>
       <h4>Доступність</h4>
-      <p>Досвід: ${esc(s.experience)}<br>Формат: ${s.formats.join(", ")}<br>Мови: ${s.languages.join(", ")}<br>Працює з: ${s.clients.join(", ")}<br>
-      Робочі дні: ${DAYS.filter((_, i) => s.slots[i + 1] || s.busy[i + 1]).join(", ")}</p>
+      <p>${s.experience ? `Досвід: ${esc(s.experience)}<br>` : ""}Формат: ${s.formats.join(", ")}<br>${s.languages ? `Мови: ${s.languages.join(", ")}<br>` : ""}Працює з: ${s.clients.join(", ")}<br>
+      ${hasSchedule(s) ? `Робочі дні: ${DAYS.filter((_, i) => s.slots[i + 1] || s.busy[i + 1]).join(", ")}` : "Розклад узгоджується індивідуально через адміністратора"}</p>
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:24px">
         <button class="btn btn-main btn-sm" onclick="bookSpec('${s.id}')">${s.status === "full" ? "У лист очікування" : "Записатися"}</button>
-        <button class="btn btn-out btn-sm" onclick="showSchedule('${s.id}')">Вільні години</button>
+        ${hasSchedule(s) ? `<button class="btn btn-out btn-sm" onclick="showSchedule('${s.id}')">Вільні години</button>` : ""}
       </div>
     </div>`;
   $("#modal").classList.add("open");
@@ -700,7 +793,7 @@ const base = SPECIALISTS[0].prices.find((p) => p.service.startsWith("Індив�
 $("#priceTable").innerHTML = `<thead><tr><th>Фахівець</th><th>Послуга</th><th>Тривалість</th><th>Вартість</th><th>Формат</th><th>Доступність</th></tr></thead><tbody>` +
   SPECIALISTS.map((s) => s.prices.map((p, i) => `<tr>
     ${i === 0 ? `<td class="who" rowspan="${s.prices.length}">${esc(s.name)}<br><small style="color:var(--light)">${esc(s.role)}</small></td>` : ""}
-    <td>${esc(p.service)}</td><td>${esc(p.duration)}</td><td class="num">${money(p.price)}</td>
+    <td>${esc(p.service)}</td><td>${esc(p.duration || "—")}</td><td class="num">${money(p.price)}</td>
     ${i === 0 ? `<td rowspan="${s.prices.length}">${s.formats.join(", ")}</td><td rowspan="${s.prices.length}"><i class="dot ${s.status}"></i> ${STATUS[s.status]}</td>` : ""}
   </tr>`).join("")).join("") + "</tbody>";
 $("#packs").innerHTML = PACKAGES.map((p) => {
@@ -716,6 +809,12 @@ $("#packs").innerHTML = PACKAGES.map((p) => {
 $("#avSelect").innerHTML = SPECIALISTS.map((s) => `<option value="${s.id}">${esc(s.name)} — ${esc(s.role)}</option>`).join("");
 function renderWeek() {
   const s = byId($("#avSelect").value);
+  if (!hasSchedule(s)) {
+    $("#week").innerHTML = `<div class="week-empty">У ${esc(s.name)} розклад узгоджується індивідуально. Залиште заявку — адміністратор підбере зручний час.
+      <div style="margin-top:16px"><button class="btn btn-main btn-sm" onclick="bookSpec('${s.id}')">Залишити заявку</button></div></div>`;
+    $("#avNote").innerHTML = `Формат: ${s.formats.join(", ")} · вартість ${known(s).length ? "від " + money(Math.min(...known(s))) : "за запитом"}.`;
+    return;
+  }
   const monday = new Date(); monday.setHours(0, 0, 0, 0);
   monday.setDate(monday.getDate() - ((monday.getDay() + 6) % 7) + 7); // наступний тиждень
   $("#week").innerHTML = DAYS.map((d, i) => {
@@ -730,7 +829,7 @@ function renderWeek() {
   }).join("");
   $("#avNote").innerHTML = s.status === "full"
     ? `У ${esc(s.name)} зараз лист очікування — залиште заявку, і ми повідомимо, щойно звільниться час.`
-    : `Формат: ${s.formats.join(", ")} · від ${money(minPrice(s))}. Розклад оновлюється щотижня.`;
+    : `Формат: ${s.formats.join(", ")} · від ${money(Math.min(...known(s)))}. Розклад оновлюється щотижня.`;
 }
 $("#avSelect").addEventListener("change", renderWeek);
 renderWeek();
