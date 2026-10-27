@@ -17,6 +17,7 @@
   --r:14px;--shadow:0 6px 28px rgba(44,32,24,.08)
 }
 *{margin:0;padding:0;box-sizing:border-box}
+[hidden]{display:none!important}
 html{scroll-behavior:smooth}
 body{font-family:var(--sans);color:var(--dark);background:var(--bg);font-weight:300;line-height:1.6}
 img{max-width:100%;display:block}
@@ -237,7 +238,26 @@ form{background:#fff;color:var(--dark);border-radius:var(--r);padding:34px;displ
 form label{font-size:12px;color:var(--mid);display:grid;gap:6px}
 form .full{grid-column:1/-1}
 .check{display:flex!important;grid-template-columns:none!important;gap:10px!important;align-items:flex-start;font-size:13px!important}
-.check input{width:auto;margin-top:3px}
+.check input{width:auto;margin-top:3px;accent-color:var(--accent)}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:rgba(255,255,255,.08);border-radius:100px;padding:6px;margin-bottom:16px}
+.tab{border:none;background:transparent;color:#DDE5D8;border-radius:100px;padding:12px 10px;font-size:14px;transition:all .2s}
+.tab.on{background:var(--gold-l);color:var(--accent);font-weight:500}
+.tab:not(.on):hover{background:rgba(255,255,255,.08)}
+.f-label{font-size:12px;color:var(--mid);margin-bottom:8px}
+.f-label span{color:#9C7A1E}
+.ev-pick{display:grid;gap:8px}
+.ev-opt{display:flex;gap:12px;align-items:flex-start;border:1.5px solid var(--clay);border-radius:12px;padding:12px 14px;cursor:pointer;font-size:14px;color:var(--dark);transition:border-color .2s}
+.ev-opt:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.ev-opt input{width:auto;margin-top:4px;accent-color:var(--accent)}
+.ev-opt small{display:block;color:var(--light);font-size:12px;margin-top:2px}
+.ev-opt b{margin-left:auto;font-family:var(--serif);font-size:18px;font-weight:400;white-space:nowrap}
+.sum{background:var(--bg);border-radius:12px;padding:14px 16px;font-size:14px;color:var(--mid)}
+.sum div{display:flex;justify-content:space-between;gap:10px;padding:3px 0}
+.sum .total{border-top:1px solid var(--clay);margin-top:6px;padding-top:8px;color:var(--dark);font-size:16px}
+.sum .total b{font-family:var(--serif);font-size:24px;font-weight:500;color:var(--accent)}
+.sum .disc{color:var(--ok)}
+.ev-actions{display:flex;gap:10px;flex-wrap:wrap}
+.pay-note{font-size:12px;color:var(--light)}
 .form-msg{grid-column:1/-1;font-size:14px;display:none;padding:12px 14px;border-radius:10px}
 
 /* FOOTER */
@@ -301,6 +321,7 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
   .ev{grid-template-columns:84px 1fr}
   .ev-date b{font-size:34px}
   form{grid-template-columns:1fr;padding:22px}
+  .tabs{border-radius:16px}.tab{border-radius:12px;font-size:13px}
   .modal-box{grid-template-columns:1fr}
   .m-photo{height:260px}
   .m-body{padding:24px 20px}
@@ -488,21 +509,48 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
     <div>
       <div class="s-label">Запис</div>
       <h2 class="s-title">Зробіть перший крок</h2>
-      <p class="s-sub">Залиште заявку — адміністратор зв'яжеться з вами протягом дня, допоможе підібрати фахівця і зручний час.</p>
+      <p class="s-sub">Оберіть, куди хочете записатися. Адміністратор зв'яжеться з вами протягом дня, щоб підтвердити запис.</p>
       <div class="contacts" id="contacts"></div>
     </div>
-    <form id="bookForm" novalidate>
+    <div>
+    <div class="tabs" role="tablist">
+      <button type="button" class="tab on" data-tab="bookForm" role="tab">🧠 Запис до психолога</button>
+      <button type="button" class="tab" data-tab="evForm" role="tab">🎟 Запис на подію / групу</button>
+    </div>
+    <form id="bookForm" class="tab-pane" novalidate>
       <label>Ваше ім'я *<input name="name" required></label>
       <label>Телефон / Telegram / Instagram *<input name="contact" required></label>
       <label>Фахівець<select name="specialist" id="fSpec"></select></label>
-      <label>Послуга / подія<select name="service" id="fService"></select></label>
+      <label>Послуга<select name="service" id="fService"></select></label>
       <label>Формат<select name="format"><option>Онлайн</option><option>Офлайн у просторі</option><option>Не важливо</option></select></label>
       <label>Бажаний час<input name="time" id="fTime" placeholder="напр. Вт 18:00"></label>
-      <label class="full">Коротко про запит або коментар (напр. «приду з +1») — необов'язково<textarea name="request" rows="3"></textarea></label>
+      <label class="full">Коротко про запит (необов'язково)<textarea name="request" rows="3"></textarea></label>
       <label class="full check"><input type="checkbox" name="agree" required> Погоджуюсь на обробку персональних даних. Інформація конфіденційна.</label>
       <div class="form-msg" id="formMsg"></div>
       <div class="full"><button class="btn btn-main" type="submit">Надіслати заявку</button></div>
     </form>
+
+    <form id="evForm" class="tab-pane" novalidate hidden>
+      <label>Ваше ім'я *<input name="name" required></label>
+      <label>Телефон / Telegram / Instagram *<input name="contact" required></label>
+      <div class="full">
+        <div class="f-label">Оберіть зустрічі * <span>(дві або більше — знижка 20% на всі квитки)</span></div>
+        <div class="ev-pick" id="evPick"></div>
+      </div>
+      <label class="full check"><input type="checkbox" name="plus1" id="plus1"> Приду з +1 (подруга, партнер чи колега) — знижка 20% для обох</label>
+      <label class="full" id="plus1Name" hidden>Ім'я вашого +1 (необов'язково)<input name="plus1name"></label>
+      <div class="full sum" id="evSum"></div>
+      <label class="full">Коментар (необов'язково)<textarea name="comment" rows="2"></textarea></label>
+      <label class="full check"><input type="checkbox" name="paid"> Я вже оплатив(-ла) онлайн</label>
+      <label class="full check"><input type="checkbox" name="agree" required> Погоджуюсь на обробку персональних даних. Інформація конфіденційна.</label>
+      <div class="form-msg" id="evMsg"></div>
+      <div class="full ev-actions">
+        <button class="btn btn-main" type="submit">Зареєструватися</button>
+        <a class="btn btn-out" id="payBtn" target="_blank" rel="noopener">Оплатити онлайн ↗</a>
+      </div>
+      <p class="full pay-note">Можна одразу оплатити за посиланням: у призначенні платежу вкажіть ваше ім'я та назву зустрічі.</p>
+    </form>
+    </div>
   </div>
 </section>
 
@@ -832,6 +880,10 @@ const FAQ = [
   ["Чи все конфіденційно?", "Так. Єдиний виняток — ситуації, що загрожують вашому або чужому життю. Фахівці дотримуються етичного кодексу НПАУ."],
 ];
 
+/* Посилання на онлайн-оплату (IBAN / QR) */
+const PAY_URL = "https://ibanoplata.com/iban-qr/1b0d2dac3420435cbc0a0ea9bbb5c86e";
+const EVENT_DISCOUNT = 20; // % — за +1 або за дві й більше зустрічей (знижки не сумуються)
+
 /* Куди надсилається заявка: Netlify-функція з ../netlify/functions/send.js */
 const SEND_URL = "/.netlify/functions/send";
 
@@ -903,7 +955,6 @@ $("#galGrid").addEventListener("click", (e) => {
 const MONTHS_G = ["січня", "лютого", "березня", "квітня", "травня", "червня", "липня", "серпня", "вересня", "жовтня", "листопада", "грудня"];
 const dayLabel = (iso) => { const d = new Date(iso + "T00:00"); return `${d.getDate()} ${MONTHS_G[d.getMonth()]}`; };
 const evHost = (e) => (byId(e.host) || {}).name || e.hostName || "";
-const evLabel = (e) => `Подія: ${e.title} (${dayLabel(e.date)}, ${e.time})`;
 function upcoming() {
   const today = new Date(); today.setHours(0, 0, 0, 0);
   return EVENTS.filter((e) => new Date(e.date + "T00:00") >= today)
@@ -1073,37 +1124,112 @@ $("#fSpec").innerHTML = `<option value="">Допоможіть обрати</opt
 function fillServices() {
   const s = byId($("#fSpec").value);
   const services = s ? s.prices.map((p) => `${p.service} (${money(p.price)})`) : [`Діагностична сесія (−${FIRST_DISCOUNT}%)`];
-  const events = upcoming().filter((e) => !s || e.host === s.id).map(evLabel);
-  $("#fService").innerHTML = [...services, ...events].map((x) => `<option>${esc(x)}</option>`).join("");
+  $("#fService").innerHTML = services.map((x) => `<option>${esc(x)}</option>`).join("");
 }
 $("#fSpec").addEventListener("change", fillServices);
 fillServices();
 
+function showTab(id) {
+  document.querySelectorAll(".tab").forEach((t) => t.classList.toggle("on", t.dataset.tab === id));
+  document.querySelectorAll(".tab-pane").forEach((f) => { f.hidden = f.id !== id; });
+}
+document.querySelector(".tabs").addEventListener("click", (e) => { const t = e.target.closest(".tab"); if (t) showTab(t.dataset.tab); });
+
 function bookSpec(id, time) {
-  closeModal();
+  closeModal(); showTab("bookForm");
   $("#fSpec").value = id; fillServices();
   if (time) $("#fTime").value = time;
   $("#booking").scrollIntoView();
 }
 function pickSlot(id, time) { bookSpec(id, time); }
-function bookFirst() { $("#fSpec").value = ""; fillServices(); $("#booking").scrollIntoView(); }
+function bookFirst() { showTab("bookForm"); $("#fSpec").value = ""; fillServices(); $("#booking").scrollIntoView(); }
 function bookEvent(i) {
-  const ev = EVENTS[i];
-  closeModal();
-  $("#fSpec").value = ev.host || ""; fillServices();
-  $("#fService").value = evLabel(ev);
+  closeModal(); showTab("evForm");
+  const box = document.querySelector(`#evPick input[value="${i}"]`);
+  if (box) { box.checked = true; calcEvent(); }
   $("#booking").scrollIntoView();
 }
 
-$("#bookForm").addEventListener("submit", async (e) => {
+// event form: вибір зустрічей, +1 і підрахунок суми
+$("#payBtn").href = PAY_URL;
+function renderEvPick() {
+  $("#evPick").innerHTML = upcoming().map((e) => `<label class="ev-opt"><input type="checkbox" name="ev" value="${EVENTS.indexOf(e)}">
+    <span>${esc(e.title)}<small>${dayLabel(e.date)}, ${esc(e.time)}${evHost(e) ? " · " + esc(evHost(e)) : ""}</small></span><b>${money(e.price)}</b></label>`).join("")
+    || `<p class="pay-note">Найближчих подій поки немає.</p>`;
+}
+function evOrder() {
+  const f = $("#evForm");
+  const picked = [...f.querySelectorAll('input[name="ev"]:checked')].map((x) => EVENTS[+x.value]);
+  const people = f.plus1.checked ? 2 : 1;
+  const sum = picked.reduce((a, e) => a + e.price, 0) * people;
+  const reasons = [people > 1 && "+1", picked.length > 1 && "кілька зустрічей"].filter(Boolean);
+  const disc = reasons.length ? Math.round(sum * EVENT_DISCOUNT / 100) : 0;
+  return { picked, people, sum, reasons, disc, total: sum - disc };
+}
+function calcEvent() {
+  const o = evOrder();
+  $("#plus1Name").hidden = o.people < 2;
+  $("#evSum").innerHTML = o.picked.length ? `
+    <div><span>Квитків: ${o.picked.length} × ${o.people} ${o.people > 1 ? "особи" : "особа"}</span><span>${money(o.sum)}</span></div>
+    ${o.disc ? `<div class="disc"><span>Знижка ${EVENT_DISCOUNT}% (${o.reasons.join(", ")})</span><span>−${money(o.disc)}</span></div>` : ""}
+    <div class="total"><span>До сплати</span><b>${money(o.total)}</b></div>`
+    : `Оберіть одну або кілька зустрічей — тут зʼявиться сума до сплати.`;
+}
+renderEvPick(); calcEvent();
+$("#evForm").addEventListener("change", calcEvent);
+
+// надсилання заявки (спільне для обох форм)
+async function sendRequest(f, msg, text, onSuccess) {
+  const show = (t, ok) => { msg.style.display = "block"; msg.textContent = t; msg.style.background = ok ? "#E6F0E8" : "#F6E3E3"; msg.style.color = ok ? "var(--ok)" : "var(--busy)"; };
+  if (location.protocol === "file:") { // тестовий режим: файл відкрито локально, без сервера
+    alert("ТЕСТОВИЙ РЕЖИМ — заявка не надсилається.\nОсь що прийде в Telegram на справжньому сайті:\n\n" + text);
+    onSuccess();
+    return show("Тестовий режим: форма працює. На опублікованому сайті заявка прийде в Telegram.", true);
+  }
+  const btn = f.querySelector("button[type=submit]"), label = btn.textContent;
+  btn.disabled = true; btn.textContent = "Надсилаємо…";
+  try {
+    const r = await fetch(SEND_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text }) });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok || j.ok === false) throw new Error();
+    onSuccess();
+    show("Дякуємо! Заявку отримано — ми зв'яжемося з вами протягом дня 🤍", true);
+  } catch {
+    show("Не вдалося надіслати. Напишіть нам у Telegram @dorosenkoanastasia50 — відповімо швидко.", false);
+  } finally {
+    btn.disabled = false; btn.textContent = label;
+  }
+}
+function formError(msg, text) { msg.style.display = "block"; msg.textContent = text; msg.style.background = "#F6E3E3"; msg.style.color = "var(--busy)"; }
+
+$("#evForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const f = e.target, msg = $("#evMsg"), o = evOrder();
+  if (!f.name.value.trim() || !f.contact.value.trim()) return formError(msg, "Будь ласка, вкажіть ім'я та контакт.");
+  if (!o.picked.length) return formError(msg, "Оберіть хоча б одну зустріч.");
+  if (!f.agree.checked) return formError(msg, "Потрібна згода на обробку даних.");
+  const text = [
+    "🎟 Реєстрація на подію — Метаморфоза",
+    `Ім'я: ${f.name.value.trim()}`,
+    `Контакт: ${f.contact.value.trim()}`,
+    "Зустрічі:", ...o.picked.map((ev) => `• ${ev.title} (${dayLabel(ev.date)}, ${ev.time}) — ${money(ev.price)}`),
+    `Осіб: ${o.people}${o.people > 1 && f.plus1name.value.trim() ? ` (+1: ${f.plus1name.value.trim()})` : ""}`,
+    o.disc && `Знижка ${EVENT_DISCOUNT}% (${o.reasons.join(", ")}): −${money(o.disc)}`,
+    `До сплати: ${money(o.total)}`,
+    `Оплата: ${f.paid.checked ? "клієнт вказав, що оплатив онлайн" : "ще не оплачено"}`,
+    f.comment.value.trim() && `Коментар: ${f.comment.value.trim()}`,
+  ].filter(Boolean).join("\n");
+  sendRequest(f, msg, text, () => { f.reset(); calcEvent(); });
+});
+
+$("#bookForm").addEventListener("submit", (e) => {
   e.preventDefault();
   const f = e.target, msg = $("#formMsg");
-  const show = (text, ok) => { msg.style.display = "block"; msg.textContent = text; msg.style.background = ok ? "#E6F0E8" : "#F6E3E3"; msg.style.color = ok ? "var(--ok)" : "var(--busy)"; };
-  if (!f.name.value.trim() || !f.contact.value.trim()) return show("Будь ласка, вкажіть ім'я та контакт.", false);
-  if (!f.agree.checked) return show("Потрібна згода на обробку даних.", false);
+  if (!f.name.value.trim() || !f.contact.value.trim()) return formError(msg, "Будь ласка, вкажіть ім'я та контакт.");
+  if (!f.agree.checked) return formError(msg, "Потрібна згода на обробку даних.");
   const spec = byId(f.specialist.value);
   const text = [
-    "🦋 Нова заявка — Метаморфоза (психологічний центр)",
+    "🦋 Запис до психолога — Метаморфоза",
     `Ім'я: ${f.name.value.trim()}`,
     `Контакт: ${f.contact.value.trim()}`,
     `Фахівець: ${spec ? spec.name : "допомогти обрати"}`,
@@ -1112,24 +1238,7 @@ $("#bookForm").addEventListener("submit", async (e) => {
     f.time.value.trim() && `Час: ${f.time.value.trim()}`,
     f.request.value.trim() && `Запит: ${f.request.value.trim()}`,
   ].filter(Boolean).join("\n");
-  if (location.protocol === "file:") { // тестовий режим: файл відкрито локально, без сервера
-    alert("ТЕСТОВИЙ РЕЖИМ — заявка не надсилається.\nОсь що прийде в Telegram на справжньому сайті:\n\n" + text);
-    f.reset(); fillServices();
-    return show("Тестовий режим: форма працює. На опублікованому сайті заявка прийде в Telegram.", true);
-  }
-  const btn = f.querySelector("button[type=submit]");
-  btn.disabled = true; btn.textContent = "Надсилаємо…";
-  try {
-    const r = await fetch(SEND_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text }) });
-    const j = await r.json().catch(() => ({}));
-    if (!r.ok || j.ok === false) throw new Error();
-    f.reset(); fillServices();
-    show("Дякуємо! Заявку отримано — ми зв'яжемося з вами протягом дня 🤍", true);
-  } catch {
-    show("Не вдалося надіслати. Напишіть нам у Telegram @dorosenkoanastasia50 — відповімо швидко.", false);
-  } finally {
-    btn.disabled = false; btn.textContent = "Надіслати заявку";
-  }
+  sendRequest(f, msg, text, () => { f.reset(); fillServices(); });
 });
 </script>
 </body>
