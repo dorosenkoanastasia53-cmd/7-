@@ -192,24 +192,10 @@ nav{position:sticky;top:0;z-index:100;background:rgba(251,248,245,.94);backdrop-
 .sp-info{font-size:13px;color:var(--mid);display:grid;gap:4px;margin-bottom:18px}
 .sp-info b{color:var(--dark);font-weight:400}
 .sp-foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px}
-.sp-price{font-family:var(--serif);font-size:24px}
-.sp-price small{font-family:var(--sans);font-size:12px;color:var(--light)}
-
-/* PRICES */
-.price-wrap{overflow-x:auto;border-radius:var(--r);box-shadow:var(--shadow);background:#fff}
-table{width:100%;border-collapse:collapse;font-size:14px;min-width:760px}
-th,td{padding:16px 18px;text-align:left;border-bottom:1px solid var(--sand)}
-th{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--light);font-weight:500;background:var(--bg)}
-td.who{font-weight:400}
-td.num{font-family:var(--serif);font-size:19px;white-space:nowrap}
-.packs{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:36px}
-.pack{background:#fff;border-radius:var(--r);padding:30px;box-shadow:var(--shadow);text-align:center;position:relative}
-.pack.hot{border:2px solid var(--accent)}
-.pack .lbl{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold);color:#fff;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:4px 14px;border-radius:100px}
-.pack h4{font-family:var(--serif);font-size:26px;font-weight:400}
-.pack .big{font-family:var(--serif);font-size:40px;margin:8px 0}
-.pack p{font-size:13px;color:var(--mid)}
-.note{font-size:13px;color:var(--light);margin-top:20px}
+.sp-price{font-family:var(--serif);line-height:1.2}
+.sp-price s{font-size:20px;color:var(--mid);margin-right:8px}
+.sp-price b{font-size:26px;font-weight:500;color:var(--accent)}
+.sp-price small{display:block;font-family:var(--sans);font-size:12px;color:#9C7A1E;margin-top:4px}
 
 /* AVAILABILITY */
 .avail{background:var(--sand)}
@@ -333,7 +319,6 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
       <a href="#gallery">Простір</a>
       <a href="#events">Події</a>
       <a href="#specialists">Фахівці</a>
-      <a href="#prices">Вартість</a>
       <a href="#availability">Розклад</a>
       <a href="#faq">FAQ</a>
     </div>
@@ -465,17 +450,6 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
     <p class="s-sub">Натисніть на картку, щоб побачити освіту, підхід, вартість та вільні години кожного фахівця.</p>
     <div class="sp-filters" id="spFilters"></div>
     <div class="sp-grid" id="spGrid"></div>
-  </div>
-</section>
-
-<!-- PRICES -->
-<section id="prices">
-  <div class="wrap">
-    <div class="s-label">Вартість</div>
-    <h2 class="s-title">Ціни на послуги</h2>
-    <p class="s-sub">Прозора вартість для кожного фахівця. Ціна фіксується на 6 місяців від початку роботи.</p>
-    <div class="price-wrap"><table id="priceTable"></table></div>
-    <p class="note">Перенесення сесії — не пізніше ніж за 24 години до початку.</p>
   </div>
 </section>
 
@@ -877,7 +851,12 @@ SPECIALISTS.forEach((sp) => {
   const d = sp.prices.find(isDiag); if (d && base) { d.full = base.price; d.service = `Діагностична сесія (−${FIRST_DISCOUNT}%)`; }
 });
 const known = (sp) => sp.prices.filter((p) => !isDiag(p)).map((p) => p.price).filter((n) => n != null);
-const priceFrom = (sp) => known(sp).length ? `<small>від</small> ${money(Math.min(...known(sp)))}` : `<small>ціна</small> за запитом`;
+// Ціна на картці: консультація перекреслена + ціна першої діагностичної сесії зі знижкою
+const priceFrom = (sp) => {
+  const d = sp.prices.find(isDiag);
+  if (d && d.full) return `<s>${money(d.full)}</s><b>${money(d.price)}</b><small>−${FIRST_DISCOUNT}% на першу діагностичну сесію</small>`;
+  return known(sp).length ? `<b>${money(Math.min(...known(sp)))}</b>` : `<b>за запитом</b>`;
+};
 const dur = (p) => p.duration ? ` · ${esc(p.duration)}` : "";
 const hasSchedule = (sp) => Object.keys(sp.slots).length + Object.keys(sp.busy).length > 0;
 const initials = (n) => n.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase();
@@ -1046,14 +1025,6 @@ function openModal(id) {
 }
 function closeModal() { $("#modal").classList.remove("open"); document.body.style.overflow = ""; }
 document.addEventListener("keydown", (e) => { if (e.key === "Escape") { closeModal(); $("#lightbox").classList.remove("open"); } });
-
-// prices table
-$("#priceTable").innerHTML = `<thead><tr><th>Фахівець</th><th>Послуга</th><th>Тривалість</th><th>Вартість</th><th>Формат</th><th>Доступність</th></tr></thead><tbody>` +
-  SPECIALISTS.map((s) => s.prices.map((p, i) => `<tr>
-    ${i === 0 ? `<td class="who" rowspan="${s.prices.length}">${esc(s.name)}<br><small style="color:var(--light)">${esc(s.role)}</small></td>` : ""}
-    <td>${esc(p.service)}</td><td>${esc(p.duration || "—")}</td><td class="num">${money(p.price)}</td>
-    ${i === 0 ? `<td rowspan="${s.prices.length}">${s.formats.join(", ")}</td><td rowspan="${s.prices.length}"><i class="dot ${s.status}"></i> ${STATUS[s.status]}</td>` : ""}
-  </tr>`).join("")).join("") + "</tbody>";
 
 // availability
 $("#avSelect").innerHTML = SPECIALISTS.map((s) => `<option value="${s.id}">${esc(s.name)} — ${esc(s.role)}</option>`).join("");
