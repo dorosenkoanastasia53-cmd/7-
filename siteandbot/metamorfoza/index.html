@@ -264,6 +264,11 @@ form .full{grid-column:1/-1}
 footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
 .foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
 #footYear{text-align:right;line-height:1.8}
+#footYear a{color:var(--clay);text-decoration:none}
+#footYear a:hover{color:var(--gold-l)}
+.foot-links{display:flex;gap:10px;justify-content:flex-end;margin-bottom:8px}
+.foot-links a{border:1px solid rgba(232,199,102,.35);border-radius:100px;padding:6px 16px;font-size:13px;color:#F3EEDF!important}
+.foot-links a:hover{background:var(--gold-l);color:var(--accent)!important}
 .help{background:rgba(255,255,255,.05);border-radius:10px;padding:12px 16px;margin-top:20px;font-size:12px}
 
 /* MODAL */
@@ -310,6 +315,7 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
   .hero-photos{height:340px}
   .adv-grid,.sp-grid,.shop-items,.deals,.steps{grid-template-columns:1fr}
   .mission-photo{height:300px}
+  #footYear{text-align:left}.foot-links{justify-content:flex-start}
   .first-card{padding:26px 20px}
   .perks{grid-template-columns:1fr 1fr}
   .opening{padding:26px 20px}
@@ -1117,7 +1123,10 @@ $("#faqList").addEventListener("click", (e) => { const q = e.target.closest(".fa
 // contacts & footer
 $("#contacts").innerHTML = CONTACTS.map((c) =>
   `<a class="contact" href="${esc(c.href)}" ${c.href.startsWith("http") ? 'target="_blank" rel="noopener"' : ""}><i>${c.icon}</i>${esc(c.label)}</a>`).join("");
-$("#footYear").innerHTML = `${esc(ADDRESS)}<br>© ${new Date().getFullYear()} · Метаморфоза`;
+$("#footYear").innerHTML = `
+  <div class="foot-links">${CONTACTS.filter((c) => c.href.startsWith("http")).slice(0, 2).map((c) =>
+    `<a href="${esc(c.href)}" target="_blank" rel="noopener">${c.icon} ${esc(c.label.split(":")[0])}</a>`).join("")}</div>
+  <a href="${esc(CONTACTS[2].href)}" target="_blank" rel="noopener">${esc(ADDRESS)}</a><br>© ${new Date().getFullYear()} · Метаморфоза`;
 
 // booking form
 $("#fSpec").innerHTML = `<option value="">Допоможіть обрати</option>` + SPECIALISTS.map((s) => `<option value="${s.id}">${esc(s.name)}</option>`).join("");
