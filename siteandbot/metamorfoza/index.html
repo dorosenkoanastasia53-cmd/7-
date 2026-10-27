@@ -82,6 +82,16 @@ nav{position:sticky;top:0;z-index:100;background:rgba(251,248,245,.94);backdrop-
 .gal-grid figcaption{position:absolute;left:0;right:0;bottom:0;padding:24px 16px 12px;background:linear-gradient(transparent,rgba(44,32,24,.65));color:#fff;font-size:13px}
 .g-tall{grid-row:span 2}.g-wide{grid-column:span 2}
 
+/* SHOP */
+#shop{background:#fff}
+.shop-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:56px;align-items:center}
+.shop-items{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.shop-item{background:var(--bg);border-radius:var(--r);padding:20px;display:flex;gap:14px;align-items:flex-start}
+.shop-item span{font-size:26px;line-height:1}
+.shop-item b{display:block;font-family:var(--serif);font-size:21px;font-weight:400}
+.shop-item p{font-size:13px;color:var(--mid)}
+.shop-photo{width:100%;height:520px;object-fit:cover;border-radius:200px 200px var(--r) var(--r);box-shadow:var(--shadow)}
+
 /* EVENTS */
 .ev-filters,.sp-filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px}
 .pill{border:1.5px solid var(--clay);background:#fff;color:var(--mid);padding:8px 18px;border-radius:100px;font-size:13px;transition:all .2s}
@@ -103,6 +113,27 @@ nav{position:sticky;top:0;z-index:100;background:rgba(251,248,245,.94);backdrop-
 .seats{font-size:12px}
 .seats-bar{height:4px;background:var(--sand);border-radius:4px;overflow:hidden;margin-top:4px;width:120px}
 .seats-bar i{display:block;height:100%;background:var(--ok)}
+
+.opening{background:radial-gradient(ellipse at 15% 20%,#1E4A1C 0%,var(--accent) 60%);color:#F3EEDF;border-radius:20px;padding:40px;margin-bottom:36px}
+.opening .ev-type{color:var(--gold-l)}
+.opening h3{font-family:var(--serif);font-size:34px;font-weight:300;margin:6px 0 8px;line-height:1.15}
+.opening>p{color:#D6DCCF;max-width:640px}
+.perks{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:28px 0}
+.perks div{background:rgba(255,255,255,.06);border:1px solid rgba(232,199,102,.25);border-radius:var(--r);padding:16px;font-size:13px;color:#C9D2C4}
+.perks span{display:block;font-size:26px;margin-bottom:6px}
+.perks b{display:block;color:#F3EEDF;font-weight:400;font-size:15px}
+.deals{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.deal{background:var(--gold);color:var(--accent);border-radius:var(--r);padding:16px 18px;font-size:13px}
+.deal b{display:block;font-family:var(--serif);font-size:22px;font-weight:500}
+.ev-more{background:none;border:none;color:var(--accent);font-size:13px;text-decoration:underline;padding:0;margin-bottom:12px}
+.modal-box.ev-modal{grid-template-columns:1fr;max-width:720px}
+.ev-modal .m-body ul{list-style:none;padding-left:0}
+.ev-modal .m-body li{margin-bottom:6px}
+.ev-modal .m-body p{margin-bottom:10px}
+.ev-head{background:var(--accent);color:#F3EEDF;padding:30px 34px}
+.ev-head .ev-type{color:var(--gold-l)}
+.ev-head h3{font-family:var(--serif);font-size:30px;font-weight:300;line-height:1.15;margin:6px 0 10px;color:#F3EEDF}
+.ev-head .ev-meta{color:#C9D2C4;margin:0}
 
 /* SPECIALISTS */
 .specialists{background:#fff}
@@ -189,6 +220,7 @@ form .full{grid-column:1/-1}
 /* FOOTER */
 footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
 .foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+#footYear{text-align:right;line-height:1.8}
 .help{background:rgba(255,255,255,.05);border-radius:10px;padding:12px 16px;margin-top:20px;font-size:12px}
 
 /* MODAL */
@@ -212,7 +244,7 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
 
 /* RESPONSIVE */
 @media(max-width:1000px){
-  .hero-grid,.book-grid{grid-template-columns:1fr}
+  .hero-grid,.book-grid,.shop-grid{grid-template-columns:1fr}
   .hero-photos{height:420px}
   .adv-grid,.sp-grid{grid-template-columns:1fr 1fr}
   .ev-list{grid-template-columns:1fr}
@@ -231,7 +263,12 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
   .hero h1{font-size:52px}
   .s-title{font-size:34px}
   .hero-photos{height:340px}
-  .adv-grid,.sp-grid,.packs{grid-template-columns:1fr}
+  .adv-grid,.sp-grid,.shop-items,.deals{grid-template-columns:1fr}
+  .perks{grid-template-columns:1fr 1fr}
+  .opening{padding:26px 20px}
+  .opening h3{font-size:28px}
+  .shop-photo{height:340px}
+  .ev-head{padding:26px 20px}
   .week{grid-template-columns:repeat(2,1fr)}
   .gal-grid{grid-auto-rows:160px}
   .ev{grid-template-columns:84px 1fr}
@@ -254,7 +291,7 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
     <div class="nav-links" id="navLinks">
       <a href="#about">Переваги</a>
       <a href="#gallery">Простір</a>
-      <a href="#events">Івенти</a>
+      <a href="#events">Події</a>
       <a href="#specialists">Фахівці</a>
       <a href="#prices">Вартість</a>
       <a href="#availability">Розклад</a>
@@ -275,7 +312,7 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
       <p>Місце, де зміни стають можливими. Команда фахівців, яка допоможе пройти шлях від тривоги та розгубленості — до опори, ясності й контакту з собою.</p>
       <div class="hero-btns">
         <a href="#specialists" class="btn btn-main">Обрати фахівця</a>
-        <a href="#events" class="btn btn-out">Найближчі івенти</a>
+        <a href="#events" class="btn btn-out">Відкриття 7–8 листопада</a>
       </div>
       <div class="hero-stats" id="heroStats"></div>
     </div>
@@ -307,12 +344,36 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
   </div>
 </section>
 
+<!-- SHOP -->
+<section id="shop">
+  <div class="wrap shop-grid">
+    <div>
+      <div class="s-label">Крамничка в центрі</div>
+      <h2 class="s-title">Все потрібне — одразу на місці</h2>
+      <p class="s-sub">Прямо в центрі можна придбати антистреси, книги, робочі зошити та блокноти. Не треба потім іти в магазин і щось шукати — усе, що підтримує вас між сесіями, є в одному місці.</p>
+      <div class="shop-items" id="shopItems"></div>
+    </div>
+    <img class="shop-photo" src="img/room-cabinet.jpg" alt="Книги та зошити на столику в кабінеті" loading="lazy">
+  </div>
+</section>
+
 <!-- EVENTS -->
 <section id="events">
   <div class="wrap">
     <div class="s-label">Афіша</div>
-    <h2 class="s-title">Івенти та групи</h2>
-    <p class="s-sub">Терапевтичні групи, воркшопи, майстер-класи та марафони. Кількість місць обмежена — бронюйте заздалегідь.</p>
+    <h2 class="s-title">Події та зустрічі</h2>
+    <div class="opening">
+      <div class="ev-type">Відкриття центру · 7–8 листопада</div>
+      <h3>Ми з радістю відчиняємо двері «Метаморфози»</h3>
+      <p>І хочемо, щоб ви були поруч у ці особливі дні. Оберіть зустріч, яка відгукується саме вам, і зареєструйтеся — чекаємо на вас!</p>
+      <div class="perks">
+        <div><span>🎤</span><b>Тематичні зустрічі</b>з експертами</div>
+        <div><span>🎁</span><b>Розіграші призів</b>для гостей відкриття</div>
+        <div><span>💝</span><b>Подарунки</b>приємні сюрпризи</div>
+        <div><span>🍰</span><b>Частування</b>і тепла атмосфера</div>
+      </div>
+      <div class="deals" id="evDeals"></div>
+    </div>
     <div class="ev-filters" id="evFilters"></div>
     <div class="ev-list" id="evList"></div>
   </div>
@@ -336,8 +397,7 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
     <h2 class="s-title">Ціни на послуги</h2>
     <p class="s-sub">Прозора вартість для кожного фахівця. Ціна фіксується на 6 місяців від початку роботи.</p>
     <div class="price-wrap"><table id="priceTable"></table></div>
-    <div class="packs" id="packs"></div>
-    <p class="note">Пакет обираємо після першої зустрічі, коли сформульовано запит. Пакет дійсний 6 місяців. Перенесення сесії — не пізніше ніж за 24 години.</p>
+    <p class="note">Перенесення сесії — не пізніше ніж за 24 години до початку.</p>
   </div>
 </section>
 
@@ -381,10 +441,10 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
       <label>Ваше ім'я *<input name="name" required></label>
       <label>Телефон / Telegram / Instagram *<input name="contact" required></label>
       <label>Фахівець<select name="specialist" id="fSpec"></select></label>
-      <label>Послуга / івент<select name="service" id="fService"></select></label>
+      <label>Послуга / подія<select name="service" id="fService"></select></label>
       <label>Формат<select name="format"><option>Онлайн</option><option>Офлайн у просторі</option><option>Не важливо</option></select></label>
       <label>Бажаний час<input name="time" id="fTime" placeholder="напр. Вт 18:00"></label>
-      <label class="full">Коротко про запит (необов'язково)<textarea name="request" rows="3"></textarea></label>
+      <label class="full">Коротко про запит або коментар (напр. «приду з +1») — необов'язково<textarea name="request" rows="3"></textarea></label>
       <label class="full check"><input type="checkbox" name="agree" required> Погоджуюсь на обробку персональних даних. Інформація конфіденційна.</label>
       <div class="form-msg" id="formMsg"></div>
       <div class="full"><button class="btn btn-main" type="submit">Надіслати заявку</button></div>
@@ -412,27 +472,33 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
    ДАНІ САЙТУ — редагуйте тут. Розмітка нижче оновиться автоматично.
    ===================================================================== */
 
+const ADDRESS = "Київ, вул. Первомайського, 5А · м. Кловська";
 const CONTACTS = [
   { icon: "✈", label: "Telegram: @dorosenkoanastasia50", href: "https://t.me/dorosenkoanastasia50" },
-  { icon: "◎", label: "Instagram: @psy_anastasiia_d", href: "https://www.instagram.com/psy_anastasiia_d/" },
-  { icon: "⌂", label: "Онлайн та офлайн · адресу надсилаємо після запису", href: "#booking" },
+  { icon: "◎", label: "Instagram: написати в Direct", href: "https://www.instagram.com/direct/t/18097245023122427/" },
+  { icon: "⌂", label: "Психологічний простір · " + ADDRESS, href: "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("Київ, вулиця Первомайського, 5А") },
 ];
 
 const ADVANTAGES = [
   { icon: "🦋", title: "Команда фахівців", text: "Психологи, психотерапевти, сексологи та сімейні консультанти — підберемо того, хто підходить саме вам." },
   { icon: "🔒", title: "Конфіденційність", text: "Дотримуємось етичного кодексу НПАУ. Все, що ви розповідаєте, залишається між вами і фахівцем." },
   { icon: "🎓", title: "Перевірена кваліфікація", text: "Профільна вища освіта, сертифіковані методи та регулярні супервізії кожного спеціаліста." },
-  { icon: "💻", title: "Онлайн і офлайн", text: "Зустрічі в затишному кабінеті або через Zoom / Google Meet — з будь-якої точки світу." },
-  { icon: "🌿", title: "Не лише терапія", text: "Групи підтримки, воркшопи, марафони та робочі зошити — щоб зміни тривали і між сесіями." },
-  { icon: "💛", title: "Прозорі ціни", text: "Вартість фіксується на 6 місяців, є пакети сесій та соціальні місця для військових і ВПО." },
+  { icon: "💻", title: "Онлайн і офлайн", text: "Затишні кабінети в Києві біля м. Кловська або зустрічі через Zoom / Google Meet — з будь-якої точки світу." },
+  { icon: "🛍", title: "Все в одному місці", text: "Антистреси, книги, робочі зошити та блокноти можна придбати прямо в центрі — не треба потім шукати по магазинах." },
+  { icon: "💛", title: "Прозорі ціни", text: "Вартість консультації кожного фахівця вказана на сайті — без прихованих доплат." },
+];
+
+const SHOP = [
+  { icon: "🧸", title: "Антистреси", text: "Сквіші, м'ячики та інші дрібнички, щоб зняти напругу" },
+  { icon: "📚", title: "Книги", text: "Психологічна література, яку радять наші фахівці" },
+  { icon: "📓", title: "Робочі зошити", text: "Вправи й практики для самостійної роботи між сесіями" },
+  { icon: "🗒", title: "Блокноти", text: "Для щоденника емоцій, нотаток і домашніх завдань" },
 ];
 
 const GALLERY = [
   { src: "img/room-lounge.jpg", caption: "Кабінет для індивідуальних і парних сесій", cls: "g-wide g-tall" },
   { src: "img/room-cabinet.jpg", caption: "Куточок для консультацій", cls: "g-tall" },
   { src: "img/room-group.jpg", caption: "Зала для груп, лекцій і воркшопів", cls: "g-tall" },
-  { src: "../images/img04.jpg", caption: "Робочі зошити між сесіями", cls: "g-wide" },
-  { src: "../images/img06.jpg", caption: "Колесо емоцій", cls: "g-wide" },
 ];
 
 /* status: "free" — є вільні місця, "few" — мало місць, "full" — лист очікування, "ask" — запис через адміністратора
@@ -510,9 +576,8 @@ const SPECIALISTS = [
       "Міждисциплінарна співпраця з психіатрами, неврологами та іншими лікарями",
     ],
     docs: "https://fex.net/uk/s/1mftlm2",
-    // Вартість і тривалість — уточнити (price: null показується як «за запитом»)
     prices: [
-      { service: "Індивідуальна консультація", duration: "", price: null },
+      { service: "Індивідуальна консультація", duration: "", price: 1800 },
     ],
     status: "ask",
     slots: {},
@@ -542,10 +607,8 @@ const SPECIALISTS = [
     notWith: ["Переживання втрати"],
     education: ["Психологиня-консультантка", "Зараз завершує кілька навчань — документи доповнюються"],
     docs: "https://drive.google.com/drive/folders/13-ilbiNjvFdMWKV9WYFYL7SBzl5DChy8?usp=sharing",
-    // Вартість і тривалість — уточнити
     prices: [
-      { service: "Індивідуальна консультація", duration: "", price: null },
-      { service: "Сімейна консультація", duration: "", price: null },
+      { service: "Консультація", duration: "", price: 1300 },
     ],
     status: "ask",
     slots: {},
@@ -619,36 +682,88 @@ const SPECIALISTS = [
   },
 ];
 
-const PACKAGES = [
-  { name: "Старт", sessions: 4, discount: 5, text: "Щоб познайомитися з методом і відчути перші зміни" },
-  { name: "Глибина", sessions: 6, discount: 10, text: "Для системної роботи з конкретним запитом", hot: true },
-  { name: "Трансформація", sessions: 10, discount: 20, text: "Для глибоких змін і стабільного результату" },
-];
-
-/* type: group | workshop | marathon | lecture. Дата у форматі РРРР-ММ-ДД */
+/* Дата у форматі РРРР-ММ-ДД. Події, дата яких минула, ховаються автоматично.
+   host — id фахівця з команди (необов'язково); hostName — ім'я ведучої, якщо її немає в команді.
+   more — повний опис: рядки з «✨» або «•» стають пунктами списку */
 const EVENTS = [
-  { date: "2026-11-08", time: "12:00–14:00", type: "workshop", title: "Кордони без провини", host: "anastasiia", place: "Офлайн у просторі", price: 450, seats: 12, left: 4,
-    text: "Практичний воркшоп: як казати «ні», не руйнуючи стосунки, і що робити з провиною після відмови." },
-  { date: "2026-11-12", time: "19:00–21:00", type: "group", title: "Група підтримки для тих, хто переживає втрату", host: "olena", place: "Офлайн у просторі", price: 0, seats: 10, left: 6,
-    text: "Безпечне коло для проживання горя. Щотижня по середах, можна приєднатися в будь-який момент." },
-  { date: "2026-11-17", time: "7 днів", type: "marathon", title: "Марафон «Я, яка любить»", host: "anastasiia", place: "Онлайн", price: 990, seats: 30, left: 11,
-    text: "7 днів до глибшого контакту з собою: тип прив'язаності, мова любові, кордони і стиль у конфлікті." },
-  { date: "2026-11-23", time: "18:30–20:30", type: "lecture", title: "Як говорити з партнером, щоб він почув", host: "maksym", place: "Онлайн", price: 300, seats: 50, left: 32,
-    text: "Лекція про ненасильницьку комунікацію в парі: я-повідомлення, активне слухання, домовленості." },
-  { date: "2026-11-29", time: "11:00–13:00", type: "workshop", title: "Арт-майстерня «Емоції в кольорі» для батьків і дітей", host: "iryna", place: "Офлайн у просторі", price: 500, seats: 8, left: 0,
-    text: "Разом малюємо, граємо та вчимося називати почуття. Для дітей 5–10 років з одним із батьків." },
-  { date: "2026-12-06", time: "12:00–15:00", type: "group", title: "Метафоричні карти: зимова стратегічна сесія", host: "anastasiia", place: "Офлайн у просторі", price: 700, seats: 10, left: 7,
-    text: "Підсумки року і наміри на наступний через МАК. Чай, тиша і час для себе." },
+  { date: "2026-11-07", time: "12:00", type: "circle", hostName: "Світлана", place: "Офлайн у центрі", price: 800,
+    title: "А що хочу саме я? Жіночі посиденьки з метафоричними картами",
+    text: "Тепла зустріч у жіночому колі з метафоричними асоціативними картами.",
+    more: `На тебе чекає простір, де ти зможеш:
+• подивитися на свою ситуацію по-новому;
+• краще зрозуміти свої бажання та відчути, що для тебе дійсно важливо саме зараз;
+• побачити, що заважає тобі рухатися до бажаного, і знайти власні ресурси;
+• визначити перші кроки до того, чого тобі хочеться;
+• отримати підтримку, познайомитися з цікавими жінками й просто приємно провести час у теплій компанії.
+
+Можливо, саме зараз час запитати себе: «А чого хочу саме я?»` },
+  { date: "2026-11-07", time: "16:00", type: "meetup", hostName: "Настя", place: "Офлайн у центрі", price: 900,
+    title: "Секс у великому місті: як стрес та кар'єра впливають на наше лібідо і що з цим робити ❤️‍🔥",
+    text: "Робочі завдання закриті, повідомлення прочитані, вечеря готова. Нарешті можна побути удвох — але хочеться лише, щоб тебе ніхто не чіпав. Знайомо?",
+    more: `Робочі завдання закриті, повідомлення прочитані, вечеря готова. Нарешті можна побути удвох — але хочеться лише, щоб тебе ніхто не чіпав. Знайомо?
+
+На зустрічі ми:
+✨ Розберемо, як стрес, перевтома та постійне «треба» можуть впливати на сексуальне бажання.
+✨ Дослідимо, за яких умов вам хочеться близькості, а коли потрібні сон, тиша чи час на себе — і як краще розпізнавати власні потреби.
+✨ Поговоримо про тиск очікувань: чи обов'язково хотіти спонтанно, часто та після насиченого робочого дня.
+✨ Спробуємо практики уваги до тіла, щоб помічати свої відчуття й потреби, коли думки все ще на роботі.
+✨ Знайдемо реалістичні способи залишати місце для чуттєвості у щільному графіку — без перетворення сексу на ще один пункт списку справ.
+✨ Обговоримо, коли варто звернутися по фахову допомогу, адже зміни бажання не завжди пов'язані лише зі стресом.
+
+Із собою ви заберете краще розуміння власного бажання, карту того, що на нього впливає, та прості практики, які можна спробувати у своєму темпі.
+
+Буде простір для практичних вправ, анонімних запитань і теплої розмови. Ділитися особистим — лише за бажанням 🤍` },
+  { date: "2026-11-08", time: "12:00", type: "practice", hostName: "Альона",
+    hostBio: "психологиня, психотерапевтка екзистенційного методу (в навчанні), блогерка", place: "Офлайн у центрі", price: 800,
+    title: "На що спиратися, коли все змінюється: цінності як внутрішній компас",
+    text: "Що для тебе наразі справді важливо? Як це проявляється в житті? Чи рухаєшся ти в тому напрямку, який хочеш обрати для себе?",
+    more: `Практична зустріч з Альоною — психологинею, психотерапевткою екзистенційного методу в навчанні, блогеркою.
+
+Що для тебе наразі справді важливо? Як це проявляється в житті? Чи рухаєшся ти в тому напрямку, який хочеш обрати для себе?
+
+На зустрічі дослідимо власні цінності та чесно поглянемо, яке місце вони займають у наших рішеннях і вчинках. Помітимо, що вже підтримуємо своїми діями, а чому хочемо дати більше простору — з урахуванням реальних обставин і можливостей.
+
+Ця зустріч для тебе, якщо ти:
+• хочеш краще зрозуміти себе та свої пріоритети;
+• губишся між власними бажаннями й чужими «треба»;
+• стоїш перед вибором і шукаєш орієнтири;
+• відчуваєш відстань між тим, що важливо, і тим, як живеш.
+
+На тебе чекають розмова, запитання для самодослідження та творча практика, що допоможе побачити свій світ з іншого ракурсу й окреслити невеликі кроки до бажаних змін 🫶
+
+Уміти малювати не потрібно. Ділитися особистим — лише за бажанням ✨` },
+  { date: "2026-11-08", time: "16:00", type: "meetup", hostName: "Настя", place: "Офлайн у центрі", price: 900,
+    title: "Секс після «довго і щасливо»: близькість, бажання і трохи побуту ❤️‍🔥",
+    text: "Ви знаєте одне про одного майже все. Ділите покупки, плани та домашні справи. А як щодо бажання, флірту й дотиків, які не обов'язково мають закінчуватися сексом?",
+    more: `Ви знаєте одне про одного майже все. Ділите покупки, плани та домашні справи. А як щодо бажання, флірту й дотиків, які не обов'язково мають закінчуватися сексом?
+
+На зустрічі ми:
+✨ Розберемо, як змінюється сексуальне життя у тривалих стосунках і чому порівнювати його з першими місяцями знайомства не завжди корисно.
+✨ Дослідимо, що підтримує саме ваше бажання, а що його приглушує: від побуту й невисловлених образ до браку особистого простору.
+✨ Поговоримо про різницю в бажанні: як бути, коли одному хочеться частіше, а іншому — рідше, без тиску та почуття провини.
+✨ Попрактикуємося говорити про секс, свої потреби й фантазії так, щоб запрошувати до діалогу.
+✨ Знайдемо місце для цікавості та новизни — без вимоги постійно дивувати партнера чи відповідати чужим стандартам.
+
+Із собою ви заберете краще розуміння власних потреб, фрази для розмови з партнером і конкретні ідеї, які захочеться спробувати разом.
+
+Буде простір для практичних вправ, анонімних запитань і теплої розмови. Ділитися особистим — лише за бажанням 🤍` },
 ];
 
-const EVENT_TYPES = { group: "Група", workshop: "Воркшоп", marathon: "Марафон", lecture: "Лекція" };
+const EVENT_DEALS = [
+  { title: "Приходь з +1", text: "Беріть із собою подругу, партнера чи колегу — знижка 20% для обох." },
+  { title: "Кілька зустрічей −20%", text: "Купуйте квитки одразу на дві або більше зустрічей — знижка 20% на всі квитки." },
+];
+
+const EVENT_TYPES = { meetup: "Тематична зустріч", practice: "Практична зустріч", circle: "Жіноче коло", group: "Група", workshop: "Воркшоп", lecture: "Лекція" };
 
 const FAQ = [
   ["Як обрати фахівця?", "Подивіться картки фахівців: напрям, теми та формат. Якщо сумніваєтеся — залиште заявку з коротким описом запиту, адміністратор порекомендує спеціаліста."],
   ["Як проходить перша зустріч?", "Це знайомство: ви розповідаєте про запит, фахівець ставить уточнювальні запитання, і разом ви окреслюєте план роботи. Після зустрічі можна вирішити, чи продовжувати."],
   ["Онлайн-сесії так само ефективні?", "Так, дослідження підтверджують співставну ефективність. Потрібні тільки тихе приватне місце, навушники і стабільний інтернет."],
   ["Як скасувати або перенести сесію?", "Повідомте не пізніше ніж за 24 години — і ми перенесемо зустріч без оплати. Пізніше скасування оплачується, крім форс-мажорів."],
-  ["Чи є знижки?", "Так: пакети сесій (до −20%) та обмежена кількість соціальних місць для військових, ветеранів, їхніх родин і ВПО. Уточнюйте у адміністратора."],
+  ["Де ви знаходитесь?", "Київ, вул. Первомайського, 5А — поруч зі станцією метро «Кловська». Також можна працювати онлайн."],
+  ["Чи є знижки на зустрічі?", "Так: приходьте на зустріч з +1 — знижка 20% для обох. А якщо купуєте квитки одразу на дві або більше зустрічей — знижка 20% на всі квитки."],
+  ["Чи можна купити книги чи зошити на місці?", "Так, прямо в центрі можна придбати антистреси, книги, робочі зошити та блокноти — все в одному місці."],
   ["Чи все конфіденційно?", "Так. Єдиний виняток — ситуації, що загрожують вашому або чужому життю. Фахівці дотримуються етичного кодексу НПАУ."],
 ];
 
@@ -677,7 +792,7 @@ const photoHTML = (sp) => sp.photo
 // hero
 const allTopics = [...new Set(SPECIALISTS.flatMap((s) => s.topics))];
 $("#heroStats").innerHTML = [
-  [SPECIALISTS.length, "фахівців"], [allTopics.length + "+", "напрямів роботи"], [EVENTS.length, "івентів цього сезону"],
+  [SPECIALISTS.length, "фахівців"], [allTopics.length + "+", "напрямів роботи"], [upcoming().length, "найближчі зустрічі"],
 ].map(([n, t]) => `<div><b>${n}</b><span>${t}</span></div>`).join("");
 const freeNow = SPECIALISTS.filter((s) => s.status === "free" || s.status === "few").length;
 $("#heroBadge").innerHTML = `<b>●</b> ${freeNow} з ${SPECIALISTS.length} фахівців мають вільні години цього тижня`;
@@ -685,6 +800,10 @@ $("#heroBadge").innerHTML = `<b>●</b> ${freeNow} з ${SPECIALISTS.length} фа
 // advantages
 $("#advGrid").innerHTML = ADVANTAGES.map((a) =>
   `<div class="adv"><div class="adv-ico">${a.icon}</div><h3>${esc(a.title)}</h3><p>${esc(a.text)}</p></div>`).join("");
+
+// shop
+$("#shopItems").innerHTML = SHOP.map((x) =>
+  `<div class="shop-item"><span>${x.icon}</span><div><b>${esc(x.title)}</b><p>${esc(x.text)}</p></div></div>`).join("");
 
 // gallery
 $("#galGrid").innerHTML = GALLERY.map((g) =>
@@ -695,32 +814,66 @@ $("#galGrid").addEventListener("click", (e) => {
 });
 
 // events
+const MONTHS_G = ["січня", "лютого", "березня", "квітня", "травня", "червня", "липня", "серпня", "вересня", "жовтня", "листопада", "грудня"];
+const dayLabel = (iso) => { const d = new Date(iso + "T00:00"); return `${d.getDate()} ${MONTHS_G[d.getMonth()]}`; };
+const evHost = (e) => (byId(e.host) || {}).name || e.hostName || "";
+const evLabel = (e) => `Подія: ${e.title} (${dayLabel(e.date)}, ${e.time})`;
+function upcoming() {
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  return EVENTS.filter((e) => new Date(e.date + "T00:00") >= today)
+    .sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
+}
+const richText = (txt) => txt.split("\n\n").map((block) => {
+  const lines = block.split("\n");
+  const items = lines.filter((l) => /^(✨|•)/.test(l));
+  const plain = lines.filter((l) => !/^(✨|•)/.test(l));
+  return plain.map((l) => `<p>${esc(l)}</p>`).join("") + (items.length ? `<ul>${items.map((l) => `<li>${esc(l)}</li>`).join("")}</ul>` : "");
+}).join("");
+
+$("#evDeals").innerHTML = EVENT_DEALS.map((d) => `<div class="deal"><b>${esc(d.title)}</b>${esc(d.text)}</div>`).join("");
 let evFilter = "all";
 function renderEvents() {
-  const types = ["all", ...new Set(EVENTS.map((e) => e.type))];
-  $("#evFilters").innerHTML = types.map((t) =>
-    `<button class="pill ${t === evFilter ? "on" : ""}" data-t="${t}">${t === "all" ? "Усі" : EVENT_TYPES[t]}</button>`).join("");
-  const list = EVENTS.filter((e) => evFilter === "all" || e.type === evFilter).sort((a, b) => a.date.localeCompare(b.date));
-  $("#evList").innerHTML = list.map((e) => {
+  const all = upcoming();
+  const dates = [...new Set(all.map((e) => e.date))];
+  $("#evFilters").innerHTML = dates.length > 1 ? ["all", ...dates].map((t) =>
+    `<button class="pill ${t === evFilter ? "on" : ""}" data-t="${t}">${t === "all" ? "Усі дні" : dayLabel(t)}</button>`).join("") : "";
+  const list = all.filter((e) => evFilter === "all" || e.date === evFilter);
+  $("#evList").innerHTML = list.length ? list.map((e) => {
     const d = new Date(e.date + "T00:00");
-    const host = byId(e.host);
-    const pct = Math.round(((e.seats - e.left) / e.seats) * 100);
-    const full = e.left === 0;
+    const i = EVENTS.indexOf(e);
     return `<article class="ev">
       <div class="ev-date"><b>${d.getDate()}</b><span>${MONTHS[d.getMonth()]}</span><small>${DAYS[(d.getDay() + 6) % 7]}</small></div>
       <div class="ev-body">
-        <div class="ev-type">${EVENT_TYPES[e.type]}</div>
+        <div class="ev-type">${EVENT_TYPES[e.type] || ""}</div>
         <h3>${esc(e.title)}</h3>
-        <div class="ev-meta"><span>🕐 ${esc(e.time)}</span><span>📍 ${esc(e.place)}</span>${host ? `<span>👤 ${esc(host.name)}</span>` : ""}</div>
+        <div class="ev-meta"><span>🕐 ${esc(e.time)}</span><span>📍 ${esc(e.place)}</span>${evHost(e) ? `<span>👤 ${esc(evHost(e))}</span>` : ""}</div>
         <p>${esc(e.text)}</p>
+        ${e.more ? `<button class="ev-more" onclick="openEvent(${i})">Детальніше про зустріч</button>` : ""}
         <div class="ev-foot">
-          <div><div class="ev-price">${money(e.price)}</div>
-            <div class="seats" style="color:${full ? "var(--busy)" : e.left <= 4 ? "var(--warn)" : "var(--ok)"}">${full ? "Місць немає — лист очікування" : `Залишилось ${e.left} з ${e.seats} місць`}</div>
-            <div class="seats-bar"><i style="width:${pct}%;background:${full ? "var(--busy)" : e.left <= 4 ? "var(--warn)" : "var(--ok)"}"></i></div></div>
-          <button class="btn ${full ? "btn-out" : "btn-main"} btn-sm" onclick="bookEvent(${EVENTS.indexOf(e)})">${full ? "У лист очікування" : "Зареєструватися"}</button>
+          <div class="ev-price">${money(e.price)}</div>
+          <button class="btn btn-main btn-sm" onclick="bookEvent(${i})">Зареєструватися</button>
         </div>
       </div></article>`;
-  }).join("");
+  }).join("") : `<p class="s-sub">Нових подій поки немає — слідкуйте за оновленнями в Instagram.</p>`;
+}
+function openEvent(i) {
+  const e = EVENTS[i];
+  $("#modalBox").className = "modal-box ev-modal";
+  $("#modalBox").innerHTML = `
+    <button class="modal-close" onclick="closeModal()" aria-label="Закрити">×</button>
+    <div class="ev-head">
+      <div class="ev-type">${EVENT_TYPES[e.type] || ""} · ${dayLabel(e.date)}, ${esc(e.time)}</div>
+      <h3>${esc(e.title)}</h3>
+      <div class="ev-meta"><span>📍 ${esc(e.place)}</span>${evHost(e) ? `<span>👤 ${esc(evHost(e))}${e.hostBio ? ` — ${esc(e.hostBio)}` : ""}</span>` : ""}</div>
+    </div>
+    <div class="m-body">
+      ${richText(e.more || e.text)}
+      <h4>Вартість</h4><p><span class="ev-price">${money(e.price)}</span></p>
+      <p style="font-size:13px">${EVENT_DEALS.map((d) => `<b>${esc(d.title)}:</b> ${esc(d.text)}`).join("<br>")}</p>
+      <button class="btn btn-main btn-sm" style="margin-top:14px" onclick="bookEvent(${i})">Зареєструватися</button>
+    </div>`;
+  $("#modal").classList.add("open");
+  document.body.style.overflow = "hidden";
 }
 $("#evFilters").addEventListener("click", (e) => { const b = e.target.closest(".pill"); if (b) { evFilter = b.dataset.t; renderEvents(); } });
 renderEvents();
@@ -757,6 +910,7 @@ function slotCount(s) { return Object.values(s.slots).flat().length; }
 
 function openModal(id) {
   const s = byId(id);
+  $("#modalBox").className = "modal-box";
   $("#modalBox").innerHTML = `
     <button class="modal-close" onclick="closeModal()" aria-label="Закрити">×</button>
     <div class="m-photo">${photoHTML(s)}</div>
@@ -789,21 +943,12 @@ function closeModal() { $("#modal").classList.remove("open"); document.body.styl
 document.addEventListener("keydown", (e) => { if (e.key === "Escape") { closeModal(); $("#lightbox").classList.remove("open"); } });
 
 // prices table
-const base = SPECIALISTS[0].prices.find((p) => p.service.startsWith("Індивідуальна")) || SPECIALISTS[0].prices[0];
 $("#priceTable").innerHTML = `<thead><tr><th>Фахівець</th><th>Послуга</th><th>Тривалість</th><th>Вартість</th><th>Формат</th><th>Доступність</th></tr></thead><tbody>` +
   SPECIALISTS.map((s) => s.prices.map((p, i) => `<tr>
     ${i === 0 ? `<td class="who" rowspan="${s.prices.length}">${esc(s.name)}<br><small style="color:var(--light)">${esc(s.role)}</small></td>` : ""}
     <td>${esc(p.service)}</td><td>${esc(p.duration || "—")}</td><td class="num">${money(p.price)}</td>
     ${i === 0 ? `<td rowspan="${s.prices.length}">${s.formats.join(", ")}</td><td rowspan="${s.prices.length}"><i class="dot ${s.status}"></i> ${STATUS[s.status]}</td>` : ""}
   </tr>`).join("")).join("") + "</tbody>";
-$("#packs").innerHTML = PACKAGES.map((p) => {
-  const per = Math.round(base.price * (1 - p.discount / 100));
-  return `<div class="pack ${p.hot ? "hot" : ""}">${p.hot ? `<span class="lbl">Популярний</span>` : ""}
-    <h4>${p.name}</h4><p>${p.sessions} сесій · знижка ${p.discount}%</p>
-    <div class="big">${money(per * p.sessions)}</div>
-    <p>${money(per)} / сесія · на прикладі індивідуальної консультації ${money(base.price)}</p>
-    <p style="margin-top:10px">${p.text}</p></div>`;
-}).join("");
 
 // availability
 $("#avSelect").innerHTML = SPECIALISTS.map((s) => `<option value="${s.id}">${esc(s.name)} — ${esc(s.role)}</option>`).join("");
@@ -843,14 +988,14 @@ $("#faqList").addEventListener("click", (e) => { const q = e.target.closest(".fa
 // contacts & footer
 $("#contacts").innerHTML = CONTACTS.map((c) =>
   `<a class="contact" href="${esc(c.href)}" ${c.href.startsWith("http") ? 'target="_blank" rel="noopener"' : ""}><i>${c.icon}</i>${esc(c.label)}</a>`).join("");
-$("#footYear").textContent = "© " + new Date().getFullYear() + " · Метаморфоза";
+$("#footYear").innerHTML = `${esc(ADDRESS)}<br>© ${new Date().getFullYear()} · Метаморфоза`;
 
 // booking form
 $("#fSpec").innerHTML = `<option value="">Допоможіть обрати</option>` + SPECIALISTS.map((s) => `<option value="${s.id}">${esc(s.name)}</option>`).join("");
 function fillServices() {
   const s = byId($("#fSpec").value);
   const services = s ? s.prices.map((p) => `${p.service} (${money(p.price)})`) : ["Перша консультація"];
-  const events = EVENTS.filter((e) => !s || e.host === s.id).map((e) => `Івент: ${e.title}`);
+  const events = upcoming().filter((e) => !s || e.host === s.id).map(evLabel);
   $("#fService").innerHTML = [...services, ...events].map((x) => `<option>${esc(x)}</option>`).join("");
 }
 $("#fSpec").addEventListener("change", fillServices);
@@ -865,8 +1010,9 @@ function bookSpec(id, time) {
 function pickSlot(id, time) { bookSpec(id, time); }
 function bookEvent(i) {
   const ev = EVENTS[i];
-  $("#fSpec").value = ev.host; fillServices();
-  $("#fService").value = `Івент: ${ev.title}`;
+  closeModal();
+  $("#fSpec").value = ev.host || ""; fillServices();
+  $("#fService").value = evLabel(ev);
   $("#booking").scrollIntoView();
 }
 
