@@ -346,9 +346,9 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
       <a href="#mission">Про центр</a>
       <a href="#first">Перша зустріч</a>
       <a href="#gallery">Простір</a>
-      <a href="#events">Події</a>
       <a href="#specialists">Фахівці</a>
       <a href="#availability">Розклад</a>
+      <a href="#events">Події</a>
       <a href="#faq">FAQ</a>
     </div>
     <a href="#booking" class="btn btn-main btn-sm">Записатися</a>
@@ -436,41 +436,6 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
   </div>
 </section>
 
-<!-- SHOP -->
-<section id="shop">
-  <div class="wrap shop-grid">
-    <div>
-      <div class="s-label">Крамничка в центрі</div>
-      <h2 class="s-title">Все потрібне — одразу на місці</h2>
-      <p class="s-sub">Прямо в центрі можна придбати антистреси, книги, робочі зошити та блокноти. Не треба потім іти в магазин і щось шукати — усе, що підтримує вас між сесіями, є в одному місці.</p>
-      <div class="shop-items" id="shopItems"></div>
-    </div>
-    <img class="shop-photo" src="img/room-cabinet.jpg" alt="Книги та зошити на столику в кабінеті" loading="lazy">
-  </div>
-</section>
-
-<!-- EVENTS -->
-<section id="events">
-  <div class="wrap">
-    <div class="s-label">Афіша</div>
-    <h2 class="s-title">Події та зустрічі</h2>
-    <div class="opening">
-      <div class="ev-type">Відкриття центру · 7–8 листопада</div>
-      <h3>Ми з радістю відчиняємо двері «Метаморфози»</h3>
-      <p>І хочемо, щоб ви були поруч у ці особливі дні. Оберіть зустріч, яка відгукується саме вам, і зареєструйтеся — чекаємо на вас!</p>
-      <div class="perks">
-        <div><span>🎤</span><b>Тематичні зустрічі</b>з експертами</div>
-        <div><span>🎁</span><b>Розіграші призів</b>для гостей відкриття</div>
-        <div><span>💝</span><b>Подарунки</b>приємні сюрпризи</div>
-        <div><span>🍰</span><b>Частування</b>і тепла атмосфера</div>
-      </div>
-      <div class="deals" id="evDeals"></div>
-    </div>
-    <div class="ev-filters" id="evFilters"></div>
-    <div class="ev-list" id="evList"></div>
-  </div>
-</section>
-
 <!-- SPECIALISTS -->
 <section class="specialists" id="specialists">
   <div class="wrap">
@@ -497,6 +462,28 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
     </div>
     <div class="week" id="week"></div>
     <p class="av-note" id="avNote"></p>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section id="events">
+  <div class="wrap">
+    <div class="s-label">Афіша</div>
+    <h2 class="s-title">Події та зустрічі</h2>
+    <div class="opening">
+      <div class="ev-type">Відкриття центру · 7–8 листопада</div>
+      <h3>Ми з радістю відчиняємо двері «Метаморфози»</h3>
+      <p>І хочемо, щоб ви були поруч у ці особливі дні. Оберіть зустріч, яка відгукується саме вам, і зареєструйтеся — чекаємо на вас!</p>
+      <div class="perks">
+        <div><span>🎤</span><b>Тематичні зустрічі</b>з експертами</div>
+        <div><span>🎁</span><b>Розіграші призів</b>для гостей відкриття</div>
+        <div><span>💝</span><b>Подарунки</b>приємні сюрпризи</div>
+        <div><span>🍰</span><b>Частування</b>і тепла атмосфера</div>
+      </div>
+      <div class="deals" id="evDeals"></div>
+    </div>
+    <div class="ev-filters" id="evFilters"></div>
+    <div class="ev-list" id="evList"></div>
   </div>
 </section>
 
@@ -557,6 +544,19 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
       <p class="full pay-note">Можна одразу оплатити за посиланням: у призначенні платежу вкажіть ваше ім'я та назву зустрічі.</p>
     </form>
     </div>
+  </div>
+</section>
+
+<!-- SHOP -->
+<section id="shop">
+  <div class="wrap shop-grid">
+    <div>
+      <div class="s-label">Крамничка в центрі</div>
+      <h2 class="s-title">Все потрібне — одразу на місці</h2>
+      <p class="s-sub">Прямо в центрі можна придбати антистреси, книги, робочі зошити та блокноти. Не треба потім іти в магазин і щось шукати — усе, що підтримує вас між сесіями, є в одному місці.</p>
+      <div class="shop-items" id="shopItems"></div>
+    </div>
+    <img class="shop-photo" src="img/room-cabinet.jpg" alt="Книги та зошити на столику в кабінеті" loading="lazy">
   </div>
 </section>
 
@@ -652,9 +652,9 @@ const SPECIALISTS = [
       { service: "Парна сесія", duration: "60 хв", price: 1200 },
       { service: "МАК-сесія", duration: "90 хв", price: 1200 },
     ],
-    status: "few",
-    slots: { 1: ["17:00", "19:00"], 2: ["11:00"], 3: ["17:00", "19:00"], 4: ["13:00"], 5: ["11:00", "15:00"], 6: ["11:00"] },
-    busy:  { 1: ["11:00", "13:00"], 2: ["13:00", "15:00", "17:00"], 3: ["11:00"], 4: ["17:00", "19:00"], 5: ["17:00"] },
+    status: "full",
+    slots: {},
+    busy: {},
   },
   {
     id: "olha",
@@ -758,9 +758,8 @@ const SPECIALISTS = [
       "КПТ, нейропсихологія, майндфулнес",
     ],
     docs: "https://drive.google.com/drive/folders/1-KT1rGgbZikI7URiJgpP3gnSKsSDNGcm?usp=sharing",
-    // Вартість — уточнити (price: null показується як «за запитом»)
     prices: [
-      { service: "Індивідуальна консультація", duration: "", price: null },
+      { service: "Індивідуальна консультація", duration: "", price: 1200 },
     ],
     status: "ask",
     slots: {},
@@ -801,79 +800,12 @@ const SPECIALISTS = [
     ],
     education: ["Магістр психології", "Практична психологиня", "Транзакційний аналіз", "Арттерапія"],
     docs: "https://drive.google.com/drive/folders/1AXVJMngrOVzIVvaRB_ts4noAAu6IN7UY?usp=sharing",
-    // Вартість — уточнити (price: null показується як «за запитом»)
     prices: [
-      { service: "Індивідуальна консультація", duration: "", price: null },
+      { service: "Індивідуальна консультація", duration: "", price: 1200 },
     ],
     status: "ask",
     slots: {},
     busy: {},
-  },
-  // ПРИКЛАД — замініть на реального фахівця (ім'я, фото, освіта, ціни)
-  {
-    id: "olena",
-    name: "Олена Коваль",
-    role: "Гештальт-терапевтка",
-    photo: "",
-    experience: "6 років практики",
-    approach: "Гештальт-терапія, тілесно-орієнтований підхід",
-    formats: ["Онлайн", "Офлайн"],
-    languages: ["Українська", "English"],
-    clients: ["Дорослі 18+"],
-    topics: ["Втрата і горе", "Психотравма", "Тривожність", "Пошук себе"],
-    about: "Працює з переживаннями втрати, травматичним досвідом і кризами. Допомагає повернути контакт із тілом та емоціями, знайти внутрішню опору.",
-    education: ["Магістр психології", "Гештальт-терапія, 4 ступінь (сертифікація)", "Робота з травмою, 120 год", "Регулярна супервізія"],
-    prices: [
-      { service: "Індивідуальна консультація", duration: "50 хв", price: 1200 },
-      { service: "Терапевтична група", duration: "120 хв", price: 600 },
-    ],
-    status: "free",
-    slots: { 1: ["10:00", "12:00"], 2: ["10:00", "18:00"], 4: ["10:00", "12:00", "18:00"], 5: ["12:00"] },
-    busy:  { 1: ["14:00"], 2: ["12:00", "14:00"], 3: ["10:00", "12:00", "14:00"], 4: ["14:00"] },
-  },
-  // ПРИКЛАД — замініть на реального фахівця
-  {
-    id: "maksym",
-    name: "Максим Ліщук",
-    role: "Сімейний психолог",
-    photo: "",
-    experience: "8 років практики",
-    approach: "Системна сімейна терапія, емоційно-фокусована терапія пар",
-    formats: ["Онлайн", "Офлайн"],
-    languages: ["Українська"],
-    clients: ["Пари", "Сім'ї", "Підлітки 14+"],
-    topics: ["Стосунки", "Конфлікти в парі", "Батьківство", "Підлітки"],
-    about: "Допомагає парам і сім'ям вийти з кола конфліктів, відновити довіру і навчитися говорити про потреби без звинувачень.",
-    education: ["Магістр клінічної психології", "Системна сімейна терапія, 2 роки навчання", "EFT — емоційно-фокусована терапія пар"],
-    prices: [
-      { service: "Індивідуальна консультація", duration: "60 хв", price: 1100 },
-      { service: "Парна / сімейна сесія", duration: "90 хв", price: 1600 },
-    ],
-    status: "full",
-    slots: { 6: ["12:00"] },
-    busy:  { 1: ["18:00", "20:00"], 2: ["18:00", "20:00"], 3: ["18:00", "20:00"], 4: ["18:00", "20:00"], 5: ["18:00"], 6: ["10:00", "14:00"] },
-  },
-  // ПРИКЛАД — замініть на реального фахівця
-  {
-    id: "iryna",
-    name: "Ірина Савчук",
-    role: "Дитяча психологиня",
-    photo: "",
-    experience: "5 років практики",
-    approach: "Ігрова та арт-терапія, КПТ для дітей",
-    formats: ["Офлайн"],
-    languages: ["Українська"],
-    clients: ["Діти 4–13", "Батьки"],
-    topics: ["Діти", "Страхи", "Адаптація", "Батьківство"],
-    about: "Працює з дітьми через гру й творчість, консультує батьків. Допомагає з адаптацією, страхами, емоційною регуляцією.",
-    education: ["Магістр психології", "Ігрова терапія, 90 год", "Арт-терапія, 60 год"],
-    prices: [
-      { service: "Консультація для батьків", duration: "60 хв", price: 900 },
-      { service: "Сесія з дитиною", duration: "45 хв", price: 900 },
-    ],
-    status: "free",
-    slots: { 2: ["15:00", "16:00"], 3: ["15:00", "16:00", "17:00"], 5: ["15:00", "16:00"], 6: ["10:00", "11:00"] },
-    busy:  { 2: ["17:00"], 4: ["15:00", "16:00", "17:00"], 5: ["17:00"] },
   },
 ];
 
@@ -1014,8 +946,8 @@ const allTopics = [...new Set(SPECIALISTS.flatMap((s) => s.topics))];
 $("#heroStats").innerHTML = [
   [SPECIALISTS.length, "фахівців"], [allTopics.length + "+", "напрямів роботи"], [upcoming().length, "найближчі зустрічі"],
 ].map(([n, t]) => `<div><b>${n}</b><span>${t}</span></div>`).join("");
-const freeNow = SPECIALISTS.filter((s) => s.status === "free" || s.status === "few").length;
-$("#heroBadge").innerHTML = `<b>●</b> ${freeNow} з ${SPECIALISTS.length} фахівців мають вільні години цього тижня`;
+const freeNow = SPECIALISTS.filter((s) => s.status !== "full").length;
+$("#heroBadge").innerHTML = `<b>●</b> ${freeNow} з ${SPECIALISTS.length} фахівців приймають нових клієнтів`;
 
 // advantages
 $("#advGrid").innerHTML = ADVANTAGES.map((a) =>
@@ -1165,8 +1097,14 @@ document.addEventListener("keydown", (e) => { if (e.key === "Escape") { closeMod
 $("#avSelect").innerHTML = SPECIALISTS.map((s) => `<option value="${s.id}">${esc(s.name)} — ${esc(s.role)}</option>`).join("");
 function renderWeek() {
   const s = byId($("#avSelect").value);
+  if (s.status === "full") {
+    $("#week").innerHTML = `<div class="week-empty"><b>${esc(s.name)}</b> — зараз лист очікування. Залиште заявку — ми повідомимо, щойно звільниться час.
+      <div style="margin-top:16px"><button class="btn btn-main btn-sm" onclick="bookSpec('${s.id}')">У лист очікування</button></div></div>`;
+    $("#avNote").innerHTML = `Формат: ${s.formats.join(", ")}.`;
+    return;
+  }
   if (!hasSchedule(s)) {
-    $("#week").innerHTML = `<div class="week-empty">У ${esc(s.name)} розклад узгоджується індивідуально. Залиште заявку — адміністратор підбере зручний час.
+    $("#week").innerHTML = `<div class="week-empty"><b>${esc(s.name)}</b> — розклад узгоджується індивідуально. Залиште заявку — адміністратор підбере зручний час.
       <div style="margin-top:16px"><button class="btn btn-main btn-sm" onclick="bookSpec('${s.id}')">Залишити заявку</button></div></div>`;
     $("#avNote").innerHTML = `Формат: ${s.formats.join(", ")} · вартість ${known(s).length ? "від " + money(Math.min(...known(s))) : "за запитом"}.`;
     return;
@@ -1184,7 +1122,7 @@ function renderWeek() {
         : `<span class="slot busy">${x.t}</span>`).join("") : `<div class="none">вихідний</div>`}</div>`;
   }).join("");
   $("#avNote").innerHTML = s.status === "full"
-    ? `У ${esc(s.name)} зараз лист очікування — залиште заявку, і ми повідомимо, щойно звільниться час.`
+    ? `${esc(s.name)} — зараз лист очікування. Залиште заявку, і ми повідомимо, щойно звільниться час.`
     : `Формат: ${s.formats.join(", ")} · від ${money(Math.min(...known(s)))}. Розклад оновлюється щотижня.`;
 }
 $("#avSelect").addEventListener("change", renderWeek);
