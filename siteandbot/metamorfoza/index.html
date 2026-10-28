@@ -623,7 +623,7 @@ const GALLERY = [
   { src: "img/room-group.jpg", caption: "Зала для груп, лекцій і воркшопів", cls: "g-tall" },
 ];
 
-/* status: "free" — приймає клієнтів, "full" — лист очікування. Вільні години — у Google Таблиці (див. SCHEDULE_SHEET_ID)
+/* status: "free" — приймає клієнтів, "full" — лист очікування. Вільні години — у Google Таблиці (див. SCHEDULE_CSV_URL)
    Необов'язкові поля: experience, languages, requests (повний список запитів), notWith (з чим не працює),
    docs (посилання на документи про освіту), photoPos (кадрування фото, напр. "60% 20%").
    price: null — ціна «за запитом»
@@ -887,10 +887,10 @@ const FAQ = [
   ["Чи все конфіденційно?", "Так. Єдиний виняток — ситуації, що загрожують вашому або чужому життю. Фахівці дотримуються етичного кодексу НПАУ."],
 ];
 
-/* Вільні години фахівців — Google Таблиця «Метаморфоза — вільні години фахівців».
-   Колонки: Фахівець | Дата | Час | Статус (вільно / зайнято). Імʼя — точно як у name вище.
-   Таблиця має бути відкрита за посиланням (Доступ: «Усі, хто має посилання» — читач). */
-const SCHEDULE_SHEET_ID = "1O-PGpZY4XCZ1kEhcy1cIrNGG_e-46iopHsoxiIXo2_o";
+/* Вільні години фахівців — Google Таблиця «Метаморфоза — облік і розклад», вкладка «Для сайту».
+   Вставте сюди посилання з «Файл → Поділитися → Опублікувати в Інтернеті → Для сайту → CSV».
+   Публікується лише вкладка «Для сайту» (фахівець, дата, час, статус) — без даних клієнтів. */
+const SCHEDULE_CSV_URL = "";
 const SCHEDULE_DAYS = 21; // скільки днів наперед показувати
 const CONFIRM_NOTE = "Запис підтверджується лише після звʼязку з адміністратором.";
 
@@ -1129,34 +1129,43 @@ function renderWeek() {
         : `<span class="slot busy">${x.time}</span>`).join("")}</div>`;
   }).join("");
 }
-// завантаження розкладу з Google Таблиці (формат gviz JSON: дати й час приходять однозначно)
+// завантаження розкладу з опублікованої вкладки «Для сайту» (CSV: блоки по 5 стовпців — фахівець, дата, час, статус, порожній)
+function parseCSV(text) {
+  const rows = []; let row = [], cell = "", q = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (q) { if (ch === '"' && text[i + 1] === '"') { cell += '"'; i++; } else if (ch === '"') q = false; else cell += ch; }
+    else if (ch === '"') q = true;
+    else if (ch === ",") { row.push(cell); cell = ""; }
+    else if (ch === "\n" || ch === "\r") { if (ch === "\r" && text[i + 1] === "\n") i++; row.push(cell); rows.push(row); row = []; cell = ""; }
+    else cell += ch;
+  }
+  if (cell || row.length) { row.push(cell); rows.push(row); }
+  return rows;
+}
 async function loadSchedule() {
-  const cellText = (c) => (c && c.v != null ? c.v : "");
-  const toDate = (c) => {
-    const v = cellText(c); let m;
-    if ((m = /^Date\((\d+),(\d+),(\d+)/.exec(v))) return new Date(+m[1], +m[2], +m[3]);
+  const toDate = (v) => {
+    let m;
     if ((m = /^(\d{4})-(\d{1,2})-(\d{1,2})/.exec(v))) return new Date(+m[1], m[2] - 1, +m[3]);
     if ((m = /^(\d{1,2})[./](\d{1,2})[./](\d{4})/.exec(v))) return new Date(+m[3], m[2] - 1, +m[1]);
     return null;
   };
-  const toTime = (c) => {
-    const v = cellText(c), two = (n) => String(n).padStart(2, "0");
-    if (Array.isArray(v)) return `${two(v[0])}:${two(v[1])}`;
-    if (typeof v === "number") { const min = Math.round(v * 24 * 60) % (24 * 60); return `${two(Math.floor(min / 60))}:${two(min % 60)}`; }
-    const m = /(\d{1,2})[:.](\d{2})/.exec(v); return m ? `${two(m[1])}:${m[2]}` : "";
-  };
-  try {
-    const r = await fetch(`https://docs.google.com/spreadsheets/d/${SCHEDULE_SHEET_ID}/gviz/tq?tqx=out:json&headers=1`);
-    const txt = await r.text();
-    const data = JSON.parse(txt.slice(txt.indexOf("{"), txt.lastIndexOf("}") + 1));
-    SCHEDULE = data.table.rows.map((row) => {
-      const c = row.c || [];
-      const status = norm(cellText(c[3]));
-      return { name: cellText(c[0]), date: toDate(c[1]), time: toTime(c[2]),
-        free: status.startsWith("віль"), known: status.startsWith("віль") || status.startsWith("зайн") };
-    }).filter((x) => x.known && x.date && x.time && !norm(x.name).startsWith("приклад"));
-  } catch {
-    SCHEDULE = [];
+  const toTime = (v) => { const m = /(\d{1,2})[:.](\d{2})/.exec(v); return m ? `${m[1].padStart(2, "0")}:${m[2]}` : ""; };
+  SCHEDULE = [];
+  if (SCHEDULE_CSV_URL) {
+    try {
+      const r = await fetch(SCHEDULE_CSV_URL);
+      if (!r.ok) throw new Error(r.status);
+      parseCSV(await r.text()).slice(1).forEach((row) => {
+        for (let k = 0; k + 3 < row.length; k += 5) {
+          const [name, date, time, status] = row.slice(k, k + 4).map((x) => (x || "").trim());
+          const st = norm(status);
+          if (!name || !(st.startsWith("віль") || st.startsWith("заброн") || st.startsWith("провед") || st.startsWith("зайн"))) continue;
+          const d = toDate(date), t = toTime(time);
+          if (d && t) SCHEDULE.push({ name, date: d, time: t, free: st.startsWith("віль") });
+        }
+      });
+    } catch { SCHEDULE = []; }
   }
   renderWeek();
 }
