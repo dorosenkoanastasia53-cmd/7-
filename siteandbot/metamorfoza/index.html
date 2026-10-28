@@ -258,6 +258,7 @@ form .full{grid-column:1/-1}
 .sum .disc{color:var(--ok)}
 .ev-actions{display:flex;gap:10px;flex-wrap:wrap}
 .pay-note{font-size:12px;color:var(--light)}
+.confirm-note{font-size:13px;color:var(--accent);background:var(--accent-soft);border-radius:10px;padding:10px 14px}
 .form-msg{grid-column:1/-1;font-size:14px;display:none;padding:12px 14px;border-radius:10px}
 
 /* FOOTER */
@@ -452,7 +453,7 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
   <div class="wrap">
     <div class="s-label">Доступність</div>
     <h2 class="s-title">Вільні години</h2>
-    <p class="s-sub">Оберіть фахівця і натисніть на вільний час — він автоматично підставиться у форму запису.</p>
+    <p class="s-sub">Оберіть фахівця і натисніть на вільний час — він підставиться у форму запису. Зверніть увагу: запис підтверджується лише після звʼязку з адміністратором.</p>
     <div class="av-controls">
       <select id="avSelect" aria-label="Фахівець"></select>
       <div class="legend">
@@ -516,8 +517,9 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
       <label>Фахівець<select name="specialist" id="fSpec"></select></label>
       <label>Послуга<select name="service" id="fService"></select></label>
       <label>Формат<select name="format"><option>Онлайн</option><option>Офлайн у просторі</option><option>Не важливо</option></select></label>
-      <label>Бажаний час<input name="time" id="fTime" placeholder="напр. Вт 18:00"></label>
+      <label>Бажаний час (підтвердимо після звʼязку)<input name="time" id="fTime" placeholder="напр. Вт 18:00"></label>
       <label class="full">Коротко про запит (необов'язково)<textarea name="request" rows="3"></textarea></label>
+      <p class="full confirm-note">ⓘ Запис підтверджується лише після звʼязку з адміністратором — ми напишемо вам протягом дня.</p>
       <label class="full check"><input type="checkbox" name="agree" required> Погоджуюсь на обробку персональних даних. Інформація конфіденційна.</label>
       <div class="form-msg" id="formMsg"></div>
       <div class="full"><button class="btn btn-main" type="submit">Надіслати заявку</button></div>
@@ -534,6 +536,7 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
       <label class="full" id="plus1Name" hidden>Ім'я вашого +1 (необов'язково)<input name="plus1name"></label>
       <div class="full sum" id="evSum"></div>
       <label class="full">Коментар (необов'язково)<textarea name="comment" rows="2"></textarea></label>
+      <p class="full confirm-note">ⓘ Реєстрація підтверджується лише після звʼязку з адміністратором.</p>
       <label class="full check"><input type="checkbox" name="paid"> Я вже оплатив(-ла) онлайн</label>
       <label class="full check"><input type="checkbox" name="agree" required> Погоджуюсь на обробку персональних даних. Інформація конфіденційна.</label>
       <div class="form-msg" id="evMsg"></div>
@@ -620,10 +623,10 @@ const GALLERY = [
   { src: "img/room-group.jpg", caption: "Зала для груп, лекцій і воркшопів", cls: "g-tall" },
 ];
 
-/* status: "free" — є вільні місця, "few" — мало місць, "full" — лист очікування, "ask" — запис через адміністратора
+/* status: "free" — приймає клієнтів, "full" — лист очікування. Вільні години — у Google Таблиці (див. SCHEDULE_SHEET_ID)
    Необов'язкові поля: experience, languages, requests (повний список запитів), notWith (з чим не працює),
    docs (посилання на документи про освіту), photoPos (кадрування фото, напр. "60% 20%").
-   price: null — ціна «за запитом»; порожні slots і busy — розклад узгоджується індивідуально
+   price: null — ціна «за запитом»
    slots: вільні години на тиждень (1 = Пн ... 7 = Нд); busy — зайняті години */
 const SPECIALISTS = [
   {
@@ -653,8 +656,6 @@ const SPECIALISTS = [
       { service: "МАК-сесія", duration: "90 хв", price: 1200 },
     ],
     status: "full",
-    slots: {},
-    busy: {},
   },
   {
     id: "olha",
@@ -698,9 +699,7 @@ const SPECIALISTS = [
     prices: [
       { service: "Індивідуальна консультація", duration: "", price: 1800 },
     ],
-    status: "ask",
-    slots: {},
-    busy: {},
+    status: "free",
   },
   {
     id: "anastasiia-k",
@@ -729,9 +728,7 @@ const SPECIALISTS = [
     prices: [
       { service: "Консультація", duration: "", price: 1300 },
     ],
-    status: "ask",
-    slots: {},
-    busy: {},
+    status: "free",
   },
   {
     id: "nataliia",
@@ -761,9 +758,7 @@ const SPECIALISTS = [
     prices: [
       { service: "Індивідуальна консультація", duration: "", price: 1200 },
     ],
-    status: "ask",
-    slots: {},
-    busy: {},
+    status: "free",
   },
   {
     id: "oleksandra",
@@ -803,9 +798,7 @@ const SPECIALISTS = [
     prices: [
       { service: "Індивідуальна консультація", duration: "", price: 1200 },
     ],
-    status: "ask",
-    slots: {},
-    busy: {},
+    status: "free",
   },
 ];
 
@@ -894,6 +887,13 @@ const FAQ = [
   ["Чи все конфіденційно?", "Так. Єдиний виняток — ситуації, що загрожують вашому або чужому життю. Фахівці дотримуються етичного кодексу НПАУ."],
 ];
 
+/* Вільні години фахівців — Google Таблиця «Метаморфоза — вільні години фахівців».
+   Колонки: Фахівець | Дата | Час | Статус (вільно / зайнято). Імʼя — точно як у name вище.
+   Таблиця має бути відкрита за посиланням (Доступ: «Усі, хто має посилання» — читач). */
+const SCHEDULE_SHEET_ID = "1O-PGpZY4XCZ1kEhcy1cIrNGG_e-46iopHsoxiIXo2_o";
+const SCHEDULE_DAYS = 21; // скільки днів наперед показувати
+const CONFIRM_NOTE = "Запис підтверджується лише після звʼязку з адміністратором.";
+
 /* Посилання на онлайн-оплату (IBAN / QR) */
 const PAY_URL = "https://ibanoplata.com/iban-qr/1b0d2dac3420435cbc0a0ea9bbb5c86e";
 const EVENT_DISCOUNT = 20; // % — за +1 або за дві й більше зустрічей (знижки не сумуються)
@@ -926,7 +926,16 @@ const priceFrom = (sp) => {
   return known(sp).length ? `<b>${money(Math.min(...known(sp)))}</b>` : `<b>Ціна за запитом</b>`;
 };
 const dur = (p) => p.duration ? ` · ${esc(p.duration)}` : "";
-const hasSchedule = (sp) => Object.keys(sp.slots).length + Object.keys(sp.busy).length > 0;
+// розклад із Google Таблиці: [{ name, date: Date, time: "10:00", free: true }]
+let SCHEDULE = null; // null — ще завантажується, [] — немає даних або помилка
+const norm = (t) => String(t || "").trim().toLowerCase().replace(/\s+/g, " ");
+const slotsOf = (sp) => {
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const until = new Date(today); until.setDate(today.getDate() + SCHEDULE_DAYS);
+  return (SCHEDULE || []).filter((x) => norm(x.name) === norm(sp.name) && x.date >= today && x.date < until)
+    .sort((a, b) => a.date - b.date || a.time.localeCompare(b.time));
+};
+const hasSchedule = (sp) => slotsOf(sp).length > 0;
 const initials = (n) => n.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase();
 const photoHTML = (sp) => sp.photo
   ? `<img src="${esc(sp.photo)}" alt="${esc(sp.name)}" loading="lazy"${sp.photoPos ? ` style="object-position:${esc(sp.photoPos)}"` : ""}>`
@@ -1057,7 +1066,8 @@ function renderSpecialists() {
 $("#spFilters").addEventListener("click", (e) => { const b = e.target.closest(".pill"); if (b) { spFilter = b.textContent; renderSpecialists(); } });
 renderSpecialists();
 
-function slotCount(s) { return Object.values(s.slots).flat().length; }
+const plural = (n, one, few, many) => (n % 10 === 1 && n % 100 !== 11 ? one : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? few : many);
+function slotCount(s) { return slotsOf(s).filter((x) => x.free).length; }
 
 function openModal(id) {
   const s = byId(id);
@@ -1066,7 +1076,7 @@ function openModal(id) {
     <button class="modal-close" onclick="closeModal()" aria-label="Закрити">×</button>
     <div class="m-photo">${photoHTML(s)}</div>
     <div class="m-body">
-      <div class="status" style="position:static;display:inline-flex;background:var(--bg);margin-bottom:12px"><i class="dot ${s.status}"></i>${STATUS[s.status]}${hasSchedule(s) ? ` · ${slotCount(s)} вільних год/тиждень` : ""}</div>
+      <div class="status" style="position:static;display:inline-flex;background:var(--bg);margin-bottom:12px"><i class="dot ${s.status}"></i>${STATUS[s.status]}${s.status !== "full" && slotCount(s) ? ` · ${slotCount(s)} ${plural(slotCount(s), "вільне вікно", "вільні вікна", "вільних вікон")}` : ""}</div>
       <h3>${esc(s.name)}</h3>
       <div class="sp-role">${esc(s.role)}</div>
       ${s.about.split("\n\n").map((t) => `<p>${esc(t)}</p>`).join("")}
@@ -1081,10 +1091,10 @@ function openModal(id) {
       <div class="m-prices">${s.prices.map((p) => `<div><span>${esc(p.service)}${dur(p)}</span><b>${money(p.price)}</b></div>`).join("")}</div>
       <h4>Доступність</h4>
       <p>${s.experience ? `Досвід: ${esc(s.experience)}<br>` : ""}Формат: ${s.formats.join(", ")}<br>${s.languages ? `Мови: ${s.languages.join(", ")}<br>` : ""}Працює з: ${s.clients.join(", ")}<br>
-      ${hasSchedule(s) ? `Робочі дні: ${DAYS.filter((_, i) => s.slots[i + 1] || s.busy[i + 1]).join(", ")}` : "Розклад узгоджується індивідуально через адміністратора"}</p>
+      ${s.status === "full" ? "Зараз лист очікування" : slotCount(s) ? `Найближче вільне вікно: ${((d) => `${d.getDate()} ${MONTHS_G[d.getMonth()]}`)(slotsOf(s).find((x) => x.free).date)}` : "Час узгоджується через адміністратора"}</p>
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:24px">
         <button class="btn btn-main btn-sm" onclick="bookSpec('${s.id}')">${s.status === "full" ? "У лист очікування" : "Записатися"}</button>
-        ${hasSchedule(s) ? `<button class="btn btn-out btn-sm" onclick="showSchedule('${s.id}')">Вільні години</button>` : ""}
+        ${s.status !== "full" ? `<button class="btn btn-out btn-sm" onclick="showSchedule('${s.id}')">Вільні години</button>` : ""}
       </div>
     </div>`;
   $("#modal").classList.add("open");
@@ -1097,36 +1107,63 @@ document.addEventListener("keydown", (e) => { if (e.key === "Escape") { closeMod
 $("#avSelect").innerHTML = SPECIALISTS.map((s) => `<option value="${s.id}">${esc(s.name)} — ${esc(s.role)}</option>`).join("");
 function renderWeek() {
   const s = byId($("#avSelect").value);
+  const empty = (text, btn) => `<div class="week-empty">${text}
+    <div style="margin-top:16px"><button class="btn btn-main btn-sm" onclick="bookSpec('${s.id}')">${btn}</button></div></div>`;
+  $("#avNote").innerHTML = `Формат: ${s.formats.join(", ")}. ${CONFIRM_NOTE}`;
   if (s.status === "full") {
-    $("#week").innerHTML = `<div class="week-empty"><b>${esc(s.name)}</b> — зараз лист очікування. Залиште заявку — ми повідомимо, щойно звільниться час.
-      <div style="margin-top:16px"><button class="btn btn-main btn-sm" onclick="bookSpec('${s.id}')">У лист очікування</button></div></div>`;
-    $("#avNote").innerHTML = `Формат: ${s.formats.join(", ")}.`;
+    $("#week").innerHTML = empty(`<b>${esc(s.name)}</b> — зараз лист очікування. Залиште заявку — ми повідомимо, щойно звільниться час.`, "У лист очікування");
     return;
   }
-  if (!hasSchedule(s)) {
-    $("#week").innerHTML = `<div class="week-empty"><b>${esc(s.name)}</b> — розклад узгоджується індивідуально. Залиште заявку — адміністратор підбере зручний час.
-      <div style="margin-top:16px"><button class="btn btn-main btn-sm" onclick="bookSpec('${s.id}')">Залишити заявку</button></div></div>`;
-    $("#avNote").innerHTML = `Формат: ${s.formats.join(", ")} · вартість ${known(s).length ? "від " + money(Math.min(...known(s))) : "за запитом"}.`;
+  if (SCHEDULE === null) { $("#week").innerHTML = `<div class="week-empty">Завантажуємо розклад…</div>`; return; }
+  const slots = slotsOf(s);
+  if (!slots.length) {
+    $("#week").innerHTML = empty(`<b>${esc(s.name)}</b> — вільні вікна ще не внесені в розклад. Залиште заявку — адміністратор підбере зручний час.`, "Залишити заявку");
     return;
   }
-  const monday = new Date(); monday.setHours(0, 0, 0, 0);
-  monday.setDate(monday.getDate() - ((monday.getDay() + 6) % 7) + 7); // наступний тиждень
-  $("#week").innerHTML = DAYS.map((d, i) => {
-    const date = new Date(monday); date.setDate(monday.getDate() + i);
-    const free = (s.slots[i + 1] || []).map((t) => ({ t, free: true }));
-    const busy = (s.busy[i + 1] || []).map((t) => ({ t, free: false }));
-    const all = [...free, ...busy].sort((a, b) => a.t.localeCompare(b.t));
+  const days = [...new Set(slots.map((x) => x.date.getTime()))];
+  $("#week").innerHTML = days.map((t) => {
+    const date = new Date(t), d = DAYS[(date.getDay() + 6) % 7];
     return `<div class="day"><h5>${d}</h5><div class="d">${date.getDate()} ${MONTHS[date.getMonth()]}</div>
-      ${all.length ? all.map((x) => x.free
-        ? `<button class="slot free" onclick="pickSlot('${s.id}','${d} ${date.getDate()} ${MONTHS[date.getMonth()]}, ${x.t}')">${x.t}</button>`
-        : `<span class="slot busy">${x.t}</span>`).join("") : `<div class="none">вихідний</div>`}</div>`;
+      ${slots.filter((x) => x.date.getTime() === t).map((x) => x.free
+        ? `<button class="slot free" onclick="pickSlot('${s.id}','${d} ${date.getDate()} ${MONTHS[date.getMonth()]}, ${x.time}')">${x.time}</button>`
+        : `<span class="slot busy">${x.time}</span>`).join("")}</div>`;
   }).join("");
-  $("#avNote").innerHTML = s.status === "full"
-    ? `${esc(s.name)} — зараз лист очікування. Залиште заявку, і ми повідомимо, щойно звільниться час.`
-    : `Формат: ${s.formats.join(", ")} · від ${money(Math.min(...known(s)))}. Розклад оновлюється щотижня.`;
+}
+// завантаження розкладу з Google Таблиці (формат gviz JSON: дати й час приходять однозначно)
+async function loadSchedule() {
+  const cellText = (c) => (c && c.v != null ? c.v : "");
+  const toDate = (c) => {
+    const v = cellText(c); let m;
+    if ((m = /^Date\((\d+),(\d+),(\d+)/.exec(v))) return new Date(+m[1], +m[2], +m[3]);
+    if ((m = /^(\d{4})-(\d{1,2})-(\d{1,2})/.exec(v))) return new Date(+m[1], m[2] - 1, +m[3]);
+    if ((m = /^(\d{1,2})[./](\d{1,2})[./](\d{4})/.exec(v))) return new Date(+m[3], m[2] - 1, +m[1]);
+    return null;
+  };
+  const toTime = (c) => {
+    const v = cellText(c), two = (n) => String(n).padStart(2, "0");
+    if (Array.isArray(v)) return `${two(v[0])}:${two(v[1])}`;
+    if (typeof v === "number") { const min = Math.round(v * 24 * 60) % (24 * 60); return `${two(Math.floor(min / 60))}:${two(min % 60)}`; }
+    const m = /(\d{1,2})[:.](\d{2})/.exec(v); return m ? `${two(m[1])}:${m[2]}` : "";
+  };
+  try {
+    const r = await fetch(`https://docs.google.com/spreadsheets/d/${SCHEDULE_SHEET_ID}/gviz/tq?tqx=out:json&headers=1`);
+    const txt = await r.text();
+    const data = JSON.parse(txt.slice(txt.indexOf("{"), txt.lastIndexOf("}") + 1));
+    SCHEDULE = data.table.rows.map((row) => {
+      const c = row.c || [];
+      const status = norm(cellText(c[3]));
+      return { name: cellText(c[0]), date: toDate(c[1]), time: toTime(c[2]),
+        free: status.startsWith("віль"), known: status.startsWith("віль") || status.startsWith("зайн") };
+    }).filter((x) => x.known && x.date && x.time && !norm(x.name).startsWith("приклад"));
+  } catch {
+    SCHEDULE = [];
+  }
+  renderWeek();
 }
 $("#avSelect").addEventListener("change", renderWeek);
+$("#avSelect").value = (SPECIALISTS.find((x) => x.status !== "full") || SPECIALISTS[0]).id;
 renderWeek();
+loadSchedule();
 function showSchedule(id) { closeModal(); $("#avSelect").value = id; renderWeek(); $("#availability").scrollIntoView(); }
 
 // faq
@@ -1216,7 +1253,7 @@ async function sendRequest(f, msg, text, onSuccess) {
     const j = await r.json().catch(() => ({}));
     if (!r.ok || j.ok === false) throw new Error();
     onSuccess();
-    show("Дякуємо! Заявку отримано — ми зв'яжемося з вами протягом дня 🤍", true);
+    show("Дякуємо! Заявку отримано 🤍 Запис буде підтверджено після звʼязку з адміністратором — ми напишемо вам протягом дня.", true);
   } catch {
     show("Не вдалося надіслати. Напишіть нам у Telegram @dorosenkoanastasia50 — відповімо швидко.", false);
   } finally {
