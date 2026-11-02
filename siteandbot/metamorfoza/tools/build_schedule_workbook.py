@@ -6,10 +6,10 @@ from openpyxl.formatting.rule import FormulaRule
 from openpyxl.utils import get_column_letter as L
 
 OUT = "Метаморфоза — облік і розклад.xlsx"
-SPECS = ["Анастасія Дорошенко", "Ольга Ситніченко", "Анастасія", "Наталія Горбулевич", "Олександра Байлова", "Яна"]
+SPECS = ["Анастасія Дорошенко", "Ольга Ситніченко", "Анастасія", "Наталія Горбулевич", "Олександра Байлова", "Яна", "Іванна Ромашко"]
 # ціни консультацій (грн); діагностична рахується формулою зі знижкою
 PRICES = {"Анастасія Дорошенко": (1000, 1200, 1200), "Ольга Ситніченко": (1800, None, None),
-          "Анастасія": (1300, None, None), "Наталія Горбулевич": (1200, None, None), "Олександра Байлова": (1200, None, None), "Яна": (1500, None, None)}
+          "Анастасія": (1300, None, None), "Наталія Горбулевич": (1200, None, None), "Олександра Байлова": (1200, None, None), "Яна": (1500, None, None), "Іванна Ромашко": (900, None, None)}
 SERVICES = ["Консультація", "Діагностична сесія", "Парна / сімейна сесія", "МАК-сесія"]
 STATUSES = ["вільно", "заброньовано", "проведено", "скасовано"]
 PAYMENTS = ["не оплачено", "готівка", "картка", "онлайн (IBAN)"]
@@ -71,19 +71,19 @@ for c in wp[1]: c.fill = hfill; c.font = hfont
 for i, sp in enumerate(SPECS, 2):
     cons, pair, mak = PRICES[sp]
     wp.cell(i, 1, sp); wp.cell(i, 2, cons)
-    wp.cell(i, 3, f"=IF(B{i}=\"\",\"\",ROUND(B{i}*(1-$B$10),0))")
+    wp.cell(i, 3, f"=IF(B{i}=\"\",\"\",ROUND(B{i}*(1-$B$11),0))")
     if pair: wp.cell(i, 4, pair)
     if mak: wp.cell(i, 5, mak)
-wp.cell(9, 1, "Налаштування").font = Font(name=F, bold=True, color=GREEN)
-wp.cell(10, 1, "Знижка на діагностичну сесію"); wp.cell(10, 2, 0.2).number_format = "0%"
-wp.cell(11, 1, "Джерело цін: дані власниці центру, жовтень 2026").font = Font(name=F, italic=True, color="808080")
+wp.cell(10, 1, "Налаштування").font = Font(name=F, bold=True, color=GREEN)
+wp.cell(11, 1, "Знижка на діагностичну сесію"); wp.cell(11, 2, 0.2).number_format = "0%"
+wp.cell(12, 1, "Джерело цін: дані власниці центру, жовтень 2026").font = Font(name=F, italic=True, color="808080")
 wp.column_dimensions["A"].width = 30
 for j in range(2, 6): wp.column_dimensions[L(j)].width = 22
-for row in wp.iter_rows(min_row=2, max_row=7, min_col=2, max_col=5):
+for row in wp.iter_rows(min_row=2, max_row=8, min_col=2, max_col=5):
     for c in row: c.number_format = '#,##0" грн"'
-for c in (wp["B2"], wp["B3"], wp["B4"], wp["B5"], wp["B6"], wp["B7"], wp["D2"], wp["E2"], wp["B10"]):
+for c in (wp["B2"], wp["B3"], wp["B4"], wp["B5"], wp["B6"], wp["B7"], wp["B8"], wp["D2"], wp["E2"], wp["B11"]):
     c.fill = PatternFill("solid", fgColor="FFF4D6")
-wp.cell(13, 1, "Жовті клітинки — ціни, які можна змінювати. Діагностична сесія рахується автоматично.").font = Font(name=F, italic=True, color="808080")
+wp.cell(14, 1, "Жовті клітинки — ціни, які можна змінювати. Діагностична сесія рахується автоматично.").font = Font(name=F, italic=True, color="808080")
 
 # ---------- вкладки фахівців
 dv_lists = {}
@@ -99,7 +99,7 @@ for idx, sp in enumerate(SPECS, 2):
     s.freeze_panes = "A2"
     # одна формула на весь стовпець (Google Sheets ARRAYFORMULA) — не друкуйте в стовпцях «День» і «Ціна»
     s["B2"] = '=ARRAYFORMULA(IF(A2:A="","",CHOOSE(WEEKDAY(A2:A,2),"Пн","Вт","Ср","Чт","Пт","Сб","Нд")))'
-    s["I2"] = f'=ARRAYFORMULA(IF(G2:G="","",IFERROR(HLOOKUP(G2:G,Ціни!$B$1:$E$7,{idx},FALSE),"")))'
+    s["I2"] = f'=ARRAYFORMULA(IF(G2:G="","",IFERROR(HLOOKUP(G2:G,Ціни!$B$1:$E$8,{idx},FALSE),"")))'
     s.column_dimensions["A"].number_format = "DD.MM.YYYY"
     s.column_dimensions["C"].number_format = "@"
     s.column_dimensions["I"].number_format = '#,##0" грн"'
