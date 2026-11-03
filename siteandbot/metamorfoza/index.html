@@ -233,7 +233,7 @@ select:focus,input:focus,textarea:focus{outline:none;border-color:var(--accent)}
 .faq-item.open .faq-q span{transform:rotate(45deg)}
 
 /* BOOKING */
-.booking{background:var(--accent);color:#fff}
+.booking{background:var(--accent);color:#fff;scroll-margin-top:64px}
 .booking .s-label{color:var(--gold-l)}.booking .s-label::before{background:var(--gold-l)}
 .booking .s-title{color:#fff}.booking .s-sub{color:var(--clay)}
 .book-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px}
@@ -245,7 +245,7 @@ form label{font-size:12px;color:var(--mid);display:grid;gap:6px}
 form .full{grid-column:1/-1}
 .check{display:flex!important;grid-template-columns:none!important;gap:10px!important;align-items:flex-start;font-size:13px!important}
 .check input{width:auto;margin-top:3px;accent-color:var(--accent)}
-.tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:rgba(255,255,255,.08);border-radius:100px;padding:6px;margin-bottom:16px}
+.tabs{scroll-margin-top:80px;display:grid;grid-template-columns:1fr 1fr;gap:6px;background:rgba(255,255,255,.08);border-radius:100px;padding:6px;margin-bottom:16px}
 .tab{border:none;background:transparent;color:#DDE5D8;border-radius:100px;padding:12px 10px;font-size:14px;transition:all .2s}
 .tab.on{background:var(--gold-l);color:var(--accent);font-weight:500}
 .tab:not(.on):hover{background:rgba(255,255,255,.08)}
@@ -1362,6 +1362,17 @@ $("#evForm").addEventListener("submit", (e) => {
   ].filter(Boolean).join("\n");
   sendRequest(f, msg, text, () => { f.reset(); calcEvent(); });
 });
+
+// прямі посилання на запис: #booking — до психолога, #booking-event — на подію (їх відкривають /zapys і /podii)
+function openFromHash() {
+  const tab = { "#booking-event": "evForm", "#booking": "bookForm" }[location.hash];
+  if (!tab) return;
+  showTab(tab);
+  const go = () => document.querySelector(".tabs").scrollIntoView();
+  go(); setTimeout(go, 400); setTimeout(go, 1200); // фото вище підвантажуються і зсувають сторінку
+}
+window.addEventListener("hashchange", openFromHash);
+window.addEventListener("load", openFromHash);
 
 $("#bookForm").addEventListener("submit", (e) => {
   e.preventDefault();
