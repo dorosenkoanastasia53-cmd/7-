@@ -631,7 +631,7 @@ const GALLERY = [
   { src: "img/room-cabinet.jpg", caption: "Куточок для консультацій", cls: "g-wide" },
 ];
 
-/* status: "free" — приймає клієнтів, "full" — лист очікування. Вільні години — у Google Таблиці (див. SCHEDULE_CSV_URL)
+/* status: "free" — приймає клієнтів, "full" — лист очікування. Вільні години — в адмін-панелі (/admin)
    Необов'язкові поля: experience, languages, requests (повний список запитів), notWith (з чим не працює),
    docs (посилання на документи про освіту), photoPos (кадрування фото, напр. "60% 20%").
    price: null — ціна «за запитом»
@@ -658,9 +658,8 @@ const SPECIALISTS = [
       "Член НПАУ",
     ],
     prices: [
-      { service: "Діагностична сесія", duration: "60 хв", price: 800 }, // = −20% від 1 000 грн
-      { service: "Індивідуальна консультація", duration: "60 хв", price: 1000 },
-      { service: "Парна сесія", duration: "60 хв", price: 1200 },
+      { service: "Індивідуальна консультація", duration: "60 хв", price: 1300 },
+      { service: "Парна сесія", duration: "60 хв", price: 1500 },
       { service: "МАК-сесія", duration: "90 хв", price: 1200 },
     ],
     status: "full",
@@ -959,10 +958,8 @@ const FAQ = [
   ["Чи все конфіденційно?", "Так. Єдиний виняток — ситуації, що загрожують вашому або чужому життю. Фахівці дотримуються етичного кодексу НПАУ."],
 ];
 
-/* Вільні години фахівців — Google Таблиця «Метаморфоза — облік і розклад», вкладка «Для сайту».
-   Вставте сюди посилання з «Файл → Поділитися → Опублікувати в Інтернеті → Для сайту → CSV».
-   Публікується лише вкладка «Для сайту» (фахівець, дата, час, статус) — без даних клієнтів. */
-const SCHEDULE_CSV_URL = "";
+/* Вільні години фахівців — з адмін-панелі (/admin): фахівці вносять їх самі, сайт показує лише вільні вікна */
+const SCHEDULE_URL = "/.netlify/functions/api?a=public";
 const SCHEDULE_DAYS = 21; // скільки днів наперед показувати
 const CONFIRM_NOTE = "Запис підтверджується лише після звʼязку з адміністратором.";
 
@@ -1004,7 +1001,7 @@ const norm = (t) => String(t || "").trim().toLowerCase().replace(/\s+/g, " ");
 const slotsOf = (sp) => {
   const today = new Date(); today.setHours(0, 0, 0, 0);
   const until = new Date(today); until.setDate(today.getDate() + SCHEDULE_DAYS);
-  return (SCHEDULE || []).filter((x) => norm(x.name) === norm(sp.name) && x.date >= today && x.date < until)
+  return (SCHEDULE || []).filter((x) => (x.id ? x.id === sp.id : norm(x.name) === norm(sp.name)) && x.date >= today && x.date < until)
     .sort((a, b) => a.date - b.date || a.time.localeCompare(b.time));
 };
 const hasSchedule = (sp) => slotsOf(sp).length > 0;
@@ -1201,44 +1198,17 @@ function renderWeek() {
         : `<span class="slot busy">${x.time}</span>`).join("")}</div>`;
   }).join("");
 }
-// завантаження розкладу з опублікованої вкладки «Для сайту» (CSV: блоки по 5 стовпців — фахівець, дата, час, статус, порожній)
-function parseCSV(text) {
-  const rows = []; let row = [], cell = "", q = false;
-  for (let i = 0; i < text.length; i++) {
-    const ch = text[i];
-    if (q) { if (ch === '"' && text[i + 1] === '"') { cell += '"'; i++; } else if (ch === '"') q = false; else cell += ch; }
-    else if (ch === '"') q = true;
-    else if (ch === ",") { row.push(cell); cell = ""; }
-    else if (ch === "\n" || ch === "\r") { if (ch === "\r" && text[i + 1] === "\n") i++; row.push(cell); rows.push(row); row = []; cell = ""; }
-    else cell += ch;
-  }
-  if (cell || row.length) { row.push(cell); rows.push(row); }
-  return rows;
-}
+// завантаження вільних вікон з адмін-панелі (фахівці вносять їх у /admin)
 async function loadSchedule() {
-  const toDate = (v) => {
-    let m;
-    if ((m = /^(\d{4})-(\d{1,2})-(\d{1,2})/.exec(v))) return new Date(+m[1], m[2] - 1, +m[3]);
-    if ((m = /^(\d{1,2})[./](\d{1,2})[./](\d{4})/.exec(v))) return new Date(+m[3], m[2] - 1, +m[1]);
-    return null;
-  };
-  const toTime = (v) => { const m = /(\d{1,2})[:.](\d{2})/.exec(v); return m ? `${m[1].padStart(2, "0")}:${m[2]}` : ""; };
   SCHEDULE = [];
-  if (SCHEDULE_CSV_URL) {
-    try {
-      const r = await fetch(SCHEDULE_CSV_URL);
-      if (!r.ok) throw new Error(r.status);
-      parseCSV(await r.text()).slice(1).forEach((row) => {
-        for (let k = 0; k + 3 < row.length; k += 5) {
-          const [name, date, time, status] = row.slice(k, k + 4).map((x) => (x || "").trim());
-          const st = norm(status);
-          if (!name || !(st.startsWith("віль") || st.startsWith("заброн") || st.startsWith("провед") || st.startsWith("зайн"))) continue;
-          const d = toDate(date), t = toTime(time);
-          if (d && t) SCHEDULE.push({ name, date: d, time: t, free: st.startsWith("віль") });
-        }
-      });
-    } catch { SCHEDULE = []; }
-  }
+  try {
+    const r = await fetch(SCHEDULE_URL);
+    const j = await r.json();
+    (j.slots || []).forEach((x) => {
+      const [y, m, d] = x.date.split("-").map(Number);
+      SCHEDULE.push({ id: x.specialistId, name: x.name, date: new Date(y, m - 1, d), time: x.time, free: true });
+    });
+  } catch { SCHEDULE = []; }
   renderWeek();
 }
 $("#avSelect").addEventListener("change", renderWeek);
@@ -1258,7 +1228,7 @@ $("#contacts").innerHTML = CONTACTS.map((c) =>
 $("#footYear").innerHTML = `
   <div class="foot-links">${CONTACTS.filter((c) => c.href.startsWith("http")).slice(0, 2).map((c) =>
     `<a href="${esc(c.href)}" target="_blank" rel="noopener">${c.icon} ${esc(c.label.split(":")[0])}</a>`).join("")}</div>
-  <a href="${esc(CONTACTS[2].href)}" target="_blank" rel="noopener">${esc(ADDRESS)}</a><br>© ${new Date().getFullYear()} · Метаморфоза`;
+  <a href="${esc(CONTACTS[2].href)}" target="_blank" rel="noopener">${esc(ADDRESS)}</a><br>© ${new Date().getFullYear()} · Метаморфоза · <a href="admin/" style="opacity:.6">Вхід для фахівців</a>`;
 
 // booking form
 $("#fSpec").innerHTML = `<option value="">Допоможіть обрати</option>` + SPECIALISTS.map((s) => `<option value="${s.id}">${esc(s.name)}</option>`).join("");

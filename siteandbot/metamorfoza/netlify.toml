@@ -1,8 +1,11 @@
 # Окремий сайт «Метаморфози» на Netlify.
 # У Netlify: Base directory = siteandbot/metamorfoza (решта підтягнеться з цього файлу).
 [build]
-  publish = "."
+  publish = "public"
   functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
 
 [[headers]]
   for = "/img/*"

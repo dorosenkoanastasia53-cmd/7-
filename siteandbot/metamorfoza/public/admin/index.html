@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Кабінет фахівця — Метаморфоза</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--g:#133512;--g2:#1E4A1C;--gs:#E3EBE0;--gold:#C9A034;--gold-l:#E8C766;--bg:#FBF8F5;--sand:#EFE8E2;--clay:#D9C5BA;--dark:#2C2018;--mid:#6B5A50;--light:#9A8880;--ok:#5E8C6A;--busy:#A86464;--warn:#C08A3E;--serif:'Cormorant Garamond',Georgia,serif;--sans:'Jost',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
+body{font-family:var(--sans);background:var(--bg);color:var(--dark);font-weight:300;font-size:15px}
+button{font-family:inherit;cursor:pointer}
+input,select,textarea{font-family:inherit;font-size:14px;padding:9px 11px;border:1.5px solid var(--clay);border-radius:9px;background:#fff;color:var(--dark);width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--g)}
+label{display:grid;gap:5px;font-size:12px;color:var(--mid)}
+.btn{border:none;border-radius:100px;padding:10px 20px;font-size:13px;background:var(--g);color:#fff;white-space:nowrap}
+.btn:hover{background:var(--g2)}
+.btn.out{background:#fff;color:var(--g);border:1.5px solid var(--g)}
+.btn.gold{background:var(--gold);color:var(--g)}
+.btn.sm{padding:6px 14px;font-size:12px}
+.btn.danger{background:#fff;color:var(--busy);border:1.5px solid var(--busy)}
+.muted{color:var(--light);font-size:13px}
+.msg{padding:10px 14px;border-radius:10px;font-size:14px;margin-top:10px}
+.msg.err{background:#F6E3E3;color:var(--busy)}.msg.ok{background:var(--gs);color:var(--ok)}
+
+/* login */
+.login{min-height:100vh;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 20% 30%,var(--g2),var(--g) 60%);padding:16px}
+.login form{background:#fff;border-radius:18px;padding:32px;width:100%;max-width:380px;display:grid;gap:14px}
+.login img{width:70px;margin:0 auto}
+.login h1{font-family:var(--serif);font-weight:400;font-size:28px;text-align:center}
+
+/* layout */
+header{background:var(--g);color:#F3EEDF;padding:12px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;position:sticky;top:0;z-index:10}
+header img{width:30px}
+header b{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--gold-l)}
+header .who{margin-left:auto;font-size:13px;display:flex;gap:10px;align-items:center}
+header .who button{background:none;border:1px solid rgba(232,199,102,.5);color:#F3EEDF;border-radius:100px;padding:5px 12px;font-size:12px}
+nav{display:flex;gap:4px;padding:10px 20px;background:#fff;border-bottom:1px solid var(--clay);overflow-x:auto;position:sticky;top:54px;z-index:9}
+nav button{border:none;background:none;padding:8px 14px;border-radius:100px;font-size:14px;color:var(--mid);white-space:nowrap}
+nav button.on{background:var(--g);color:#fff}
+main{max-width:1200px;margin:0 auto;padding:20px}
+.bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+.bar h2{font-family:var(--serif);font-weight:400;font-size:28px;margin-right:auto}
+.bar select,.bar input{width:auto}
+.card{background:#fff;border-radius:14px;padding:18px;box-shadow:0 4px 18px rgba(44,32,24,.06);margin-bottom:16px}
+.card h3{font-family:var(--serif);font-weight:400;font-size:22px;margin-bottom:10px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.full{grid-column:1/-1}
+.split{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;align-items:start}
+.split>*{min-width:0}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1.5px solid var(--clay);background:#fff;border-radius:100px;padding:5px 11px;font-size:13px;color:var(--mid)}
+.chip.on{background:var(--g);border-color:var(--g);color:#fff}
+
+/* week grid */
+.week{display:grid;grid-template-columns:repeat(7,minmax(120px,1fr));gap:8px;overflow-x:auto}
+.day{background:#fff;border-radius:12px;padding:10px;min-height:140px;border:1.5px solid transparent}
+.day.today{border-color:var(--gold)}
+.day h4{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--light);font-weight:500}
+.day .d{font-family:var(--serif);font-size:20px;margin-bottom:8px}
+.slot{display:flex;justify-content:space-between;align-items:center;border-radius:8px;padding:5px 8px;margin-bottom:5px;font-size:13px}
+.slot.free{background:var(--gs);color:var(--ok)}
+.slot.booked{background:#FFF2CC;color:#8a6a10}
+.slot button{background:none;border:none;color:inherit;font-size:13px;padding:0 2px}
+.slot .who{font-size:11px;opacity:.8}
+
+/* rooms */
+.rooms{overflow-x:auto}
+.rooms table{border-collapse:separate;border-spacing:6px;min-width:900px;width:100%;table-layout:fixed}
+.rooms th{font-size:12px;color:var(--light);font-weight:500;text-align:left;padding:4px}
+.rooms th.room{font-family:var(--serif);font-size:17px;color:var(--dark);font-weight:500;width:140px}
+.rooms td{background:var(--bg);border-radius:10px;vertical-align:top;padding:6px;min-height:70px;height:80px;cursor:pointer}
+.rooms td:hover{outline:1.5px dashed var(--g)}
+.bk{border-radius:7px;padding:4px 7px;font-size:12px;margin-bottom:4px;background:#F4CCCC;color:#7a3434}
+.bk.mine{background:#FFF2CC;color:#7a5a10}
+.bk.tenant{background:#E1D5F0;color:#4d3a6b}
+.free-note{font-size:11px;color:var(--ok)}
+.legend{display:flex;gap:14px;font-size:12px;color:var(--mid);flex-wrap:wrap}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+
+/* month calendar */
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.cal .h{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--light);text-align:center;padding:4px}
+.cal .c{background:#fff;border-radius:10px;min-height:78px;padding:7px;cursor:pointer;border:1.5px solid transparent;font-size:12px}
+.cal .c.other{opacity:.35}
+.cal .c.sel{border-color:var(--g)}
+.cal .c.today .n{background:var(--gold);color:#fff;border-radius:50%;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center}
+.cal .n{font-family:var(--serif);font-size:17px}
+.cal .cnt{display:block;margin-top:4px;color:var(--g);font-weight:500}
+.cal .unp{display:block;color:var(--busy)}
+table.list{width:100%;border-collapse:collapse;font-size:14px}
+table.list th{text-align:left;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--light);font-weight:500;padding:8px;border-bottom:1px solid var(--sand)}
+table.list td{padding:8px;border-bottom:1px solid var(--sand);vertical-align:top}
+.tag{display:inline-block;border-radius:100px;padding:2px 9px;font-size:11px}
+.tag.paid{background:var(--gs);color:var(--ok)}.tag.unpaid{background:#F6E3E3;color:var(--busy)}.tag.pkg{background:#FFF2CC;color:#7a5a10}
+.progress{height:8px;background:var(--sand);border-radius:8px;overflow:hidden;margin-top:6px}
+.progress i{display:block;height:100%;background:var(--g)}
+.stat{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.stat div{background:#fff;border-radius:14px;padding:16px}
+.stat b{display:block;font-family:var(--serif);font-size:30px;font-weight:500;color:var(--g)}
+.stat span{font-size:12px;color:var(--mid)}
+
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(19,53,18,.55);display:flex;align-items:center;justify-content:center;padding:16px;z-index:50}
+.modal .box{background:#fff;border-radius:16px;padding:22px;width:100%;max-width:460px;max-height:92vh;overflow:auto;display:grid;gap:12px}
+.modal h3{font-family:var(--serif);font-weight:400;font-size:24px}
+
+@media(max-width:760px){
+  main{padding:14px}
+  .grid2,.grid3,.split{grid-template-columns:1fr}
+  .card{padding:12px}
+  table.list{font-size:13px}
+  table.list th,table.list td{padding:6px 4px}
+  .stat{grid-template-columns:1fr 1fr}
+  .week{grid-template-columns:repeat(7,150px)}
+  .cal .c{min-height:56px;padding:5px}
+  .bar h2{font-size:24px;width:100%}
+}
+</style>
+</head>
+<body>
+
+<div class="login" id="loginView">
+  <form id="loginForm">
+    <img src="../img/emblem.webp" alt="">
+    <h1>Кабінет фахівця</h1>
+    <label>Логін<input name="login" autocomplete="username" required></label>
+    <label>Пароль<input name="password" type="password" autocomplete="current-password" required></label>
+    <button class="btn" type="submit">Увійти</button>
+    <div id="loginMsg"></div>
+    <a href="../" class="muted" style="text-align:center">← На сайт</a>
+  </form>
+</div>
+
+<div id="app" hidden>
+  <header>
+    <img src="../img/emblem.webp" alt=""><b>Метаморфоза</b>
+    <div class="who"><span id="whoName"></span><button id="logout">Вийти</button></div>
+  </header>
+  <nav id="tabs"></nav>
+  <main id="view"></main>
+</div>
+
+<div class="modal" id="modal" hidden><div class="box" id="modalBox"></div></div>
+
+<script>
+const API = "/.netlify/functions/api";
+const $ = (s, el = document) => el.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const money = (n) => (n == null ? "—" : Number(n).toLocaleString("uk-UA") + " грн");
+const DAYS = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд"];
+const MONTHS = ["січень", "лютий", "березень", "квітень", "травень", "червень", "липень", "серпень", "вересень", "жовтень", "листопад", "грудень"];
+const pad = (n) => String(n).padStart(2, "0");
+const iso = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+const parse = (s) => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
+const addDays = (s, n) => { const d = parse(s); d.setDate(d.getDate() + n); return iso(d); };
+const monday = (s) => { const d = parse(s); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return iso(d); };
+const TODAY = iso(new Date());
+const TIMES = Array.from({ length: 28 }, (_, i) => `${pad(8 + Math.floor(i / 2))}:${i % 2 ? "30" : "00"}`);
+const PAY = ["картка", "готівка", "онлайн (IBAN)"];
+
+let token = null, me = null, cfg = null;
+try { token = localStorage.getItem("mf_token"); } catch {}
+const state = { tab: "slots", spec: "", week: monday(TODAY), month: TODAY.slice(0, 7), day: TODAY };
+
+async function api(a, body, params = {}) {
+  const qs = new URLSearchParams({ a, ...params }).toString();
+  const r = await fetch(`${API}?${qs}`, { method: body ? "POST" : "GET", headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Bearer ${token}` } : {}) }, body: body ? JSON.stringify(body) : undefined });
+  const j = await r.json().catch(() => ({ ok: false, error: "Немає звʼязку з сервером" }));
+  if (r.status === 401 && a !== "login") { logout(); throw new Error(j.error); }
+  if (!j.ok) throw new Error(j.error || "Помилка");
+  return j;
+}
+const specName = (id) => (cfg.specialists.find((s) => s.id === id) || {}).name || id;
+const isAdmin = () => me && me.role === "admin";
+const specParam = () => (isAdmin() ? state.spec : me.specialistId) || "";
+function toast(el, text, ok) { el.innerHTML = `<div class="msg ${ok ? "ok" : "err"}">${esc(text)}</div>`; if (ok) setTimeout(() => (el.innerHTML = ""), 2500); }
+function openModal(html) { $("#modalBox").innerHTML = html; $("#modal").hidden = false; }
+function closeModal() { $("#modal").hidden = true; }
+$("#modal").addEventListener("click", (e) => { if (e.target.id === "modal") closeModal(); });
+
+// ---------- вхід
+$("#loginForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const f = e.target;
+  try {
+    const j = await api("login", { login: f.login.value, password: f.password.value });
+    token = j.token; try { localStorage.setItem("mf_token", token); } catch {}
+    await start();
+  } catch (err) { toast($("#loginMsg"), err.message); }
+});
+function logout() { token = null; try { localStorage.removeItem("mf_token"); } catch {} $("#app").hidden = true; $("#loginView").hidden = false; }
+$("#logout").addEventListener("click", logout);
+
+async function start() {
+  const j = await api("me");
+  me = j.user; cfg = j.config;
+  state.tab = "slots"; state.spec = "";
+  $("#loginView").hidden = true; $("#app").hidden = false;
+  $("#whoName").textContent = `${me.name}${isAdmin() ? " · адміністратор" : ""}`;
+  const tabs = [["slots", "Вільні години"], ["rooms", "Кабінети"], ["sessions", "Консультації"], ["packages", "Пакети"], ["stats", "Статистика"]];
+  if (isAdmin()) tabs.push(["users", "Користувачі"], ["settings", "Налаштування"]);
+  $("#tabs").innerHTML = tabs.map(([k, t]) => `<button data-t="${k}">${t}</button>`).join("");
+  render();
+}
+$("#tabs").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) { state.tab = b.dataset.t; render(); } });
+
+function specSelect(allowAll = true) {
+  if (!isAdmin()) return "";
+  return `<select id="specSel">${allowAll ? `<option value="">Усі фахівці</option>` : ""}${cfg.specialists.map((s) => `<option value="${s.id}" ${state.spec === s.id ? "selected" : ""}>${esc(s.name)}</option>`).join("")}</select>`;
+}
+function bindSpec(rerender) { const s = $("#specSel"); if (s) s.addEventListener("change", () => { state.spec = s.value; rerender(); }); }
+function weekNav() {
+  const end = addDays(state.week, 6), a = parse(state.week), b = parse(end);
+  return `<button class="btn out sm" data-w="-7">←</button><span>${a.getDate()} ${MONTHS[a.getMonth()].slice(0, 3)} – ${b.getDate()} ${MONTHS[b.getMonth()].slice(0, 3)}</span><button class="btn out sm" data-w="7">→</button><button class="btn out sm" data-w="0">Сьогодні</button>`;
+}
+function bindWeek(rerender) {
+  document.querySelectorAll("[data-w]").forEach((b) => b.addEventListener("click", () => { const n = +b.dataset.w; state.week = n ? addDays(state.week, n) : monday(TODAY); rerender(); }));
+}
+function monthNav() {
+  const [y, m] = state.month.split("-").map(Number);
+  return `<button class="btn out sm" data-m="-1">←</button><span style="min-width:120px;text-align:center">${MONTHS[m - 1]} ${y}</span><button class="btn out sm" data-m="1">→</button>`;
+}
+function bindMonth(rerender) {
+  document.querySelectorAll("[data-m]").forEach((b) => b.addEventListener("click", () => {
+    const [y, m] = state.month.split("-").map(Number); const d = new Date(y, m - 1 + +b.dataset.m, 1);
+    state.month = `${d.getFullYear()}-${pad(d.getMonth() + 1)}`; rerender();
+  }));
+}
+
+function render() {
+  document.querySelectorAll("#tabs button").forEach((b) => b.classList.toggle("on", b.dataset.t === state.tab));
+  ({ slots: renderSlots, rooms: renderRooms, sessions: renderSessions, packages: renderPackages, stats: renderStats, users: renderUsers, settings: renderSettings })[state.tab]();
+}
+
+// ---------- 1. Вільні години (бачить сайт)
+async function renderSlots() {
+  const v = $("#view");
+  if (isAdmin() && !state.spec) state.spec = cfg.specialists[0].id;
+  v.innerHTML = `<div class="bar"><h2>Вільні години</h2>${specSelect(false)}${weekNav()}</div>
+    <div class="card"><h3>Додати вільні вікна</h3>
+      <div class="grid2">
+        <label>Дата<input type="date" id="sDate" value="${state.week > TODAY ? state.week : TODAY}"></label>
+        <label>Повторити<select id="sRepeat"><option value="0">Лише цей день</option><option value="4">Щотижня, 4 тижні</option><option value="8">Щотижня, 8 тижнів</option></select></label>
+        <div class="full"><div class="muted" style="margin-bottom:6px">Оберіть час (можна кілька):</div><div class="chips" id="sTimes">${TIMES.map((t) => `<button class="chip" data-t="${t}">${t}</button>`).join("")}</div></div>
+      </div>
+      <div class="row" style="margin-top:12px"><button class="btn" id="sAdd">Додати</button><span class="muted">Зелені вікна одразу видно на сайті. Коли клієнт записався — натисніть на вікно, щоб позначити «зайнято».</span></div>
+      <div id="sMsg"></div>
+    </div>
+    <div class="week" id="sWeek"><div class="muted">Завантаження…</div></div>`;
+  bindSpec(renderSlots); bindWeek(renderSlots);
+  $("#sTimes").addEventListener("click", (e) => { const c = e.target.closest(".chip"); if (c) c.classList.toggle("on"); });
+  $("#sAdd").addEventListener("click", async () => {
+    const times = [...document.querySelectorAll("#sTimes .chip.on")].map((c) => c.dataset.t);
+    const d0 = $("#sDate").value, rep = +$("#sRepeat").value;
+    const dates = [d0, ...Array.from({ length: rep ? rep - 1 : 0 }, (_, i) => addDays(d0, 7 * (i + 1)))];
+    try { const j = await api("slot-add", { dates, times, specialistId: specParam() }); toast($("#sMsg"), `Додано вікон: ${j.added}`, true); loadWeek(); }
+    catch (err) { toast($("#sMsg"), err.message); }
+  });
+  async function loadWeek() {
+    const { slots } = await api("slots", null, { spec: specParam(), from: state.week, to: addDays(state.week, 6) });
+    $("#sWeek").innerHTML = DAYS.map((dn, i) => {
+      const date = addDays(state.week, i), d = parse(date);
+      const list = slots.filter((s) => s.date === date).sort((a, b) => a.time.localeCompare(b.time));
+      return `<div class="day ${date === TODAY ? "today" : ""}"><h4>${dn}</h4><div class="d">${d.getDate()} ${MONTHS[d.getMonth()].slice(0, 3)}</div>
+        ${list.map((s) => `<div class="slot ${s.status}"><span data-toggle="${s.id}" data-st="${s.status}" style="cursor:pointer">${s.time} · ${s.status === "free" ? "вільно" : "зайнято"}</span><button title="Видалити" data-del="${s.id}">×</button></div>`).join("") || `<div class="muted">—</div>`}</div>`;
+    }).join("");
+  }
+  $("#sWeek").addEventListener("click", async (e) => {
+    const t = e.target.closest("[data-toggle]"), d = e.target.closest("[data-del]");
+    try {
+      if (t) await api("slot-update", { id: t.dataset.toggle, status: t.dataset.st === "free" ? "booked" : "free" });
+      if (d && confirm("Видалити це вікно?")) await api("slot-delete", { id: d.dataset.del });
+      if (t || d) loadWeek();
+    } catch (err) { alert(err.message); }
+  });
+  loadWeek();
+}
+
+// ---------- 2. Кабінети: зайнято (імʼя / орендар) або вільно
+async function renderRooms() {
+  const v = $("#view");
+  v.innerHTML = `<div class="bar"><h2>Кабінети</h2>${weekNav()}</div>
+    <div class="legend" style="margin-bottom:10px"><span><i style="background:#FFF2CC"></i>мої бронювання</span><span><i style="background:#F4CCCC"></i>зайнято (фахівець)</span><span><i style="background:#E1D5F0"></i>орендар</span><span><i style="background:#fff;border:1px solid var(--clay)"></i>вільно — натисніть, щоб забронювати</span></div>
+    <div class="rooms card" id="rTable">Завантаження…</div>`;
+  bindWeek(renderRooms);
+  const { rooms, bookings } = await api("rooms", null, { from: state.week, to: addDays(state.week, 6) });
+  const days = DAYS.map((_, i) => addDays(state.week, i));
+  $("#rTable").innerHTML = `<table><tr><th></th>${days.map((d, i) => `<th>${DAYS[i]} ${parse(d).getDate()}.${pad(parse(d).getMonth() + 1)}</th>`).join("")}</tr>
+    ${rooms.map((r) => `<tr><th class="room">${esc(r.name)}</th>${days.map((d) => {
+      const list = bookings.filter((b) => b.roomId === r.id && b.date === d).sort((a, b) => a.start.localeCompare(b.start));
+      return `<td data-room="${r.id}" data-date="${d}">${list.map((b) => `<div class="bk ${b.type === "tenant" ? "tenant" : b.canEdit ? "mine" : ""}" data-bk="${b.id}" data-can="${b.canEdit ? 1 : ""}" title="${esc(b.note)}">${b.start}–${b.end} ${esc(b.label)}</div>`).join("") || `<span class="free-note">вільно</span>`}</td>`;
+    }).join("")}</tr>`).join("")}</table>`;
+  $("#rTable").addEventListener("click", async (e) => {
+    const bk = e.target.closest("[data-bk]");
+    if (bk) {
+      if (!bk.dataset.can) return alert("Це бронювання іншого фахівця або орендаря.");
+      if (confirm(`Скасувати бронювання «${bk.textContent}»?`)) { try { await api("booking-delete", { id: bk.dataset.bk }); renderRooms(); } catch (err) { alert(err.message); } }
+      return;
+    }
+    const td = e.target.closest("td[data-room]"); if (!td) return;
+    const room = rooms.find((r) => r.id === td.dataset.room);
+    openModal(`<h3>Забронювати: ${esc(room.name)}</h3>
+      <label>Дата<input type="date" id="bDate" value="${td.dataset.date}"></label>
+      <div class="grid2"><label>З<select id="bStart">${TIMES.map((t) => `<option ${t === "10:00" ? "selected" : ""}>${t}</option>`).join("")}</select></label>
+      <label>До<select id="bEnd">${[...TIMES.slice(1), "22:00"].map((t) => `<option ${t === "11:00" ? "selected" : ""}>${t}</option>`).join("")}</select></label></div>
+      ${isAdmin() ? `<label>Хто займає<select id="bType"><option value="specialist">Фахівець</option><option value="tenant">Орендар</option></select></label>
+        <label id="bSpecL">Фахівець<select id="bSpec">${cfg.specialists.map((s) => `<option value="${s.id}">${esc(s.name)}</option>`).join("")}</select></label>
+        <label id="bTenL" hidden>Назва орендаря (бачить лише адміністратор)<input id="bTen" placeholder="напр. студія йоги"></label>` : ""}
+      <label>Примітка (необовʼязково)<input id="bNote"></label>
+      <div class="row"><button class="btn" id="bSave">Забронювати</button><button class="btn out" onclick="closeModal()">Скасувати</button></div><div id="bMsg"></div>`);
+    const tSel = $("#bType"); if (tSel) tSel.addEventListener("change", () => { $("#bSpecL").hidden = tSel.value !== "specialist"; $("#bTenL").hidden = tSel.value !== "tenant"; });
+    $("#bSave").addEventListener("click", async () => {
+      try {
+        await api("booking-add", { roomId: room.id, date: $("#bDate").value, start: $("#bStart").value, end: $("#bEnd").value, note: $("#bNote").value,
+          type: tSel ? tSel.value : "specialist", specialistId: $("#bSpec") ? $("#bSpec").value : undefined, tenantName: $("#bTen") ? $("#bTen").value : undefined });
+        closeModal(); renderRooms();
+      } catch (err) { toast($("#bMsg"), err.message); }
+    });
+  });
+}
+
+// ---------- 3. Консультації: календар звітності
+async function renderSessions() {
+  const v = $("#view");
+  v.innerHTML = `<div class="bar"><h2>Консультації</h2>${specSelect(true)}${monthNav()}</div>
+    <div class="split">
+      <div class="card"><div class="cal" id="cal">Завантаження…</div></div>
+      <div class="card" id="dayPanel"></div>
+    </div>
+    <div class="card" id="unpaid"></div>`;
+  bindSpec(renderSessions); bindMonth(() => { state.day = state.month + "-01"; renderSessions(); });
+  const [{ sessions }, { packages }] = await Promise.all([api("sessions", null, { spec: specParam(), month: state.month }), api("packages", null, { spec: specParam() })]);
+  if (!state.day.startsWith(state.month)) state.day = state.month + "-01";
+  // календар місяця
+  const first = parse(state.month + "-01"), start = monday(state.month + "-01");
+  const cells = Array.from({ length: 42 }, (_, i) => addDays(start, i));
+  $("#cal").innerHTML = DAYS.map((d) => `<div class="h">${d}</div>`).join("") + cells.map((d) => {
+    const list = sessions.filter((s) => s.date === d), unp = list.filter((s) => !s.paid).length;
+    return `<div class="c ${d.slice(0, 7) !== state.month ? "other" : ""} ${d === state.day ? "sel" : ""} ${d === TODAY ? "today" : ""}" data-day="${d}"><span class="n">${parse(d).getDate()}</span>
+      ${list.length ? `<span class="cnt">${list.length} конс.</span>` : ""}${unp ? `<span class="unp">${unp} не опл.</span>` : ""}</div>`;
+  }).join("");
+  $("#cal").addEventListener("click", (e) => { const c = e.target.closest("[data-day]"); if (c) { state.day = c.dataset.day; if (!state.day.startsWith(state.month)) state.month = state.day.slice(0, 7); renderSessions(); } });
+  // день
+  const dayList = sessions.filter((s) => s.date === state.day);
+  const dd = parse(state.day);
+  $("#dayPanel").innerHTML = `<h3>${dd.getDate()} ${MONTHS[dd.getMonth()]} · ${DAYS[(dd.getDay() + 6) % 7]}</h3>
+    ${dayList.length ? `<table class="list"><tr><th>Час</th><th>Клієнт</th><th>Сума</th><th></th></tr>${dayList.map((s) => `<tr>
+      <td>${esc(s.time || "—")}</td><td>${esc(s.client)}<div class="muted">${esc(cfg.services[s.service])}${isAdmin() && !state.spec ? " · " + esc(s.specialistName) : ""}</div></td>
+      <td>${money(s.price)}<br><span class="tag ${s.packageId ? "pkg" : s.paid ? "paid" : "unpaid"}">${s.packageId ? "пакет" : s.paid ? "оплачено" : "не оплачено"}</span></td>
+      <td><button class="btn out sm" data-edit="${s.id}">Змінити</button></td></tr>`).join("")}</table>` : `<p class="muted">Консультацій цього дня ще немає.</p>`}
+    <button class="btn" style="margin-top:12px" id="addSess">+ Відмітити консультацію</button>`;
+  $("#addSess").addEventListener("click", () => sessionForm(null, packages));
+  $("#dayPanel").addEventListener("click", (e) => { const b = e.target.closest("[data-edit]"); if (b) sessionForm(sessions.find((s) => s.id === b.dataset.edit), packages); });
+  // неоплачені за місяць
+  const unpaid = sessions.filter((s) => !s.paid);
+  $("#unpaid").innerHTML = `<h3>Не оплачено за ${MONTHS[first.getMonth()]}: ${money(unpaid.reduce((t, s) => t + (s.price || 0), 0))}</h3>
+    ${unpaid.length ? `<table class="list"><tr><th>Дата</th><th>Клієнт</th><th>Сума</th><th></th></tr>${unpaid.map((s) => `<tr><td>${s.date.slice(8)}.${s.date.slice(5, 7)}</td><td>${esc(s.client)}${isAdmin() && !state.spec ? `<div class="muted">${esc(s.specialistName)}</div>` : ""}</td><td>${money(s.price)}</td>
+      <td><button class="btn gold sm" data-pay="${s.id}">Оплачено</button></td></tr>`).join("")}</table>` : `<p class="muted">Усе оплачено 🤍</p>`}`;
+  $("#unpaid").addEventListener("click", async (e) => {
+    const b = e.target.closest("[data-pay]"); if (!b) return;
+    const s = sessions.find((x) => x.id === b.dataset.pay);
+    const method = prompt("Спосіб оплати (картка / готівка / онлайн):", "картка"); if (method === null) return;
+    try { await api("session-save", { ...s, paid: true, payMethod: method }); renderSessions(); } catch (err) { alert(err.message); }
+  });
+}
+function sessionForm(s, packages) {
+  const spec = s ? s.specialistId : specParam();
+  if (!spec) return alert("Спершу оберіть фахівця вгорі.");
+  const prices = (cfg.specialists.find((x) => x.id === spec) || {}).prices || {};
+  const auto = (svc) => (svc === "diag" ? (prices.consult ? Math.round(prices.consult * (1 - cfg.discount / 100)) : "") : prices[svc] ?? "");
+  const pk = packages.filter((p) => p.specialistId === spec && (p.left > 0 || (s && s.packageId === p.id)));
+  openModal(`<h3>${s ? "Змінити консультацію" : "Нова консультація"}</h3>
+    ${isAdmin() ? `<div class="muted">Фахівець: ${esc(specName(spec))}</div>` : ""}
+    <div class="grid2"><label>Дата<input type="date" id="fDate" value="${s ? s.date : state.day}"></label>
+    <label>Час<select id="fTime"><option value="">—</option>${TIMES.map((t) => `<option ${s && s.time === t ? "selected" : ""}>${t}</option>`).join("")}</select></label></div>
+    <label>Клієнт (імʼя або позначка)<input id="fClient" value="${esc(s ? s.client : "")}"></label>
+    <label>Контакт (необовʼязково)<input id="fContact" value="${esc(s ? s.contact : "")}"></label>
+    <label>Послуга<select id="fService">${Object.entries(cfg.services).map(([k, t]) => `<option value="${k}" ${(s ? s.service : "consult") === k ? "selected" : ""}>${t}${k === "diag" ? ` (−${cfg.discount}%)` : ""}</option>`).join("")}</select></label>
+    <label>Пакет<select id="fPkg"><option value="">Без пакета</option>${pk.map((p) => `<option value="${p.id}" ${s && s.packageId === p.id ? "selected" : ""}>${esc(p.client)} — лишилось ${p.left} з ${p.total}</option>`).join("")}</select></label>
+    <div class="grid2"><label>Сума, грн<input type="number" id="fPrice" value="${s ? s.price ?? "" : auto("consult")}"></label>
+    <label>Оплата<select id="fPay"><option value="">не оплачено</option>${PAY.map((p) => `<option ${s && s.paid && s.payMethod === p ? "selected" : ""}>${p}</option>`).join("")}</select></label></div>
+    <label>Нотатка (бачите лише ви)<textarea id="fNote" rows="2">${esc(s ? s.note : "")}</textarea></label>
+    <div class="row"><button class="btn" id="fSave">Зберегти</button><button class="btn out" onclick="closeModal()">Скасувати</button>${s ? `<button class="btn danger" id="fDel" style="margin-left:auto">Видалити</button>` : ""}</div><div id="fMsg"></div>`);
+  const syncPrice = () => {
+    const p = pk.find((x) => x.id === $("#fPkg").value);
+    $("#fPay").disabled = !!p;
+    if (p) { $("#fPrice").value = p.pricePerSession; return; }
+    $("#fPrice").value = auto($("#fService").value);
+  };
+  $("#fService").addEventListener("change", syncPrice); $("#fPkg").addEventListener("change", syncPrice);
+  if (s && s.packageId) $("#fPay").disabled = true;
+  $("#fSave").addEventListener("click", async () => {
+    const pay = $("#fPay").value;
+    try {
+      await api("session-save", { id: s ? s.id : undefined, specialistId: spec, date: $("#fDate").value, time: $("#fTime").value, client: $("#fClient").value, contact: $("#fContact").value,
+        service: $("#fService").value, packageId: $("#fPkg").value, price: $("#fPrice").value, paid: !!pay, payMethod: pay, note: $("#fNote").value });
+      closeModal(); renderSessions();
+    } catch (err) { toast($("#fMsg"), err.message); }
+  });
+  if (s) $("#fDel").addEventListener("click", async () => { if (confirm("Видалити запис про консультацію?")) { try { await api("session-delete", { id: s.id, specialistId: spec }); closeModal(); renderSessions(); } catch (err) { toast($("#fMsg"), err.message); } } });
+}
+
+// ---------- 4. Пакети: лишилось X з N
+async function renderPackages() {
+  const v = $("#view");
+  v.innerHTML = `<div class="bar"><h2>Пакети</h2>${specSelect(true)}<button class="btn" id="pAdd">+ Новий пакет</button></div><div id="pList">Завантаження…</div>`;
+  bindSpec(renderPackages);
+  const { packages } = await api("packages", null, { spec: specParam() });
+  $("#pList").innerHTML = packages.length ? `<div class="grid3">${packages.map((p) => `<div class="card">
+      <h3>${esc(p.client)}</h3>${isAdmin() && !state.spec ? `<div class="muted">${esc(p.specialistName)}</div>` : ""}
+      <div style="font-size:22px;font-family:var(--serif)">лишилось <b>${p.left}</b> з ${p.total}</div>
+      <div class="progress"><i style="width:${Math.round((p.used / p.total) * 100)}%"></i></div>
+      <p class="muted" style="margin-top:8px">${money(p.pricePerSession)} за сесію · оплачено ${money(p.paidAmount)} · від ${p.date.slice(8)}.${p.date.slice(5, 7)}</p>
+      ${p.note ? `<p class="muted">${esc(p.note)}</p>` : ""}
+      <div class="row" style="margin-top:10px"><button class="btn out sm" data-pe="${p.id}">Змінити</button>${p.used ? "" : `<button class="btn danger sm" data-pd="${p.id}">Видалити</button>`}</div></div>`).join("")}</div>`
+    : `<div class="card muted">Пакетів ще немає. Створіть пакет, коли клієнт оплатив кілька сесій наперед — далі просто обирайте його під час відмітки консультації.</div>`;
+  $("#pAdd").addEventListener("click", () => packageForm(null));
+  $("#pList").addEventListener("click", async (e) => {
+    const ed = e.target.closest("[data-pe]"), dl = e.target.closest("[data-pd]");
+    if (ed) packageForm(packages.find((p) => p.id === ed.dataset.pe));
+    if (dl && confirm("Видалити пакет?")) { const p = packages.find((x) => x.id === dl.dataset.pd); try { await api("package-delete", { id: p.id, specialistId: p.specialistId }); renderPackages(); } catch (err) { alert(err.message); } }
+  });
+}
+function packageForm(p) {
+  const spec = p ? p.specialistId : specParam();
+  if (!spec) return alert("Спершу оберіть фахівця вгорі.");
+  const consult = ((cfg.specialists.find((x) => x.id === spec) || {}).prices || {}).consult || "";
+  openModal(`<h3>${p ? "Змінити пакет" : "Новий пакет"}</h3>
+    <label>Клієнт<input id="kClient" value="${esc(p ? p.client : "")}"></label>
+    <div class="grid2"><label>Сесій у пакеті<input type="number" id="kTotal" min="1" value="${p ? p.total : 4}"></label>
+    <label>Ціна за сесію, грн<input type="number" id="kPrice" value="${p ? p.pricePerSession : consult}"></label></div>
+    <div class="grid2"><label>Оплачено, грн<input type="number" id="kPaid" value="${p ? p.paidAmount : ""}"></label>
+    <label>Дата оплати<input type="date" id="kDate" value="${p ? p.date : TODAY}"></label></div>
+    <label>Нотатка<input id="kNote" value="${esc(p ? p.note : "")}"></label>
+    <div class="row"><button class="btn" id="kSave">Зберегти</button><button class="btn out" onclick="closeModal()">Скасувати</button></div><div id="kMsg"></div>`);
+  const fill = () => { if (!$("#kPaid").value || !p) $("#kPaid").placeholder = String((+$("#kTotal").value || 0) * (+$("#kPrice").value || 0)); };
+  $("#kTotal").addEventListener("input", fill); $("#kPrice").addEventListener("input", fill); fill();
+  $("#kSave").addEventListener("click", async () => {
+    try {
+      await api("package-save", { id: p ? p.id : undefined, specialistId: spec, client: $("#kClient").value, total: $("#kTotal").value, pricePerSession: $("#kPrice").value,
+        paidAmount: $("#kPaid").value || $("#kPaid").placeholder, date: $("#kDate").value, note: $("#kNote").value });
+      closeModal(); renderPackages();
+    } catch (err) { toast($("#kMsg"), err.message); }
+  });
+}
+
+// ---------- 5. Статистика
+async function renderStats() {
+  const v = $("#view");
+  v.innerHTML = `<div class="bar"><h2>Статистика</h2>${specSelect(true)}${monthNav()}</div><div id="stBody">Завантаження…</div>`;
+  bindSpec(renderStats); bindMonth(renderStats);
+  const { rows } = await api("stats", null, { spec: specParam(), month: state.month });
+  const sum = (k) => rows.reduce((t, r) => t + r[k], 0);
+  $("#stBody").innerHTML = `<div class="stat">
+      <div><b>${sum("sessions")}</b><span>консультацій</span></div>
+      <div><b>${sum("diag")}</b><span>перших (діагностичних)</span></div>
+      <div><b>${money(sum("paid"))}</b><span>оплачено</span></div>
+      <div><b style="color:var(--busy)">${money(sum("unpaid"))}</b><span>не оплачено (${sum("unpaidCount")})</span></div>
+    </div>
+    ${rows.length > 1 ? `<div class="card"><table class="list"><tr><th>Фахівець</th><th>Консультацій</th><th>Перших</th><th>Клієнтів</th><th>Сума</th><th>Оплачено</th><th>Не оплачено</th></tr>
+      ${rows.map((r) => `<tr><td>${esc(r.name)}</td><td>${r.sessions}</td><td>${r.diag}</td><td>${r.clients}</td><td>${money(r.total)}</td><td>${money(r.paid)}</td><td>${money(r.unpaid)}</td></tr>`).join("")}
+      <tr><td><b>Разом</b></td><td><b>${sum("sessions")}</b></td><td><b>${sum("diag")}</b></td><td><b>${sum("clients")}</b></td><td><b>${money(sum("total"))}</b></td><td><b>${money(sum("paid"))}</b></td><td><b>${money(sum("unpaid"))}</b></td></tr></table></div>`
+      : `<div class="card muted">Унікальних клієнтів за місяць: ${sum("clients")} · загальна сума: ${money(sum("total"))}</div>`}`;
+}
+
+// ---------- 6. Користувачі (адмін)
+async function renderUsers() {
+  const v = $("#view");
+  const { users } = await api("users");
+  v.innerHTML = `<div class="bar"><h2>Користувачі</h2><button class="btn" id="uAdd">+ Додати фахівця</button></div>
+    <div class="card"><table class="list"><tr><th>Імʼя</th><th>Логін</th><th>Роль</th><th>Фахівець на сайті</th><th></th></tr>
+    ${users.map((u) => `<tr><td>${esc(u.name)}</td><td>${esc(u.login)}</td><td>${u.role === "admin" ? "адміністратор" : "фахівець"}</td><td>${esc(u.specialistId ? specName(u.specialistId) : "—")}</td>
+      <td><button class="btn out sm" data-ue="${u.id}">Змінити</button></td></tr>`).join("") || `<tr><td colspan="5" class="muted">Ще нікого немає. Додайте фахівців і передайте їм логін та пароль.</td></tr>`}</table></div>`;
+  $("#uAdd").addEventListener("click", () => userForm(null));
+  v.addEventListener("click", (e) => { const b = e.target.closest("[data-ue]"); if (b) userForm(users.find((u) => u.id === b.dataset.ue)); });
+}
+function userForm(u) {
+  openModal(`<h3>${u ? "Змінити користувача" : "Новий користувач"}</h3>
+    <label>Імʼя<input id="uName" value="${esc(u ? u.name : "")}"></label>
+    <label>Логін (латиницею)<input id="uLogin" value="${esc(u ? u.login : "")}" autocomplete="off"></label>
+    <label>${u ? "Новий пароль (залиште порожнім, щоб не змінювати)" : "Пароль (від 8 символів)"}<input id="uPass" type="text" autocomplete="new-password"></label>
+    <label>Роль<select id="uRole"><option value="specialist">Фахівець</option><option value="admin" ${u && u.role === "admin" ? "selected" : ""}>Адміністратор</option></select></label>
+    <label>Хто це на сайті<select id="uSpec"><option value="">—</option>${cfg.specialists.map((s) => `<option value="${s.id}" ${u && u.specialistId === s.id ? "selected" : ""}>${esc(s.name)}</option>`).join("")}</select></label>
+    <div class="row"><button class="btn" id="uSave">Зберегти</button><button class="btn out" onclick="closeModal()">Скасувати</button>${u ? `<button class="btn danger" id="uDel" style="margin-left:auto">Видалити</button>` : ""}</div><div id="uMsg"></div>`);
+  if (!u) $("#uPass").value = Math.random().toString(36).slice(2, 7) + "-" + Math.random().toString(36).slice(2, 7);
+  $("#uSave").addEventListener("click", async () => {
+    try {
+      await api("user-save", { id: u ? u.id : undefined, name: $("#uName").value, login: $("#uLogin").value, password: $("#uPass").value, role: $("#uRole").value, specialistId: $("#uSpec").value });
+      const pass = $("#uPass").value, login = $("#uLogin").value.trim().toLowerCase();
+      closeModal(); renderUsers();
+      if (pass) alert(`Збережено. Передайте фахівцю:\nсторінка: ${location.origin}/admin/\nлогін: ${login}\nпароль: ${pass}`);
+    } catch (err) { toast($("#uMsg"), err.message); }
+  });
+  if (u) $("#uDel").addEventListener("click", async () => { if (confirm(`Видалити доступ для ${u.name}?`)) { await api("user-delete", { id: u.id }); closeModal(); renderUsers(); } });
+}
+
+// ---------- 7. Налаштування (адмін): кабінети, ціни, знижка
+function renderSettings() {
+  const v = $("#view");
+  const c = JSON.parse(JSON.stringify(cfg));
+  v.innerHTML = `<div class="bar"><h2>Налаштування</h2></div>
+    <div class="card"><h3>Кабінети</h3><div id="roomsEd"></div><button class="btn out sm" id="roomAdd" style="margin-top:8px">+ Кабінет</button></div>
+    <div class="card"><h3>Ціни фахівців, грн</h3>
+      <label style="max-width:260px;margin-bottom:12px">Знижка на першу (діагностичну) консультацію, %<input type="number" id="disc" value="${c.discount}"></label>
+      <table class="list"><tr><th>Фахівець</th><th>Консультація</th><th>Парна / сімейна</th><th>МАК-сесія</th><th>Діагностична</th></tr>
+      ${c.specialists.map((s, i) => `<tr><td>${esc(s.name)}</td>${["consult", "pair", "mak"].map((k) => `<td><input type="number" data-i="${i}" data-k="${k}" value="${s.prices[k] ?? ""}" style="max-width:110px"></td>`).join("")}<td class="muted" data-diag="${i}"></td></tr>`).join("")}</table>
+      <p class="muted" style="margin-top:8px">Ціни тут — для обліку в адмінці. Ціни на сайті змінюються окремо.</p>
+    </div>
+    <button class="btn" id="cfgSave">Зберегти налаштування</button><div id="cfgMsg"></div>`;
+  const drawRooms = () => { $("#roomsEd").innerHTML = c.rooms.map((r, i) => `<div class="row" style="margin-bottom:6px"><input value="${esc(r.name)}" data-r="${i}" style="max-width:320px"><button class="btn danger sm" data-rd="${i}">×</button></div>`).join(""); };
+  const drawDiag = () => c.specialists.forEach((s, i) => { const el = $(`[data-diag="${i}"]`); el.textContent = s.prices.consult ? money(Math.round(s.prices.consult * (1 - (+$("#disc").value || 0) / 100))) : "—"; });
+  drawRooms(); drawDiag();
+  $("#roomsEd").addEventListener("input", (e) => { if (e.target.dataset.r) c.rooms[+e.target.dataset.r].name = e.target.value; });
+  $("#roomsEd").addEventListener("click", (e) => { const b = e.target.closest("[data-rd]"); if (b && confirm("Видалити кабінет? Його бронювання зникнуть з календаря.")) { c.rooms.splice(+b.dataset.rd, 1); drawRooms(); } });
+  $("#roomAdd").addEventListener("click", () => { c.rooms.push({ id: "", name: "Новий кабінет" }); drawRooms(); });
+  v.addEventListener("input", (e) => { const t = e.target; if (t.dataset.k) { c.specialists[+t.dataset.i].prices[t.dataset.k] = t.value === "" ? undefined : +t.value; drawDiag(); } if (t.id === "disc") drawDiag(); });
+  $("#cfgSave").addEventListener("click", async () => {
+    c.discount = +$("#disc").value;
+    try { await api("config-save", { config: c }); cfg = (await api("me")).config; toast($("#cfgMsg"), "Збережено", true); } catch (err) { toast($("#cfgMsg"), err.message); }
+  });
+}
+
+if (token) start().catch(() => logout());
+</script>
+</body>
+</html>
