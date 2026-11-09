@@ -360,8 +360,8 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
     <div class="nav-links" id="navLinks">
       <a href="#mission">Про центр</a>
       <a href="#first">Перша зустріч</a>
-      <a href="#gallery">Простір</a>
       <a href="#specialists">Фахівці</a>
+      <a href="#gallery">Простір</a>
       <a href="#availability">Розклад</a>
       <a href="#events">Події</a>
       <a href="#faq">FAQ</a>
@@ -410,16 +410,6 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
   </div>
 </section>
 
-<!-- ADVANTAGES -->
-<section id="about">
-  <div class="wrap">
-    <div class="s-label">Чому Метаморфоза</div>
-    <h2 class="s-title">Наші переваги</h2>
-    <p class="s-sub">Ми створили центр, у якому безпечно говорити про найважливіше — і де кожен знайде свого фахівця та свій формат.</p>
-    <div class="adv-grid" id="advGrid"></div>
-  </div>
-</section>
-
 <!-- FIRST SESSION -->
 <section id="first">
   <div class="wrap first-grid">
@@ -441,16 +431,6 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
   </div>
 </section>
 
-<!-- GALLERY -->
-<section class="gallery" id="gallery">
-  <div class="wrap">
-    <div class="s-label">Фото</div>
-    <h2 class="s-title">Наш простір</h2>
-    <p class="s-sub">Кабінети для індивідуальних і парних сесій, зала для груп і лекцій. Мʼякі крісла, диван, чай, кава і смаколики, власна вбиральня — атмосфера, у якій хочеться видихнути.</p>
-    <div class="gal-grid" id="galGrid"></div>
-  </div>
-</section>
-
 <!-- SPECIALISTS -->
 <section class="specialists" id="specialists">
   <div class="wrap">
@@ -459,6 +439,26 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
     <p class="s-sub">Натисніть на картку, щоб побачити освіту, підхід, вартість та вільні години кожного фахівця.</p>
     <div class="sp-filters" id="spFilters"></div>
     <div class="sp-grid" id="spGrid"></div>
+  </div>
+</section>
+
+<!-- ADVANTAGES -->
+<section id="about">
+  <div class="wrap">
+    <div class="s-label">Чому Метаморфоза</div>
+    <h2 class="s-title">Наші переваги</h2>
+    <p class="s-sub">Ми створили центр, у якому безпечно говорити про найважливіше — і де кожен знайде свого фахівця та свій формат.</p>
+    <div class="adv-grid" id="advGrid"></div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="wrap">
+    <div class="s-label">Фото</div>
+    <h2 class="s-title">Наш простір</h2>
+    <p class="s-sub">Кабінети для індивідуальних і парних сесій, зала для груп і лекцій. Мʼякі крісла, диван, чай, кава і смаколики, власна вбиральня — атмосфера, у якій хочеться видихнути.</p>
+    <div class="gal-grid" id="galGrid"></div>
   </div>
 </section>
 
@@ -532,10 +532,10 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
       <label>Ваше ім'я *<input name="name" required></label>
       <label>Телефон / Telegram / Instagram *<input name="contact" required></label>
       <div class="full">
-        <div class="f-label">Оберіть зустрічі * <span>(дві або більше — знижка 20% на всі квитки)</span></div>
+        <div class="f-label">Оберіть зустрічі * <span id="multiHint"></span></div>
         <div class="ev-pick" id="evPick"></div>
       </div>
-      <label class="full check"><input type="checkbox" name="plus1" id="plus1"> Приду з +1 (подруга, партнер чи колега) — знижка 20% для обох</label>
+      <label class="full check"><input type="checkbox" name="plus1" id="plus1"> Приду з +1 (подруга, партнер чи колега)<span id="plusHint"></span></label>
       <label class="full" id="plus1Name" hidden>Ім'я вашого +1 (необов'язково)<input name="plus1name"></label>
       <div class="full sum" id="evSum"></div>
       <label class="full">Коментар (необов'язково)<textarea name="comment" rows="2"></textarea></label>
@@ -950,9 +950,10 @@ const EVENTS = [
 Буде простір для практичних вправ, анонімних запитань і теплої розмови. Ділитися особистим — лише за бажанням 🤍` },
 ];
 
-const EVENT_DEALS = [
+/* Знижки на події. Зараз вимкнено. Щоб повернути: додайте рядки сюди і поставте EVENT_DISCOUNT нижче, напр.:
   { title: "Приходь з +1", text: "Беріть із собою подругу, партнера чи колегу — знижка 20% для обох." },
-  { title: "Кілька зустрічей −20%", text: "Купуйте квитки одразу на дві або більше зустрічей — знижка 20% на всі квитки." },
+  { title: "Кілька зустрічей −20%", text: "Купуйте квитки одразу на дві або більше зустрічей — знижка 20% на всі квитки." }, */
+const EVENT_DEALS = [
 ];
 
 const EVENT_TYPES = { meetup: "Тематична зустріч", practice: "Практична зустріч", circle: "Жіноче коло", group: "Група", workshop: "Воркшоп", lecture: "Лекція" };
@@ -963,7 +964,6 @@ const FAQ = [
   ["Онлайн-сесії так само ефективні?", "Так, дослідження підтверджують співставну ефективність. Потрібні тільки тихе приватне місце, навушники і стабільний інтернет."],
   ["Як скасувати або перенести сесію?", "Повідомте не пізніше ніж за 24 години — і ми перенесемо зустріч без оплати. Пізніше скасування оплачується, крім форс-мажорів."],
   ["Де ви знаходитесь?", "Київ, вул. Первомайського, 5А — поруч зі станцією метро «Кловська». Також можна працювати онлайн."],
-  ["Чи є знижки на зустрічі?", "Так: приходьте на зустріч з +1 — знижка 20% для обох. А якщо купуєте квитки одразу на дві або більше зустрічей — знижка 20% на всі квитки."],
   ["Чи можна купити книги чи зошити на місці?", "Так, прямо в центрі можна придбати антистреси, книги, робочі зошити та блокноти — все в одному місці."],
   ["Чи все конфіденційно?", "Так. Єдиний виняток — ситуації, що загрожують вашому або чужому життю. Фахівці дотримуються етичного кодексу НПАУ."],
 ];
@@ -976,7 +976,7 @@ const CONFIRM_NOTE = "Запис підтверджується лише піс�
 
 /* Посилання на онлайн-оплату (IBAN / QR) */
 const PAY_URL = "https://ibanoplata.com/iban-qr/1b0d2dac3420435cbc0a0ea9bbb5c86e";
-const EVENT_DISCOUNT = 20; // % — за +1 або за дві й більше зустрічей (знижки не сумуються)
+const EVENT_DISCOUNT = 0; // % — за +1 або за дві й більше зустрічей (0 — знижок немає; знижки не сумуються)
 
 /* Куди надсилається заявка: Netlify-функція з ../netlify/functions/send.js */
 const SEND_URL = "/.netlify/functions/send";
@@ -1070,7 +1070,7 @@ const richText = (txt) => txt.split("\n\n").map((block) => {
   return plain.map((l) => `<p>${esc(l)}</p>`).join("") + (items.length ? `<ul>${items.map((l) => `<li>${esc(l)}</li>`).join("")}</ul>` : "");
 }).join("");
 
-$("#evDeals").hidden = !upcoming().length; // знижки показуємо лише коли є найближчі зустрічі
+$("#evDeals").hidden = !upcoming().length || !EVENT_DEALS.length; // знижки — лише коли вони є і є найближчі зустрічі
 $("#evDeals").innerHTML = EVENT_DEALS.map((d) => `<div class="deal"><b>${esc(d.title)}</b>${esc(d.text)}</div>`).join("");
 let evFilter = "all";
 function renderEvents() {
@@ -1111,7 +1111,7 @@ function openEvent(i) {
     <div class="m-body">
       ${richText(e.more || e.text)}
       <h4>Вартість</h4><p><span class="ev-price">${money(e.price)}</span></p>
-      <p style="font-size:13px">${EVENT_DEALS.map((d) => `<b>${esc(d.title)}:</b> ${esc(d.text)}`).join("<br>")}</p>
+      <p style="font-size:13px" ${EVENT_DEALS.length ? "" : "hidden"}>${EVENT_DEALS.map((d) => `<b>${esc(d.title)}:</b> ${esc(d.text)}`).join("<br>")}</p>
       <button class="btn btn-main btn-sm" style="margin-top:14px" onclick="bookEvent(${i})">Зареєструватися</button>
     </div>`;
   $("#modal").classList.add("open");
@@ -1285,6 +1285,7 @@ function bookEvent(i) {
 
 // event form: вибір зустрічей, +1 і підрахунок суми
 $("#payBtn").href = PAY_URL;
+if (EVENT_DISCOUNT) { $("#multiHint").textContent = `(дві або більше — знижка ${EVENT_DISCOUNT}% на всі квитки)`; $("#plusHint").textContent = ` — знижка ${EVENT_DISCOUNT}% для обох`; }
 function renderEvPick() {
   $("#evPick").innerHTML = upcoming().map((e) => `<label class="ev-opt"><input type="checkbox" name="ev" value="${EVENTS.indexOf(e)}">
     <span>${esc(e.title)}<small>${dayLabel(e.date)}, ${esc(e.time)}${evHost(e) ? " · " + esc(evHost(e)) : ""}</small></span><b>${money(e.price)}</b></label>`).join("")
@@ -1296,7 +1297,7 @@ function evOrder() {
   const people = f.plus1.checked ? 2 : 1;
   const sum = picked.reduce((a, e) => a + e.price, 0) * people;
   const reasons = [people > 1 && "+1", picked.length > 1 && "кілька зустрічей"].filter(Boolean);
-  const disc = reasons.length ? Math.round(sum * EVENT_DISCOUNT / 100) : 0;
+  const disc = reasons.length && EVENT_DISCOUNT ? Math.round(sum * EVENT_DISCOUNT / 100) : 0;
   return { picked, people, sum, reasons, disc, total: sum - disc };
 }
 function calcEvent() {
