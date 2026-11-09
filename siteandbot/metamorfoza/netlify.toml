@@ -4,6 +4,12 @@
   publish = "public"
   functions = "netlify/functions"
 
+# Netlify шукає значення змінних оточення у файлах сайту.
+# Логін адміна і Telegram-ID не секретні (логін може збігатися зі словами на сайті),
+# тому їх не перевіряємо. BOT_TOKEN, ADMIN_PASSWORD і AUTH_SECRET перевіряються далі.
+[build.environment]
+  SECRETS_SCAN_OMIT_KEYS = "ADMIN_LOGIN,ADMIN_CHAT_ID"
+
 [functions]
   node_bundler = "esbuild"
 

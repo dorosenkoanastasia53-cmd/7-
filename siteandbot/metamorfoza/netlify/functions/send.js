@@ -3,7 +3,7 @@
 //
 // Потрібні змінні оточення (Netlify → Site settings → Environment variables):
 //   BOT_TOKEN        — токен бота від @BotFather
-//   ADMIN_CHAT_ID    — ваш Telegram id (кому приходять заявки), напр. 507173671
+//   ADMIN_CHAT_ID    — ваш Telegram id (кому приходять заявки)
 
 exports.handler = async (event) => {
   if (event.httpMethod !== "POST") {
