@@ -2,7 +2,7 @@ import io, sys, segno
 from PIL import Image, ImageDraw, ImageFont
 
 BASE = sys.argv[1] if len(sys.argv) > 1 else "https://metamorfoza.netlify.app"
-EMBLEM = "/home/user/7-/siteandbot/metamorfoza/img/emblem.webp"
+EMBLEM = "/home/user/7-/siteandbot/metamorfoza/public/img/emblem.webp"
 GREEN, GOLD, CREAM = (19, 53, 18), (201, 160, 52), (251, 248, 245)
 FONT = "/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf"
 FONT_S = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
