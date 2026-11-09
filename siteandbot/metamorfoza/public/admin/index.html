@@ -105,6 +105,19 @@ table.list td{padding:8px;border-bottom:1px solid var(--sand);vertical-align:top
 .stat b{display:block;font-family:var(--serif);font-size:30px;font-weight:500;color:var(--g)}
 .stat span{font-size:12px;color:var(--mid)}
 
+/* visits chart: один ряд (відвідувачі за день), без легенди; підказка при наведенні + таблиця */
+.chart{position:relative;display:flex;align-items:flex-end;gap:2px;height:180px;border-bottom:1px solid var(--sand);padding-top:24px}
+.chart .col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;cursor:default;position:relative}
+.chart .bar{width:100%;max-width:24px;background:#3F7A3A;border-radius:4px 4px 0 0;min-height:0}
+.chart .col:hover .bar{background:var(--g)}
+.chart .peak{position:absolute;top:-18px;font-size:11px;color:var(--mid);white-space:nowrap}
+.chart-x{display:flex;gap:2px;font-size:10px;color:var(--light);margin-top:4px}
+.chart-x span{flex:1;text-align:center}
+.tip{position:fixed;pointer-events:none;background:var(--dark);color:#fff;font-size:12px;padding:6px 9px;border-radius:7px;z-index:60;white-space:nowrap}
+.bars-list>div{display:grid;grid-template-columns:1fr auto;gap:10px;padding:7px 0;border-bottom:1px solid var(--sand);font-size:14px}
+.bars-list small{display:block;color:var(--light);font-size:12px}
+.mini{height:6px;background:var(--sand);border-radius:6px;margin-top:4px;overflow:hidden}.mini i{display:block;height:100%;background:#3F7A3A;border-radius:6px}
+
 /* modal */
 .modal{position:fixed;inset:0;background:rgba(19,53,18,.55);display:flex;align-items:center;justify-content:center;padding:16px;z-index:50}
 .modal .box{background:#fff;border-radius:16px;padding:22px;width:100%;max-width:460px;max-height:92vh;overflow:auto;display:grid;gap:12px}
@@ -204,7 +217,7 @@ async function start() {
   $("#loginView").hidden = true; $("#app").hidden = false;
   $("#whoName").textContent = `${me.name}${isAdmin() ? " · адміністратор" : ""}`;
   const tabs = [["slots", "Вільні години"], ["rooms", "Кабінети"], ["sessions", "Консультації"], ["packages", "Пакети"], ["stats", "Статистика"]];
-  if (isAdmin()) tabs.push(["users", "Користувачі"], ["settings", "Налаштування"]);
+  if (isAdmin()) tabs.push(["visits", "Відвідування"], ["users", "Користувачі"], ["settings", "Налаштування"]);
   $("#tabs").innerHTML = tabs.map(([k, t]) => `<button data-t="${k}">${t}</button>`).join("");
   render();
 }
@@ -235,7 +248,7 @@ function bindMonth(rerender) {
 
 function render() {
   document.querySelectorAll("#tabs button").forEach((b) => b.classList.toggle("on", b.dataset.t === state.tab));
-  ({ slots: renderSlots, rooms: renderRooms, sessions: renderSessions, packages: renderPackages, stats: renderStats, users: renderUsers, settings: renderSettings })[state.tab]();
+  ({ slots: renderSlots, rooms: renderRooms, sessions: renderSessions, packages: renderPackages, stats: renderStats, visits: renderVisits, users: renderUsers, settings: renderSettings })[state.tab]();
 }
 
 // ---------- 1. Вільні години (бачить сайт)
@@ -467,6 +480,54 @@ async function renderStats() {
       ${rows.map((r) => `<tr><td>${esc(r.name)}</td><td>${r.sessions}</td><td>${r.diag}</td><td>${r.clients}</td><td>${money(r.total)}</td><td>${money(r.paid)}</td><td>${money(r.unpaid)}</td></tr>`).join("")}
       <tr><td><b>Разом</b></td><td><b>${sum("sessions")}</b></td><td><b>${sum("diag")}</b></td><td><b>${sum("clients")}</b></td><td><b>${money(sum("total"))}</b></td><td><b>${money(sum("paid"))}</b></td><td><b>${money(sum("unpaid"))}</b></td></tr></table></div>`
       : `<div class="card muted">Унікальних клієнтів за місяць: ${sum("clients")} · загальна сума: ${money(sum("total"))}</div>`}`;
+}
+
+// ---------- Відвідування сайту (лише адмін)
+const EVENT_NAMES = {
+  booking_click: "«Записатися» (меню / картка фахівця)", choose_specialist: "«Обрати фахівця» на головному екрані", first_session_click: "Перша зустріч −20%",
+  specialist_open: "Відкрили картку фахівця", slot_pick: "Обрали вільну годину", event_open: "«Детальніше про зустріч»", event_register: "«Зареєструватися» на подію",
+  form_submit_psy: "✅ Заявка до психолога", form_submit_event: "✅ Реєстрація на подію", pay_click: "«Оплатити онлайн»",
+  telegram_click: "Telegram", instagram_click: "Instagram", map_click: "Адреса на карті", qr_zapys: "QR / посилання /zapys", qr_podii: "QR / посилання /podii",
+};
+async function renderVisits() {
+  const v = $("#view");
+  v.innerHTML = `<div class="bar"><h2>Відвідування сайту</h2>${monthNav()}</div><div id="vBody">Завантаження…</div>`;
+  bindMonth(renderVisits);
+  const d = await api("analytics", null, { month: state.month });
+  const [y, m] = state.month.split("-").map(Number), n = new Date(y, m, 0).getDate();
+  const days = Array.from({ length: n }, (_, i) => { const k = `${state.month}-${pad(i + 1)}`; return { k, day: i + 1, ...(d.days[k] || { views: 0, visitors: 0 }) }; });
+  const sum = (f) => days.reduce((t, x) => t + x[f], 0);
+  const count = (e) => Object.values(d.events[e] || {}).reduce((t, x) => t + x, 0);
+  const leads = count("form_submit_psy") + count("form_submit_event"), visitors = sum("visitors");
+  const max = Math.max(1, ...days.map((x) => x.visitors)), peak = days.reduce((a, b) => (b.visitors > a.visitors ? b : a), days[0]);
+  const listOf = (obj, total) => Object.entries(obj).sort((a, b) => b[1] - a[1]).map(([k, c]) => `<div><span>${esc(k)}<div class="mini"><i style="width:${Math.round((c / Math.max(1, total)) * 100)}%"></i></div></span><b>${c}</b></div>`).join("") || `<p class="muted">Ще немає даних</p>`;
+  const evRows = Object.keys(EVENT_NAMES).filter((e) => count(e)).sort((a, b) => count(b) - count(a));
+  $("#vBody").innerHTML = `<div class="stat">
+      <div><b>${visitors}</b><span>відвідувачів (за днями)</span></div>
+      <div><b>${sum("views")}</b><span>переглядів сторінок</span></div>
+      <div><b>${leads}</b><span>заявок і реєстрацій</span></div>
+      <div><b>${visitors ? ((leads / visitors) * 100).toFixed(1) : "0"}%</b><span>конверсія у заявку</span></div>
+    </div>
+    <div class="card"><h3>Відвідувачі по днях</h3>
+      <div class="chart" id="vChart">${days.map((x) => `<div class="col" data-tip="${x.day} ${MONTHS[m - 1]}: ${x.visitors} відвідувачів · ${x.views} переглядів"><div class="bar" style="height:${(x.visitors / max) * 100}%"></div>${x === peak && x.visitors ? `<span class="peak">${x.visitors}</span>` : ""}</div>`).join("")}</div>
+      <div class="chart-x">${days.map((x) => `<span>${x.day % 5 === 1 ? x.day : ""}</span>`).join("")}</div>
+      <details style="margin-top:12px"><summary class="muted" style="cursor:pointer">Показати таблицею</summary>
+        <table class="list" style="margin-top:8px"><tr><th>День</th><th>Відвідувачі</th><th>Перегляди</th></tr>${days.filter((x) => x.views).map((x) => `<tr><td>${x.day}.${pad(m)}</td><td>${x.visitors}</td><td>${x.views}</td></tr>`).join("") || `<tr><td colspan="3" class="muted">Ще немає даних</td></tr>`}</table></details>
+    </div>
+    <div class="split">
+      <div class="card"><h3>Натискання на ключові кнопки</h3><div class="bars-list">${evRows.map((e) => {
+        const top = Object.entries(d.events[e]).sort((a, b) => b[1] - a[1]).slice(0, 3).map(([l, c]) => `${esc(l)} — ${c}`).join(" · ");
+        return `<div><span>${EVENT_NAMES[e]}<small>${top}</small></span><b>${count(e)}</b></div>`;
+      }).join("") || `<p class="muted">Ще немає даних</p>`}</div></div>
+      <div><div class="card"><h3>Звідки приходять</h3><div class="bars-list">${listOf(d.sources, visitors)}</div></div>
+      <div class="card"><h3>Які фахівці цікавлять</h3><div class="bars-list">${listOf(d.events.specialist_open || {}, count("specialist_open"))}</div></div></div>
+    </div>
+    <p class="muted">Статистика анонімна: без cookies, IP-адрес та імен. Відвідувач рахується один раз на день.</p>`;
+  let tip = document.querySelector(".tip");
+  if (!tip) { tip = document.createElement("div"); tip.className = "tip"; tip.hidden = true; document.body.appendChild(tip); }
+  const ch = $("#vChart");
+  ch.addEventListener("mousemove", (e) => { const c = e.target.closest("[data-tip]"); if (!c) { tip.hidden = true; return; } tip.textContent = c.dataset.tip; tip.hidden = false; tip.style.left = Math.min(e.clientX + 12, innerWidth - tip.offsetWidth - 8) + "px"; tip.style.top = e.clientY - 34 + "px"; });
+  ch.addEventListener("mouseleave", () => (tip.hidden = true));
 }
 
 // ---------- 6. Користувачі (адмін)

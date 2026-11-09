@@ -180,10 +180,18 @@ nav{position:sticky;top:0;z-index:100;background:rgba(251,248,245,.94);backdrop-
 /* SPECIALISTS */
 .specialists{background:#fff}
 .sp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.sp{background:var(--bg);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+.sp{background:var(--bg);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s;text-align:center;border:1px solid var(--sand)}
 .sp:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
-.sp-photo{height:300px;background:var(--clay);position:relative}
-.sp-photo img{width:100%;height:100%;object-fit:cover;object-position:top}
+.sp-photo{position:relative;padding:30px 0 0}
+.arch{width:68%;aspect-ratio:4/5;margin:0 auto;border-radius:999px 999px 18px 18px;overflow:hidden;background:var(--clay);box-shadow:0 10px 30px rgba(44,32,24,.12)}
+.arch img{width:100%;height:100%;object-fit:cover;object-position:center 25%}
+.sp-sub{font-family:var(--serif);font-style:italic;font-size:19px;color:var(--mid);margin:2px 0 10px;line-height:1.25}
+.sp-bio{font-size:14px;color:var(--mid);margin-bottom:14px}
+.sp-label{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:8px}
+.sp .tags{justify-content:center}
+.sp .tag{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-size:12px;padding:5px 12px}
+.sp-format{display:inline-flex;gap:10px;align-items:center;align-self:center;background:var(--sand);border-radius:100px;padding:8px 16px;font-size:13px;margin-bottom:18px}
+.sp-format span{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--light)}
 .sp-initials{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:84px;color:#fff;font-weight:300}
 .status{position:absolute;top:14px;left:14px;background:#fff;border-radius:100px;padding:6px 12px;font-size:12px;display:flex;align-items:center;gap:6px;font-weight:400}
 .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
@@ -193,12 +201,12 @@ nav{position:sticky;top:0;z-index:100;background:rgba(251,248,245,.94);backdrop-
 .week-empty{grid-column:1/-1;background:#fff;border-radius:var(--r);padding:28px;color:var(--mid);font-size:15px}
 .sp-body{padding:22px 24px 24px;display:flex;flex-direction:column;flex:1}
 .sp h3{font-family:var(--serif);font-size:26px;font-weight:400;line-height:1.15}
-.sp-role{font-size:13px;color:var(--accent);margin:4px 0 12px}
+.sp-role{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin:6px 0 4px;font-weight:500}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
 .tag{font-size:11px;background:#fff;border:1px solid var(--clay);border-radius:100px;padding:4px 10px;color:var(--mid)}
 .sp-info{font-size:13px;color:var(--mid);display:grid;gap:4px;margin-bottom:18px}
 .sp-info b{color:var(--dark);font-weight:400}
-.sp-foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.sp-foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;text-align:left;border-top:1px solid var(--clay);padding-top:16px}
 .sp-price{font-family:var(--serif);line-height:1.2}
 .sp-price s{font-size:20px;color:var(--mid);margin-right:8px}
 .sp-price b{font-size:26px;font-weight:500;color:var(--accent)}
@@ -358,7 +366,7 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
       <a href="#events">Події</a>
       <a href="#faq">FAQ</a>
     </div>
-    <a href="#booking" class="btn btn-main btn-sm">Записатися</a>
+    <a href="#booking" class="btn btn-main btn-sm" data-track="booking_click" data-label="Меню">Записатися</a>
     <button class="burger" aria-label="Меню" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
   </div>
 </nav>
@@ -372,10 +380,10 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
       <h1>Мета<em>морфоза</em></h1>
       <p>Місце, де зміни стають можливими. Команда фахівців, яка допоможе пройти шлях від тривоги та розгубленості — до опори, ясності й контакту з собою.</p>
       <div class="hero-btns">
-        <a href="#specialists" class="btn btn-main">Обрати фахівця</a>
+        <a href="#specialists" class="btn btn-main" data-track="choose_specialist" data-label="Головний екран">Обрати фахівця</a>
         <a href="#events" class="btn btn-out">Відкриття 7–8 листопада</a>
       </div>
-      <a href="#first" class="hero-promo"><b>−20%</b> на діагностичну сесію — прийдіть познайомитися з фахівцем →</a>
+      <a href="#first" class="hero-promo" data-track="first_session_click" data-label="Головний екран"><b>−20%</b> на діагностичну сесію — прийдіть познайомитися з фахівцем →</a>
       <div class="hero-stats" id="heroStats"></div>
     </div>
     <div class="hero-photos">
@@ -427,7 +435,7 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
       <h3>Діагностична сесія</h3>
       <p>Знижка 20% від вартості консультації обраного фахівця</p>
       <div class="first-prices" id="firstPrices"></div>
-      <button class="btn btn-main" style="width:100%;margin-top:22px" onclick="bookFirst()">Записатися на знайомство</button>
+      <button class="btn btn-main" style="width:100%;margin-top:22px" onclick="bookFirst()" data-track="first_session_click" data-label="Блок «Перша зустріч»">Записатися на знайомство</button>
       <p class="first-note">Не знаєте, кого обрати? Залиште заявку — адміністратор підбере фахівця під ваш запит.</p>
     </div>
   </div>
@@ -548,7 +556,7 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
       <div class="form-msg" id="evMsg"></div>
       <div class="full ev-actions">
         <button class="btn btn-main" type="submit">Зареєструватися</button>
-        <a class="btn btn-out" id="payBtn" target="_blank" rel="noopener">Оплатити онлайн ↗</a>
+        <a class="btn btn-out" id="payBtn" target="_blank" rel="noopener" data-track="pay_click" data-label="Форма події">Оплатити онлайн ↗</a>
       </div>
       <p class="full pay-note">Можна одразу оплатити за посиланням: у призначенні платежу вкажіть ваше ім'я та назву зустрічі.</p>
     </form>
@@ -632,7 +640,8 @@ const GALLERY = [
 ];
 
 /* status: "free" — приймає клієнтів, "full" — лист очікування. Вільні години — в адмін-панелі (/admin)
-   Необов'язкові поля: experience, languages, requests (повний список запитів), notWith (з чим не працює),
+   Поля картки (однакові для всіх): role, subtitle (підхід · з ким працює), bio (1–3 речення), topics (до 6 тегів «З чим працює»).
+   Необов'язкові поля: languages, requests (повний список запитів), notWith (з чим не працює),
    docs (посилання на документи про освіту), photoPos (кадрування фото, напр. "60% 20%").
    price: null — ціна «за запитом»
    slots: вільні години на тиждень (1 = Пн ... 7 = Нд); busy — зайняті години */
@@ -640,14 +649,15 @@ const SPECIALISTS = [
   {
     id: "anastasiia",
     name: "Анастасія Дорошенко",
-    role: "Психологиня, сексологиня, засновниця центру",
+    role: "Засновниця · психологиня",
+    subtitle: "Парна терапевтка · КПТ, МАК",
+    bio: "Членкиня НПАУ. Понад 2000 консультацій. Працює з дорослими 16+ і парами.",
     photo: "img/anastasiia-doroshenko.jpg",
-    experience: "3+ роки · 2000+ консультацій",
     approach: "Інтегративний підхід: КПТ · МАК · сексологія · сімейна психологія",
-    formats: ["Онлайн"],
+    formats: ["Офлайн у центрі", "Онлайн"],
     languages: ["Українська", "Русский", "Polski"],
     clients: ["Дорослі 16+", "Пари"],
-    topics: ["Тривожність", "Стосунки", "Самооцінка", "Кордони", "Вигорання", "Сексологія"],
+    topics: ["Тривожність", "Стосунки", "Самооцінка", "Кордони", "Вигорання", "Парні стосунки"],
     about: "Магістр психології, членкиня Національної психологічної асоціації України. Допомагає знайти власні інструменти, щоб надалі самостійно справлятися з труднощами. На сесіях можна плакати, сміятися, лаятися або мовчати — це ваш безпечний простір.",
     education: [
       "Магістр психології — Таврійський нац. університет ім. В. І. Вернадського",
@@ -667,12 +677,14 @@ const SPECIALISTS = [
   {
     id: "olha",
     name: "Ольга Ситніченко",
-    role: "Психологиня, нейропсихологиня · КПТ",
+    role: "Психологиня, нейропсихологиня",
+    subtitle: "КПТ-підхід · дорослі 18+",
+    bio: "Працює з широким спектром психологічних запитів, поєднуючи доказові методи психології та нейропсихології. Має досвід роботи зі складними психологічними станами, зокрема у військових і ветеранів. Пройшла спеціалізоване навчання в Israel Trauma Coalition.",
     photo: "img/olha-sytnichenko.jpg",
     approach: "Когнітивно-поведінкова терапія (КПТ) в інтегративному підході з опорою на нейропсихологію. Методи з доказовою ефективністю, рекомендовані NICE, МОЗ та іншими міжнародними інститутами психічного здоров'я.",
-    formats: ["Онлайн", "Офлайн"],
-    clients: ["Дорослі 18+", "Підлітки 14+ (індивідуально)"],
-    topics: ["Тривожність", "Панічні атаки", "Депресія", "Психотравма", "Втрата і горе", "Стосунки", "Самооцінка", "Вигорання", "Емоційна регуляція", "Адаптація"],
+    formats: ["Офлайн у центрі", "Онлайн"],
+    clients: ["Дорослі 18+"],
+    topics: ["Тривога та панічні атаки", "Стрес і вигорання", "Самооцінка та стосунки", "Емоційні та кризові стани", "Психотравма та ПТСР", "Втрата і горювання"],
     about: "Мені близька психологія, яка не лише пояснює, чому нам буває складно, а й допомагає знаходити шляхи до змін. У своїй практиці поєдную науково обґрунтовані методи психологічної допомоги, знання з нейропсихології та уважність до індивідуальної історії кожної людини. Працюю з дорослими, які стикаються з тривогою, емоційним виснаженням, життєвими кризами, труднощами у стосунках та наслідками травматичного досвіду.\n\nДотримуюся міждисциплінарного підходу, адже психічне та фізичне здоров'я тісно пов'язані, тому за потреби співпрацюю з психіатрами, неврологами та іншими лікарями. Для мене важливо бачити за кожним запитом не лише симптоми, а передусім людину з її історією, досвідом і можливостями, допомагаючи їй не просто зрозуміти свій стан, а й знайти дієві способи покращити якість життя.",
     requests: [
       "Травма, переживання втрати і горя, посттравматичний стресовий розлад",
@@ -712,11 +724,13 @@ const SPECIALISTS = [
     id: "anastasiia-k",
     name: "Анастасія",
     role: "Психологиня-консультантка",
+    subtitle: "Інтегративний підхід · дорослі, підлітки 14+, сімʼї",
+    bio: "Працює з підлітками, сімʼями та дорослими, а також із групами. Цінує прояви особистості й підтримує на кожному кроці до вирішення запиту.",
     photo: "img/anastasiia-k.jpg",
     approach: "Інтегративний підхід",
-    formats: ["Онлайн", "Офлайн"],
-    clients: ["Дорослі", "Підлітки 14+", "Сім'ї", "Групи"],
-    topics: ["Самооцінка", "Сепарація", "Вікові кризи", "Стосунки", "Харчова поведінка", "Депресія", "Тривожність", "Самотність", "Психотравма"],
+    formats: ["Офлайн у центрі", "Онлайн"],
+    clients: ["Дорослі", "Підлітки 14+", "Сімʼї", "Групи"],
+    topics: ["Самооцінка", "Сепарація", "Вікові кризи", "Стосунки", "Харчова поведінка", "Тривожність"],
     about: "Вітаю! Мене звати Анастасія — я психологиня-консультантка.\n\nМій шлях у психології почався з прагнення допомагати ще у шкільному віці. Уже тоді я переконалась, що вміння формулювати думки й почуття словами творить дива, тому спираюсь на цей принцип у своїй роботі і зараз. Я ціную прояви особистості, тому консультація зі мною — це ваш простір, де я буду підтримувати вас на кожному кроці до вирішення вашого запиту.\n\nЗапрошую вас до себе на консультацію!",
     requests: [
       "Самооцінка",
@@ -741,12 +755,13 @@ const SPECIALISTS = [
     id: "nataliia",
     name: "Наталія Горбулевич",
     role: "Практична психологиня",
+    subtitle: "КПТ, нейропсихологія, майндфулнес · дорослі 18+",
+    bio: "Понад пʼять років працює індивідуально з дорослими. Допомагає, щоб зміни ставали частиною життя, а не лише темою розмов.",
     photo: "img/nataliia-horbulevych.jpg",
-    experience: "понад 5 років",
     approach: "Інтегративний підхід: когнітивно-поведінкова терапія (КПТ), знання з нейропсихології та практики майндфулнес.",
-    formats: ["Офлайн", "Онлайн"],
+    formats: ["Офлайн у центрі", "Онлайн"],
     clients: ["Дорослі 18+"],
-    topics: ["Тривожність", "Вигорання", "Самооцінка", "Кордони", "Емоційна регуляція", "Життєві зміни", "Стосунки"],
+    topics: ["Тривожність", "Стрес і вигорання", "Самооцінка і самокритика", "Кордони", "Емоційна регуляція", "Життєві зміни"],
     about: "Я Наталія Горбулевич, практична психологиня, понад п'ять років працюю індивідуально з дорослими.\n\nПрацюю інтегративно: використовую когнітивно-поведінковий підхід, знання з нейропсихології та практики майндфулнес. Я дивлюсь на труднощі в контексті досвіду людини — це допомагає зрозуміти, на чому варто зосередитися в роботі й які інструменти будуть доречними.\n\nМені важливо, щоб зміни були не лише темою наших розмов з клієнтом, а поступово ставали частиною життя людини.",
     requests: [
       "Тривога, підвищена тривожність, постійне напруження",
@@ -770,13 +785,15 @@ const SPECIALISTS = [
   {
     id: "oleksandra",
     name: "Олександра Байлова",
-    role: "Практична психологиня, магістр психології",
+    role: "Психологиня, арт-терапевтка",
+    subtitle: "ТА, арт-терапія · дорослі, підлітки",
+    bio: "Із 2020 року розвивається у сфері психології, має досвід роботи в соціальній та клінічній сферах.",
     photo: "img/oleksandra-bailova.jpg",
     photoPos: "62% 15%", // кадрування фото (по горизонталі, по вертикалі)
     approach: "Транзакційний аналіз та арттерапія — інструменти добираю індивідуально під запит клієнта.",
-    formats: ["Онлайн", "Офлайн"],
+    formats: ["Офлайн у центрі", "Онлайн"],
     clients: ["Дорослі", "Підлітки"],
-    topics: ["Тривожність", "Вигорання", "Самооцінка", "Прокрастинація", "Пошук себе", "Стосунки", "Кордони", "Конфлікти"],
+    topics: ["Тривожність", "Вигорання", "Самооцінка", "Прокрастинація", "Пошук себе", "Стосунки і кордони"],
     about: "Я практична психологиня та магістр психології, працюю з дорослими й підлітками. Допомагаю впоратися з тривожністю, емоційним виснаженням, невпевненістю в собі, прокрастинацією, труднощами у стосунках та пошуком власних життєвих орієнтирів.\n\nУ роботі поєдную транзакційний аналіз та арттерапію, добираючи інструменти індивідуально під запит клієнта. Для мене важливо створити безпечний і приймаючий простір, у якому можна краще зрозуміти себе, знайти внутрішню опору та поступово перейти від усвідомлення проблеми до реальних змін у житті.",
     requests: [
       "Тривожність та внутрішня напруга",
@@ -809,13 +826,15 @@ const SPECIALISTS = [
   },
   {
     id: "yana",
-    name: "Яна",
-    role: "Психолог, гештальт-підхід",
+    name: "Яна Турчанінова",
+    role: "Психологиня",
+    subtitle: "Гештальт-підхід · дорослі 18+",
+    bio: "Гештальт-терапевтка в навчанні. Проходить спеціалізацію з підтримки військових та їхніх родин.",
     photo: "img/yana.jpg",
     approach: "Гештальт-терапія (у процесі сертифікації в методі).",
-    formats: ["Офлайн", "Онлайн"],
+    formats: ["Офлайн у центрі", "Онлайн"],
     clients: ["Дорослі 18+", "Військові та їхні родини", "ЛГБТ+"],
-    topics: ["Стосунки", "Адаптація", "Втрата і горе", "Кордони", "Емоційна регуляція", "Сепарація", "Тривожність", "Депресія"],
+    topics: ["Стосунки", "Тривожність", "Втрата і горе", "Кордони", "Сепарація", "Військові та родини"],
     about: "Привіт, мене звати Яна, і я — психолог. У своїй роботі спираюся на гештальт-терапію і зараз знаходжуся в процесі сертифікації в цьому методі.\n\nУ роботі з клієнтами для мене важливо:\n— допомогти навести ясність там, де є внутрішній хаос;\n— знайти опору замість створення ілюзій;\n— підтримувати без інфантилізації;\n— зміцнювати автономію, а не залежність.\n\nЯ працюю з темами стосунків, тривожності, контролю, самоцінності, особистих меж та внутрішньої опори. До мене можна звернутись, якщо ти старше 18 років. Поряд зі мною можна трохи розслабитися та видихнути.",
     requests: [
       "Стосунки: з собою, з оточенням, з близькими, партнерські",
@@ -843,12 +862,14 @@ const SPECIALISTS = [
   {
     id: "ivanna",
     name: "Іванна Ромашко",
-    role: "Психологиня, позитивна психотерапія та арт-терапія",
+    role: "Психологиня, арт-терапевтка",
+    subtitle: "Позитивна психотерапія · дорослі, підлітки 14+",
+    bio: "Членкиня дивізіону психології харчової поведінки НПА. Має підготовку від ООН та UNFPA в допомозі постраждалим від насильства.",
     photo: "img/ivanna-romashko.jpg",
     approach: "Інтегративний підхід: позитивна психотерапія, арт-терапія, емоційно-образна терапія.",
-    formats: ["Офлайн", "Онлайн"],
+    formats: ["Офлайн у центрі", "Онлайн"],
     clients: ["Дорослі", "Підлітки 14+"],
-    topics: ["Харчова поведінка", "Психотравма", "Втрата і горе", "Тривожність", "Депресія", "Стосунки", "Самооцінка", "Вигорання", "Прокрастинація", "Емоційна регуляція"],
+    topics: ["Харчова поведінка, РХП", "Психотравма", "Тривога, депресивні стани", "Втрати", "Перфекціонізм", "Самооцінка"],
     about: "У роботі я поєдную мʼякість і турботу з умінням бути вимогливою там, де це необхідно для терапевтичного процесу. У взаємодії з клієнтом для мене найважливішим є довірливий контакт, адже саме в атмосфері прийняття, безпеки й тепла стає можливим зцілення навіть найглибших емоційних ран.\n\nЯ працюю з дорослими та підлітками. У своїй практиці поєдную методи позитивної психотерапії, арт-терапії та емоційно-образної терапії.",
     requests: [
       "Порушення харчової поведінки та РХП",
@@ -960,6 +981,7 @@ const FAQ = [
 
 /* Вільні години фахівців — з адмін-панелі (/admin): фахівці вносять їх самі, сайт показує лише вільні вікна */
 const SCHEDULE_URL = "/.netlify/functions/api?a=public";
+const TODAY_KEY = new Date().toISOString().slice(0, 10);
 const SCHEDULE_DAYS = 21; // скільки днів наперед показувати
 const CONFIRM_NOTE = "Запис підтверджується лише після звʼязку з адміністратором.";
 
@@ -1087,6 +1109,7 @@ function renderEvents() {
 }
 function openEvent(i) {
   const e = EVENTS[i];
+  track("event_open", e.title.slice(0, 60));
   $("#modalBox").className = "modal-box ev-modal";
   $("#modalBox").innerHTML = `
     <button class="modal-close" onclick="closeModal()" aria-label="Закрити">×</button>
@@ -1108,23 +1131,29 @@ $("#evFilters").addEventListener("click", (e) => { const b = e.target.closest(".
 renderEvents();
 
 // specialists
+// фільтр за запитом: шукає слова в тегах, повному списку запитів, описі та «з ким працює»
+const FILTERS = [
+  ["Усі", null], ["Тривожність", /тривог|панічн/], ["Стосунки", /стосун|сепарац/], ["Пари і сімʼї", /пар[иаі]|сімʼ|сім'|сімей/],
+  ["Самооцінка", /самооцін|самоцін|перфекц|впевнен/], ["Вигорання і стрес", /вигоран|стрес|прокрастин/], ["Травма і ПТСР", /травм|птср|насильств/],
+  ["Втрата і горе", /втрат|горюв|горе/], ["Кордони", /кордон|меж/], ["Харчова поведінка", /харчов|рхп/], ["Військові", /військ|ветеран/], ["Підлітки", /підліт/],
+];
+const spText = (s) => [...s.topics, ...(s.requests || []), ...s.clients, s.bio || "", s.subtitle || ""].join(" ").toLowerCase();
 let spFilter = "Усі";
 function renderSpecialists() {
-  const filters = ["Усі", ...allTopics];
-  $("#spFilters").innerHTML = filters.map((t) => `<button class="pill ${t === spFilter ? "on" : ""}">${esc(t)}</button>`).join("");
-  const list = SPECIALISTS.filter((s) => spFilter === "Усі" || s.topics.includes(spFilter));
+  $("#spFilters").innerHTML = FILTERS.map(([t]) => `<button class="pill ${t === spFilter ? "on" : ""}">${esc(t)}</button>`).join("");
+  const re = (FILTERS.find(([t]) => t === spFilter) || [])[1];
+  const list = SPECIALISTS.filter((s) => !re || re.test(spText(s)));
   $("#spGrid").innerHTML = list.map((s) => `
-    <article class="sp" onclick="openModal('${s.id}')" style="cursor:pointer">
-      <div class="sp-photo">${photoHTML(s)}<div class="status"><i class="dot ${s.status}"></i>${STATUS[s.status]}</div></div>
+    <article class="sp" onclick="openModal('${s.id}')" style="cursor:pointer" data-track="specialist_open" data-label="${esc(s.name)}">
+      <div class="sp-photo"><div class="arch">${photoHTML(s)}</div><div class="status"><i class="dot ${s.status}"></i>${STATUS[s.status]}</div></div>
       <div class="sp-body">
         <h3>${esc(s.name)}</h3>
         <div class="sp-role">${esc(s.role)}</div>
-        <div class="tags">${s.topics.slice(0, 4).map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>
-        <div class="sp-info">
-          ${s.experience ? `<div>Досвід: <b>${esc(s.experience)}</b></div>` : ""}
-          <div>Формат: <b>${s.formats.join(", ")}</b></div>
-          <div>Працює з: <b>${s.clients.join(", ")}</b></div>
-        </div>
+        <div class="sp-sub">${esc(s.subtitle || "")}</div>
+        <p class="sp-bio">${esc(s.bio || "")}</p>
+        <div class="sp-label">З чим працює</div>
+        <div class="tags">${s.topics.slice(0, 6).map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>
+        <div class="sp-format"><span>Формат</span>${s.formats.join(" · ").toLowerCase()}</div>
         <div class="sp-foot">
           <div class="sp-price">${priceFrom(s)}</div>
           <span class="btn btn-out btn-sm">Детальніше</span>
@@ -1148,6 +1177,7 @@ function openModal(id) {
       <div class="status" style="position:static;display:inline-flex;background:var(--bg);margin-bottom:12px"><i class="dot ${s.status}"></i>${STATUS[s.status]}${s.status !== "full" && slotCount(s) ? ` · ${slotCount(s)} ${plural(slotCount(s), "вільне вікно", "вільні вікна", "вільних вікон")}` : ""}</div>
       <h3>${esc(s.name)}</h3>
       <div class="sp-role">${esc(s.role)}</div>
+      <div class="sp-sub">${esc(s.subtitle || "")}</div>
       ${s.about.split("\n\n").map((t) => `<p>${esc(t)}</p>`).join("")}
       <h4>Підхід</h4><p>${esc(s.approach)}</p>
       <h4>З якими запитами працює</h4>${s.requests
@@ -1159,7 +1189,7 @@ function openModal(id) {
       <h4>Вартість</h4>
       <div class="m-prices">${s.prices.map((p) => `<div><span>${esc(p.service)}${dur(p)}</span><b>${money(p.price)}</b></div>`).join("")}</div>
       <h4>Доступність</h4>
-      <p>${s.experience ? `Досвід: ${esc(s.experience)}<br>` : ""}Формат: ${s.formats.join(", ")}<br>${s.languages ? `Мови: ${s.languages.join(", ")}<br>` : ""}Працює з: ${s.clients.join(", ")}<br>
+      <p>Формат: ${s.formats.join(" · ").toLowerCase()}<br>${s.languages ? `Мови: ${s.languages.join(", ")}<br>` : ""}Працює з: ${s.clients.join(", ")}<br>
       ${s.status === "full" ? "Зараз лист очікування" : slotCount(s) ? `Найближче вільне вікно: ${((d) => `${d.getDate()} ${MONTHS_G[d.getMonth()]}`)(slotsOf(s).find((x) => x.free).date)}` : "Час узгоджується через адміністратора"}</p>
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:24px">
         <button class="btn btn-main btn-sm" onclick="bookSpec('${s.id}')">${s.status === "full" ? "У лист очікування" : "Записатися"}</button>
@@ -1247,6 +1277,7 @@ function showTab(id) {
 document.querySelector(".tabs").addEventListener("click", (e) => { const t = e.target.closest(".tab"); if (t) showTab(t.dataset.tab); });
 
 function bookSpec(id, time) {
+  track(time ? "slot_pick" : "booking_click", (byId(id) || {}).name || "Фахівець");
   closeModal(); showTab("bookForm");
   $("#fSpec").value = id; fillServices();
   if (time) $("#fTime").value = time;
@@ -1255,6 +1286,7 @@ function bookSpec(id, time) {
 function pickSlot(id, time) { bookSpec(id, time); }
 function bookFirst() { showTab("bookForm"); $("#fSpec").value = ""; fillServices(); $("#booking").scrollIntoView(); }
 function bookEvent(i) {
+  track("event_register", EVENTS[i].title.slice(0, 60));
   closeModal(); showTab("evForm");
   const box = document.querySelector(`#evPick input[value="${i}"]`);
   if (box) { box.checked = true; calcEvent(); }
@@ -1330,7 +1362,7 @@ $("#evForm").addEventListener("submit", (e) => {
     `Оплата: ${f.paid.checked ? "клієнт вказав, що оплатив онлайн" : "ще не оплачено"}`,
     f.comment.value.trim() && `Коментар: ${f.comment.value.trim()}`,
   ].filter(Boolean).join("\n");
-  sendRequest(f, msg, text, () => { f.reset(); calcEvent(); });
+  sendRequest(f, msg, text, () => { track("form_submit_event", o.picked.map((x) => x.title).join(" + ").slice(0, 60)); f.reset(); calcEvent(); });
 });
 
 // прямі посилання на запис: #booking — до психолога, #booking-event — на подію (їх відкривають /zapys і /podii)
@@ -1343,6 +1375,35 @@ function openFromHash() {
 }
 window.addEventListener("hashchange", openFromHash);
 window.addEventListener("load", openFromHash);
+
+// ---------- анонімна статистика відвідувань (без cookies, IP та ідентифікаторів; бачить лише власниця в /admin)
+const TRACK_URL = "/.netlify/functions/api?a=track";
+function track(e, label = "", extra = {}) {
+  if (location.protocol === "file:") return;
+  try {
+    const body = JSON.stringify({ e, label, ...extra });
+    if (navigator.sendBeacon) navigator.sendBeacon(TRACK_URL, new Blob([body], { type: "application/json" }));
+    else fetch(TRACK_URL, { method: "POST", body, keepalive: true });
+  } catch {}
+}
+(function pageView() {
+  const ref = document.referrer, qs = new URLSearchParams(location.search);
+  const src = qs.get("src") === "qr" ? "QR-код" : /instagram/i.test(ref) ? "Instagram" : /t\.me|telegram/i.test(ref) ? "Telegram"
+    : /facebook|fb\./i.test(ref) ? "Facebook" : /google\./i.test(ref) ? "Google" : !ref || ref.startsWith(location.origin) ? "Пряме" : "Інше";
+  let newVisitor = true;
+  try { newVisitor = localStorage.getItem("mf_seen") !== TODAY_KEY; localStorage.setItem("mf_seen", TODAY_KEY); } catch {}
+  track("page_view", "", { src, newVisitor });
+})();
+document.addEventListener("click", (e) => {
+  const el = e.target.closest("[data-track]");
+  if (el) track(el.dataset.track, el.dataset.label || "");
+  const a = e.target.closest("a[href]");
+  if (!a) return;
+  const where = a.closest("footer") ? "Футер" : a.closest("#booking") ? "Блок «Запис»" : "Сайт";
+  if (/t\.me\//.test(a.href)) track("telegram_click", where);
+  else if (/instagram\.com/.test(a.href)) track("instagram_click", where);
+  else if (/google\.[a-z.]+\/maps/.test(a.href)) track("map_click", where);
+});
 
 $("#bookForm").addEventListener("submit", (e) => {
   e.preventDefault();
@@ -1360,7 +1421,7 @@ $("#bookForm").addEventListener("submit", (e) => {
     f.time.value.trim() && `Час: ${f.time.value.trim()}`,
     f.request.value.trim() && `Запит: ${f.request.value.trim()}`,
   ].filter(Boolean).join("\n");
-  sendRequest(f, msg, text, () => { f.reset(); fillServices(); });
+  sendRequest(f, msg, text, () => { track("form_submit_psy", spec ? spec.name : "Допомогти обрати"); f.reset(); fillServices(); });
 });
 </script>
 </body>

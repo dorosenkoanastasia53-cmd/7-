@@ -39,7 +39,7 @@ const DEFAULT_CONFIG = {
     { id: "anastasiia-k", name: "Анастасія", prices: { consult: 1300 } },
     { id: "nataliia", name: "Наталія Горбулевич", prices: { consult: 1200 } },
     { id: "oleksandra", name: "Олександра Байлова", prices: { consult: 1200 } },
-    { id: "yana", name: "Яна", prices: { consult: 1500 } },
+    { id: "yana", name: "Яна Турчанінова", prices: { consult: 1500 } },
     { id: "ivanna", name: "Іванна Ромашко", prices: { consult: 900 } },
   ],
   rooms: [
@@ -49,6 +49,10 @@ const DEFAULT_CONFIG = {
     { id: "hall", name: "Зала" },
   ],
 };
+// події, які сайт рахує (інші ігноруються); джерела перших відвідувань за день
+const TRACK_EVENTS = ["page_view", "booking_click", "choose_specialist", "first_session_click", "specialist_open", "slot_pick",
+  "event_open", "event_register", "form_submit_psy", "form_submit_event", "pay_click", "telegram_click", "instagram_click", "map_click", "qr_zapys", "qr_podii"];
+const SOURCES = ["Пряме", "Instagram", "Telegram", "Facebook", "Google", "QR-код", "Інше"];
 const SERVICES = { diag: "Діагностична сесія", consult: "Консультація", pair: "Парна / сімейна сесія", mak: "МАК-сесія", other: "Інше" };
 
 // ---------- допоміжне
@@ -109,6 +113,26 @@ async function handle(req) {
   if (a === "public") {
     const slots = ((await db.get("slots")) || []).filter((s) => s.status === "free" && s.date >= today());
     return json({ ok: true, slots: slots.map((s) => ({ name: specName(s.specialistId), specialistId: s.specialistId, date: s.date, time: s.time })) });
+  }
+
+  // ----- статистика відвідувань (анонімно: без IP, без ідентифікаторів — лише лічильники за днями)
+  if (a === "track") {
+    const e = str(body.e, 40), label = str(body.label, 60);
+    if (!TRACK_EVENTS.includes(e)) return json({ ok: true });
+    const day = today(), key = `analytics-${day.slice(0, 7)}`;
+    const st = (await db.get(key)) || { days: {}, events: {}, sources: {} };
+    const d = (st.days[day] ||= { views: 0, visitors: 0 });
+    if (e === "page_view") {
+      d.views++;
+      if (body.newVisitor) d.visitors++;
+      const src = SOURCES.includes(body.src) ? body.src : "Інше";
+      if (body.newVisitor) st.sources[src] = (st.sources[src] || 0) + 1;
+    } else {
+      const ev = (st.events[e] ||= {});
+      ev[label || "—"] = (ev[label || "—"] || 0) + 1;
+    }
+    await db.set(key, st);
+    return json({ ok: true });
   }
 
   // ----- вхід
@@ -318,6 +342,10 @@ async function handle(req) {
 
   // ----- лише супер-адмін
   if (!isAdmin) return fail(403, "Лише для адміністратора");
+  if (a === "analytics") {
+    const month = /^\d{4}-\d{2}$/.test(q("month")) ? q("month") : today().slice(0, 7);
+    return json({ ok: true, month, ...((await db.get(`analytics-${month}`)) || { days: {}, events: {}, sources: {} }) });
+  }
   if (a === "users") {
     const users = (await db.get("users")) || [];
     return json({ ok: true, users: users.map(({ hash, salt, ...u }) => u) });
