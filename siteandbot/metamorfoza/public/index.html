@@ -381,7 +381,7 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
       <p>Місце, де зміни стають можливими. Команда фахівців, яка допоможе пройти шлях від тривоги та розгубленості — до опори, ясності й контакту з собою.</p>
       <div class="hero-btns">
         <a href="#specialists" class="btn btn-main" data-track="choose_specialist" data-label="Головний екран">Обрати фахівця</a>
-        <a href="#events" class="btn btn-out">Відкриття 7–8 листопада</a>
+        <a href="#events" class="btn btn-out">Події та зустрічі</a>
       </div>
       <a href="#first" class="hero-promo" data-track="first_session_click" data-label="Головний екран"><b>−20%</b> на діагностичну сесію — прийдіть познайомитися з фахівцем →</a>
       <div class="hero-stats" id="heroStats"></div>
@@ -485,18 +485,7 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
   <div class="wrap">
     <div class="s-label">Афіша</div>
     <h2 class="s-title">Події та зустрічі</h2>
-    <div class="opening">
-      <div class="ev-type">Відкриття центру · 7–8 листопада</div>
-      <h3>Ми з радістю відчиняємо двері «Метаморфози»</h3>
-      <p>І хочемо, щоб ви були поруч у ці особливі дні. Оберіть зустріч, яка відгукується саме вам, і зареєструйтеся — чекаємо на вас!</p>
-      <div class="perks">
-        <div><span>🎤</span><b>Тематичні зустрічі</b>з експертами</div>
-        <div><span>🎁</span><b>Розіграші призів</b>для гостей відкриття</div>
-        <div><span>💝</span><b>Подарунки</b>приємні сюрпризи</div>
-        <div><span>🍰</span><b>Частування</b>і тепла атмосфера</div>
-      </div>
-      <div class="deals" id="evDeals"></div>
-    </div>
+    <div class="deals" id="evDeals" style="margin-bottom:28px"></div>
     <div class="ev-filters" id="evFilters"></div>
     <div class="ev-list" id="evList"></div>
   </div>
@@ -1044,7 +1033,7 @@ $("#firstPrices").innerHTML = SPECIALISTS.filter((sp) => sp.prices.some(isDiag))
 // hero
 const allTopics = [...new Set(SPECIALISTS.flatMap((s) => s.topics))];
 $("#heroStats").innerHTML = [
-  [SPECIALISTS.length, "фахівців"], [allTopics.length + "+", "напрямів роботи"], [upcoming().length, "найближчі зустрічі"],
+  [SPECIALISTS.length, "фахівців"], [allTopics.length + "+", "напрямів роботи"], ["−20%", "на першу зустріч"],
 ].map(([n, t]) => `<div><b>${n}</b><span>${t}</span></div>`).join("");
 const freeNow = SPECIALISTS.filter((s) => s.status !== "full").length;
 $("#heroBadge").innerHTML = `<b>●</b> ${freeNow} з ${SPECIALISTS.length} фахівців приймають нових клієнтів`;
@@ -1081,6 +1070,7 @@ const richText = (txt) => txt.split("\n\n").map((block) => {
   return plain.map((l) => `<p>${esc(l)}</p>`).join("") + (items.length ? `<ul>${items.map((l) => `<li>${esc(l)}</li>`).join("")}</ul>` : "");
 }).join("");
 
+$("#evDeals").hidden = !upcoming().length; // знижки показуємо лише коли є найближчі зустрічі
 $("#evDeals").innerHTML = EVENT_DEALS.map((d) => `<div class="deal"><b>${esc(d.title)}</b>${esc(d.text)}</div>`).join("");
 let evFilter = "all";
 function renderEvents() {
@@ -1174,7 +1164,7 @@ function openModal(id) {
     <button class="modal-close" onclick="closeModal()" aria-label="Закрити">×</button>
     <div class="m-photo">${photoHTML(s)}</div>
     <div class="m-body">
-      <div class="status" style="position:static;display:inline-flex;background:var(--bg);margin-bottom:12px"><i class="dot ${s.status}"></i>${STATUS[s.status]}${s.status !== "full" && slotCount(s) ? ` · ${slotCount(s)} ${plural(slotCount(s), "вільне вікно", "вільні вікна", "вільних вікон")}` : ""}</div>
+      <div class="status" style="position:static;display:inline-flex;background:var(--bg);margin-bottom:12px"><i class="dot ${s.status}"></i>${STATUS[s.status]}${s.status !== "full" && slotCount(s) ? " · є вільні вікна" : ""}</div>
       <h3>${esc(s.name)}</h3>
       <div class="sp-role">${esc(s.role)}</div>
       <div class="sp-sub">${esc(s.subtitle || "")}</div>
