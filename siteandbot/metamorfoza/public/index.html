@@ -949,6 +949,21 @@ const EVENTS = [
 Із собою ви заберете краще розуміння власних потреб, фрази для розмови з партнером і конкретні ідеї, які захочеться спробувати разом.
 
 Буде простір для практичних вправ, анонімних запитань і теплої розмови. Ділитися особистим — лише за бажанням 🤍` },
+  { date: "2026-11-15", time: "час уточнюється", type: "workshop", host: "anastasiia", place: "Простір «Метаморфоза» · вул. Первомайського, 5А", price: null,
+    title: "Особисті кордони: як відчути свою межу і вміти відмовляти",
+    text: "Двогодинна зустріч з Анастасією Дорошенко про те, де проходять ваші межі, як помітити, що їх порушено, і як відмовляти без провини. Кожна учасниця отримає бонус — чек-лист для відстоювання своїх кордонів.",
+    more: `Зустріч триває близько 2 годин. Веде засновниця «Метаморфози», психологиня Анастасія Дорошенко.
+
+## Поговоримо про те
+• що таке особисті кордони;
+• 5 видів кордонів — і де саме проходить ваша межа;
+• як розпізнати, що кордон порушено (тілесні та емоційні сигнали);
+• як відмовляти — прості техніки й алгоритм;
+• що робити зі складними емоціями після відмови;
+• усі ваші питання по темі.
+
+## Бонус
+Кожна учасниця отримає чек-лист для відстоювання своїх кордонів.` },
   { date: "", time: "≈2 години", type: "group", host: "ivanna", place: "Очно в центрі · вул. Первомайського, 5А, м. Кловська", price: 400, seats: 8,
     title: "Група психологічної стійкості під час війни",
     text: "Група підтримки з елементами арт-терапії для дорослих 18+. Безпечне коло, де можна поговорити про те, що відбувається всередині, і отримати підтримку. До 8 учасників.",
@@ -1084,6 +1099,7 @@ $("#galGrid").addEventListener("click", (e) => {
 // events
 const MONTHS_G = ["січня", "лютого", "березня", "квітня", "травня", "червня", "липня", "серпня", "вересня", "жовтня", "листопада", "грудня"];
 const dayLabel = (iso) => { if (!iso) return "дата уточнюється"; const d = new Date(iso + "T00:00"); return `${d.getDate()} ${MONTHS_G[d.getMonth()]}`; };
+const evPrice = (e) => (e.price == null ? "Вартість уточнюється" : money(e.price)); // price: null — ціну ще не визначено
 const evHost = (e) => (byId(e.host) || {}).name || e.hostName || "";
 function upcoming() {
   const today = new Date(); today.setHours(0, 0, 0, 0);
@@ -1120,7 +1136,7 @@ function renderEvents() {
         ${e.date ? "" : `<p class="seats" style="color:var(--accent)">Зареєструйтеся — ми повідомимо дату першої зустрічі.</p>`}
         ${e.more ? `<button class="ev-more" onclick="openEvent(${i})">Детальніше про зустріч</button>` : ""}
         <div class="ev-foot">
-          <div><div class="ev-price">${money(e.price)}</div>${e.seats ? `<div class="seats" style="color:var(--mid)">до ${e.seats} учасників</div>` : ""}</div>
+          <div><div class="ev-price">${evPrice(e)}</div>${e.seats ? `<div class="seats" style="color:var(--mid)">до ${e.seats} учасників</div>` : ""}</div>
           <button class="btn btn-main btn-sm" onclick="bookEvent(${i})">Зареєструватися</button>
         </div>
       </div></article>`;
@@ -1139,7 +1155,7 @@ function openEvent(i) {
     </div>
     <div class="m-body">
       ${richText(e.more || e.text)}
-      <h4>Вартість</h4><p><span class="ev-price">${money(e.price)}</span></p>
+      <h4>Вартість</h4><p><span class="ev-price">${evPrice(e)}</span></p>
       <p style="font-size:13px" ${EVENT_DEALS.length ? "" : "hidden"}>${EVENT_DEALS.map((d) => `<b>${esc(d.title)}:</b> ${esc(d.text)}`).join("<br>")}</p>
       <button class="btn btn-main btn-sm" style="margin-top:14px" onclick="bookEvent(${i})">Зареєструватися</button>
     </div>`;
@@ -1317,25 +1333,27 @@ $("#payBtn").href = PAY_URL;
 if (EVENT_DISCOUNT) { $("#multiHint").textContent = `(дві або більше — знижка ${EVENT_DISCOUNT}% на всі квитки)`; $("#plusHint").textContent = ` — знижка ${EVENT_DISCOUNT}% для обох`; }
 function renderEvPick() {
   $("#evPick").innerHTML = upcoming().map((e) => `<label class="ev-opt"><input type="checkbox" name="ev" value="${EVENTS.indexOf(e)}">
-    <span>${esc(e.title)}<small>${dayLabel(e.date)}, ${esc(e.time)}${evHost(e) ? " · " + esc(evHost(e)) : ""}</small></span><b>${money(e.price)}</b></label>`).join("")
+    <span>${esc(e.title)}<small>${dayLabel(e.date)}, ${esc(e.time)}${evHost(e) ? " · " + esc(evHost(e)) : ""}</small></span><b>${evPrice(e)}</b></label>`).join("")
     || `<p class="pay-note">Найближчих подій поки немає.</p>`;
 }
 function evOrder() {
   const f = $("#evForm");
   const picked = [...f.querySelectorAll('input[name="ev"]:checked')].map((x) => EVENTS[+x.value]);
   const people = f.plus1.checked ? 2 : 1;
-  const sum = picked.reduce((a, e) => a + e.price, 0) * people;
+  const sum = picked.reduce((a, e) => a + (e.price || 0), 0) * people;
   const reasons = [people > 1 && "+1", picked.length > 1 && "кілька зустрічей"].filter(Boolean);
   const disc = reasons.length && EVENT_DISCOUNT ? Math.round(sum * EVENT_DISCOUNT / 100) : 0;
-  return { picked, people, sum, reasons, disc, total: sum - disc };
+  const tbd = picked.some((e) => e.price == null); // є зустріч без ціни
+  const fmt = (n) => (tbd ? (n ? money(n) + " + уточнимо" : "уточнимо після звʼязку") : money(n));
+  return { picked, people, sum, reasons, disc, total: sum - disc, fmt };
 }
 function calcEvent() {
   const o = evOrder();
   $("#plus1Name").hidden = o.people < 2;
   $("#evSum").innerHTML = o.picked.length ? `
-    <div><span>Квитків: ${o.picked.length} × ${o.people} ${o.people > 1 ? "особи" : "особа"}</span><span>${money(o.sum)}</span></div>
+    <div><span>Квитків: ${o.picked.length} × ${o.people} ${o.people > 1 ? "особи" : "особа"}</span><span>${o.fmt(o.sum)}</span></div>
     ${o.disc ? `<div class="disc"><span>Знижка ${EVENT_DISCOUNT}% (${o.reasons.join(", ")})</span><span>−${money(o.disc)}</span></div>` : ""}
-    <div class="total"><span>До сплати</span><b>${money(o.total)}</b></div>`
+    <div class="total"><span>До сплати</span><b>${o.fmt(o.total)}</b></div>`
     : `Оберіть одну або кілька зустрічей — тут зʼявиться сума до сплати.`;
 }
 renderEvPick(); calcEvent();
@@ -1375,10 +1393,10 @@ $("#evForm").addEventListener("submit", (e) => {
     "🎟 Реєстрація на подію — Метаморфоза",
     `Ім'я: ${f.name.value.trim()}`,
     `Контакт: ${f.contact.value.trim()}`,
-    "Зустрічі:", ...o.picked.map((ev) => `• ${ev.title} (${dayLabel(ev.date)}, ${ev.time}) — ${money(ev.price)}`),
+    "Зустрічі:", ...o.picked.map((ev) => `• ${ev.title} (${dayLabel(ev.date)}, ${ev.time}) — ${evPrice(ev)}`),
     `Осіб: ${o.people}${o.people > 1 && f.plus1name.value.trim() ? ` (+1: ${f.plus1name.value.trim()})` : ""}`,
     o.disc && `Знижка ${EVENT_DISCOUNT}% (${o.reasons.join(", ")}): −${money(o.disc)}`,
-    `До сплати: ${money(o.total)}`,
+    `До сплати: ${o.fmt(o.total)}`,
     `Оплата: ${f.paid.checked ? "клієнт вказав, що оплатив онлайн" : "ще не оплачено"}`,
     f.comment.value.trim() && `Коментар: ${f.comment.value.trim()}`,
   ].filter(Boolean).join("\n");
