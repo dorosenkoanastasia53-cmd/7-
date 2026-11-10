@@ -885,7 +885,8 @@ const SPECIALISTS = [
 
 /* Дата у форматі РРРР-ММ-ДД. Події, дата яких минула, ховаються автоматично.
    host — id фахівця з команди (необов'язково); hostName — ім'я ведучої, якщо її немає в команді.
-   more — повний опис: рядки з «✨» або «•» стають пунктами списку */
+   more — повний опис: рядки з «✨» або «•» стають пунктами списку, рядки з «## » — підзаголовками.
+   date: "" — дата ще невідома (на сайті: «дата уточнюється»). seats — максимум учасників */
 const EVENTS = [
   { date: "2026-11-07", time: "12:00", type: "circle", hostName: "Світлана", place: "Офлайн у центрі", price: 800,
     title: "А що хочу саме я? Жіночі посиденьки з метафоричними картами",
@@ -948,6 +949,32 @@ const EVENTS = [
 Із собою ви заберете краще розуміння власних потреб, фрази для розмови з партнером і конкретні ідеї, які захочеться спробувати разом.
 
 Буде простір для практичних вправ, анонімних запитань і теплої розмови. Ділитися особистим — лише за бажанням 🤍` },
+  { date: "", time: "≈2 години", type: "group", host: "ivanna", place: "Очно в центрі · вул. Первомайського, 5А, м. Кловська", price: 400, seats: 8,
+    title: "Група психологічної стійкості під час війни",
+    text: "Група підтримки з елементами арт-терапії для дорослих 18+. Безпечне коло, де можна поговорити про те, що відбувається всередині, і отримати підтримку. До 8 учасників.",
+    more: `Війна змінила ритм життя кожного з нас. Тривога, втома, напруга в тілі, відчуття, що сил стає дедалі менше. Це природна реакція психіки на тривалий стрес, а не слабкість. І з цим не обовʼязково залишатися наодинці.
+
+## Що це за група
+Це безпечне коло для дорослих, де можна поговорити про те, що відбувається всередині, і отримати підтримку від людей, які проживають схожий досвід. Зустріч веде психологиня Іванна Ромашко.
+
+## Чому арт-терапія
+Деякі переживання важко описати словами. Фарби, колаж і метафоричні образи допомагають їх побачити, назвати й відпустити. Уміти малювати не потрібно: важливий процес, а не результат.
+
+На зустрічі ви:
+• навчитеся помічати свій стан і власні ресурси;
+• спробуєте прості способи знизити напругу, які можна використовувати щодня;
+• відчуєте, що ви не самі у своїх переживаннях;
+• знайдете внутрішню опору, щоб рухатися далі.
+
+## Деталі
+• Формат: очно, у психологічному центрі «Метаморфоза»
+• Тривалість: близько 2 годин
+• Для кого: дорослі 18+
+• Група: до 8 учасників
+• Вартість: 400 грн за зустріч
+• Адреса: вул. Первомайського, 5А, м. Кловська
+
+Група підтримки не замінює індивідуальну терапію. Якщо вам зараз дуже важко, наші фахівці можуть працювати з вами індивідуально. Адміністратор допоможе підібрати психолога.` },
 ];
 
 /* Знижки на події. Зараз вимкнено. Щоб повернути: додайте рядки сюди і поставте EVENT_DISCOUNT нижче, напр.:
@@ -1056,18 +1083,19 @@ $("#galGrid").addEventListener("click", (e) => {
 
 // events
 const MONTHS_G = ["січня", "лютого", "березня", "квітня", "травня", "червня", "липня", "серпня", "вересня", "жовтня", "листопада", "грудня"];
-const dayLabel = (iso) => { const d = new Date(iso + "T00:00"); return `${d.getDate()} ${MONTHS_G[d.getMonth()]}`; };
+const dayLabel = (iso) => { if (!iso) return "дата уточнюється"; const d = new Date(iso + "T00:00"); return `${d.getDate()} ${MONTHS_G[d.getMonth()]}`; };
 const evHost = (e) => (byId(e.host) || {}).name || e.hostName || "";
 function upcoming() {
   const today = new Date(); today.setHours(0, 0, 0, 0);
-  return EVENTS.filter((e) => new Date(e.date + "T00:00") >= today)
-    .sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
+  // подія без дати (date: "") показується з позначкою «дата уточнюється» і стоїть останньою
+  return EVENTS.filter((e) => !e.date || new Date(e.date + "T00:00") >= today)
+    .sort((a, b) => ((a.date || "9999") + a.time).localeCompare((b.date || "9999") + b.time));
 }
 const richText = (txt) => txt.split("\n\n").map((block) => {
   const lines = block.split("\n");
   const items = lines.filter((l) => /^(✨|•)/.test(l));
   const plain = lines.filter((l) => !/^(✨|•)/.test(l));
-  return plain.map((l) => `<p>${esc(l)}</p>`).join("") + (items.length ? `<ul>${items.map((l) => `<li>${esc(l)}</li>`).join("")}</ul>` : "");
+  return plain.map((l) => (l.startsWith("## ") ? `<h4>${esc(l.slice(3))}</h4>` : `<p>${esc(l)}</p>`)).join("") + (items.length ? `<ul>${items.map((l) => `<li>${esc(l)}</li>`).join("")}</ul>` : "");
 }).join("");
 
 $("#evDeals").hidden = !upcoming().length || !EVENT_DEALS.length; // знижки — лише коли вони є і є найближчі зустрічі
@@ -1075,7 +1103,7 @@ $("#evDeals").innerHTML = EVENT_DEALS.map((d) => `<div class="deal"><b>${esc(d.t
 let evFilter = "all";
 function renderEvents() {
   const all = upcoming();
-  const dates = [...new Set(all.map((e) => e.date))];
+  const dates = [...new Set(all.map((e) => e.date).filter(Boolean))];
   $("#evFilters").innerHTML = dates.length > 1 ? ["all", ...dates].map((t) =>
     `<button class="pill ${t === evFilter ? "on" : ""}" data-t="${t}">${t === "all" ? "Усі дні" : dayLabel(t)}</button>`).join("") : "";
   const list = all.filter((e) => evFilter === "all" || e.date === evFilter);
@@ -1083,15 +1111,16 @@ function renderEvents() {
     const d = new Date(e.date + "T00:00");
     const i = EVENTS.indexOf(e);
     return `<article class="ev">
-      <div class="ev-date"><b>${d.getDate()}</b><span>${MONTHS[d.getMonth()]}</span><small>${DAYS[(d.getDay() + 6) % 7]}</small></div>
+      <div class="ev-date">${e.date ? `<b>${d.getDate()}</b><span>${MONTHS[d.getMonth()]}</span><small>${DAYS[(d.getDay() + 6) % 7]}</small>` : `<b>?</b><small>дата<br>уточнюється</small>`}</div>
       <div class="ev-body">
         <div class="ev-type">${EVENT_TYPES[e.type] || ""}</div>
         <h3>${esc(e.title)}</h3>
         <div class="ev-meta"><span>🕐 ${esc(e.time)}</span><span>📍 ${esc(e.place)}</span>${evHost(e) ? `<span>👤 ${esc(evHost(e))}</span>` : ""}</div>
         <p>${esc(e.text)}</p>
+        ${e.date ? "" : `<p class="seats" style="color:var(--accent)">Зареєструйтеся — ми повідомимо дату першої зустрічі.</p>`}
         ${e.more ? `<button class="ev-more" onclick="openEvent(${i})">Детальніше про зустріч</button>` : ""}
         <div class="ev-foot">
-          <div class="ev-price">${money(e.price)}</div>
+          <div><div class="ev-price">${money(e.price)}</div>${e.seats ? `<div class="seats" style="color:var(--mid)">до ${e.seats} учасників</div>` : ""}</div>
           <button class="btn btn-main btn-sm" onclick="bookEvent(${i})">Зареєструватися</button>
         </div>
       </div></article>`;
