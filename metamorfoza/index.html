@@ -349,7 +349,7 @@ footer{padding:56px 0 110px;font-size:14px;color:var(--ink2)}
     </div>
 
     <div class="hero-visual">
-      <img class="hero-photo" id="heroPhoto" src="img/big.jpg" style="object-position:center 68%" alt="Великий кабінет Метаморфози: диван, два крісла й журнальний столик" onclick="openLb(this.getAttribute('src'))" onerror="this.nextElementSibling.remove();this.remove()">
+      <img class="hero-photo" id="heroPhoto" src="img/big-sofa.jpg" style="object-position:center 68%" alt="Великий кабінет Метаморфози: диван, два крісла й журнальний столик" onclick="openLb(this.getAttribute('src'))" onerror="this.nextElementSibling.remove();this.remove()">
       <span class="hero-photo-tag">📍 Великий кабінет</span>
       <div class="quick-card reveal">
         <h3>Забронювати кабінет</h3>
@@ -634,14 +634,14 @@ var SEND_URL = "/.netlify/functions/send"; // функція, яка перес�
 
 var ROOM_PHOTOS = { small: "img/small.jpg", big: "img/big.jpg", hall: "img/hall.jpg" };
 var ROOM_ICONS = { small: "🛋", big: "💞", hall: "👥" };
-var ROOM_PHOTO_POS = { small: "center 55%", big: "center 68%", hall: "center 60%" }; // яку частину фото показувати в картці
+var ROOM_PHOTO_POS = { small: "center 55%", big: "center 62%", hall: "center 60%" }; // яку частину фото показувати в картці
 // Галерея: фото, файлу якого немає в папці img, просто не показується.
 // size: "wide" — велике (2×2), "tall" — вертикальне (1×2), "long" — широке (2×1), "" — звичайне.
 var GALLERY = [
   { src: "img/hall-event.jpg", cap: "Зала, підготовлена до тренінгу", size: "wide" },
-  { src: "img/big.jpg", cap: "Великий кабінет · диван і 2 крісла", size: "tall" },
+  { src: "img/big.jpg", cap: "Великий кабінет · крісла біля вікна", size: "tall" },
   { src: "img/small.jpg", cap: "Малий кабінет · столик і книги", size: "tall" },
-  { src: "img/room-window.jpg", cap: "Великий кабінет · крісла біля вікна", size: "wide" },
+  { src: "img/big-sofa.jpg", cap: "Великий кабінет · диван і 2 крісла", size: "wide" },
   { src: "img/small-2.jpg", cap: "Малий кабінет · гірлянда й фікус", size: "tall" },
   { src: "img/big-2.jpg", cap: "Великий кабінет · затишні деталі", size: "tall" },
   { src: "img/hall.jpg", cap: "Зала · 27 м²", size: "long" },
