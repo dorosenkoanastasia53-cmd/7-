@@ -631,6 +631,7 @@ var LINKS = {
   ig: "https://www.instagram.com/direct/t/18097245023122427/",
 };
 var SEND_URL = "/.netlify/functions/send"; // функція, яка пересилає заявки в Telegram-бот
+var TRACK_URL = "/.netlify/functions/track"; // анонімна статистика для сторінки /stats.html
 
 var ROOM_PHOTOS = { small: "img/small.jpg", big: "img/big.jpg", hall: "img/hall.jpg" };
 var ROOM_ICONS = { small: "🛋", big: "💞", hall: "👥" };
@@ -672,6 +673,7 @@ function renderGallery() {
   }).join("");
 }
 function openLb(src) {
+  track("photo");
   lbList = [].slice.call(document.querySelectorAll("#gallery .g-item img")).map(function (im) { return { src: im.getAttribute("src"), cap: im.nextSibling.textContent }; });
   if (!lbList.length) return;
   lbIdx = Math.max(0, lbList.map(function (x) { return x.src; }).indexOf(src));
@@ -725,6 +727,7 @@ function renderRoomCards() {
 
 // ---------- форма заявки ----------
 function pickRoom(id, scroll) {
+  if (scroll || req.room !== id) track("room_" + id);
   req.room = id;
   if (!C.rooms[id].hasProjector) req.projector = false;
   msgEdited = false;
@@ -837,6 +840,7 @@ function submitForm(e) {
     .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { return r.ok && d.ok; }); })
     .then(function (ok) {
       if (!ok) throw new Error("send");
+      track("form");
       showFormMsg("ok", "✓ Дякуємо, " + esc(name) + "! Заявку отримано — адміністратор зв’яжеться з вами найближчим часом.");
       btn.textContent = "Заявку надіслано ✓";
       setTimeout(function () { btn.disabled = false; btn.textContent = "Надіслати ще одну заявку"; }, 4000);
@@ -863,6 +867,42 @@ function initReq() {
   renderReq();
 }
 
+// ---------- статистика (анонімна, без персональних даних) ----------
+function visitorId() {
+  try {
+    var v = localStorage.getItem("mf_vid");
+    if (!v) { v = Math.random().toString(36).slice(2, 12); localStorage.setItem("mf_vid", v); }
+    return v;
+  } catch (e) { return ""; }
+}
+function trafficSource() {
+  var p = new URLSearchParams(location.search), utm = p.get("utm_source");
+  if (utm) return utm.toLowerCase();
+  var r = document.referrer;
+  if (!r) return "direct";
+  try {
+    var h = new URL(r).hostname.replace(/^www\./, "");
+    if (h === location.hostname) return "direct";
+    if (/instagram/.test(h)) return "instagram";
+    if (/facebook|fb\.com/.test(h)) return "facebook";
+    if (/t\.me|telegram/.test(h)) return "telegram";
+    if (/google/.test(h)) return "google";
+    return h;
+  } catch (e) { return "direct"; }
+}
+function track(ev) {
+  if (location.protocol === "file:" || navigator.webdriver) return;
+  var body = JSON.stringify({ e: ev, v: visitorId(), s: trafficSource(), m: matchMedia("(max-width: 680px)").matches ? 1 : 0 });
+  try {
+    if (navigator.sendBeacon) navigator.sendBeacon(TRACK_URL, new Blob([body], { type: "application/json" }));
+    else fetch(TRACK_URL, { method: "POST", body: body, keepalive: true });
+  } catch (e) {}
+}
+document.addEventListener("click", function (e) {
+  var a = e.target.closest("[data-link]");
+  if (a) track(a.dataset.link);
+});
+
 // ---------- дрібниці ----------
 var toastT;
 function toast(m) { var t = $("toast"); t.textContent = m; t.classList.add("show"); clearTimeout(toastT); toastT = setTimeout(function () { t.classList.remove("show"); }, 3200); }
@@ -885,6 +925,7 @@ function reveal() {
 document.querySelectorAll("[data-link]").forEach(function (a) { a.href = LINKS[a.dataset.link]; });
 $("year").textContent = new Date().getFullYear();
 renderGallery(); renderRoomCards(); initReq(); reveal(); watchBar();
+track("view");
 </script>
 </body>
 </html>

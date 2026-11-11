@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Статистика — Метаморфоза</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F2EC;--paper:#fff;--ink:#1D2B2A;--ink2:#4A5856;--muted:#8A9391;--line:#E6DED4;--forest:#26423D;--accent:#C9824A;--sage:#DCE5DE;--err:#B0473B}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Manrope',system-ui,sans-serif;background:var(--bg);color:var(--ink);padding:24px 16px 48px}
+.wrap{max-width:1000px;margin:0 auto}
+h1{font-family:'Playfair Display',Georgia,serif;font-weight:500;font-size:32px;margin-bottom:4px}
+.sub{color:var(--muted);font-size:14px;margin-bottom:22px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:20px;margin-bottom:16px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+input,button{font:inherit;padding:11px 14px;border-radius:12px;border:1.5px solid var(--line);background:#fff}
+button{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600;cursor:pointer}
+button.ghost{background:#fff;color:var(--ink);border-color:var(--line)}
+button.on{background:var(--forest);border-color:var(--forest);color:#fff}
+.msg{color:var(--err);font-size:14px;margin-top:8px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.kpi{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:16px}
+.kpi b{display:block;font-family:'Playfair Display',Georgia,serif;font-size:34px;font-weight:500;line-height:1.1}
+.kpi span{font-size:13px;color:var(--ink2)}
+.kpi.acc{background:var(--forest);border-color:var(--forest);color:#fff}
+.kpi.acc span{color:rgba(255,255,255,.75)}
+h2{font-size:16px;font-weight:700;margin-bottom:14px}
+.chart{display:flex;align-items:flex-end;gap:3px;height:180px;padding-top:10px;border-bottom:1px solid var(--line)}
+.bar{flex:1;min-width:2px;background:var(--sage);border-radius:4px 4px 0 0;position:relative}
+.bar i{position:absolute;left:0;right:0;bottom:0;background:var(--accent);border-radius:4px 4px 0 0}
+.bar:hover{outline:2px solid var(--forest)}
+.axis{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:6px}
+.legend{display:flex;gap:16px;font-size:12px;color:var(--ink2);margin-top:10px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.list{list-style:none}
+.list li{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:7px 0;font-size:14px}
+.list li+li{border-top:1px solid var(--line)}
+.meter{grid-column:1/-1;height:6px;border-radius:3px;background:var(--bg);overflow:hidden;margin-top:-2px}
+.meter i{display:block;height:100%;background:var(--accent);border-radius:3px}
+.empty{color:var(--muted);font-size:14px}
+.tip{font-size:13px;color:var(--ink2);line-height:1.6}
+.tip code{background:var(--bg);padding:1px 6px;border-radius:6px}
+#app{display:none}
+@media (max-width:700px){.kpis{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}h1{font-size:26px}.kpi b{font-size:28px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Статистика сайту</h1>
+  <div class="sub">«Метаморфоза» · анонімні дані, без персональної інформації відвідувачів</div>
+
+  <div class="card" id="login">
+    <div class="row">
+      <input type="password" id="key" placeholder="Пароль (STATS_KEY)" autocomplete="current-password">
+      <button onclick="login()">Увійти</button>
+    </div>
+    <div class="msg" id="loginMsg"></div>
+  </div>
+
+  <div id="app">
+    <div class="card">
+      <div class="row" id="periods">
+        <button class="ghost" data-d="1">Сьогодні</button>
+        <button class="ghost" data-d="7">7 днів</button>
+        <button class="ghost" data-d="30">30 днів</button>
+        <button class="ghost" data-d="90">90 днів</button>
+        <button class="ghost" onclick="logout()" style="margin-left:auto">Вийти</button>
+      </div>
+    </div>
+
+    <div class="kpis" id="kpis"></div>
+
+    <div class="card">
+      <h2>Відвідування по днях</h2>
+      <div class="chart" id="chart"></div>
+      <div class="axis" id="axis"></div>
+      <div class="legend"><span><i style="background:var(--sage)"></i>перегляди</span><span><i style="background:var(--accent)"></i>унікальні відвідувачі</span></div>
+    </div>
+
+    <div class="two">
+      <div class="card"><h2>Звідки приходять</h2><ul class="list" id="sources"></ul></div>
+      <div class="card"><h2>Що роблять на сайті</h2><ul class="list" id="actions"></ul></div>
+    </div>
+    <div class="two">
+      <div class="card"><h2>Які приміщення цікавлять</h2><ul class="list" id="rooms"></ul></div>
+      <div class="card"><h2>Пристрої</h2><ul class="list" id="devices"></ul></div>
+    </div>
+
+    <div class="card tip">
+      💡 <b>Як дізнатися, звідки саме прийшли люди.</b> Додавайте до посилання на сайт мітку:
+      <code>?utm_source=instagram</code>, <code>?utm_source=stories</code>, <code>?utm_source=flyer</code> тощо.
+      Наприклад: <code>ваш-сайт/?utm_source=instagram</code> — і в розділі «Звідки приходять» з’явиться окремий рядок.
+    </div>
+  </div>
+</div>
+
+<script>
+var KEY = "", DAYS = 30;
+var MONTHS = ["січ", "лют", "бер", "кві", "тра", "чер", "лип", "сер", "вер", "жов", "лис", "гру"];
+var SRC = { direct: "Напряму / закладки", instagram: "Instagram", facebook: "Facebook", telegram: "Telegram", google: "Google" };
+var ACT = [["form", "📨 Надіслали заявку"], ["tg", "✈️ Перейшли в Telegram"], ["ig", "📷 Перейшли в Instagram"], ["photo", "🖼 Відкрили фото"]];
+var ROOMS = [["room_small", "Малий кабінет"], ["room_big", "Великий кабінет"], ["room_hall", "Зала"]];
+function $(id) { return document.getElementById(id); }
+function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+function fmtDate(s) { var p = s.split("-"); return +p[2] + " " + MONTHS[+p[1] - 1]; }
+
+function call() {
+  return fetch("/.netlify/functions/stats", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ key: KEY, days: DAYS }) })
+    .then(function (r) { return r.json().then(function (d) { if (!r.ok) throw new Error(d.error || ("Помилка " + r.status)); return d; }); });
+}
+function login() {
+  KEY = $("key").value;
+  call().then(function (d) {
+    try { sessionStorage.setItem("mf_stats", KEY); } catch (e) {}
+    $("login").style.display = "none"; $("app").style.display = "block"; render(d);
+  }).catch(function (e) { $("loginMsg").textContent = e.message; });
+}
+function logout() { try { sessionStorage.removeItem("mf_stats"); } catch (e) {} location.reload(); }
+function load() { call().then(render).catch(function (e) { alert(e.message); }); }
+
+function list(el, rows, total) {
+  rows = rows.filter(function (r) { return r[1] > 0; });
+  if (!rows.length) { $(el).innerHTML = '<li class="empty">Поки немає даних</li>'; return; }
+  var max = Math.max.apply(null, rows.map(function (r) { return r[1]; }));
+  $(el).innerHTML = rows.map(function (r) {
+    var pct = total ? " · " + Math.round(r[1] / total * 100) + "%" : "";
+    return '<li><span>' + esc(r[0]) + '</span><b>' + r[1] + '<small style="color:var(--muted);font-weight:400">' + pct + '</small></b><span class="meter"><i style="width:' + (r[1] / max * 100) + '%"></i></span></li>';
+  }).join("");
+}
+
+function render(d) {
+  document.querySelectorAll("#periods [data-d]").forEach(function (b) { b.classList.toggle("on", +b.dataset.d === DAYS); });
+  var days = d.days, views = 0, visitors = 0, contacted = 0, ev = {}, src = {}, dev = {};
+  days.forEach(function (x) {
+    views += x.views; visitors += x.visitors; contacted += x.contacted || 0;
+    Object.keys(x.events || {}).forEach(function (k) { ev[k] = (ev[k] || 0) + x.events[k]; });
+    Object.keys(x.sources || {}).forEach(function (k) { src[k] = (src[k] || 0) + x.sources[k]; });
+    Object.keys(x.devices || {}).forEach(function (k) { dev[k] = (dev[k] || 0) + x.devices[k]; });
+  });
+  var conv = visitors ? Math.min(100, Math.round(contacted / visitors * 1000) / 10) : 0;
+  $("kpis").innerHTML =
+    '<div class="kpi"><b>' + visitors + '</b><span>відвідувачів</span></div>' +
+    '<div class="kpi"><b>' + views + '</b><span>переглядів сторінки</span></div>' +
+    '<div class="kpi acc"><b>' + (ev.form || 0) + '</b><span>заявок із сайту</span></div>' +
+    '<div class="kpi"><b>' + conv + '%</b><span>написали або залишили заявку</span></div>';
+
+  var max = Math.max(1, Math.max.apply(null, days.map(function (x) { return x.views; })));
+  $("chart").innerHTML = days.map(function (x) {
+    return '<div class="bar" style="height:' + (x.views / max * 100) + '%" title="' + fmtDate(x.date) + ': ' + x.views + ' переглядів, ' + x.visitors + ' відвідувачів"><i style="height:' + (x.views ? x.visitors / x.views * 100 : 0) + '%"></i></div>';
+  }).join("");
+  $("axis").innerHTML = '<span>' + fmtDate(days[0].date) + '</span><span>' + fmtDate(days[days.length - 1].date) + '</span>';
+
+  var srcRows = Object.keys(src).map(function (k) { return [SRC[k] || k, src[k]]; }).sort(function (a, b) { return b[1] - a[1]; });
+  list("sources", srcRows, visitors);
+  list("actions", ACT.map(function (a) { return [a[1], ev[a[0]] || 0]; }));
+  list("rooms", ROOMS.map(function (a) { return [a[1], ev[a[0]] || 0]; }));
+  list("devices", [["📱 Телефон", dev.mobile || 0], ["💻 Комп’ютер", dev.desktop || 0]], visitors);
+}
+
+document.querySelectorAll("#periods [data-d]").forEach(function (b) { b.onclick = function () { DAYS = +b.dataset.d; load(); }; });
+$("key").addEventListener("keydown", function (e) { if (e.key === "Enter") login(); });
+try { var k = sessionStorage.getItem("mf_stats"); if (k) { $("key").value = k; login(); } } catch (e) {}
+</script>
+</body>
+</html>

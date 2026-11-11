@@ -1,0 +1,8 @@
+{
+  "name": "metamorfoza",
+  "private": true,
+  "description": "Метаморфоза — сайт оренди кабінетів",
+  "dependencies": {
+    "@netlify/blobs": "^11.1.4"
+  }
+}
