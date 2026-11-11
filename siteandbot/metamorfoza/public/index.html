@@ -214,6 +214,11 @@ nav{position:sticky;top:0;z-index:100;background:rgba(251,248,245,.94);backdrop-
 .sp-foot{flex-wrap:wrap;row-gap:14px}
 .sp-price small{display:block;font-family:var(--sans);font-size:12px;color:#9C7A1E;margin-top:4px}
 
+/* RENT */
+#rent{background:#fff;padding:72px 0}
+.rent-box{display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.rent-box .s-sub{margin-bottom:0}
+
 /* AVAILABILITY */
 .avail{background:var(--sand)}
 .av-controls{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px;align-items:center}
@@ -364,6 +369,7 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
       <a href="#gallery">Простір</a>
       <a href="#availability">Розклад</a>
       <a href="#events">Події</a>
+      <a href="#rent">Оренда</a>
       <a href="#faq">FAQ</a>
     </div>
     <a href="#booking" class="btn btn-main btn-sm" data-track="booking_click" data-label="Меню">Записатися</a>
@@ -459,6 +465,18 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
     <h2 class="s-title">Наш простір</h2>
     <p class="s-sub">Кабінети для індивідуальних і парних сесій, зала для груп і лекцій. Мʼякі крісла, диван, чай, кава і смаколики, власна вбиральня — атмосфера, у якій хочеться видихнути.</p>
     <div class="gal-grid" id="galGrid"></div>
+  </div>
+</section>
+
+<!-- RENT -->
+<section id="rent">
+  <div class="wrap rent-box">
+    <div>
+      <div class="s-label">Оренда</div>
+      <h2 class="s-title">Оренда кабінетів і зали</h2>
+      <p class="s-sub">Затишні кабінети для консультацій і зала для груп, лекцій та воркшопів — погодинно, у центрі Києва біля м. Кловська. Умови, ціни та вільний час — на окремій сторінці.</p>
+    </div>
+    <a class="btn btn-main" href="https://psy-centr-kyiv.netlify.app/" target="_blank" rel="noopener" data-track="rent_click" data-label="Блок «Оренда»">Деталі оренди ↗</a>
   </div>
 </section>
 
@@ -1293,7 +1311,7 @@ $("#contacts").innerHTML = CONTACTS.map((c) =>
 $("#footYear").innerHTML = `
   <div class="foot-links">${CONTACTS.filter((c) => c.href.startsWith("http")).slice(0, 2).map((c) =>
     `<a href="${esc(c.href)}" target="_blank" rel="noopener">${c.icon} ${esc(c.label.split(":")[0])}</a>`).join("")}</div>
-  <a href="${esc(CONTACTS[2].href)}" target="_blank" rel="noopener">${esc(ADDRESS)}</a><br>© ${new Date().getFullYear()} · Метаморфоза · <a href="admin/" style="opacity:.6">Вхід для фахівців</a>`;
+  <a href="${esc(CONTACTS[2].href)}" target="_blank" rel="noopener">${esc(ADDRESS)}</a><br>© ${new Date().getFullYear()} · Метаморфоза · <a href="https://psy-centr-kyiv.netlify.app/" target="_blank" rel="noopener">Оренда</a> · <a href="admin/" style="opacity:.6">Вхід для фахівців</a>`;
 
 // booking form
 $("#fSpec").innerHTML = `<option value="">Допоможіть обрати</option>` + SPECIALISTS.map((s) => `<option value="${s.id}">${esc(s.name)}</option>`).join("");
@@ -1441,6 +1459,7 @@ document.addEventListener("click", (e) => {
   if (/t\.me\//.test(a.href)) track("telegram_click", where);
   else if (/instagram\.com/.test(a.href)) track("instagram_click", where);
   else if (/google\.[a-z.]+\/maps/.test(a.href)) track("map_click", where);
+  else if (/psy-centr-kyiv\.netlify\.app/.test(a.href) && !a.dataset.track) track("rent_click", where);
 });
 
 $("#bookForm").addEventListener("submit", (e) => {

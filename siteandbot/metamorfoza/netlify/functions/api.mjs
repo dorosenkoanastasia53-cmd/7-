@@ -51,7 +51,7 @@ const DEFAULT_CONFIG = {
 };
 // події, які сайт рахує (інші ігноруються); джерела перших відвідувань за день
 const TRACK_EVENTS = ["page_view", "booking_click", "choose_specialist", "first_session_click", "specialist_open", "slot_pick",
-  "event_open", "event_register", "form_submit_psy", "form_submit_event", "pay_click", "telegram_click", "instagram_click", "map_click", "qr_zapys", "qr_podii"];
+  "event_open", "event_register", "form_submit_psy", "form_submit_event", "pay_click", "telegram_click", "instagram_click", "map_click", "rent_click", "qr_zapys", "qr_podii"];
 const SOURCES = ["Пряме", "Instagram", "Telegram", "Facebook", "Google", "QR-код", "Інше"];
 const SERVICES = { diag: "Діагностична сесія", consult: "Консультація", pair: "Парна / сімейна сесія", mak: "МАК-сесія", other: "Інше" };
 
