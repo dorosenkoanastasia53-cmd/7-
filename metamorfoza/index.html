@@ -837,17 +837,25 @@ function submitForm(e) {
     method: "POST", headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ name: name, contact: contact, text: $("msg").value.trim(), website: $("f-website").value }),
   })
-    .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { return r.ok && d.ok; }); })
-    .then(function (ok) {
-      if (!ok) throw new Error("send");
+    .then(function (r) {
+      return r.json().catch(function () { return {}; }).then(function (d) {
+        if (r.ok && d.ok) return;
+        var why = r.status === 404 ? "Функцію відправки не знайдено на сервері — сайт опубліковано без папки netlify/functions (наприклад, через Netlify Drop) або в Netlify неправильно вказано Base directory." :
+          d.error === "not_configured" ? "У Netlify не задано BOT_TOKEN або ADMIN_CHAT_ID, або після їх додавання сайт не перезапущено (Deploys → Trigger deploy)." :
+          d.reason || "";
+        throw new Error(why);
+      });
+    })
+    .then(function () {
       track("form");
       showFormMsg("ok", "✓ Дякуємо, " + esc(name) + "! Заявку отримано — адміністратор зв’яжеться з вами найближчим часом.");
       btn.textContent = "Заявку надіслано ✓";
       setTimeout(function () { btn.disabled = false; btn.textContent = "Надіслати ще одну заявку"; }, 4000);
     })
-    .catch(function () {
+    .catch(function (err) {
       btn.disabled = false; btn.textContent = "Надіслати заявку";
-      showFormMsg("bad", "Не вдалося надіслати заявку. Спробуйте ще раз або напишіть нам у Telegram чи Instagram — кнопки нижче, текст заявки скопіюється автоматично.");
+      showFormMsg("bad", "Не вдалося надіслати заявку. Спробуйте ще раз або напишіть нам у Telegram чи Instagram — кнопки нижче, текст заявки скопіюється автоматично." +
+        (err && err.message ? '<br><small style="opacity:.75">Технічна причина: ' + esc(err.message) + '</small>' : ""));
     });
 }
 
