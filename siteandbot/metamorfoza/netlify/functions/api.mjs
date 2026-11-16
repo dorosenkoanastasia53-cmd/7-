@@ -41,6 +41,7 @@ const DEFAULT_CONFIG = {
     { id: "oleksandra", name: "Олександра Байлова", prices: { consult: 1200 } },
     { id: "yana", name: "Яна Турчанінова", prices: { consult: 1500 } },
     { id: "ivanna", name: "Іванна Ромашко", prices: { consult: 900 } },
+    { id: "nataliia-s", name: "Наталія Сидоркіна", prices: { consult: 1400 } },
   ],
   rooms: [
     { id: "r1", name: "Кабінет з кріслами" },
