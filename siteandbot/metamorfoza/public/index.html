@@ -109,6 +109,19 @@ nav{position:sticky;top:0;z-index:100;background:rgba(251,248,245,.94);backdrop-
 .ptable b{color:var(--gold-l);font-weight:500;white-space:nowrap}
 .promo-small{font-size:12px;color:#8f8a82}
 
+/* PACKAGES */
+.first-grid>*{min-width:0}
+.pkg-block{background:#fff;border-radius:var(--r);padding:22px;margin-top:22px}
+.pkg-block h3{font-family:var(--serif);font-weight:400;font-size:24px;margin-bottom:6px}
+.pkg-block p{font-size:14px;color:var(--mid);margin-bottom:12px}
+.pkg-wrap{overflow-x:auto}
+.pkg-table{width:100%;border-collapse:collapse;font-size:13px;min-width:460px}
+.pkg-table th{font-weight:500;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--light);text-align:left;padding:6px 8px 6px 0}
+.pkg-table th span{color:var(--accent);letter-spacing:0}
+.pkg-table td{border-top:1px solid var(--sand);padding:7px 8px 7px 0;white-space:nowrap}
+.pkg-table b{color:var(--accent);font-weight:500}
+.pkg-table s{color:var(--light);font-size:12px}
+
 /* MISSION */
 #mission{background:#fff}
 .mission-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:64px;align-items:center}
@@ -455,13 +468,9 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
         <a href="#booking" class="btn btn-main btn-sm" onclick="showTab('bookForm')" data-track="promo_click" data-label="Пакети сесій">Обрати пакет</a>
       </article>
       <article class="promo-card">
-        <div class="promo-big">200 грн</div>
-        <h3>Групи: перший візит і абонементи</h3>
-        <p>Перша група за 200 грн замість 400 — спробуйте, як це, бути серед своїх. Абонемент: місце у групі за вами.</p>
-        <table class="ptable"><tr><th></th><th>Звичайно</th><th>Акція</th></tr>
-          <tr><td>Перший візит на групу</td><td><s>400</s></td><td><b>200 грн</b></td></tr>
-          <tr><td>Абонемент, 4 зустрічі (місяць)</td><td><s>1 600</s></td><td><b>1 300 грн</b></td></tr>
-          <tr><td>Абонемент, 8 зустрічей (2 місяці або 2 групи)</td><td><s>3 200</s></td><td><b>2 400 грн</b></td></tr></table>
+        <div class="promo-big">−50%</div>
+        <h3>Групи підтримки</h3>
+        <p><b>−50% на першу зустріч</b> і <b>до −15% на пакет</b> зустрічей. Спробуйте, як це — бути серед своїх. Місце у групі за вами.</p>
         <a href="#booking" class="btn btn-main btn-sm" onclick="showTab('evForm')" data-track="promo_click" data-label="Групи">Записатися на групу</a>
       </article>
       <article class="promo-card">
@@ -502,6 +511,11 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
       <p class="s-sub">Почати терапію буває страшно: невідомо, як усе відбуватиметься, чи підійде фахівець і чи варто це грошей. Тому перша зустріч у нас — діагностична сесія зі знижкою <span class="discN">20</span>%. Це спокійне знайомство, після якого ви самі вирішите, чи продовжувати.</p>
       <div class="steps" id="firstSteps"></div>
       <div class="no-block" id="noBlock"></div>
+      <div class="pkg-block">
+        <h3>Далі — пакети сесій зі знижкою</h3>
+        <p>Регулярна робота дає найкращий результат, тому пакети вигідніші: <span id="pkgText">4 сесії −5%, 6 сесій −10%, 8 сесій −12%, 10 сесій −15%</span>. Пакет обираємо після першої зустрічі, коли зрозуміло, чи комфортно вам з фахівцем.</p>
+        <div class="pkg-wrap"><table class="pkg-table" id="pkgTable"></table></div>
+      </div>
     </div>
     <div class="first-card">
       <div class="first-badge">−<span class="discN">20</span>%</div>
@@ -631,7 +645,7 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
         <div class="ev-pick" id="evPick"></div>
       </div>
       <label class="full check"><input type="checkbox" name="plus1" id="plus1"> Приду з +1 (подруга, партнер чи колега)<span id="plusHint"></span></label>
-      <label class="full check" id="firstGroupL" hidden><input type="checkbox" name="firstGroup"> Я вперше на групі — 200 грн замість 400 (Чорна пʼятниця)</label>
+      <label class="full check" id="firstGroupL" hidden><input type="checkbox" name="firstGroup"> Я вперше на групі — <span id="firstGroupDisc"></span></label>
       <label class="full" id="plus1Name" hidden>Ім'я вашого +1 (необов'язково)<input name="plus1name"></label>
       <div class="full sum" id="evSum"></div>
       <label class="full">Коментар (необов'язково)<textarea name="comment" rows="2"></textarea></label>
@@ -689,6 +703,11 @@ const CONTACTS = [
   { icon: "⌂", label: "Психологічний простір · " + ADDRESS, href: "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("Київ, вулиця Первомайського, 5А") },
 ];
 
+/* ===== ПАКЕТИ СЕСІЙ (постійні) =====
+   Знижка залежить від кількості сесій. Ціна пакета округлюється до 50 грн. Пакет — для консультацій і парних сесій. */
+const PACKAGES = [{ n: 4, disc: 5 }, { n: 6, disc: 10 }, { n: 8, disc: 12 }, { n: 10, disc: 15 }];
+const pkgPrice = (price, p) => Math.round((price * p.n * (1 - p.disc / 100)) / 50) * 50;
+
 /* ===== АКЦІЯ «Чорна пʼятниця» =====
    Діє з start по end включно (за київським часом). Після end сайт сам повертається до звичайних умов (−20%).
    Купити можна лише в ці дні, використати — пізніше (терміни нижче). */
@@ -698,9 +717,7 @@ const PROMO = {
   firstDiscount: 50, // % на першу зустріч замість звичайних 20%, одна на клієнта, діє місяць
   // пакети індивідуальних сесій: ціна сесії → [4 сесії звичайна, 4 акція, 8 звичайна, 8 акція]
   packages: { 900: [3600, 3050, 7200, 5750], 1200: [4800, 4100, 9600, 7700], 1300: [5200, 4400, 10400, 8300], 1400: [5600, 4750, 11200, 8950], 1500: [6000, 5100, 12000, 9600], 1800: [7200, 6100, 14400, 11500] },
-  groupFirst: 200, groupBase: 400, // перший візит на групу
-  groupSubs: [{ id: "sub4", title: "Абонемент на групу: 4 зустрічі (місяць)", price: 1300, full: 1600 },
-              { id: "sub8", title: "Абонемент на групу: 8 зустрічей (2 місяці або 2 групи)", price: 2400, full: 3200 }],
+
   // оренда, грн/год: [без знижки, 1–4 год −20%, 5–8 год −25%, 9–12 год −30%]
   rent: [["Малий кабінет", "будні", [150, 120, 110, 105]], ["", "вечір / вихідні", [200, 160, 150, 140]],
          ["Великий кабінет", "будні", [200, 160, 150, 140]], ["", "вечір / вихідні", [250, 200, 185, 175]],
@@ -1132,7 +1149,7 @@ const EVENTS = [
 • Тривалість: близько 2 годин
 • Для кого: дорослі 18+
 • Група: до 8 учасників
-• Вартість: 400 грн за зустріч
+• Вартість: −50% на першу зустріч, до −15% на пакет зустрічей
 • Адреса: вул. Первомайського, 5А, м. Кловська
 
 Група підтримки не замінює індивідуальну терапію. Якщо вам зараз дуже важко, наші фахівці можуть працювати з вами індивідуально. Адміністратор допоможе підібрати психолога.` },
@@ -1235,6 +1252,25 @@ if (PROMO_ON) {
   FAQ.unshift(["Які умови акції «Чорна пʼятниця»?", "Акція діє з 16 по 30 листопада. Купити пропозицію можна лише в ці дні, а використати — пізніше: першу зустріч −50% — протягом місяця (одна на клієнта), пакет на 4 сесії — 3 місяці, на 8 сесій — 6 місяців, години оренди — 1–3 місяці залежно від кількості. Пакет можна перенести на іншого фахівця, якщо перший не підійшов. Знижки не сумуються."]);
 }
 
+// пакети: постійні знижки; під час акції 4 і 8 сесій — за ціною акції (вигідніше)
+function pkgEligible(p) { return !isDiag(p) && !/^МАК/.test(p.service) && p.price; }
+function packagesFor(price) {
+  return PACKAGES.map((p) => {
+    const promo = PROMO_ON && price && PROMO.packages[price] && (p.n === 4 || p.n === 8);
+    const [f4, p4, f8, p8] = promo ? PROMO.packages[price] : [];
+    const disc = PROMO_ON && (p.n === 4 || p.n === 8) ? (p.n === 4 ? 15 : 20) : p.disc;
+    return { n: p.n, disc, full: price ? price * p.n : 0, price: promo ? (p.n === 4 ? p4 : p8) : price ? pkgPrice(price, p) : 0,
+      label: `Пакет ${p.n} ${p.n < 5 ? "сесії" : "сесій"} −${disc}%${PROMO_ON && p.n === 8 ? " + група у подарунок" : ""}` };
+  });
+}
+// таблиця пакетів у блоці «Перша зустріч»
+(() => {
+  $("#pkgText").textContent = packagesFor(null).map((x) => `${x.n} ${x.n < 5 ? "сесії" : "сесій"} −${x.disc}%`).join(", ") + (PROMO_ON ? " (зараз діє Чорна пʼятниця)" : "");
+  const prices = [...new Set(SPECIALISTS.flatMap((s) => s.prices.filter(pkgEligible).map((p) => p.price)))].sort((a, b) => a - b);
+  $("#pkgTable").innerHTML = `<tr><th>Ціна сесії</th>${PACKAGES.map((p, i) => `<th>${p.n} ${p.n < 5 ? "сесії" : "сесій"}<br><span>−${packagesFor(null)[i].disc}%</span></th>`).join("")}</tr>` +
+    prices.map((pr) => `<tr><td>${money(pr)}</td>${packagesFor(pr).map((x) => `<td><b>${money(x.price)}</b><br><s>${money(x.full)}</s></td>`).join("")}</tr>`).join("");
+})();
+
 // mission & first session
 $("#comfort").innerHTML = COMFORT.map((c) => `<span>${esc(c)}</span>`).join("");
 $("#firstSteps").innerHTML = FIRST_STEPS.map((x, i) => `<div class="step"><i>0${i + 1}</i><b>${esc(x.title)}</b><p>${esc(x.text)}</p></div>`).join("");
@@ -1271,7 +1307,9 @@ $("#galGrid").addEventListener("click", (e) => {
 // events
 const MONTHS_G = ["січня", "лютого", "березня", "квітня", "травня", "червня", "липня", "серпня", "вересня", "жовтня", "листопада", "грудня"];
 const dayLabel = (iso) => { if (!iso) return "дата уточнюється"; const d = new Date(iso + "T00:00"); return `${d.getDate()} ${MONTHS_G[d.getMonth()]}`; };
-const evPrice = (e) => (e.price == null ? "Вартість уточнюється" : money(e.price)); // price: null — ціну ще не визначено
+// group — замість ціни пишемо знижки; price: null — ціну ще не визначено
+function groupPriceText() { return `−${FIRST_DISCOUNT}% на першу зустріч · до −15% на пакет`; }
+const evPrice = (e) => (e.type === "group" ? groupPriceText() : e.price == null ? "Вартість уточнюється" : money(e.price));
 const evHost = (e) => (byId(e.host) || {}).name || e.hostName || "";
 function upcoming() {
   const today = new Date(); today.setHours(0, 0, 0, 0);
@@ -1394,7 +1432,8 @@ function openModal(id) {
       <h4>Освіта і кваліфікація</h4><ul>${s.education.map((e) => `<li>${esc(e)}</li>`).join("")}</ul>
       ${s.docs ? `<p style="margin-top:10px"><a href="${esc(s.docs)}" target="_blank" rel="noopener" style="color:var(--accent);font-weight:400">Документи про освіту ↗</a></p>` : ""}
       <h4>Вартість</h4>
-      <div class="m-prices">${s.prices.map((p) => `<div><span>${esc(p.service)}${dur(p)}</span><b>${money(p.price)}</b></div>`).join("")}</div>
+      <div class="m-prices">${s.prices.map((p) => `<div><span>${esc(p.service)}${dur(p)}</span><b>${money(p.price)}</b></div>`).join("")}
+        ${s.prices.filter(pkgEligible).map((p) => packagesFor(p.price).map((x) => `<div><span>${esc(x.label)}${p.service.startsWith("Парна") ? " · парні" : ""}</span><b>${money(x.price)}</b></div>`).join("")).join("")}</div>
       <h4>Доступність</h4>
       <p>Формат: ${s.formats.join(" · ").toLowerCase()}<br>${s.languages ? `Мови: ${s.languages.join(", ")}<br>` : ""}Працює з: ${s.clients.join(", ")}<br>
       ${s.status === "full" ? "Зараз лист очікування" : slotCount(s) ? `Найближче вільне вікно: ${((d) => `${d.getDate()} ${MONTHS_G[d.getMonth()]}`)(slotsOf(s).find((x) => x.free).date)}` : "Час узгоджується через адміністратора"}</p>
@@ -1472,13 +1511,11 @@ $("#fSpec").innerHTML = `<option value="">Допоможіть обрати</opt
 function fillServices() {
   const s = byId($("#fSpec").value);
   const services = s ? s.prices.map((p) => `${p.service} (${money(p.price)})`) : [`Діагностична сесія (−${FIRST_DISCOUNT}%)`];
-  if (PROMO_ON) { // пакети за акцією
-    if (!s) services.push("Пакет 4 сесії −15% — допоможіть підібрати", "Пакет 8 сесій −20% + група у подарунок — допоможіть підібрати");
-    else s.prices.filter((p) => !isDiag(p) && !/^МАК/.test(p.service) && PROMO.packages[p.price]).forEach((p) => {
-      const [f4, p4, f8, p8] = PROMO.packages[p.price], kind = p.service.startsWith("Парна") ? " (парні)" : "";
-      services.push(`Пакет 4 сесії${kind} −15%: ${money(p4)} замість ${money(f4)}`, `Пакет 8 сесій${kind} −20% + група у подарунок: ${money(p8)} замість ${money(f8)}`);
-    });
-  }
+  if (!s) services.push(...packagesFor(null).map((x) => `${x.label} — допоможіть підібрати`));
+  else s.prices.filter(pkgEligible).forEach((p) => {
+    const kind = p.service.startsWith("Парна") ? " (парні)" : "";
+    packagesFor(p.price).forEach((x) => services.push(`${x.label.replace("Пакет", "Пакет" + kind)}: ${money(x.price)} замість ${money(x.full)}`));
+  });
   $("#fService").innerHTML = services.map((x) => `<option>${esc(x)}</option>`).join("");
 }
 $("#fSpec").addEventListener("change", fillServices);
@@ -1510,36 +1547,43 @@ function bookEvent(i) {
 // event form: вибір зустрічей, +1 і підрахунок суми
 $("#payBtn").href = PAY_URL;
 if (EVENT_DISCOUNT) { $("#multiHint").textContent = `(дві або більше — знижка ${EVENT_DISCOUNT}% на всі квитки)`; $("#plusHint").textContent = ` — знижка ${EVENT_DISCOUNT}% для обох`; }
-const evWhen = (e) => (e.sub ? "акція «Чорна пʼятниця»" : `${dayLabel(e.date)}, ${e.time}`);
-const SUBS = PROMO_ON ? PROMO.groupSubs.map((x) => ({ ...x, sub: true, date: "", time: "" })) : [];
+const evWhen = (e) => (e.sub ? "пакет зустрічей групи" : `${dayLabel(e.date)}, ${e.time}`);
+// групи: перша зустріч −FIRST_DISCOUNT%, пакети зустрічей — та сама шкала, що й для сесій (до −15%); ціну на сайті не пишемо
+const GROUP_PRICE = 400; // базова ціна зустрічі групи — для підрахунку суми у формі
+const groupEvents = () => upcoming().filter((e) => e.type === "group");
+const SUBS = PACKAGES.map((p) => ({ id: "sub" + p.n, sub: true, date: "", time: "", type: "groupPack", n: p.n, disc: p.disc,
+  title: `Пакет групових зустрічей: ${p.n} ${p.n < 5 ? "зустрічі" : "зустрічей"}`, price: pkgPrice(GROUP_PRICE, p) }));
+
 const pickedEvent = (v) => (String(v).startsWith("sub") ? SUBS.find((x) => x.id === v) : EVENTS[+v]);
 function renderEvPick() {
   $("#evPick").innerHTML = (upcoming().map((e) => `<label class="ev-opt"><input type="checkbox" name="ev" value="${EVENTS.indexOf(e)}">
     <span>${esc(e.title)}<small>${esc(evWhen(e))}${evHost(e) ? " · " + esc(evHost(e)) : ""}</small></span><b>${evPrice(e)}</b></label>`).join("")
-    + SUBS.map((x) => `<label class="ev-opt"><input type="checkbox" name="ev" value="${x.id}"><span>${esc(x.title)}<small>Чорна пʼятниця · місце у групі за вами</small></span><b><s style="color:var(--light);font-weight:300">${money(x.full)}</s> ${money(x.price)}</b></label>`).join(""))
+    + (groupEvents().length ? SUBS.map((x) => `<label class="ev-opt"><input type="checkbox" name="ev" value="${x.id}"><span>${esc(x.title)}<small>місце у групі за вами</small></span><b>−${x.disc}%</b></label>`).join("") : ""))
     || `<p class="pay-note">Найближчих подій поки немає.</p>`;
-  $("#firstGroupL").hidden = !PROMO_ON;
+  $("#firstGroupL").hidden = !groupEvents().length;
+  $("#firstGroupDisc").textContent = `−${FIRST_DISCOUNT}% на першу зустріч`;
 }
 function evOrder() {
   const f = $("#evForm");
   const picked = [...f.querySelectorAll('input[name="ev"]:checked')].map((x) => pickedEvent(x.value));
   const people = f.plus1.checked ? 2 : 1;
   const sum = picked.reduce((a, e) => a + (e.price || 0), 0) * people;
-  const reasons = [people > 1 && "+1", picked.length > 1 && "кілька зустрічей"].filter(Boolean);
+  const reasons = EVENT_DISCOUNT ? [people > 1 && "+1", picked.length > 1 && "кілька зустрічей"].filter(Boolean) : [];
   let disc = reasons.length && EVENT_DISCOUNT ? Math.round(sum * EVENT_DISCOUNT / 100) : 0;
   // акція: перший візит на групу — 200 грн замість 400 (одна людина, одна група)
-  const grp = PROMO_ON && f.firstGroup.checked && picked.find((e) => e.type === "group" && e.price);
-  if (grp) { disc += Math.max(0, grp.price - PROMO.groupFirst); reasons.push("перший візит на групу"); }
+  const grp = f.firstGroup.checked && picked.find((e) => e.type === "group" && e.price);
+  if (grp) { disc += Math.round((grp.price * FIRST_DISCOUNT) / 100); reasons.push(`перша зустріч групи −${FIRST_DISCOUNT}%`); }
   const tbd = picked.some((e) => e.price == null); // є зустріч без ціни
   const fmt = (n) => (tbd ? (n ? money(n) + " + уточнимо" : "уточнимо після звʼязку") : money(n));
-  return { picked, people, sum, reasons, disc, total: sum - disc, fmt };
+  const isGroup = picked.some((e) => e.type === "group" || e.sub); // для груп базову ціну не показуємо
+  return { picked, people, sum, reasons, disc, total: sum - disc, fmt, isGroup };
 }
 function calcEvent() {
   const o = evOrder();
   $("#plus1Name").hidden = o.people < 2;
   $("#evSum").innerHTML = o.picked.length ? `
-    <div><span>Квитків: ${o.picked.length} × ${o.people} ${o.people > 1 ? "особи" : "особа"}</span><span>${o.fmt(o.sum)}</span></div>
-    ${o.disc ? `<div class="disc"><span>Знижка (${o.reasons.join(", ")})</span><span>−${money(o.disc)}</span></div>` : ""}
+    ${o.isGroup ? "" : `<div><span>Квитків: ${o.picked.length} × ${o.people} ${o.people > 1 ? "особи" : "особа"}</span><span>${o.fmt(o.sum)}</span></div>`}
+    ${o.disc ? `<div class="disc"><span>Знижка (${o.reasons.join(", ")})</span><span>${o.isGroup ? "враховано" : "−" + money(o.disc)}</span></div>` : ""}
     <div class="total"><span>До сплати</span><b>${o.fmt(o.total)}</b></div>`
     : `Оберіть одну або кілька зустрічей — тут зʼявиться сума до сплати.`;
 }
