@@ -216,6 +216,11 @@ nav{position:sticky;top:0;z-index:100;background:rgba(251,248,245,.94);backdrop-
 .ev-head h3{font-family:var(--serif);font-size:30px;font-weight:300;line-height:1.15;margin:6px 0 10px;color:#F3EEDF}
 .ev-head .ev-meta{color:#C9D2C4;margin:0}
 
+.ev-host{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--mid);margin:-2px 0 10px}
+.ev-host img{width:36px;height:36px;border-radius:50%;object-fit:cover;object-position:center 25%;border:2px solid var(--accent-soft)}
+.ev-thumb{float:right;width:84px;height:auto;max-height:110px;object-fit:cover;border-radius:10px;margin:0 0 8px 12px;box-shadow:0 4px 14px rgba(44,32,24,.12);cursor:zoom-in}
+.ev-body{overflow:hidden}
+
 /* SPECIALISTS */
 .specialists{background:#fff}
 .sp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
@@ -1153,7 +1158,34 @@ const EVENTS = [
 
 ## Бонус
 Кожна учасниця отримає чек-лист для відстоювання своїх кордонів.` },
+  { date: "", time: "≈2 години", type: "group", host: "ivanna", place: "Очно в центрі · вул. Первомайського, 5А, м. Кловська", price: 400, seats: 8,
+    title: "Група психологічної стійкості під час війни",
+    text: "Група підтримки з елементами арт-терапії для дорослих 18+. Безпечне коло, де можна поговорити про те, що відбувається всередині, і отримати підтримку. До 8 учасників.",
+    more: `Війна змінила ритм життя кожного з нас. Тривога, втома, напруга в тілі, відчуття, що сил стає дедалі менше. Це природна реакція психіки на тривалий стрес, а не слабкість. І з цим не обовʼязково залишатися наодинці.
+
+## Що це за група
+Це безпечне коло для дорослих, де можна поговорити про те, що відбувається всередині, і отримати підтримку від людей, які проживають схожий досвід. Зустріч веде психологиня Іванна Ромашко.
+
+## Чому арт-терапія
+Деякі переживання важко описати словами. Фарби, колаж і метафоричні образи допомагають їх побачити, назвати й відпустити. Уміти малювати не потрібно: важливий процес, а не результат.
+
+На зустрічі ви:
+• навчитеся помічати свій стан і власні ресурси;
+• спробуєте прості способи знизити напругу, які можна використовувати щодня;
+• відчуєте, що ви не самі у своїх переживаннях;
+• знайдете внутрішню опору, щоб рухатися далі.
+
+## Деталі
+• Формат: очно, у психологічному центрі «Метаморфоза»
+• Тривалість: близько 2 годин
+• Для кого: дорослі 18+
+• Група: до 8 учасників
+• Вартість: −50% на першу зустріч, до −15% на пакет зустрічей
+• Адреса: вул. Первомайського, 5А, м. Кловська
+
+Група підтримки не замінює індивідуальну терапію. Якщо вам зараз дуже важко, наші фахівці можуть працювати з вами індивідуально. Адміністратор допоможе підібрати психолога.` },
   { date: "", repeat: "Раз на 2 тижні", day: "Сб", dayFull: "по суботах", time: "15:00–17:30", type: "group", host: "ivanna", place: "Очно в центрі · вул. Первомайського, 5А, м. Кловська", price: 400, seats: 10,
+    image: "img/group-moodboard.jpg",
     title: "Група психологічної підтримки «Точка рівноваги»",
     text: "Простір, де можна виговоритися без засудження, знайти друзів, поїсти смачненького й зігрітися — зовні та всередині. 12 зустрічей по суботах, раз на 2 тижні, до 10 учасників.",
     more: `Простір, де можна понити без засудження збоку, знайти друзів, виговоритися, поїсти смачненького та зігрітися — зовнішньо й внутрішньо. Веде психологиня Іванна Ромашко.
@@ -1399,8 +1431,9 @@ function renderEvents() {
       <div class="ev-body">
         <div class="ev-type">${EVENT_TYPES[e.type] || ""}</div>
         <h3>${esc(e.title)}</h3>
-        <div class="ev-meta"><span>🕐 ${esc(e.repeat ? evSchedule(e) : e.time)}</span><span>📍 ${esc(e.place)}</span>${evHost(e) ? `<span>👤 ${esc(evHost(e))}</span>` : ""}</div>
-        <p>${esc(e.text)}</p>
+        <div class="ev-meta"><span>🕐 ${esc(e.repeat ? evSchedule(e) : e.time)}</span><span>📍 ${esc(e.place)}</span>${evHost(e) && !byId(e.host) ? `<span>👤 ${esc(evHost(e))}</span>` : ""}</div>
+        ${byId(e.host) ? `<div class="ev-host">${byId(e.host).photo ? `<img src="${esc(byId(e.host).photo)}" alt="">` : ""}<span>Веде ${esc(byId(e.host).name)}</span></div>` : ""}
+        <p>${e.image ? `<img class="ev-thumb" src="${esc(e.image)}" alt="" onclick="openEvent(${i})">` : ""}${esc(e.text)}</p>
         ${e.date ? "" : `<p class="seats" style="color:var(--accent)">${e.repeat ? "Зареєструйтеся — ми повідомимо дату найближчої зустрічі." : "Зареєструйтеся — ми повідомимо дату першої зустрічі."}</p>`}
         ${e.more ? `<button class="ev-more" onclick="openEvent(${i})">Детальніше про зустріч</button>` : ""}
         <div class="ev-foot">
@@ -1422,7 +1455,8 @@ function openEvent(i) {
       <div class="ev-meta"><span>📍 ${esc(e.place)}</span>${evHost(e) ? `<span>👤 ${esc(evHost(e))}${e.hostBio ? ` — ${esc(e.hostBio)}` : ""}</span>` : ""}</div>
     </div>
     <div class="m-body">
-      ${e.image ? `<img src="${esc(e.image)}" alt="" style="width:100%;max-width:320px;border-radius:12px;margin:0 auto 16px;box-shadow:var(--shadow)">` : ""}
+      ${byId(e.host) && byId(e.host).photo ? `<div class="ev-host"><img src="${esc(byId(e.host).photo)}" alt=""><span>Веде ${esc(byId(e.host).name)}</span></div>` : ""}
+      ${e.image ? `<img class="ev-thumb" src="${esc(e.image)}" alt="" style="width:120px">` : ""}
       ${richText(e.more || e.text)}
       <h4>Вартість</h4><p><span class="ev-price">${evPrice(e)}</span></p>
       <p style="font-size:13px" ${EVENT_DEALS.length ? "" : "hidden"}>${EVENT_DEALS.map((d) => `<b>${esc(d.title)}:</b> ${esc(d.text)}`).join("<br>")}</p>
