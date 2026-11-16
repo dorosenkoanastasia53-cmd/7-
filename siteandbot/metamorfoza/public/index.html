@@ -83,6 +83,32 @@ nav{position:sticky;top:0;z-index:100;background:rgba(251,248,245,.94);backdrop-
 .adv h3{font-family:var(--serif);font-size:24px;font-weight:400;margin-bottom:8px}
 .adv p{color:var(--mid);font-size:14px}
 
+/* PROMO (Чорна пʼятниця) */
+.promo-bar{display:block;background:#111;color:#F3EEDF;text-align:center;padding:9px 16px;font-size:13px;text-decoration:none;letter-spacing:.3px}
+.promo-bar b{color:var(--gold-l);font-weight:500}
+.promo-bar:hover{background:#000}
+#promo{background:#111;color:#F3EEDF;padding:72px 0}
+.promo-head{text-align:center;max-width:760px;margin:0 auto 36px}
+.promo-tag{display:inline-block;border:1px solid var(--gold-l);color:var(--gold-l);border-radius:100px;padding:5px 14px;font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
+.promo-head h2{font-family:var(--serif);font-weight:300;font-size:46px;line-height:1.1;margin-bottom:12px}
+.promo-head p{color:#C9C3BA}
+.promo-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.promo-card{background:#1c1c1c;border:1px solid #2e2e2e;border-radius:var(--r);padding:26px;display:flex;flex-direction:column;gap:10px}
+.promo-card.hot{border-color:var(--gold)}
+.promo-big{font-family:var(--serif);font-size:44px;line-height:1;color:var(--gold-l)}
+.promo-card h3{font-family:var(--serif);font-weight:400;font-size:26px}
+.promo-card p{color:#C9C3BA;font-size:14px}
+.promo-card p b{color:#F3EEDF;font-weight:500}
+.promo-card .btn{align-self:flex-start;margin-top:auto}
+.promo-card .btn-main{background:var(--gold);color:#111}.promo-card .btn-main:hover{background:var(--gold-l)}
+.ptable-wrap{overflow-x:auto}
+.ptable{width:100%;border-collapse:collapse;font-size:13px;margin:4px 0 8px}
+.ptable th{font-weight:400;color:#8f8a82;text-align:left;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:6px 6px 6px 0}
+.ptable td{padding:6px 6px 6px 0;border-top:1px solid #2e2e2e;vertical-align:top}
+.ptable s{color:#8f8a82;white-space:nowrap}
+.ptable b{color:var(--gold-l);font-weight:500;white-space:nowrap}
+.promo-small{font-size:12px;color:#8f8a82}
+
 /* MISSION */
 #mission{background:#fff}
 .mission-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:64px;align-items:center}
@@ -335,6 +361,10 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
   .hero-photos{height:340px}
   .adv-grid,.sp-grid,.shop-items,.deals,.steps{grid-template-columns:1fr}
   .mission-photo{height:300px}
+  .promo-grid{grid-template-columns:1fr}
+  .promo-head h2{font-size:34px}
+  #promo{padding:56px 0}
+  .promo-card{padding:20px}
   #footYear{text-align:left}.foot-links{justify-content:flex-start}
   .first-card{padding:26px 20px}
   .perks{grid-template-columns:1fr 1fr}
@@ -356,6 +386,7 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
 </head>
 <body>
 
+<a href="#promo" class="promo-bar" id="promoBar" hidden data-track="promo_click" data-label="Верхній банер"></a>
 <nav>
   <div class="wrap nav-in">
     <a href="#top" class="logo">
@@ -389,7 +420,7 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
         <a href="#specialists" class="btn btn-main" data-track="choose_specialist" data-label="Головний екран">Обрати фахівця</a>
         <a href="#events" class="btn btn-out">Події та зустрічі</a>
       </div>
-      <a href="#first" class="hero-promo" data-track="first_session_click" data-label="Головний екран"><b>−20%</b> на діагностичну сесію — прийдіть познайомитися з фахівцем →</a>
+      <a href="#first" class="hero-promo" data-track="first_session_click" data-label="Головний екран"><b id="heroDisc">−20%</b> <span id="heroPromoText">на діагностичну сесію — прийдіть познайомитися з фахівцем</span> →</a>
       <div class="hero-stats" id="heroStats"></div>
     </div>
     <div class="hero-photos">
@@ -397,6 +428,52 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
       <img class="p2" src="img/room-cabinet.jpg" alt="Затишний куточок кабінету">
       <div class="hero-badge" id="heroBadge"></div>
     </div>
+  </div>
+</section>
+
+<!-- PROMO -->
+<section id="promo" hidden>
+  <div class="wrap">
+    <div class="promo-head">
+      <div class="promo-tag" id="promoDates"></div>
+      <h2>Чорна пʼятниця в Метаморфозі</h2>
+      <p>Найкращі ціни року на турботу про себе. Знижки до −50% на консультації, групи та оренду. Купити можна лише в ці дні, а використати — пізніше.</p>
+    </div>
+    <div class="promo-grid">
+      <article class="promo-card hot">
+        <div class="promo-big">−50%</div>
+        <h3>Перша зустріч з психологом</h3>
+        <p>Зробіть перший крок за пів ціни — консультація від 450 грн. Одна на клієнта, використати протягом місяця. На час акції замість звичайних −20%.</p>
+        <table class="ptable" id="pFirst"></table>
+        <a href="#booking" class="btn btn-main btn-sm" onclick="bookFirst()" data-track="promo_click" data-label="Перша зустріч −50%">Записатися</a>
+      </article>
+      <article class="promo-card">
+        <div class="promo-big">−15% / −20%</div>
+        <h3>Пакети індивідуальних сесій</h3>
+        <p>4 сесії −15% (діють 3 місяці), 8 сесій −20% (діють 6 місяців) <b>+ група у подарунок</b>. Можна змінити фахівця, якщо перший не підійшов.</p>
+        <table class="ptable" id="pPkg"></table>
+        <a href="#booking" class="btn btn-main btn-sm" onclick="showTab('bookForm')" data-track="promo_click" data-label="Пакети сесій">Обрати пакет</a>
+      </article>
+      <article class="promo-card">
+        <div class="promo-big">200 грн</div>
+        <h3>Групи: перший візит і абонементи</h3>
+        <p>Перша група за 200 грн замість 400 — спробуйте, як це, бути серед своїх. Абонемент: місце у групі за вами.</p>
+        <table class="ptable"><tr><th></th><th>Звичайно</th><th>Акція</th></tr>
+          <tr><td>Перший візит на групу</td><td><s>400</s></td><td><b>200 грн</b></td></tr>
+          <tr><td>Абонемент, 4 зустрічі (місяць)</td><td><s>1 600</s></td><td><b>1 300 грн</b></td></tr>
+          <tr><td>Абонемент, 8 зустрічей (2 місяці або 2 групи)</td><td><s>3 200</s></td><td><b>2 400 грн</b></td></tr></table>
+        <a href="#booking" class="btn btn-main btn-sm" onclick="showTab('evForm')" data-track="promo_click" data-label="Групи">Записатися на групу</a>
+      </article>
+      <article class="promo-card">
+        <div class="promo-big">−30%</div>
+        <h3>Оренда для психологів</h3>
+        <p>Оренда кабінету від 105 грн/год. Купуйте години зараз — бронюйте до 3 місяців. Години привʼязані до приміщення.</p>
+        <div class="ptable-wrap"><table class="ptable" id="pRent"></table></div>
+        <p class="promo-small">Діють: 1–4 год — 1 місяць, 5–8 год — 2 місяці, 9–12 год — 3 місяці. Зала — від 2 годин. Скасування пізніше ніж за 24 год — години списуються з пакета.</p>
+        <a href="https://psy-centr-kyiv.netlify.app/" target="_blank" rel="noopener" class="btn btn-main btn-sm" data-track="rent_click" data-label="Чорна пʼятниця">Деталі оренди ↗</a>
+      </article>
+    </div>
+    <p class="promo-small" style="margin-top:20px">Термін акції: 16–30 листопада. Купити можна лише в ці дні, використати — пізніше (у межах терміну дії). Знижки не сумуються.</p>
   </div>
 </section>
 
@@ -422,14 +499,14 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
     <div>
       <div class="s-label">Перша зустріч</div>
       <h2 class="s-title">Прийдіть і познайомтеся з фахівцем</h2>
-      <p class="s-sub">Почати терапію буває страшно: невідомо, як усе відбуватиметься, чи підійде фахівець і чи варто це грошей. Тому перша зустріч у нас — діагностична сесія зі знижкою 20%. Це спокійне знайомство, після якого ви самі вирішите, чи продовжувати.</p>
+      <p class="s-sub">Почати терапію буває страшно: невідомо, як усе відбуватиметься, чи підійде фахівець і чи варто це грошей. Тому перша зустріч у нас — діагностична сесія зі знижкою <span class="discN">20</span>%. Це спокійне знайомство, після якого ви самі вирішите, чи продовжувати.</p>
       <div class="steps" id="firstSteps"></div>
       <div class="no-block" id="noBlock"></div>
     </div>
     <div class="first-card">
-      <div class="first-badge">−20%</div>
+      <div class="first-badge">−<span class="discN">20</span>%</div>
       <h3>Діагностична сесія</h3>
-      <p>Знижка 20% від вартості консультації обраного фахівця</p>
+      <p>Знижка <span class="discN">20</span>% від вартості консультації обраного фахівця<span id="firstPromoNote"></span></p>
       <div class="first-prices" id="firstPrices"></div>
       <button class="btn btn-main" style="width:100%;margin-top:22px" onclick="bookFirst()" data-track="first_session_click" data-label="Блок «Перша зустріч»">Записатися на знайомство</button>
       <p class="first-note">Не знаєте, кого обрати? Залиште заявку — адміністратор підбере фахівця під ваш запит.</p>
@@ -554,6 +631,7 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
         <div class="ev-pick" id="evPick"></div>
       </div>
       <label class="full check"><input type="checkbox" name="plus1" id="plus1"> Приду з +1 (подруга, партнер чи колега)<span id="plusHint"></span></label>
+      <label class="full check" id="firstGroupL" hidden><input type="checkbox" name="firstGroup"> Я вперше на групі — 200 грн замість 400 (Чорна пʼятниця)</label>
       <label class="full" id="plus1Name" hidden>Ім'я вашого +1 (необов'язково)<input name="plus1name"></label>
       <div class="full sum" id="evSum"></div>
       <label class="full">Коментар (необов'язково)<textarea name="comment" rows="2"></textarea></label>
@@ -611,10 +689,31 @@ const CONTACTS = [
   { icon: "⌂", label: "Психологічний простір · " + ADDRESS, href: "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("Київ, вулиця Первомайського, 5А") },
 ];
 
+/* ===== АКЦІЯ «Чорна пʼятниця» =====
+   Діє з start по end включно (за київським часом). Після end сайт сам повертається до звичайних умов (−20%).
+   Купити можна лише в ці дні, використати — пізніше (терміни нижче). */
+const PROMO = {
+  start: "2026-11-16", end: "2026-11-30",
+  title: "Чорна пʼятниця в Метаморфозі",
+  firstDiscount: 50, // % на першу зустріч замість звичайних 20%, одна на клієнта, діє місяць
+  // пакети індивідуальних сесій: ціна сесії → [4 сесії звичайна, 4 акція, 8 звичайна, 8 акція]
+  packages: { 900: [3600, 3050, 7200, 5750], 1200: [4800, 4100, 9600, 7700], 1300: [5200, 4400, 10400, 8300], 1500: [6000, 5100, 12000, 9600], 1800: [7200, 6100, 14400, 11500] },
+  groupFirst: 200, groupBase: 400, // перший візит на групу
+  groupSubs: [{ id: "sub4", title: "Абонемент на групу: 4 зустрічі (місяць)", price: 1300, full: 1600 },
+              { id: "sub8", title: "Абонемент на групу: 8 зустрічей (2 місяці або 2 групи)", price: 2400, full: 3200 }],
+  // оренда, грн/год: [без знижки, 1–4 год −20%, 5–8 год −25%, 9–12 год −30%]
+  rent: [["Малий кабінет", "будні", [150, 120, 110, 105]], ["", "вечір / вихідні", [200, 160, 150, 140]],
+         ["Великий кабінет", "будні", [200, 160, 150, 140]], ["", "вечір / вихідні", [250, 200, 185, 175]],
+         ["Зала (від 2 год)", "будні", [700, 560, 525, 490]], ["", "вечір / вихідні", [900, 720, 675, 630]]],
+};
+const kyivToday = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Kyiv" }).format(new Date());
+const PROMO_ON = kyivToday >= PROMO.start && kyivToday <= PROMO.end;
+const FIRST_DISCOUNT = PROMO_ON ? PROMO.firstDiscount : 20; // % знижки на першу (діагностичну) сесію
+
 const ADVANTAGES = [
   { icon: "🦋", title: "Ретельний відбір", text: "Кожен фахівець пройшов детальний відбір: у команді — найкваліфікованіші й найприємніші в контакті спеціалісти." },
   { icon: "🔒", title: "Конфіденційність", text: "Дотримуємось етичного кодексу НПАУ. Все, що ви розповідаєте, залишається між вами і фахівцем." },
-  { icon: "🤝", title: "Перша зустріч −20%", text: "Діагностична сесія зі знижкою: познайомтеся з фахівцем і вирішіть, чи комфортно вам працювати разом." },
+  { icon: "🤝", title: `Перша зустріч −${FIRST_DISCOUNT}%`, text: "Діагностична сесія зі знижкою: познайомтеся з фахівцем і вирішіть, чи комфортно вам працювати разом." },
   { icon: "💻", title: "Онлайн і офлайн", text: "Затишні кабінети в Києві біля м. Кловська або зустрічі через Zoom / Google Meet — з будь-якої точки світу." },
   { icon: "🛍", title: "Все в одному місці", text: "Антистреси, книги, робочі зошити та блокноти можна придбати прямо в центрі — не треба потім шукати по магазинах." },
   { icon: "💛", title: "Якісно і доступно", text: "Шукаєте психолога не за всі гроші світу? Вам точно до нас. Ціни кожного фахівця — відкрито на сайті." },
@@ -629,7 +728,6 @@ const FIRST_STEPS = [
   { title: "Ваше рішення", text: "Після зустрічі ви вирішуєте, чи комфортно вам у контакті з цією людиною. Без жодних зобовʼязань." },
 ];
 const NO_BLOCKERS = ["Ні до чого не зобовʼязує", "Не треба знати, з чого почати", "Конфіденційно", "Офлайн або онлайн"];
-const FIRST_DISCOUNT = 20; // % знижки на діагностичну сесію
 
 const SHOP = [
   { icon: "🧸", title: "Антистреси", text: "Сквіші, м'ячики та інші дрібнички, щоб зняти напругу" },
@@ -729,7 +827,7 @@ const SPECIALISTS = [
   },
   {
     id: "anastasiia-k",
-    name: "Анастасія",
+    name: "Анастасія Курило",
     role: "Психологиня-консультантка",
     subtitle: "Інтегративний підхід · дорослі, підлітки 14+, сімʼї",
     bio: "Працює з підлітками, сімʼями та дорослими, а також із групами. Цінує прояви особистості й підтримує на кожному кроці до вирішення запиту.",
@@ -1020,7 +1118,7 @@ const EVENT_TYPES = { meetup: "Тематична зустріч", practice: "П
 
 const FAQ = [
   ["Як обрати фахівця?", "Подивіться картки фахівців: напрям, теми та формат. Якщо сумніваєтеся — залиште заявку з коротким описом запиту, адміністратор порекомендує спеціаліста."],
-  ["Як проходить перша зустріч?", "Перша зустріч — діагностична сесія зі знижкою 20%. Фахівець знайомиться з вами, проводить діагностику вашого стану і детально розповідає, як піде робота та чого очікувати. Після цього ви вирішуєте, чи комфортно вам продовжувати з цією людиною."],
+  ["Як проходить перша зустріч?", `Перша зустріч — діагностична сесія зі знижкою ${FIRST_DISCOUNT}%${PROMO_ON ? " (акція «Чорна пʼятниця», зазвичай −20%)" : ""}.`+" Фахівець знайомиться з вами, проводить діагностику вашого стану і детально розповідає, як піде робота та чого очікувати. Після цього ви вирішуєте, чи комфортно вам продовжувати з цією людиною."],
   ["Онлайн-сесії так само ефективні?", "Так, дослідження підтверджують співставну ефективність. Потрібні тільки тихе приватне місце, навушники і стабільний інтернет."],
   ["Як скасувати або перенести сесію?", "Повідомте не пізніше ніж за 24 години — і ми перенесемо зустріч без оплати. Пізніше скасування оплачується, крім форс-мажорів."],
   ["Де ви знаходитесь?", "Київ, вул. Первомайського, 5А — поруч зі станцією метро «Кловська». Також можна працювати онлайн."],
@@ -1081,6 +1179,32 @@ const photoHTML = (sp) => sp.photo
   ? `<img src="${esc(sp.photo)}" alt="${esc(sp.name)}" loading="lazy"${sp.photoPos ? ` style="object-position:${esc(sp.photoPos)}"` : ""}>`
   : `<div class="sp-initials" style="background:${["#4F7A4B", "#B99A4A", "#7E9A86", "#2F5A2C"][SPECIALISTS.indexOf(sp) % 4]}">${initials(sp.name)}</div>`;
 
+// акція «Чорна пʼятниця»
+const fmtD = (iso) => { const [y, m, d] = iso.split("-").map(Number); return `${d}.${String(m).padStart(2, "0")}`; };
+document.querySelectorAll(".discN").forEach((el) => (el.textContent = FIRST_DISCOUNT));
+$("#heroDisc").textContent = `−${FIRST_DISCOUNT}%`;
+if (PROMO_ON) {
+  $("#promo").hidden = false;
+  $("#promoBar").hidden = false;
+  $("#promoBar").innerHTML = `<b>${PROMO.title}</b> · ${fmtD(PROMO.start)}–${fmtD(PROMO.end)} · знижки до −50% на консультації, групи та оренду →`;
+  $("#promoDates").textContent = `${fmtD(PROMO.start)}–${fmtD(PROMO.end)} листопада`;
+  $("#heroPromoText").textContent = "перша зустріч з психологом · від 450 грн · Чорна пʼятниця";
+  $("#firstPromoNote").textContent = ". Акція «Чорна пʼятниця»: одна на клієнта, використати протягом місяця. Зазвичай −20%.";
+  const firstRows = {};
+  SPECIALISTS.forEach((sp) => sp.prices.filter((p) => !isDiag(p) && !/^МАК/.test(p.service) && p.price).forEach((p) => {
+    const key = p.price + "|" + (p.service.startsWith("Парна") ? "pair" : "");
+    const who = p.service.startsWith("Парна") ? `${sp.name.split(" ")[1] || sp.name}, парна сесія` : sp.name;
+    (firstRows[key] ||= { price: p.price, who: [] }).who.push(who);
+  }));
+  $("#pFirst").innerHTML = `<tr><th>Фахівець</th><th>Звичайно</th><th>−20%</th><th>Акція</th></tr>` + Object.values(firstRows).sort((a, b) => a.price - b.price)
+    .map((r) => `<tr><td>${esc(r.who.join(", "))}</td><td><s>${money(r.price)}</s></td><td><s>${money(Math.round(r.price * 0.8))}</s></td><td><b>${money(Math.round(r.price * (1 - PROMO.firstDiscount / 100)))}</b></td></tr>`).join("");
+  $("#pPkg").innerHTML = `<tr><th>Ціна сесії</th><th>4 сесії</th><th>8 сесій</th></tr>` + Object.entries(PROMO.packages)
+    .map(([pr, [f4, p4, f8, p8]]) => `<tr><td>${money(+pr)}${+pr === 1500 ? " (і парні)" : ""}</td><td><s>${money(f4)}</s> <b>${money(p4)}</b></td><td><s>${money(f8)}</s> <b>${money(p8)}</b></td></tr>`).join("");
+  $("#pRent").innerHTML = `<tr><th>Приміщення</th><th>Тариф</th><th>Звичайно</th><th>1–4 год</th><th>5–8 год</th><th>9–12 год</th></tr>` + PROMO.rent
+    .map(([room, t, [f, a, b, c]]) => `<tr><td>${room}</td><td>${t}</td><td><s>${f}</s></td><td><b>${a}</b></td><td><b>${b}</b></td><td><b>${c}</b></td></tr>`).join("");
+  FAQ.unshift(["Які умови акції «Чорна пʼятниця»?", "Акція діє з 16 по 30 листопада. Купити пропозицію можна лише в ці дні, а використати — пізніше: першу зустріч −50% — протягом місяця (одна на клієнта), пакет на 4 сесії — 3 місяці, на 8 сесій — 6 місяців, години оренди — 1–3 місяці залежно від кількості. Пакет можна перенести на іншого фахівця, якщо перший не підійшов. Знижки не сумуються."]);
+}
+
 // mission & first session
 $("#comfort").innerHTML = COMFORT.map((c) => `<span>${esc(c)}</span>`).join("");
 $("#firstSteps").innerHTML = FIRST_STEPS.map((x, i) => `<div class="step"><i>0${i + 1}</i><b>${esc(x.title)}</b><p>${esc(x.text)}</p></div>`).join("");
@@ -1093,7 +1217,7 @@ $("#firstPrices").innerHTML = SPECIALISTS.filter((sp) => sp.prices.some(isDiag))
 // hero
 const allTopics = [...new Set(SPECIALISTS.flatMap((s) => s.topics))];
 $("#heroStats").innerHTML = [
-  [SPECIALISTS.length, "фахівців"], [allTopics.length + "+", "напрямів роботи"], ["−20%", "на першу зустріч"],
+  [SPECIALISTS.length, "фахівців"], [allTopics.length + "+", "напрямів роботи"], [`−${FIRST_DISCOUNT}%`, "на першу зустріч"],
 ].map(([n, t]) => `<div><b>${n}</b><span>${t}</span></div>`).join("");
 const freeNow = SPECIALISTS.filter((s) => s.status !== "full").length;
 $("#heroBadge").innerHTML = `<b>●</b> ${freeNow} з ${SPECIALISTS.length} фахівців приймають нових клієнтів`;
@@ -1318,6 +1442,13 @@ $("#fSpec").innerHTML = `<option value="">Допоможіть обрати</opt
 function fillServices() {
   const s = byId($("#fSpec").value);
   const services = s ? s.prices.map((p) => `${p.service} (${money(p.price)})`) : [`Діагностична сесія (−${FIRST_DISCOUNT}%)`];
+  if (PROMO_ON) { // пакети за акцією
+    if (!s) services.push("Пакет 4 сесії −15% — допоможіть підібрати", "Пакет 8 сесій −20% + група у подарунок — допоможіть підібрати");
+    else s.prices.filter((p) => !isDiag(p) && !/^МАК/.test(p.service) && PROMO.packages[p.price]).forEach((p) => {
+      const [f4, p4, f8, p8] = PROMO.packages[p.price], kind = p.service.startsWith("Парна") ? " (парні)" : "";
+      services.push(`Пакет 4 сесії${kind} −15%: ${money(p4)} замість ${money(f4)}`, `Пакет 8 сесій${kind} −20% + група у подарунок: ${money(p8)} замість ${money(f8)}`);
+    });
+  }
   $("#fService").innerHTML = services.map((x) => `<option>${esc(x)}</option>`).join("");
 }
 $("#fSpec").addEventListener("change", fillServices);
@@ -1349,18 +1480,26 @@ function bookEvent(i) {
 // event form: вибір зустрічей, +1 і підрахунок суми
 $("#payBtn").href = PAY_URL;
 if (EVENT_DISCOUNT) { $("#multiHint").textContent = `(дві або більше — знижка ${EVENT_DISCOUNT}% на всі квитки)`; $("#plusHint").textContent = ` — знижка ${EVENT_DISCOUNT}% для обох`; }
+const evWhen = (e) => (e.sub ? "акція «Чорна пʼятниця»" : `${dayLabel(e.date)}, ${e.time}`);
+const SUBS = PROMO_ON ? PROMO.groupSubs.map((x) => ({ ...x, sub: true, date: "", time: "" })) : [];
+const pickedEvent = (v) => (String(v).startsWith("sub") ? SUBS.find((x) => x.id === v) : EVENTS[+v]);
 function renderEvPick() {
-  $("#evPick").innerHTML = upcoming().map((e) => `<label class="ev-opt"><input type="checkbox" name="ev" value="${EVENTS.indexOf(e)}">
-    <span>${esc(e.title)}<small>${dayLabel(e.date)}, ${esc(e.time)}${evHost(e) ? " · " + esc(evHost(e)) : ""}</small></span><b>${evPrice(e)}</b></label>`).join("")
+  $("#evPick").innerHTML = (upcoming().map((e) => `<label class="ev-opt"><input type="checkbox" name="ev" value="${EVENTS.indexOf(e)}">
+    <span>${esc(e.title)}<small>${esc(evWhen(e))}${evHost(e) ? " · " + esc(evHost(e)) : ""}</small></span><b>${evPrice(e)}</b></label>`).join("")
+    + SUBS.map((x) => `<label class="ev-opt"><input type="checkbox" name="ev" value="${x.id}"><span>${esc(x.title)}<small>Чорна пʼятниця · місце у групі за вами</small></span><b><s style="color:var(--light);font-weight:300">${money(x.full)}</s> ${money(x.price)}</b></label>`).join(""))
     || `<p class="pay-note">Найближчих подій поки немає.</p>`;
+  $("#firstGroupL").hidden = !PROMO_ON;
 }
 function evOrder() {
   const f = $("#evForm");
-  const picked = [...f.querySelectorAll('input[name="ev"]:checked')].map((x) => EVENTS[+x.value]);
+  const picked = [...f.querySelectorAll('input[name="ev"]:checked')].map((x) => pickedEvent(x.value));
   const people = f.plus1.checked ? 2 : 1;
   const sum = picked.reduce((a, e) => a + (e.price || 0), 0) * people;
   const reasons = [people > 1 && "+1", picked.length > 1 && "кілька зустрічей"].filter(Boolean);
-  const disc = reasons.length && EVENT_DISCOUNT ? Math.round(sum * EVENT_DISCOUNT / 100) : 0;
+  let disc = reasons.length && EVENT_DISCOUNT ? Math.round(sum * EVENT_DISCOUNT / 100) : 0;
+  // акція: перший візит на групу — 200 грн замість 400 (одна людина, одна група)
+  const grp = PROMO_ON && f.firstGroup.checked && picked.find((e) => e.type === "group" && e.price);
+  if (grp) { disc += Math.max(0, grp.price - PROMO.groupFirst); reasons.push("перший візит на групу"); }
   const tbd = picked.some((e) => e.price == null); // є зустріч без ціни
   const fmt = (n) => (tbd ? (n ? money(n) + " + уточнимо" : "уточнимо після звʼязку") : money(n));
   return { picked, people, sum, reasons, disc, total: sum - disc, fmt };
@@ -1370,7 +1509,7 @@ function calcEvent() {
   $("#plus1Name").hidden = o.people < 2;
   $("#evSum").innerHTML = o.picked.length ? `
     <div><span>Квитків: ${o.picked.length} × ${o.people} ${o.people > 1 ? "особи" : "особа"}</span><span>${o.fmt(o.sum)}</span></div>
-    ${o.disc ? `<div class="disc"><span>Знижка ${EVENT_DISCOUNT}% (${o.reasons.join(", ")})</span><span>−${money(o.disc)}</span></div>` : ""}
+    ${o.disc ? `<div class="disc"><span>Знижка (${o.reasons.join(", ")})</span><span>−${money(o.disc)}</span></div>` : ""}
     <div class="total"><span>До сплати</span><b>${o.fmt(o.total)}</b></div>`
     : `Оберіть одну або кілька зустрічей — тут зʼявиться сума до сплати.`;
 }
@@ -1411,9 +1550,9 @@ $("#evForm").addEventListener("submit", (e) => {
     "🎟 Реєстрація на подію — Метаморфоза",
     `Ім'я: ${f.name.value.trim()}`,
     `Контакт: ${f.contact.value.trim()}`,
-    "Зустрічі:", ...o.picked.map((ev) => `• ${ev.title} (${dayLabel(ev.date)}, ${ev.time}) — ${evPrice(ev)}`),
+    "Зустрічі:", ...o.picked.map((ev) => `• ${ev.title} (${evWhen(ev)}) — ${evPrice(ev)}`),
     `Осіб: ${o.people}${o.people > 1 && f.plus1name.value.trim() ? ` (+1: ${f.plus1name.value.trim()})` : ""}`,
-    o.disc && `Знижка ${EVENT_DISCOUNT}% (${o.reasons.join(", ")}): −${money(o.disc)}`,
+    o.disc && `Знижка (${o.reasons.join(", ")}): −${money(o.disc)}`,
     `До сплати: ${o.fmt(o.total)}`,
     `Оплата: ${f.paid.checked ? "клієнт вказав, що оплатив онлайн" : "ще не оплачено"}`,
     f.comment.value.trim() && `Коментар: ${f.comment.value.trim()}`,
