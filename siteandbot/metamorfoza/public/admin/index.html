@@ -100,7 +100,7 @@ table.list td{padding:8px;border-bottom:1px solid var(--sand);vertical-align:top
 .tag.paid{background:var(--gs);color:var(--ok)}.tag.unpaid{background:#F6E3E3;color:var(--busy)}.tag.pkg{background:#FFF2CC;color:#7a5a10}
 .progress{height:8px;background:var(--sand);border-radius:8px;overflow:hidden;margin-top:6px}
 .progress i{display:block;height:100%;background:var(--g)}
-.stat{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:16px}
 .stat div{background:#fff;border-radius:14px;padding:16px}
 .stat b{display:block;font-family:var(--serif);font-size:30px;font-weight:500;color:var(--g)}
 .stat span{font-size:12px;color:var(--mid)}
@@ -495,7 +495,9 @@ async function renderVisits() {
   bindMonth(renderVisits);
   const d = await api("analytics", null, { month: state.month });
   const [y, m] = state.month.split("-").map(Number), n = new Date(y, m, 0).getDate();
-  const days = Array.from({ length: n }, (_, i) => { const k = `${state.month}-${pad(i + 1)}`; return { k, day: i + 1, ...(d.days[k] || { views: 0, visitors: 0 }) }; });
+  const days = Array.from({ length: n }, (_, i) => { const k = `${state.month}-${pad(i + 1)}`; return { k, day: i + 1, views: 0, visitors: 0, seconds: 0, ...(d.days[k] || {}) }; });
+  const dur = (sec) => { sec = Math.round(sec); return sec < 60 ? `${sec} с` : `${Math.floor(sec / 60)} хв ${String(sec % 60).padStart(2, "0")} с`; };
+  const avgTime = (secs, views) => (views ? dur(secs / views) : "—");
   const sum = (f) => days.reduce((t, x) => t + x[f], 0);
   const count = (e) => Object.values(d.events[e] || {}).reduce((t, x) => t + x, 0);
   const leads = count("form_submit_psy") + count("form_submit_event"), visitors = sum("visitors");
@@ -505,6 +507,7 @@ async function renderVisits() {
   $("#vBody").innerHTML = `<div class="stat">
       <div><b>${visitors}</b><span>відвідувачів (за днями)</span></div>
       <div><b>${sum("views")}</b><span>переглядів сторінок</span></div>
+      <div><b>${avgTime(sum("seconds"), sum("views"))}</b><span>середній час на сайті</span></div>
       <div><b>${leads}</b><span>заявок і реєстрацій</span></div>
       <div><b>${visitors ? ((leads / visitors) * 100).toFixed(1) : "0"}%</b><span>конверсія у заявку</span></div>
     </div>
@@ -512,14 +515,18 @@ async function renderVisits() {
       <div class="chart" id="vChart">${days.map((x) => `<div class="col" data-tip="${x.day} ${MONTHS[m - 1]}: ${x.visitors} відвідувачів · ${x.views} переглядів"><div class="bar" style="height:${(x.visitors / max) * 100}%"></div>${x === peak && x.visitors ? `<span class="peak">${x.visitors}</span>` : ""}</div>`).join("")}</div>
       <div class="chart-x">${days.map((x) => `<span>${x.day % 5 === 1 ? x.day : ""}</span>`).join("")}</div>
       <details style="margin-top:12px"><summary class="muted" style="cursor:pointer">Показати таблицею</summary>
-        <table class="list" style="margin-top:8px"><tr><th>День</th><th>Відвідувачі</th><th>Перегляди</th></tr>${days.filter((x) => x.views).map((x) => `<tr><td>${x.day}.${pad(m)}</td><td>${x.visitors}</td><td>${x.views}</td></tr>`).join("") || `<tr><td colspan="3" class="muted">Ще немає даних</td></tr>`}</table></details>
+        <table class="list" style="margin-top:8px"><tr><th>День</th><th>Відвідувачі</th><th>Перегляди</th><th>Середній час</th></tr>${days.filter((x) => x.views).map((x) => `<tr><td>${x.day}.${pad(m)}</td><td>${x.visitors}</td><td>${x.views}</td><td>${avgTime(x.seconds, x.views)}</td></tr>`).join("") || `<tr><td colspan="4" class="muted">Ще немає даних</td></tr>`}</table></details>
     </div>
     <div class="split">
       <div class="card"><h3>Натискання на ключові кнопки</h3><div class="bars-list">${evRows.map((e) => {
         const top = Object.entries(d.events[e]).sort((a, b) => b[1] - a[1]).slice(0, 3).map(([l, c]) => `${esc(l)} — ${c}`).join(" · ");
         return `<div><span>${EVENT_NAMES[e]}<small>${top}</small></span><b>${count(e)}</b></div>`;
       }).join("") || `<p class="muted">Ще немає даних</p>`}</div></div>
-      <div><div class="card"><h3>Звідки приходять</h3><div class="bars-list">${listOf(d.sources, visitors)}</div></div>
+      <div><div class="card"><h3>Скільки часу проводять на сайті</h3><div class="bars-list">${(() => {
+        const order = ["до 10 с", "10–30 с", "30 с – 1 хв", "1–3 хв", "3–10 хв", "понад 10 хв"], tb = d.timeBuckets || {}, tot = order.reduce((t, k) => t + (tb[k] || 0), 0);
+        return tot ? order.map((k) => `<div><span>${k}<div class="mini"><i style="width:${Math.round(((tb[k] || 0) / tot) * 100)}%"></i></div></span><b>${tb[k] || 0}</b></div>`).join("") : `<p class="muted">Ще немає даних</p>`;
+      })()}</div></div>
+      <div class="card"><h3>Звідки приходять</h3><div class="bars-list">${listOf(d.sources, visitors)}</div></div>
       <div class="card"><h3>Які фахівці цікавлять</h3><div class="bars-list">${listOf(d.events.specialist_open || {}, count("specialist_open"))}</div></div></div>
     </div>
     <p class="muted">Статистика анонімна: без cookies, IP-адрес та імен. Відвідувач рахується один раз на день.</p>`;

@@ -1588,6 +1588,15 @@ function track(e, label = "", extra = {}) {
   let newVisitor = true;
   try { newVisitor = localStorage.getItem("mf_seen") !== TODAY_KEY; localStorage.setItem("mf_seen", TODAY_KEY); } catch {}
   track("page_view", "", { src, newVisitor });
+  // час на сайті: рахуємо лише поки вкладка видима; надсилаємо, коли людина йде або перемикає вкладку
+  let visibleSince = document.visibilityState === "visible" ? Date.now() : 0, total = 0, sent = 0;
+  const flush = () => {
+    if (visibleSince) { total += (Date.now() - visibleSince) / 1000; visibleSince = 0; }
+    const t = Math.round(total);
+    if (t > sent) { track("time", "", { total: t, prev: sent }); sent = t; }
+  };
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") flush(); else visibleSince = Date.now(); });
+  addEventListener("pagehide", flush);
 })();
 document.addEventListener("click", (e) => {
   const el = e.target.closest("[data-track]");

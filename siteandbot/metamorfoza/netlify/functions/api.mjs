@@ -50,8 +50,10 @@ const DEFAULT_CONFIG = {
   ],
 };
 // події, які сайт рахує (інші ігноруються); джерела перших відвідувань за день
-const TRACK_EVENTS = ["page_view", "booking_click", "choose_specialist", "first_session_click", "specialist_open", "slot_pick",
+const TRACK_EVENTS = ["page_view", "time", "booking_click", "choose_specialist", "first_session_click", "specialist_open", "slot_pick",
   "event_open", "event_register", "form_submit_psy", "form_submit_event", "pay_click", "telegram_click", "instagram_click", "map_click", "rent_click", "promo_click", "qr_zapys", "qr_podii"];
+const TIME_BUCKETS = ["до 10 с", "10–30 с", "30 с – 1 хв", "1–3 хв", "3–10 хв", "понад 10 хв"];
+const timeBucket = (s) => TIME_BUCKETS[s < 10 ? 0 : s < 30 ? 1 : s < 60 ? 2 : s < 180 ? 3 : s < 600 ? 4 : 5];
 const SOURCES = ["Пряме", "Instagram", "Telegram", "Facebook", "Google", "QR-код", "Інше"];
 const SERVICES = { diag: "Діагностична сесія", consult: "Консультація", pair: "Парна / сімейна сесія", mak: "МАК-сесія", other: "Інше" };
 
@@ -122,7 +124,14 @@ async function handle(req) {
     const day = today(), key = `analytics-${day.slice(0, 7)}`;
     const st = (await db.get(key)) || { days: {}, events: {}, sources: {} };
     const d = (st.days[day] ||= { views: 0, visitors: 0 });
-    if (e === "page_view") {
+    if (e === "time") {
+      // час на сайті: total — скільки секунд вкладка була відкрита й видима за цей візит, prev — що вже надсилали раніше
+      const total = Math.min(3600, Math.max(0, Math.round(+body.total || 0))), prev = Math.min(total, Math.max(0, Math.round(+body.prev || 0)));
+      d.seconds = (d.seconds || 0) + (total - prev);
+      const b = st.timeBuckets ||= {};
+      if (prev > 0) b[timeBucket(prev)] = Math.max(0, (b[timeBucket(prev)] || 0) - 1);
+      if (total > 0) b[timeBucket(total)] = (b[timeBucket(total)] || 0) + 1;
+    } else if (e === "page_view") {
       d.views++;
       if (body.newVisitor) d.visitors++;
       const src = SOURCES.includes(body.src) ? body.src : "Інше";
