@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Метаморфоза — оренда кабінетів для психологів погодинно</title>
-<meta name="description" content="Метаморфоза — простір для психологів, психотерапевтів і коучів. Три приміщення від 150 грн/год. Залиште заявку на сайті або напишіть адміністратору в Telegram чи Instagram.">
+<meta name="description" content="Метаморфоза — простір для психологів, психотерапевтів і коучів. Три приміщення від 150 грн/год. Бронювання — напишіть адміністратору в Telegram чи Instagram.">
 <meta property="og:title" content="Метаморфоза — кабінети для психологічної практики">
-<meta property="og:description" content="Кабінети від 150 грн/год. Заявка за хвилину — на сайті, в Telegram чи Instagram.">
+<meta property="og:description" content="Кабінети від 150 грн/год. Бронювання в Telegram чи Instagram.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 30C26 14 10 8 6 16s6 20 22 18C14 38 12 54 22 54s10-14 10-20c0 6 0 20 10 20s8-16-6-20c16 2 26-10 22-18S38 14 32 30z' fill='%23C9824A'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -184,6 +184,13 @@ nav{position:sticky;top:0;z-index:60;background:rgba(247,242,236,.9);backdrop-fi
 .bf-sum .form-msg.bad{background:#FBE9E6;border-color:#EBC0B8;color:#8A2F24}
 body:not(.bf-on) .bf-only{display:none!important}
 body.bf-on .bf-hide{display:none!important}
+
+/* DIRECT CONTACT */
+.dc-btns{display:grid;gap:10px}
+.dc-btns .btn{width:100%;padding:16px}
+.dc-hint{font-size:13px;line-height:1.55;margin-top:12px;text-align:center;color:rgba(255,255,255,.6)}
+.bf-sum .dc-hint{color:var(--muted)}
+.bf-sum .dc-btns{margin-top:4px}
 
 /* GALLERY */
 .gallery{display:grid;grid-auto-flow:dense;grid-template-columns:repeat(4,1fr);grid-auto-rows:240px;gap:14px;margin-top:44px}
@@ -417,9 +424,9 @@ footer{padding:56px 0 110px;font-size:14px;color:var(--ink2)}
       <h1 class="bf-hide">Затишний кабінет для <em>ваших сесій</em></h1>
       <h1 class="bf-only">Оренда кабінету <em>від 105 грн/год</em></h1>
       <p class="lead bf-only" style="margin-bottom:12px"><b>Купуйте години зараз — бронюйте до 3 місяців.</b> −30% на оренду кабінетів і зали · години, які чекатимуть на вас.</p>
-      <p class="lead">«Метаморфоза» — простір для психологів, психотерапевтів і коучів. Три приміщення для індивідуальних, парних, сімейних і групових зустрічей. Залиште заявку — підберемо вільний час під ваш графік.</p>
+      <p class="lead">«Метаморфоза» — простір для психологів, психотерапевтів і коучів. Три приміщення для індивідуальних, парних, сімейних і групових зустрічей. Напишіть нам у Telegram чи Instagram — підберемо вільний час під ваш графік.</p>
       <div class="hero-ctas">
-        <a class="btn bf-hide" href="#booking">Залишити заявку →</a>
+        <a class="btn bf-hide" href="#booking">Забронювати →</a>
         <a class="btn bf-only" href="#bf">Купити години зі знижкою →</a>
         <a class="btn btn-ghost" href="#rooms">Подивитися кабінети</a>
       </div>
@@ -436,13 +443,11 @@ footer{padding:56px 0 110px;font-size:14px;color:var(--ink2)}
       <span class="hero-photo-tag">📍 Великий кабінет</span>
       <div class="quick-card reveal">
         <h3>Забронювати кабінет</h3>
-        <div class="sub">Заявка надходить адміністратору одразу — відповімо й підтвердимо час</div>
+        <div class="sub">Бронювання — напряму в адміністратора. Напишіть, як вам зручніше:</div>
         <div class="qc-btns">
-          <a class="btn" href="#booking">Залишити заявку на сайті</a>
-          <div class="qc-row">
-            <a class="btn btn-tg" data-link="tg" target="_blank" rel="noopener"><svg><use href="#ic-tg"/></svg>Telegram</a>
-            <a class="btn btn-ig" data-link="ig" target="_blank" rel="noopener"><svg><use href="#ic-ig"/></svg>Instagram</a>
-          </div>
+          <a class="btn btn-tg" data-link="tg" target="_blank" rel="noopener" onclick="copyText(null)"><svg><use href="#ic-tg"/></svg>Написати в Telegram</a>
+          <a class="btn btn-ig" data-link="ig" target="_blank" rel="noopener" onclick="copyText(null)"><svg><use href="#ic-ig"/></svg>Написати в Instagram</a>
+          <a class="qc-link" href="#booking" style="display:block;text-align:center;font-size:14px;font-weight:600;color:var(--accent);text-decoration:none">Розрахувати вартість і скласти повідомлення ↓</a>
         </div>
         <div class="qc-note"><span class="live-dot"></span><span>Щодня 08:00–22:00 · Wi-Fi, вода, чай включено</span></div>
       </div>
@@ -482,18 +487,18 @@ footer{padding:56px 0 110px;font-size:14px;color:var(--ink2)}
         <div class="hrs-hint" id="bfHint"></div>
       </div>
 
-      <form class="bf-sum reveal" id="bfForm" novalidate>
+      <div class="bf-sum reveal" id="bfForm">
         <div class="lbl">Ваш пакет</div>
         <div class="big" id="bfTotal"></div>
         <div class="old" id="bfOld"></div>
         <div class="save" id="bfSave"></div>
         <ul id="bfList"></ul>
-        <div class="field"><input id="bf-name" placeholder="Ваше ім’я *" autocomplete="name" required></div>
-        <div class="field"><input id="bf-contact" placeholder="Телефон або @нік у Telegram *" autocomplete="tel" required></div>
-        <div class="hp" aria-hidden="true"><input id="bf-website" tabindex="-1" autocomplete="off"></div>
-        <button type="submit" class="btn send-btn" id="bfBtn">Купити години зі знижкою</button>
-        <div id="bfMsg"></div>
-      </form>
+        <div class="dc-btns">
+          <a class="btn btn-tg" data-link="tg" target="_blank" rel="noopener" onclick="copyText(bfChatText)"><svg><use href="#ic-tg"/></svg>Купити в Telegram</a>
+          <a class="btn btn-ig" data-link="ig" target="_blank" rel="noopener" onclick="copyText(bfChatText)"><svg><use href="#ic-ig"/></svg>Купити в Instagram</a>
+        </div>
+        <div class="dc-hint">Текст із вибраним пакетом скопіюється автоматично — просто вставте його в чат.</div>
+      </div>
     </div>
   </div>
 </section>
@@ -569,8 +574,8 @@ footer{padding:56px 0 110px;font-size:14px;color:var(--ink2)}
   <div class="wrap">
     <div class="center reveal">
       <div class="eyebrow">Бронювання</div>
-      <h2>Залиште <em>заявку</em></h2>
-      <p class="lead">Оберіть приміщення, дату й час — побачите орієнтовну вартість. Заявка одразу надійде адміністратору, і ми зв’яжемося з вами для підтвердження.</p>
+      <h2>Розрахуйте й <em>напишіть нам</em></h2>
+      <p class="lead">Оберіть приміщення, дату й час — побачите орієнтовну вартість. Готове повідомлення скопіюється — надішліть його адміністратору в Telegram чи Instagram.</p>
     </div>
 
     <div class="bk">
@@ -589,24 +594,17 @@ footer{padding:56px 0 110px;font-size:14px;color:var(--ink2)}
         <div class="opts" id="opts"></div>
       </div>
 
-      <form class="summary" id="summary" novalidate>
-        <div class="step"><span>4</span>Ваша заявка</div>
+      <div class="summary" id="summary">
+        <div class="step"><span>4</span>Ваше повідомлення</div>
         <div class="s-room" id="sRoom"></div>
         <div class="totals" id="sTotals"></div>
-        <div class="field"><input id="f-name" name="name" placeholder="Ваше ім’я *" autocomplete="name" required></div>
-        <div class="field"><input id="f-contact" name="contact" placeholder="Телефон або @нік у Telegram *" autocomplete="tel" required></div>
-        <div class="field"><small>Текст заявки — можна доповнити</small><textarea id="msg" aria-label="Текст заявки"></textarea></div>
-        <div class="hp" aria-hidden="true"><input id="f-website" name="website" tabindex="-1" autocomplete="off"></div>
-        <button type="submit" class="btn send-btn" id="sendBtn">Надіслати заявку</button>
-        <div id="formMsg"></div>
-        <div class="alt">
-          <p>Або напишіть адміністратору напряму</p>
-          <div class="alt-btns">
-            <a class="btn btn-tg" data-link="tg" target="_blank" rel="noopener" onclick="copyMsg()"><svg><use href="#ic-tg"/></svg>Telegram</a>
-            <a class="btn btn-ig" data-link="ig" target="_blank" rel="noopener" onclick="copyMsg()"><svg><use href="#ic-ig"/></svg>Instagram</a>
-          </div>
+        <div class="field"><small>Текст повідомлення — можна доповнити</small><textarea id="msg" aria-label="Текст повідомлення"></textarea></div>
+        <div class="dc-btns">
+          <a class="btn btn-tg" data-link="tg" target="_blank" rel="noopener" onclick="copyText(chatText)"><svg><use href="#ic-tg"/></svg>Надіслати в Telegram</a>
+          <a class="btn btn-ig" data-link="ig" target="_blank" rel="noopener" onclick="copyText(chatText)"><svg><use href="#ic-ig"/></svg>Надіслати в Instagram</a>
         </div>
-      </form>
+        <div class="dc-hint">Текст скопіюється автоматично — просто вставте його в чат. Адміністратор перевірить, чи вільний час, і підтвердить бронювання.</div>
+      </div>
     </div>
   </div>
 </section>
@@ -620,7 +618,7 @@ footer{padding:56px 0 110px;font-size:14px;color:var(--ink2)}
       <p class="lead">Ви зосереджуєтесь на клієнті. Решту ми взяли на себе.</p>
     </div>
     <div class="benefits">
-      <div class="benefit reveal"><div class="b-ic">💬</div><h3>Бронювання за хвилину</h3><p>Залиште заявку на сайті або напишіть у Telegram чи Instagram — адміністратор підбере вільний час і підтвердить бронювання.</p></div>
+      <div class="benefit reveal"><div class="b-ic">💬</div><h3>Бронювання за хвилину</h3><p>Напишіть у Telegram чи Instagram — адміністратор підбере вільний час і підтвердить бронювання.</p></div>
       <div class="benefit reveal"><div class="b-ic">🛋</div><h3>Атмосфера довіри</h3><p>М’які крісла, пледи, живі рослини й тепле світло — клієнтам легко розслабитися й говорити відверто.</p></div>
       <div class="benefit reveal"><div class="b-ic">👥</div><h3>Три формати</h3><p>Малий кабінет для індивідуальних сесій, Великий — для пар і сімей, Зала — для груп і тренінгів до 10 осіб.</p></div>
       <div class="benefit reveal"><div class="b-ic">☕</div><h3>Все включено</h3><p>Wi-Fi, вода, чай і серветки вже входять у вартість. У Залі — ще й проектор з екраном. Жодних прихованих доплат.</p></div>
@@ -658,7 +656,7 @@ footer{padding:56px 0 110px;font-size:14px;color:var(--ink2)}
     </div>
     <div class="how">
       <div class="how-step reveal"><h3>Оберіть приміщення</h3><p>Малий, Великий кабінет чи Зала — залежно від формату і кількості людей.</p></div>
-      <div class="how-step reveal"><h3>Залиште заявку</h3><p>На сайті — дата, час і контакт. Або напишіть нам у Telegram чи Instagram.</p></div>
+      <div class="how-step reveal"><h3>Напишіть нам</h3><p>У Telegram чи Instagram — приміщення, дата й час. Готовий текст із ціною можна скласти на сайті.</p></div>
       <div class="how-step reveal"><h3>Отримайте підтвердження</h3><p>Адміністратор перевірить вільний час, підтвердить бронювання й підкаже деталі оплати.</p></div>
       <div class="how-step reveal"><h3>Приходьте працювати</h3><p>Чай, тиша й затишок уже на місці — залишається зосередитися на клієнті.</p></div>
     </div>
@@ -691,7 +689,7 @@ footer{padding:56px 0 110px;font-size:14px;color:var(--ink2)}
       <h2>Часті <em>запитання</em></h2>
     </div>
     <div class="faq">
-      <details><summary>Як забронювати й оплатити?</summary><p>Залиште заявку на сайті або напишіть адміністратору в Telegram чи Instagram: приміщення, дату й час. Адміністратор перевірить, чи вільний час, підтвердить бронювання й підкаже, як зручно оплатити.</p></details>
+      <details><summary>Як забронювати й оплатити?</summary><p>Напишіть адміністратору в Telegram чи Instagram: приміщення, дату й час. Адміністратор перевірить, чи вільний час, підтвердить бронювання й підкаже, як зручно оплатити.</p></details>
       <details><summary>Як скасувати або перенести бронювання?</summary><p>Напишіть адміністратору. Якщо до початку більше 24 годин — скасування безкоштовне. Пізніше утримується 50% вартості.</p></details>
       <details><summary>Як працює «постійний час»?</summary><p>Той самий день і година щотижня закріплюються за вами — зі знижкою 15%. Оплата — за місяць наперед. Просто скажіть адміністратору, який час хочете зробити постійним.</p></details>
       <details><summary>Як отримати знижку за пакет 10 годин?</summary><p>Пакет 10 годин зі знижкою 10% діє 2 місяці — години можна використовувати в різні дні. Якщо в один день у вас 4 або 8 годин — діє ще більша знижка «пів дня» (−20%) чи «повний день» (−25%). Знижки не сумуються.</p></details>
@@ -708,9 +706,8 @@ footer{padding:56px 0 110px;font-size:14px;color:var(--ink2)}
       <svg class="wing" style="fill:#fff"><use href="#wing"/></svg>
       <div class="eyebrow" style="color:var(--accent)">Метаморфоза</div>
       <h2>Ваш наступний клієнт уже чекає</h2>
-      <p class="lead">Залиште заявку — чай, тиша й затишок уже на місці.</p>
+      <p class="lead">Напишіть нам — чай, тиша й затишок уже на місці.</p>
       <div class="final-btns">
-        <a class="btn" href="#booking">Залишити заявку</a>
         <a class="btn btn-tg" data-link="tg" target="_blank" rel="noopener"><svg><use href="#ic-tg"/></svg>Telegram</a>
         <a class="btn btn-ig" data-link="ig" target="_blank" rel="noopener"><svg><use href="#ic-ig"/></svg>Instagram</a>
       </div>
@@ -727,7 +724,7 @@ footer{padding:56px 0 110px;font-size:14px;color:var(--ink2)}
       </div>
       <div>
         <h4>Бронювання</h4>
-        <a href="#booking">Заявка на сайті</a>
+        <a href="#booking">Розрахувати вартість</a>
         <a data-link="tg" target="_blank" rel="noopener">Telegram</a>
         <a data-link="ig" target="_blank" rel="noopener">Instagram</a>
       </div>
@@ -761,7 +758,6 @@ var LINKS = {
   tg: "https://t.me/dorosenkoanastasia50",
   ig: "https://www.instagram.com/direct/t/18097245023122427/",
 };
-var SEND_URL = "/.netlify/functions/send"; // функція, яка пересилає заявки в Telegram-бот
 var TRACK_URL = "/.netlify/functions/track"; // анонімна статистика для сторінки /stats.html
 
 // ===== Чорна п’ятниця =====
@@ -874,7 +870,7 @@ function renderRoomCards() {
   }).join("");
 }
 
-// ---------- форма заявки ----------
+// ---------- розрахунок вартості й текст повідомлення ----------
 function pickRoom(id, scroll) {
   if (scroll || req.room !== id) track("room_" + id);
   req.room = id;
@@ -956,71 +952,25 @@ function renderReq() {
   if (!msgEdited) $("msg").value = buildMessage(q);
 }
 
-// Повний текст для чату (якщо людина пише напряму в Telegram / Instagram)
+// Повний текст для чату з адміністратором
 function chatText() {
-  var name = $("f-name").value.trim();
   return "Вітаю! Хочу забронювати приміщення в «Метаморфозі».\n\n" + $("msg").value.trim() +
-    (name ? "\n\nМене звати " + name + "." : "") + "\n\nПідкажіть, будь ласка, чи вільний цей час?";
+    "\n\nПідкажіть, будь ласка, чи вільний цей час?";
 }
 
-function copyMsg() {
-  var text = chatText();
-  function done() { toast("Текст заявки скопійовано — вставте його в чат 👌"); }
-  if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(done, function () {});
-}
-
-// Надсилає заявку в Telegram через Netlify-функцію. Повертає Promise; при помилці — Error з причиною.
-function sendRequest(name, contact, text, website) {
-  return fetch(SEND_URL, {
-    method: "POST", headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ name: name, contact: contact, text: text, website: website || "" }),
-  }).then(function (r) {
-    return r.json().catch(function () { return {}; }).then(function (d) {
-      if (r.ok && d.ok) return;
-      throw new Error(r.status === 404 ? "Функцію відправки не знайдено на сервері — сайт опубліковано без папки netlify/functions (наприклад, через Netlify Drop) або в Netlify неправильно вказано Base directory." :
-        d.error === "not_configured" ? "У Netlify не задано BOT_TOKEN або ADMIN_CHAT_ID, або після їх додавання сайт не перезапущено (Deploys → Trigger deploy)." :
-        d.reason || ("Помилка " + r.status));
-    });
-  });
-}
-
-function showFormMsg(kind, html) {
-  $("formMsg").innerHTML = html ? '<div class="form-msg ' + kind + '">' + html + '</div>' : "";
-}
-
-function submitForm(e) {
-  e.preventDefault();
-  var name = $("f-name").value.trim(), contact = $("f-contact").value.trim();
-  if (name.length < 2) { showFormMsg("bad", "Вкажіть, будь ласка, ваше ім’я."); $("f-name").focus(); return; }
-  if (contact.replace(/\D/g, "").length < 5 && !/@|t\.me/i.test(contact)) {
-    showFormMsg("bad", "Вкажіть телефон або нік у Telegram, щоб ми могли з вами зв’язатися."); $("f-contact").focus(); return;
+// Копіює текст (якщо є) перед переходом у Telegram / Instagram
+function copyText(fn) {
+  if (!fn) return;
+  var text = fn();
+  function done() { toast("Текст скопійовано — вставте його в чат 👌"); }
+  function fallback() {
+    var t = document.createElement("textarea"); t.value = text; t.style.position = "fixed"; t.style.opacity = "0";
+    document.body.appendChild(t); t.select();
+    try { document.execCommand("copy"); done(); } catch (e) {}
+    t.remove();
   }
-  var btn = $("sendBtn");
-  btn.disabled = true; btn.textContent = "Надсилаємо…"; showFormMsg();
-  fetch(SEND_URL, {
-    method: "POST", headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ name: name, contact: contact, text: $("msg").value.trim(), website: $("f-website").value }),
-  })
-    .then(function (r) {
-      return r.json().catch(function () { return {}; }).then(function (d) {
-        if (r.ok && d.ok) return;
-        var why = r.status === 404 ? "Функцію відправки не знайдено на сервері — сайт опубліковано без папки netlify/functions (наприклад, через Netlify Drop) або в Netlify неправильно вказано Base directory." :
-          d.error === "not_configured" ? "У Netlify не задано BOT_TOKEN або ADMIN_CHAT_ID, або після їх додавання сайт не перезапущено (Deploys → Trigger deploy)." :
-          d.reason || "";
-        throw new Error(why);
-      });
-    })
-    .then(function () {
-      track("form");
-      showFormMsg("ok", "✓ Дякуємо, " + esc(name) + "! Заявку отримано — адміністратор зв’яжеться з вами найближчим часом.");
-      btn.textContent = "Заявку надіслано ✓";
-      setTimeout(function () { btn.disabled = false; btn.textContent = "Надіслати ще одну заявку"; }, 4000);
-    })
-    .catch(function (err) {
-      btn.disabled = false; btn.textContent = "Надіслати заявку";
-      showFormMsg("bad", "Не вдалося надіслати заявку. Спробуйте ще раз або напишіть нам у Telegram чи Instagram — кнопки нижче, текст заявки скопіюється автоматично." +
-        (err && err.message ? '<br><small style="opacity:.75">Технічна причина: ' + esc(err.message) + '</small>' : ""));
-    });
+  if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(done, fallback);
+  else fallback();
 }
 
 function initReq() {
@@ -1035,7 +985,6 @@ function initReq() {
   $("r-start").onchange = function () { req.start = +this.value; msgEdited = false; renderReq(); };
   $("r-dur").onchange = function () { req.dur = +this.value; msgEdited = false; renderReq(); };
   $("msg").oninput = function () { msgEdited = true; };
-  $("summary").onsubmit = submitForm;
   renderReq();
 }
 
@@ -1131,25 +1080,7 @@ function bfMessage() {
     "📅 Використати протягом " + monthsGen(tier.months)].join("\n");
 }
 
-function bfSubmit(e) {
-  e.preventDefault();
-  var name = $("bf-name").value.trim(), contact = $("bf-contact").value.trim(), msg = function (k, h) { $("bfMsg").innerHTML = h ? '<div class="form-msg ' + k + '">' + h + '</div>' : ""; };
-  if (name.length < 2) { msg("bad", "Вкажіть, будь ласка, ваше ім’я."); return; }
-  if (contact.replace(/\D/g, "").length < 5 && !/@|t\.me/i.test(contact)) { msg("bad", "Вкажіть телефон або нік у Telegram."); return; }
-  var btn = $("bfBtn"); btn.disabled = true; btn.textContent = "Надсилаємо…"; msg();
-  sendRequest(name, contact, bfMessage(), $("bf-website").value).then(function () {
-    track("bf");
-    msg("ok", "✓ Дякуємо, " + esc(name) + "! Заявку на пакет отримано — адміністратор зв’яжеться з вами й підкаже, як оплатити.");
-    btn.textContent = "Заявку надіслано ✓";
-    setTimeout(function () { btn.disabled = false; btn.textContent = "Купити години зі знижкою"; }, 4000);
-  }).catch(function (err) {
-    btn.disabled = false; btn.textContent = "Купити години зі знижкою";
-    var text = "Не вдалося надіслати заявку. Напишіть нам у Telegram — текст скопійовано, просто вставте його в чат.";
-    try { navigator.clipboard.writeText("Вітаю! " + bfMessage() + "\n\nМене звати " + name + ", контакт: " + contact); } catch (x) {}
-    msg("bad", text + ' <a href="' + LINKS.tg + '" target="_blank" rel="noopener" style="color:inherit;font-weight:700">Відкрити Telegram →</a>' +
-      (err && err.message ? '<br><small style="opacity:.75">Технічна причина: ' + esc(err.message) + '</small>' : ""));
-  });
-}
+function bfChatText() { return "Вітаю! Хочу скористатися акцією.\n\n" + bfMessage() + "\n\nПідкажіть, будь ласка, як оплатити?"; }
 
 function bfCountdown() {
   var end = new Date(BF.until + "T23:59:59+02:00").getTime(), left = Math.max(0, end - Date.now());
@@ -1166,7 +1097,6 @@ function initBF() {
   $("mbarBtn").href = "#bf"; $("mbarBtn").textContent = "−30%";
   renderBFTable(); renderBFCalc(); bfCountdown(); setInterval(bfCountdown, 1000);
   $("bfRange").oninput = function () { bf.hours = +this.value; renderBFCalc(); };
-  $("bfForm").onsubmit = bfSubmit;
 }
 
 // ---------- дрібниці ----------

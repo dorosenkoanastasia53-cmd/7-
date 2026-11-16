@@ -102,7 +102,7 @@ h2{font-size:16px;font-weight:700;margin-bottom:14px}
 var KEY = "", DAYS = 30;
 var MONTHS = ["січ", "лют", "бер", "кві", "тра", "чер", "лип", "сер", "вер", "жов", "лис", "гру"];
 var SRC = { direct: "Напряму / закладки", instagram: "Instagram", facebook: "Facebook", telegram: "Telegram", google: "Google" };
-var ACT = [["form", "📨 Надіслали заявку"], ["bf", "🖤 Заявка на пакет (Чорна п’ятниця)"], ["tg", "✈️ Перейшли в Telegram"], ["ig", "📷 Перейшли в Instagram"], ["photo", "🖼 Відкрили фото"]];
+var ACT = [["tg", "✈️ Перейшли в Telegram"], ["ig", "📷 Перейшли в Instagram"], ["photo", "🖼 Відкрили фото"], ["form", "📨 Заявки через форму (раніше)"], ["bf", "🖤 Заявки на пакет (раніше)"]];
 var ROOMS = [["room_small", "Малий кабінет"], ["room_big", "Великий кабінет"], ["room_hall", "Зала"]];
 function $(id) { return document.getElementById(id); }
 function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
@@ -145,8 +145,8 @@ function render(d) {
   $("kpis").innerHTML =
     '<div class="kpi"><b>' + visitors + '</b><span>відвідувачів</span></div>' +
     '<div class="kpi"><b>' + views + '</b><span>переглядів сторінки</span></div>' +
-    '<div class="kpi acc"><b>' + ((ev.form || 0) + (ev.bf || 0)) + '</b><span>заявок із сайту</span></div>' +
-    '<div class="kpi"><b>' + conv + '%</b><span>написали або залишили заявку</span></div>';
+    '<div class="kpi acc"><b>' + ((ev.tg || 0) + (ev.ig || 0)) + '</b><span>переходів у Telegram / Instagram</span></div>' +
+    '<div class="kpi"><b>' + conv + '%</b><span>відвідувачів перейшли написати</span></div>';
 
   var max = Math.max(1, Math.max.apply(null, days.map(function (x) { return x.views; })));
   $("chart").innerHTML = days.map(function (x) {
