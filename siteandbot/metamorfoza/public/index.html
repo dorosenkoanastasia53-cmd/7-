@@ -372,8 +372,37 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
   .hero h1{font-size:52px}
   .s-title{font-size:34px}
   .hero-photos{height:340px}
-  .adv-grid,.sp-grid,.shop-items,.deals,.steps{grid-template-columns:1fr}
-  .mission-photo{height:300px}
+  .sp-grid,.deals{grid-template-columns:1fr}
+  /* компактна мобільна версія: менше гортати */
+  section{padding:44px 0}
+  .s-title{font-size:30px;margin-bottom:10px}
+  .s-sub{margin-bottom:22px;font-size:14px}
+  .sp-grid{gap:10px}
+  .sp{display:grid;grid-template-columns:92px 1fr;text-align:left;align-items:start}
+  .sp-photo{padding:12px 0 12px 12px}
+  .arch{width:80px;border-radius:999px 999px 12px 12px}
+  .sp .status{position:static;margin-top:6px;padding:2px 0;background:none;font-size:11px}
+  .sp-body{padding:12px 14px 12px 12px}
+  .sp h3{font-size:20px}
+  .sp-role{font-size:10px;letter-spacing:1.5px;margin:2px 0}
+  .sp-sub{font-size:15px;margin:0 0 6px}
+  .sp-bio,.sp-label,.sp .tags,.sp-format{display:none}
+  .sp-foot{padding-top:8px;gap:8px;row-gap:6px}
+  .sp-price s{font-size:15px}.sp-price b{font-size:20px}.sp-price small{font-size:11px;margin-top:2px}
+  .sp-foot .btn{padding:7px 14px;font-size:10px}
+  .sp-filters,.ev-filters{flex-wrap:nowrap;overflow-x:auto;margin-bottom:16px;padding-bottom:4px}
+  .pill{white-space:nowrap;font-size:12px;padding:6px 14px}
+  .promo-grid,.adv-grid,.steps,.shop-items{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;padding-bottom:8px;margin-right:-16px}
+  .promo-card,.adv,.step,.shop-item{flex:0 0 84%;scroll-snap-align:start}
+  .adv{padding:20px}
+  .mission-photo,.shop-photo{display:none}
+  .shop-grid>*,.first-grid>*,.mission-grid>*{min-width:0}
+  .sp-foot .btn{display:none}
+  .sp-photo{display:flex;flex-direction:column;align-items:center}
+  .gal-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;margin-right:-16px}
+  .gal-grid figure{flex:0 0 78%;height:240px;scroll-snap-align:start}
+  .hero-photos{height:260px}
+  .hero-stats{margin-top:28px;gap:24px}
   .promo-grid{grid-template-columns:1fr}
   .promo-head h2{font-size:34px}
   #promo{padding:56px 0}
@@ -383,10 +412,8 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
   .perks{grid-template-columns:1fr 1fr}
   .opening{padding:26px 20px}
   .opening h3{font-size:28px}
-  .shop-photo{height:340px}
   .ev-head{padding:26px 20px}
   .week{grid-template-columns:repeat(2,1fr)}
-  .gal-grid{grid-auto-rows:160px}
   .ev{grid-template-columns:84px 1fr}
   .ev-date b{font-size:34px}
   form{grid-template-columns:1fr;padding:22px}
@@ -461,10 +488,9 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
         <a href="#booking" class="btn btn-main btn-sm" onclick="bookFirst()" data-track="promo_click" data-label="Перша зустріч −50%">Записатися</a>
       </article>
       <article class="promo-card">
-        <div class="promo-big">−15% / −20%</div>
+        <div class="promo-big">до −20%</div>
         <h3>Пакети індивідуальних сесій</h3>
-        <p>4 сесії −15% (діють 3 місяці), 8 сесій −20% (діють 6 місяців) <b>+ група у подарунок</b>. Можна змінити фахівця, якщо перший не підійшов.</p>
-        <table class="ptable" id="pPkg"></table>
+        <p>На пакети сесій діють знижки, а до пакета на 8 сесій — <b>група у подарунок</b>. Можна змінити фахівця, якщо перший не підійшов. Деталі підкаже адміністратор.</p>
         <a href="#booking" class="btn btn-main btn-sm" onclick="showTab('bookForm')" data-track="promo_click" data-label="Пакети сесій">Обрати пакет</a>
       </article>
       <article class="promo-card">
@@ -512,9 +538,8 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
       <div class="steps" id="firstSteps"></div>
       <div class="no-block" id="noBlock"></div>
       <div class="pkg-block">
-        <h3>Далі — пакети сесій зі знижкою</h3>
-        <p>Регулярна робота дає найкращий результат, тому пакети вигідніші: <span id="pkgText">4 сесії −5%, 6 сесій −10%, 8 сесій −12%, 10 сесій −15%</span>. Пакет обираємо після першої зустрічі, коли зрозуміло, чи комфортно вам з фахівцем.</p>
-        <div class="pkg-wrap"><table class="pkg-table" id="pkgTable"></table></div>
+        <h3>Пакети сесій — зі знижкою</h3>
+        <p>Регулярна робота дає найкращий результат, тому на пакети сесій діють знижки — до −15%. Пакет обираємо після першої зустрічі, коли зрозуміло, чи комфортно вам з фахівцем. Деталі підкаже адміністратор.</p>
       </div>
     </div>
     <div class="first-card">
@@ -1127,32 +1152,69 @@ const EVENTS = [
 
 ## Бонус
 Кожна учасниця отримає чек-лист для відстоювання своїх кордонів.` },
-  { date: "", time: "≈2 години", type: "group", host: "ivanna", place: "Очно в центрі · вул. Первомайського, 5А, м. Кловська", price: 400, seats: 8,
-    title: "Група психологічної стійкості під час війни",
-    text: "Група підтримки з елементами арт-терапії для дорослих 18+. Безпечне коло, де можна поговорити про те, що відбувається всередині, і отримати підтримку. До 8 учасників.",
-    more: `Війна змінила ритм життя кожного з нас. Тривога, втома, напруга в тілі, відчуття, що сил стає дедалі менше. Це природна реакція психіки на тривалий стрес, а не слабкість. І з цим не обовʼязково залишатися наодинці.
+  { date: "", time: "сб 15:00–17:30, раз на 2 тижні", type: "group", host: "ivanna", place: "Очно в центрі · вул. Первомайського, 5А, м. Кловська", price: 400, seats: 10,
+    title: "Група психологічної підтримки «Точка рівноваги»",
+    text: "Простір, де можна виговоритися без засудження, знайти друзів, поїсти смачненького й зігрітися — зовні та всередині. 12 зустрічей по суботах, раз на 2 тижні, до 10 учасників.",
+    more: `Простір, де можна понити без засудження збоку, знайти друзів, виговоритися, поїсти смачненького та зігрітися — зовнішньо й внутрішньо. Веде психологиня Іванна Ромашко.
 
-## Що це за група
-Це безпечне коло для дорослих, де можна поговорити про те, що відбувається всередині, і отримати підтримку від людей, які проживають схожий досвід. Зустріч веде психологиня Іванна Ромашко.
+## Як проходить зустріч
+• шеринг (~40 хв);
+• теорія, щось корисне (~15 хв);
+• психологічна техніка й обговорення (~1 год 15 хв);
+• завершення (~20 хв).
 
-## Чому арт-терапія
-Деякі переживання важко описати словами. Фарби, колаж і метафоричні образи допомагають їх побачити, назвати й відпустити. Уміти малювати не потрібно: важливий процес, а не результат.
+## Блок 1. Знайомство й почуття опори
+• Зустріч 1. Ти не сама — знайомство, очікування, ромб балансу + МАК;
+• Зустріч 2. Що зі мною сталося? — вплив стресу, підсумки року;
+• Зустріч 3. Мої точки опори — внутрішня опора, техніка «Генератор».
 
-На зустрічі ви:
-• навчитеся помічати свій стан і власні ресурси;
-• спробуєте прості способи знизити напругу, які можна використовувати щодня;
-• відчуєте, що ви не самі у своїх переживаннях;
-• знайдете внутрішню опору, щоб рухатися далі.
+## Блок 2. Турбота про себе й відновлення
+• Зустріч 4. Емоційні гойдалки війни — емоції та потреби за ними;
+• Зустріч 5. Турбота про себе без провини;
+• Зустріч 6. Мої межі та право на підтримку.
+
+## Блок 3. Життя в умовах невизначеності
+• Зустріч 7. Контроль у моєму житті — вправа «Зони контролю»;
+• Зустріч 8. Втрати;
+• Зустріч 9. Принцип надії — колаж «Моє бажане життя».
+
+## Блок 4. Інтеграція
+• Зустріч 10. Я — більше за мої проблеми;
+• Зустріч 11. Мій план;
+• Зустріч 12. Мої підсумки — лист собі в майбутнє.
 
 ## Деталі
-• Формат: очно, у психологічному центрі «Метаморфоза»
-• Тривалість: близько 2 годин
-• Для кого: дорослі 18+
-• Група: до 8 учасників
+• Коли: по суботах, 15:00–17:30, раз на 2 тижні
+• Група: до 10 учасників, 12 зустрічей (можна продовжити, якщо група складеться)
+• Формат: очно, у центрі «Метаморфоза», вул. Первомайського, 5А, м. Кловська
 • Вартість: −50% на першу зустріч, до −15% на пакет зустрічей
-• Адреса: вул. Первомайського, 5А, м. Кловська
 
-Група підтримки не замінює індивідуальну терапію. Якщо вам зараз дуже важко, наші фахівці можуть працювати з вами індивідуально. Адміністратор допоможе підібрати психолога.` },
+Група підтримки не замінює індивідуальну терапію. Якщо вам зараз дуже важко, наші фахівці можуть працювати з вами індивідуально.` },
+  { date: "", time: "пт 17:30, раз на місяць · 2,5 год", type: "club", host: "ivanna", place: "Очно в центрі · вул. Первомайського, 5А", price: 700, seats: 10,
+    priceNote: "700 грн перша зустріч · далі 500 грн", image: "img/reading-journal.jpg",
+    title: "Психологічний книжковий клуб «Third place»",
+    text: "Читаємо художні книги й розбираємо їх очима психолога: мотиви персонажів, архетипи, паралелі з нашим життям. Перша книга — «Мій рік відпочинку та розслаблення». Раз на місяць, до 10 учасників.",
+    more: `«Третє місце» — це місце, де людина проводить час, окрім дому й роботи. Хочеться, щоб цей клуб став віддушиною. Веде дипломована практикуюча психологиня Іванна Ромашко.
+
+## Чим він відрізняється від звичайного книжкового клубу
+• розбиратимемо глибинні мотиви персонажів;
+• визначимо характерологію й архетипи героїв;
+• поставимо їм діагнози (жартома);
+• проведемо паралелі між сюжетом і нашим сьогоденням;
+• спробуємо зазирнути між рядків;
+• обговоримо те, про що складно мовчати після прочитання;
+• і найголовніше — поглянемо всередину себе.
+
+## Як проходить
+На кожній зустрічі — презентація з цікавими фактами, питаннями й роздумами ведучої, обговорення ваших питань, а іноді й вікторина з призом. Кожен учасник отримує читацький щоденник.
+
+## Перша книга
+«Мій рік відпочинку та розслаблення».
+
+## Деталі
+• Коли: раз на місяць, по пʼятницях о 17:30, 2,5 години
+• Група: до 10 учасників
+• Вартість: 700 грн перша зустріч, далі 500 грн` },
 ];
 
 /* Знижки на події. Зараз вимкнено. Щоб повернути: додайте рядки сюди і поставте EVENT_DISCOUNT нижче, напр.:
@@ -1161,7 +1223,7 @@ const EVENTS = [
 const EVENT_DEALS = [
 ];
 
-const EVENT_TYPES = { meetup: "Тематична зустріч", practice: "Практична зустріч", circle: "Жіноче коло", group: "Група", workshop: "Воркшоп", lecture: "Лекція" };
+const EVENT_TYPES = { club: "Книжковий клуб", meetup: "Тематична зустріч", practice: "Практична зустріч", circle: "Жіноче коло", group: "Група", workshop: "Воркшоп", lecture: "Лекція" };
 
 const FAQ = [
   ["Як обрати фахівця?", "Подивіться картки фахівців: напрям, теми та формат. Якщо сумніваєтеся — залиште заявку з коротким описом запиту, адміністратор порекомендує спеціаліста."],
@@ -1245,7 +1307,7 @@ if (PROMO_ON) {
   }));
   $("#pFirst").innerHTML = `<tr><th>Фахівець</th><th>Звичайно</th><th>−20%</th><th>Акція</th></tr>` + Object.values(firstRows).sort((a, b) => a.price - b.price)
     .map((r) => `<tr><td>${esc(r.who.join(", "))}</td><td><s>${money(r.price)}</s></td><td><s>${money(Math.round(r.price * 0.8))}</s></td><td><b>${money(Math.round(r.price * (1 - PROMO.firstDiscount / 100)))}</b></td></tr>`).join("");
-  $("#pPkg").innerHTML = `<tr><th>Ціна сесії</th><th>4 сесії</th><th>8 сесій</th></tr>` + Object.entries(PROMO.packages)
+  if ($("#pPkg")) $("#pPkg").innerHTML = `<tr><th>Ціна сесії</th><th>4 сесії</th><th>8 сесій</th></tr>` + Object.entries(PROMO.packages)
     .map(([pr, [f4, p4, f8, p8]]) => `<tr><td>${money(+pr)}${+pr === 1500 ? " (і парні)" : ""}</td><td><s>${money(f4)}</s> <b>${money(p4)}</b></td><td><s>${money(f8)}</s> <b>${money(p8)}</b></td></tr>`).join("");
   $("#pRent").innerHTML = `<tr><th>Приміщення</th><th>Тариф</th><th>Звичайно</th><th>1–4 год</th><th>5–8 год</th><th>9–12 год</th></tr>` + PROMO.rent
     .map(([room, t, [f, a, b, c]]) => `<tr><td>${room}</td><td>${t}</td><td><s>${f}</s></td><td><b>${a}</b></td><td><b>${b}</b></td><td><b>${c}</b></td></tr>`).join("");
@@ -1263,13 +1325,6 @@ function packagesFor(price) {
       label: `Пакет ${p.n} ${p.n < 5 ? "сесії" : "сесій"} −${disc}%${PROMO_ON && p.n === 8 ? " + група у подарунок" : ""}` };
   });
 }
-// таблиця пакетів у блоці «Перша зустріч»
-(() => {
-  $("#pkgText").textContent = packagesFor(null).map((x) => `${x.n} ${x.n < 5 ? "сесії" : "сесій"} −${x.disc}%`).join(", ") + (PROMO_ON ? " (зараз діє Чорна пʼятниця)" : "");
-  const prices = [...new Set(SPECIALISTS.flatMap((s) => s.prices.filter(pkgEligible).map((p) => p.price)))].sort((a, b) => a - b);
-  $("#pkgTable").innerHTML = `<tr><th>Ціна сесії</th>${PACKAGES.map((p, i) => `<th>${p.n} ${p.n < 5 ? "сесії" : "сесій"}<br><span>−${packagesFor(null)[i].disc}%</span></th>`).join("")}</tr>` +
-    prices.map((pr) => `<tr><td>${money(pr)}</td>${packagesFor(pr).map((x) => `<td><b>${money(x.price)}</b><br><s>${money(x.full)}</s></td>`).join("")}</tr>`).join("");
-})();
 
 // mission & first session
 $("#comfort").innerHTML = COMFORT.map((c) => `<span>${esc(c)}</span>`).join("");
@@ -1309,7 +1364,7 @@ const MONTHS_G = ["січня", "лютого", "березня", "квітня"
 const dayLabel = (iso) => { if (!iso) return "дата уточнюється"; const d = new Date(iso + "T00:00"); return `${d.getDate()} ${MONTHS_G[d.getMonth()]}`; };
 // group — замість ціни пишемо знижки; price: null — ціну ще не визначено
 function groupPriceText() { return `−${FIRST_DISCOUNT}% на першу зустріч · до −15% на пакет`; }
-const evPrice = (e) => (e.type === "group" ? groupPriceText() : e.price == null ? "Вартість уточнюється" : money(e.price));
+const evPrice = (e) => (e.type === "group" ? groupPriceText() : e.priceNote ? e.priceNote : e.price == null ? "Вартість уточнюється" : money(e.price));
 const evHost = (e) => (byId(e.host) || {}).name || e.hostName || "";
 function upcoming() {
   const today = new Date(); today.setHours(0, 0, 0, 0);
@@ -1364,6 +1419,7 @@ function openEvent(i) {
       <div class="ev-meta"><span>📍 ${esc(e.place)}</span>${evHost(e) ? `<span>👤 ${esc(evHost(e))}${e.hostBio ? ` — ${esc(e.hostBio)}` : ""}</span>` : ""}</div>
     </div>
     <div class="m-body">
+      ${e.image ? `<img src="${esc(e.image)}" alt="" style="width:100%;max-width:320px;border-radius:12px;margin:0 auto 16px;box-shadow:var(--shadow)">` : ""}
       ${richText(e.more || e.text)}
       <h4>Вартість</h4><p><span class="ev-price">${evPrice(e)}</span></p>
       <p style="font-size:13px" ${EVENT_DEALS.length ? "" : "hidden"}>${EVENT_DEALS.map((d) => `<b>${esc(d.title)}:</b> ${esc(d.text)}`).join("<br>")}</p>
@@ -1433,7 +1489,7 @@ function openModal(id) {
       ${s.docs ? `<p style="margin-top:10px"><a href="${esc(s.docs)}" target="_blank" rel="noopener" style="color:var(--accent);font-weight:400">Документи про освіту ↗</a></p>` : ""}
       <h4>Вартість</h4>
       <div class="m-prices">${s.prices.map((p) => `<div><span>${esc(p.service)}${dur(p)}</span><b>${money(p.price)}</b></div>`).join("")}
-        ${s.prices.filter(pkgEligible).map((p) => packagesFor(p.price).map((x) => `<div><span>${esc(x.label)}${p.service.startsWith("Парна") ? " · парні" : ""}</span><b>${money(x.price)}</b></div>`).join("")).join("")}</div>
+        ${s.prices.some(pkgEligible) ? `<div><span>Пакети сесій</span><b>знижки до −15%</b></div>` : ""}</div>
       <h4>Доступність</h4>
       <p>Формат: ${s.formats.join(" · ").toLowerCase()}<br>${s.languages ? `Мови: ${s.languages.join(", ")}<br>` : ""}Працює з: ${s.clients.join(", ")}<br>
       ${s.status === "full" ? "Зараз лист очікування" : slotCount(s) ? `Найближче вільне вікно: ${((d) => `${d.getDate()} ${MONTHS_G[d.getMonth()]}`)(slotsOf(s).find((x) => x.free).date)}` : "Час узгоджується через адміністратора"}</p>
@@ -1511,11 +1567,7 @@ $("#fSpec").innerHTML = `<option value="">Допоможіть обрати</opt
 function fillServices() {
   const s = byId($("#fSpec").value);
   const services = s ? s.prices.map((p) => `${p.service} (${money(p.price)})`) : [`Діагностична сесія (−${FIRST_DISCOUNT}%)`];
-  if (!s) services.push(...packagesFor(null).map((x) => `${x.label} — допоможіть підібрати`));
-  else s.prices.filter(pkgEligible).forEach((p) => {
-    const kind = p.service.startsWith("Парна") ? " (парні)" : "";
-    packagesFor(p.price).forEach((x) => services.push(`${x.label.replace("Пакет", "Пакет" + kind)}: ${money(x.price)} замість ${money(x.full)}`));
-  });
+  if (!s || s.prices.some(pkgEligible)) services.push("Пакет сесій зі знижкою — уточнити в адміністратора");
   $("#fService").innerHTML = services.map((x) => `<option>${esc(x)}</option>`).join("");
 }
 $("#fSpec").addEventListener("change", fillServices);
@@ -1558,7 +1610,7 @@ const pickedEvent = (v) => (String(v).startsWith("sub") ? SUBS.find((x) => x.id 
 function renderEvPick() {
   $("#evPick").innerHTML = (upcoming().map((e) => `<label class="ev-opt"><input type="checkbox" name="ev" value="${EVENTS.indexOf(e)}">
     <span>${esc(e.title)}<small>${esc(evWhen(e))}${evHost(e) ? " · " + esc(evHost(e)) : ""}</small></span><b>${evPrice(e)}</b></label>`).join("")
-    + (groupEvents().length ? SUBS.map((x) => `<label class="ev-opt"><input type="checkbox" name="ev" value="${x.id}"><span>${esc(x.title)}<small>місце у групі за вами</small></span><b>−${x.disc}%</b></label>`).join("") : ""))
+    + (groupEvents().length ? `<label class="ev-opt"><input type="checkbox" name="pack"><span>Хочу пакет групових зустрічей<small>знижки до −15% · деталі підкаже адміністратор</small></span><b>до −15%</b></label>` : ""))
     || `<p class="pay-note">Найближчих подій поки немає.</p>`;
   $("#firstGroupL").hidden = !groupEvents().length;
   $("#firstGroupDisc").textContent = `−${FIRST_DISCOUNT}% на першу зустріч`;
@@ -1628,6 +1680,7 @@ $("#evForm").addEventListener("submit", (e) => {
     `Осіб: ${o.people}${o.people > 1 && f.plus1name.value.trim() ? ` (+1: ${f.plus1name.value.trim()})` : ""}`,
     o.disc && `Знижка (${o.reasons.join(", ")}): −${money(o.disc)}`,
     `До сплати: ${o.fmt(o.total)}`,
+    f.pack && f.pack.checked && "Цікавить пакет групових зустрічей (знижка до −15%)",
     `Оплата: ${f.paid.checked ? "клієнт вказав, що оплатив онлайн" : "ще не оплачено"}`,
     f.comment.value.trim() && `Коментар: ${f.comment.value.trim()}`,
   ].filter(Boolean).join("\n");
