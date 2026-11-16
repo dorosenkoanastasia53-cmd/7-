@@ -3,7 +3,7 @@
 // Дані зберігаються в Netlify Blobs (вмикається автоматично), по одному запису на день.
 const { getStore, connectLambda } = require("@netlify/blobs");
 
-const EVENTS = ["view", "tg", "ig", "form", "form_open", "room_small", "room_big", "room_hall", "photo"];
+const EVENTS = ["view", "tg", "ig", "form", "form_open", "room_small", "room_big", "room_hall", "photo", "bf"];
 const BOT_RE = /bot|crawl|spider|slurp|preview|headless|lighthouse|facebookexternalhit|telegrambot|whatsapp/i;
 
 function kyivDate() {
@@ -32,7 +32,7 @@ exports.handler = async (event) => {
       const cur = await store.getWithMetadata(key, { type: "json" });
       const doc = cur ? cur.data : { views: 0, visitors: {}, events: {}, sources: {}, devices: {} };
       doc.events[ev] = (doc.events[ev] || 0) + 1;
-      if ((ev === "tg" || ev === "ig" || ev === "form") && vid) {
+      if ((ev === "tg" || ev === "ig" || ev === "form" || ev === "bf") && vid) {
         doc.contacted = doc.contacted || {};
         doc.contacted[vid] = 1;
       }

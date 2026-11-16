@@ -116,6 +116,75 @@ nav{position:sticky;top:0;z-index:60;background:rgba(247,242,236,.9);backdrop-fi
 .disc .ex b{color:var(--ok)}
 .disc-note{text-align:center;font-size:14px;color:var(--muted);margin-top:20px}
 
+/* BLACK FRIDAY */
+.bf-bar{background:#111;color:#fff;font-size:14px;text-align:center;padding:9px 16px;line-height:1.4}
+.bf-bar b{color:#F2B27A}
+.bf-bar a{color:#fff;font-weight:700;margin-left:8px;white-space:nowrap}
+.bf-pill{display:inline-flex;align-items:center;gap:10px;background:#111;color:#fff;border-radius:999px;padding:7px 16px 7px 7px;font-size:13px;font-weight:600;margin-bottom:22px;text-decoration:none}
+.bf-pill b{background:var(--accent);border-radius:999px;padding:4px 10px;font-size:12px;letter-spacing:.5px}
+.bf{background:#141414;color:#fff;position:relative;overflow:hidden}
+.bf::before{content:'';position:absolute;right:-180px;top:-180px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(201,130,74,.35),transparent 65%);pointer-events:none}
+.bf h2{color:#fff}
+.bf .lead{color:rgba(255,255,255,.72)}
+.bf .eyebrow{color:#F2B27A}
+.bf-count{display:flex;gap:10px;justify-content:center;margin:26px 0 8px}
+.bf-count div{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:10px 14px;min-width:72px;text-align:center}
+.bf-count b{display:block;font-family:var(--serif);font-size:30px;font-weight:500;line-height:1.1}
+.bf-count span{font-size:11px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:1px}
+.bf-until{text-align:center;font-size:13px;color:rgba(255,255,255,.6)}
+.bf-tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:40px 0 28px}
+.bf-tier{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:22px;position:relative}
+.bf-tier.hot{border:2px solid var(--accent);background:rgba(201,130,74,.12)}
+.bf-tier .tag{position:absolute;top:-11px;right:16px;background:var(--accent);color:#fff;font-size:11px;font-weight:700;border-radius:999px;padding:3px 10px;letter-spacing:.5px}
+.bf-tier .pct{font-family:var(--serif);font-size:48px;color:#F2B27A;line-height:1}
+.bf-tier h3{font-family:var(--sans);font-size:17px;font-weight:700;margin:8px 0 4px}
+.bf-tier p{font-size:14px;color:rgba(255,255,255,.7)}
+.bf-table-wrap{overflow-x:auto;border-radius:18px;border:1px solid rgba(255,255,255,.14);-webkit-overflow-scrolling:touch}
+.bf-table{width:100%;border-collapse:collapse;min-width:620px;font-size:15px}
+.bf-table th,.bf-table td{padding:13px 14px;text-align:center;border-bottom:1px solid rgba(255,255,255,.1)}
+.bf-table thead th{font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:rgba(255,255,255,.6);background:rgba(255,255,255,.04)}
+.bf-table thead th small{display:block;color:#F2B27A;font-size:11px;text-transform:none;letter-spacing:0;margin-top:2px}
+.bf-table td:first-child,.bf-table th:first-child{text-align:left}
+.bf-table td.rname{font-weight:700;white-space:nowrap}
+.bf-table td.tariff{color:rgba(255,255,255,.65);font-size:13px;text-align:left}
+.bf-table td s{color:rgba(255,255,255,.45)}
+.bf-table td b{font-family:var(--serif);font-size:20px;font-weight:500;color:#fff}
+.bf-table td b.best{color:#F2B27A}
+.bf-table tr.sep td{border-bottom:1px solid rgba(255,255,255,.22)}
+.bf-table tfoot td{color:rgba(255,255,255,.7);font-size:13px;border-bottom:none}
+.bf-note{font-size:13px;color:rgba(255,255,255,.55);margin-top:12px;text-align:center}
+.bf-calc{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:22px;margin-top:40px;align-items:start}
+.bf-calc>*{min-width:0}
+.bf-box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:24px}
+.bf-box .step{color:rgba(255,255,255,.7)}
+.bf-box .step span{background:var(--accent)}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:22px}
+.seg.two{grid-template-columns:1fr 1fr}
+.seg button{border:1.5px solid rgba(255,255,255,.18);background:transparent;color:#fff;border-radius:12px;padding:12px 10px;cursor:pointer;font-size:14px;font-weight:600;text-align:left}
+.seg button small{display:block;font-weight:400;font-size:12px;color:rgba(255,255,255,.6)}
+.seg button.on{border-color:var(--accent);background:rgba(201,130,74,.2)}
+.hrs{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+.hrs button{width:46px;height:46px;border-radius:50%;border:1.5px solid rgba(255,255,255,.25);background:transparent;color:#fff;font-size:22px;cursor:pointer;line-height:1}
+.hrs button:hover{border-color:var(--accent)}
+.hrs output{font-family:var(--serif);font-size:40px;min-width:120px;text-align:center}
+.hrs-range{width:100%;accent-color:var(--accent);margin:4px 0 6px}
+.hrs-hint{font-size:13px;color:rgba(255,255,255,.6)}
+.bf-sum{background:#fff;color:var(--ink);border-radius:20px;padding:24px}
+.bf-sum .lbl{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:700}
+.bf-sum .big{font-family:var(--serif);font-size:44px;line-height:1.1;margin:4px 0}
+.bf-sum .old{color:var(--muted);text-decoration:line-through;font-size:16px}
+.bf-sum .save{display:inline-block;background:#E7F2EA;color:var(--ok);font-weight:700;font-size:14px;border-radius:999px;padding:4px 12px;margin:8px 0 14px}
+.bf-sum ul{list-style:none;font-size:14px;color:var(--ink2);margin-bottom:16px}
+.bf-sum li{padding:4px 0}
+.bf-sum .field input{border-color:var(--line);background:var(--bg);color:var(--ink)}
+.bf-sum .field input::placeholder{color:var(--muted)}
+.bf-sum .send-btn{background:#141414;box-shadow:none}
+.bf-sum .send-btn:hover{background:#000}
+.bf-sum .form-msg.ok{background:#E7F2EA;border-color:#B8D9C2;color:#24533A}
+.bf-sum .form-msg.bad{background:#FBE9E6;border-color:#EBC0B8;color:#8A2F24}
+body:not(.bf-on) .bf-only{display:none!important}
+body.bf-on .bf-hide{display:none!important}
+
 /* GALLERY */
 .gallery{display:grid;grid-auto-flow:dense;grid-template-columns:repeat(4,1fr);grid-auto-rows:240px;gap:14px;margin-top:44px}
 .g-item{position:relative;border-radius:18px;overflow:hidden;cursor:zoom-in;background:var(--line);border:none;padding:0}
@@ -256,6 +325,8 @@ footer{padding:56px 0 110px;font-size:14px;color:var(--ink2)}
 @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
 
 @media (max-width:1080px){
+  .bf-calc{grid-template-columns:minmax(0,1fr)}
+  .bf-tiers{grid-template-columns:1fr}
   .nav-links{display:none}
   .hero-grid{grid-template-columns:1fr}
   .hero h1{font-size:48px}
@@ -289,6 +360,11 @@ footer{padding:56px 0 110px;font-size:14px;color:var(--ink2)}
   .g-cap{font-size:11px;padding:5px 9px;left:8px;bottom:8px}
   .lb{padding:56px 8px}
   .tabs{grid-template-columns:1fr}
+  .bf-count div{min-width:0;flex:1;padding:8px 6px}
+  .bf-count b{font-size:24px}
+  .seg{grid-template-columns:1fr}
+  .bf-box,.bf-sum{padding:18px 14px}
+  .bf-sum .big{font-size:36px}
   .helps{grid-template-columns:1fr}
   .founder p{font-size:16px}
   .tab{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 14px}
@@ -312,10 +388,13 @@ footer{padding:56px 0 110px;font-size:14px;color:var(--ink2)}
   </defs>
 </svg>
 
+<div class="bf-bar bf-only">🖤 <b>Чорна п’ятниця:</b> до −30% на оренду · купуйте години зараз — бронюйте до 3 місяців<a href="#bf">Деталі →</a></div>
+
 <nav>
   <div class="wrap nav">
     <a class="logo" href="#top"><svg style="color:var(--accent);fill:var(--accent)"><use href="#wing"/></svg>Метаморфоза</a>
     <div class="nav-links">
+      <a href="#bf" class="bf-only" style="color:var(--accent);font-weight:700">−30%</a>
       <a href="#rooms">Кабінети</a>
       <a href="#prices">Знижки</a>
       <a href="#photos">Фото</a>
@@ -333,15 +412,19 @@ footer{padding:56px 0 110px;font-size:14px;color:var(--ink2)}
   <svg class="hero-wing" style="fill:var(--forest)"><use href="#wing"/></svg>
   <div class="wrap hero-grid">
     <div>
-      <div class="eyebrow">Простір для психологічної практики</div>
-      <h1>Затишний кабінет для <em>ваших сесій</em></h1>
+      <a class="bf-pill bf-only" href="#bf"><b>BLACK FRIDAY</b>−30% на оренду кабінетів і зали</a>
+      <div class="eyebrow bf-hide">Простір для психологічної практики</div>
+      <h1 class="bf-hide">Затишний кабінет для <em>ваших сесій</em></h1>
+      <h1 class="bf-only">Оренда кабінету <em>від 105 грн/год</em></h1>
+      <p class="lead bf-only" style="margin-bottom:12px"><b>Купуйте години зараз — бронюйте до 3 місяців.</b> −30% на оренду кабінетів і зали · години, які чекатимуть на вас.</p>
       <p class="lead">«Метаморфоза» — простір для психологів, психотерапевтів і коучів. Три приміщення для індивідуальних, парних, сімейних і групових зустрічей. Залиште заявку — підберемо вільний час під ваш графік.</p>
       <div class="hero-ctas">
-        <a class="btn" href="#booking">Залишити заявку →</a>
+        <a class="btn bf-hide" href="#booking">Залишити заявку →</a>
+        <a class="btn bf-only" href="#bf">Купити години зі знижкою →</a>
         <a class="btn btn-ghost" href="#rooms">Подивитися кабінети</a>
       </div>
       <div class="hero-facts">
-        <div><b>150 грн</b>година від</div>
+        <div><b class="bf-hide">150 грн</b><b class="bf-only">105 грн</b>година від</div>
         <div><b>3</b>приміщення<br>до 10 осіб</div>
         <div><b>−25%</b>знижки<br>до</div>
         <div><b>24 год</b>безкоштовне<br>скасування</div>
@@ -366,6 +449,54 @@ footer{padding:56px 0 110px;font-size:14px;color:var(--ink2)}
     </div>
   </div>
 </header>
+
+<!-- BLACK FRIDAY -->
+<section class="bf bf-only" id="bf">
+  <div class="wrap">
+    <div class="center reveal">
+      <div class="eyebrow">Чорна п’ятниця · оренда для психологів</div>
+      <h2>−30% на оренду кабінетів і зали</h2>
+      <p class="lead">Купуйте години зараз за ціною Чорної п’ятниці — і бронюйте їх, коли зручно, до 3 місяців. Години, які чекатимуть на вас.</p>
+      <div class="bf-count" id="bfCount"></div>
+      <div class="bf-until" id="bfUntil"></div>
+    </div>
+
+    <div class="bf-tiers">
+      <div class="bf-tier reveal"><div class="pct">−20%</div><h3>1–4 години</h3><p>Використати протягом 1 місяця</p></div>
+      <div class="bf-tier reveal"><div class="pct">−25%</div><h3>5–8 годин</h3><p>Використати протягом 2 місяців</p></div>
+      <div class="bf-tier hot reveal"><span class="tag">НАЙВИГІДНІШЕ</span><div class="pct">−30%</div><h3>9–12 годин</h3><p>Використати протягом 3 місяців</p></div>
+    </div>
+
+    <div class="bf-table-wrap reveal"><table class="bf-table" id="bfTable"></table></div>
+    <div class="bf-note">Ціна за 1 годину. Вечірній тариф — після 18:00, у вихідні та свята. Знижки акції не сумуються з іншими знижками.</div>
+
+    <div class="bf-calc">
+      <div class="bf-box reveal">
+        <div class="step"><span>1</span>Приміщення</div>
+        <div class="seg" id="bfRooms"></div>
+        <div class="step"><span>2</span>Тариф</div>
+        <div class="seg two" id="bfTariffs"></div>
+        <div class="step"><span>3</span>Скільки годин купуєте</div>
+        <div class="hrs"><button type="button" onclick="bfStep(-1)" aria-label="Менше">−</button><output id="bfHours"></output><button type="button" onclick="bfStep(1)" aria-label="Більше">+</button></div>
+        <input type="range" class="hrs-range" id="bfRange" min="1" max="12" step="1" aria-label="Кількість годин">
+        <div class="hrs-hint" id="bfHint"></div>
+      </div>
+
+      <form class="bf-sum reveal" id="bfForm" novalidate>
+        <div class="lbl">Ваш пакет</div>
+        <div class="big" id="bfTotal"></div>
+        <div class="old" id="bfOld"></div>
+        <div class="save" id="bfSave"></div>
+        <ul id="bfList"></ul>
+        <div class="field"><input id="bf-name" placeholder="Ваше ім’я *" autocomplete="name" required></div>
+        <div class="field"><input id="bf-contact" placeholder="Телефон або @нік у Telegram *" autocomplete="tel" required></div>
+        <div class="hp" aria-hidden="true"><input id="bf-website" tabindex="-1" autocomplete="off"></div>
+        <button type="submit" class="btn send-btn" id="bfBtn">Купити години зі знижкою</button>
+        <div id="bfMsg"></div>
+      </form>
+    </div>
+  </div>
+</section>
 
 <!-- ROOMS -->
 <section id="rooms" style="padding-top:24px">
@@ -616,7 +747,7 @@ footer{padding:56px 0 110px;font-size:14px;color:var(--ink2)}
   </div>
 </footer>
 
-<div class="mbar" id="mbar"><div><b>Від 150 грн/год</b>Затишні кабінети погодинно</div><a class="btn btn-sm" href="#booking">Забронювати</a></div>
+<div class="mbar" id="mbar"><div><b class="bf-hide">Від 150 грн/год</b><b class="bf-only">Від 105 грн/год · −30%</b>Затишні кабінети погодинно</div><a class="btn btn-sm" id="mbarBtn" href="#booking">Забронювати</a></div>
 <div class="toast" id="toast"></div>
 <div class="lb" id="lb" onclick="if(event.target===this)closeLb()"><img id="lbImg" alt=""><div class="lb-cap" id="lbCap"></div>
   <button class="lb-x" type="button" onclick="closeLb()" aria-label="Закрити">×</button>
@@ -632,6 +763,24 @@ var LINKS = {
 };
 var SEND_URL = "/.netlify/functions/send"; // функція, яка пересилає заявки в Telegram-бот
 var TRACK_URL = "/.netlify/functions/track"; // анонімна статистика для сторінки /stats.html
+
+// ===== Чорна п’ятниця =====
+// Акція показується до кінця дня BF.until (за київським часом), потім сайт сам повертається до звичайного вигляду.
+// Щоб подовжити — змініть дату. Щоб вимкнути одразу — поставте вчорашню дату.
+var BF = {
+  until: "2026-11-30",
+  tiers: [ // кількість годин → знижка → термін використання
+    { from: 1, to: 4, pct: 20, months: 1 },
+    { from: 5, to: 8, pct: 25, months: 2 },
+    { from: 9, to: 12, pct: 30, months: 3 },
+  ],
+  // Ціна за годину: [без знижки, 1–4 год, 5–8 год, 9–12 год]
+  prices: {
+    small: { day: [150, 120, 110, 105], evening: [200, 160, 150, 140] },
+    big:   { day: [200, 160, 150, 140], evening: [250, 200, 185, 175] },
+    hall:  { day: [700, 560, 525, 490], evening: [900, 720, 675, 630] },
+  },
+};
 
 var ROOM_PHOTOS = { small: "img/small.jpg", big: "img/big.jpg", hall: "img/hall.jpg" };
 var ROOM_ICONS = { small: "🛋", big: "💞", hall: "👥" };
@@ -820,6 +969,21 @@ function copyMsg() {
   if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(done, function () {});
 }
 
+// Надсилає заявку в Telegram через Netlify-функцію. Повертає Promise; при помилці — Error з причиною.
+function sendRequest(name, contact, text, website) {
+  return fetch(SEND_URL, {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name: name, contact: contact, text: text, website: website || "" }),
+  }).then(function (r) {
+    return r.json().catch(function () { return {}; }).then(function (d) {
+      if (r.ok && d.ok) return;
+      throw new Error(r.status === 404 ? "Функцію відправки не знайдено на сервері — сайт опубліковано без папки netlify/functions (наприклад, через Netlify Drop) або в Netlify неправильно вказано Base directory." :
+        d.error === "not_configured" ? "У Netlify не задано BOT_TOKEN або ADMIN_CHAT_ID, або після їх додавання сайт не перезапущено (Deploys → Trigger deploy)." :
+        d.reason || ("Помилка " + r.status));
+    });
+  });
+}
+
 function showFormMsg(kind, html) {
   $("formMsg").innerHTML = html ? '<div class="form-msg ' + kind + '">' + html + '</div>' : "";
 }
@@ -911,6 +1075,100 @@ document.addEventListener("click", function (e) {
   if (a) track(a.dataset.link);
 });
 
+// ---------- Чорна п’ятниця ----------
+var bf = { room: "small", tariff: "day", hours: 9 };
+function bfActive() { return S.kyivNow().date <= BF.until; }
+function bfTier(h) { for (var i = 0; i < BF.tiers.length; i++) if (h >= BF.tiers[i].from && h <= BF.tiers[i].to) return i; return 0; }
+function monthsWord(n) { return n === 1 ? "1 місяць" : n + " місяці"; }
+function monthsGen(n) { return n === 1 ? "1 місяця" : n + " місяців"; } // «протягом …»
+
+function renderBFTable() {
+  var t = BF.tiers, head = '<thead><tr><th>Приміщення</th><th>Тариф</th><th>Без знижки</th>' +
+    t.map(function (x) { return '<th>' + x.from + '–' + x.to + ' год<small>−' + x.pct + '%</small></th>'; }).join("") + '</tr></thead><tbody>';
+  var body = Object.keys(BF.prices).map(function (id) {
+    var p = BF.prices[id], name = C.rooms[id].name;
+    return ["day", "evening"].map(function (tf, k) {
+      var row = p[tf];
+      return '<tr' + (k ? ' class="sep"' : "") + '>' + (k ? '<td></td>' : '<td class="rname">' + esc(name) + '</td>') +
+        '<td class="tariff">' + (tf === "day" ? "будні до 18:00" : "вечір / вихідні") + '</td>' +
+        '<td><s>' + row[0] + '</s></td>' +
+        row.slice(1).map(function (v, i) { return '<td><b' + (i === 2 ? ' class="best"' : "") + '>' + v + '</b></td>'; }).join("") + '</tr>';
+    }).join("");
+  }).join("");
+  var foot = '</tbody><tfoot><tr><td colspan="3">Термін використання годин</td>' + t.map(function (x) { return '<td>' + monthsWord(x.months) + '</td>'; }).join("") + '</tr></tfoot>';
+  $("bfTable").innerHTML = head + body + foot;
+}
+
+function renderBFCalc() {
+  $("bfRooms").innerHTML = Object.keys(BF.prices).map(function (id) {
+    return '<button type="button" class="' + (bf.room === id ? "on" : "") + '" onclick="bfSet(\'room\',\'' + id + '\')">' + esc(C.rooms[id].name) + '<small>від ' + BF.prices[id].day[3] + ' грн/год</small></button>';
+  }).join("");
+  $("bfTariffs").innerHTML = [["day", "Будні до 18:00"], ["evening", "Вечір / вихідні"]].map(function (x) {
+    return '<button type="button" class="' + (bf.tariff === x[0] ? "on" : "") + '" onclick="bfSet(\'tariff\',\'' + x[0] + '\')">' + x[1] + '</button>';
+  }).join("");
+  var ti = bfTier(bf.hours), tier = BF.tiers[ti], row = BF.prices[bf.room][bf.tariff];
+  var per = row[ti + 1], total = per * bf.hours, old = row[0] * bf.hours;
+  $("bfHours").textContent = bf.hours + " год";
+  $("bfRange").value = bf.hours;
+  var next = BF.tiers[ti + 1];
+  $("bfHint").textContent = next ? "Ще " + (next.from - bf.hours) + " год — і знижка −" + next.pct + "% (" + BF.prices[bf.room][bf.tariff][ti + 2] + " грн/год)" : "Максимальна знижка −30% 🎉";
+  $("bfTotal").textContent = S.money(total);
+  $("bfOld").textContent = S.money(old);
+  $("bfSave").textContent = "Економія " + S.money(old - total) + " · −" + tier.pct + "%";
+  $("bfList").innerHTML = '<li>🏠 ' + esc(C.rooms[bf.room].name) + ', ' + (bf.tariff === "day" ? "будні до 18:00" : "вечір / вихідні") + '</li>' +
+    '<li>⏱ ' + bf.hours + ' год × ' + per + ' грн</li><li>📅 Використати протягом ' + monthsGen(tier.months) + '</li>';
+}
+
+function bfSet(k, v) { bf[k] = v; renderBFCalc(); }
+function bfStep(d) { bf.hours = Math.min(12, Math.max(1, bf.hours + d)); renderBFCalc(); }
+
+function bfMessage() {
+  var ti = bfTier(bf.hours), tier = BF.tiers[ti], row = BF.prices[bf.room][bf.tariff], per = row[ti + 1];
+  return ["🖤 ЧОРНА П’ЯТНИЦЯ — купівля пакета годин",
+    "🏠 " + C.rooms[bf.room].name + " · " + (bf.tariff === "day" ? "будні до 18:00" : "вечір / вихідні"),
+    "⏱ " + bf.hours + " год × " + per + " грн (−" + tier.pct + "%)",
+    "💰 До сплати: " + S.money(per * bf.hours) + " (без знижки " + S.money(row[0] * bf.hours) + ")",
+    "📅 Використати протягом " + monthsGen(tier.months)].join("\n");
+}
+
+function bfSubmit(e) {
+  e.preventDefault();
+  var name = $("bf-name").value.trim(), contact = $("bf-contact").value.trim(), msg = function (k, h) { $("bfMsg").innerHTML = h ? '<div class="form-msg ' + k + '">' + h + '</div>' : ""; };
+  if (name.length < 2) { msg("bad", "Вкажіть, будь ласка, ваше ім’я."); return; }
+  if (contact.replace(/\D/g, "").length < 5 && !/@|t\.me/i.test(contact)) { msg("bad", "Вкажіть телефон або нік у Telegram."); return; }
+  var btn = $("bfBtn"); btn.disabled = true; btn.textContent = "Надсилаємо…"; msg();
+  sendRequest(name, contact, bfMessage(), $("bf-website").value).then(function () {
+    track("bf");
+    msg("ok", "✓ Дякуємо, " + esc(name) + "! Заявку на пакет отримано — адміністратор зв’яжеться з вами й підкаже, як оплатити.");
+    btn.textContent = "Заявку надіслано ✓";
+    setTimeout(function () { btn.disabled = false; btn.textContent = "Купити години зі знижкою"; }, 4000);
+  }).catch(function (err) {
+    btn.disabled = false; btn.textContent = "Купити години зі знижкою";
+    var text = "Не вдалося надіслати заявку. Напишіть нам у Telegram — текст скопійовано, просто вставте його в чат.";
+    try { navigator.clipboard.writeText("Вітаю! " + bfMessage() + "\n\nМене звати " + name + ", контакт: " + contact); } catch (x) {}
+    msg("bad", text + ' <a href="' + LINKS.tg + '" target="_blank" rel="noopener" style="color:inherit;font-weight:700">Відкрити Telegram →</a>' +
+      (err && err.message ? '<br><small style="opacity:.75">Технічна причина: ' + esc(err.message) + '</small>' : ""));
+  });
+}
+
+function bfCountdown() {
+  var end = new Date(BF.until + "T23:59:59+02:00").getTime(), left = Math.max(0, end - Date.now());
+  var d = Math.floor(left / 864e5), h = Math.floor(left % 864e5 / 36e5), m = Math.floor(left % 36e5 / 6e4), s = Math.floor(left % 6e4 / 1e3);
+  $("bfCount").innerHTML = [[d, "днів"], [h, "годин"], [m, "хвилин"], [s, "секунд"]].map(function (x) { return '<div><b>' + x[0] + '</b><span>' + x[1] + '</span></div>'; }).join("");
+  if (!left) { document.body.classList.remove("bf-on"); }
+}
+
+function initBF() {
+  if (!bfActive()) return;
+  document.body.classList.add("bf-on");
+  var p = S.parseDate(BF.until);
+  $("bfUntil").textContent = "Акція діє до " + p.getUTCDate() + " " + S.MONTHS[p.getUTCMonth()] + " включно";
+  $("mbarBtn").href = "#bf"; $("mbarBtn").textContent = "−30%";
+  renderBFTable(); renderBFCalc(); bfCountdown(); setInterval(bfCountdown, 1000);
+  $("bfRange").oninput = function () { bf.hours = +this.value; renderBFCalc(); };
+  $("bfForm").onsubmit = bfSubmit;
+}
+
 // ---------- дрібниці ----------
 var toastT;
 function toast(m) { var t = $("toast"); t.textContent = m; t.classList.add("show"); clearTimeout(toastT); toastT = setTimeout(function () { t.classList.remove("show"); }, 3200); }
@@ -932,7 +1190,7 @@ function reveal() {
 
 document.querySelectorAll("[data-link]").forEach(function (a) { a.href = LINKS[a.dataset.link]; });
 $("year").textContent = new Date().getFullYear();
-renderGallery(); renderRoomCards(); initReq(); reveal(); watchBar();
+renderGallery(); renderRoomCards(); initReq(); initBF(); reveal(); watchBar();
 track("view");
 </script>
 </body>
