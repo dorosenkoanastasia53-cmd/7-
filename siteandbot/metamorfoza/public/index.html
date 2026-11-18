@@ -673,6 +673,7 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
       <div class="full">
         <div class="f-label">Оберіть зустрічі * <span id="multiHint"></span></div>
         <div class="ev-pick" id="evPick"></div>
+        <p class="pay-note" style="margin-top:6px">Групу «Точка рівноваги» бронюйте на <a href="rivnovaha/#book" style="color:var(--accent)">її сторінці</a>.</p>
       </div>
       <label class="full check"><input type="checkbox" name="plus1" id="plus1"> Приду з +1 (подруга, партнер чи колега)<span id="plusHint"></span></label>
       <label class="full check" id="firstGroupL" hidden><input type="checkbox" name="firstGroup"> Я вперше на групі — <span id="firstGroupDisc"></span></label>
@@ -1184,7 +1185,7 @@ const EVENTS = [
 • Вартість: −50% на першу зустріч, до −15% на пакет зустрічей` },
   { date: "", repeat: "Раз на 2 тижні", day: "Сб", dayFull: "по суботах", time: "15:00–17:30", type: "group", host: "ivanna", place: "Очно в центрі · вул. Первомайського, 5А, м. Кловська", price: 400, seats: 10,
     image: "img/group-moodboard.jpg",
-    slug: "rivnovaha", // пряме посилання: /rivnovaha (або #event-rivnovaha)
+    slug: "rivnovaha", page: "rivnovaha/", priceNote: "700 грн", // окрема сторінка з бронюванням: /rivnovaha
     title: "Група психологічної підтримки «Точка рівноваги»",
     text: "Простір, де можна виговоритися без засудження, знайти друзів, поїсти смачненького й зігрітися — зовні та всередині. 12 зустрічей по суботах, раз на 2 тижні, до 10 учасників.",
     more: `Простір, де можна понити без засудження збоку, знайти друзів, виговоритися, поїсти смачненького та зігрітися — зовнішньо й внутрішньо. Веде психологиня Іванна Ромашко.
@@ -1397,7 +1398,7 @@ const evSchedule = (e) => (e.repeat ? `${e.repeat}, ${e.dayFull} о ${e.time}${e
 const dayLabel = (iso) => { if (!iso) return "дата уточнюється"; const d = new Date(iso + "T00:00"); return `${d.getDate()} ${MONTHS_G[d.getMonth()]}`; };
 // group — замість ціни пишемо знижки; price: null — ціну ще не визначено
 function groupPriceText() { return `−${FIRST_DISCOUNT}% на першу зустріч · до −15% на пакет`; }
-const evPrice = (e) => (e.type === "group" ? groupPriceText() : e.priceNote ? e.priceNote : e.price == null ? "Вартість уточнюється" : money(e.price));
+const evPrice = (e) => (e.page && e.slug === "rivnovaha" ? `700 грн · −${FIRST_DISCOUNT}% на перший візит` : e.type === "group" ? groupPriceText() : e.priceNote ? e.priceNote : e.price == null ? "Вартість уточнюється" : money(e.price));
 const evHost = (e) => (byId(e.host) || {}).name || e.hostName || "";
 function upcoming() {
   const today = new Date(); today.setHours(0, 0, 0, 0);
@@ -1434,13 +1435,15 @@ function renderEvents() {
         ${byId(e.host) ? `<div class="ev-host">${byId(e.host).photo ? `<img src="${esc(byId(e.host).photo)}" alt="">` : ""}<span>Веде ${esc(byId(e.host).name)}</span></div>` : ""}
         <p>${e.image ? `<img class="ev-thumb" src="${esc(e.image)}" alt="" onclick="openEvent(${i})">` : ""}${esc(e.text)}</p>
         ${e.date ? "" : `<p class="seats" style="color:var(--accent)">${e.first && e.first >= kyivToday ? `Перша зустріч — ${dayLabel(e.first)}${e.firstNote ? ` (${esc(e.firstNote)})` : ""}.` : e.repeat ? "Зареєструйтеся — ми повідомимо дату найближчої зустрічі." : "Зареєструйтеся — ми повідомимо дату першої зустрічі."}</p>`}
-        ${e.more ? `<button class="ev-more" onclick="openEvent(${i})">Детальніше про зустріч</button>` : ""}
+        ${e.page ? `<p class="seats" data-seats="${esc(e.slug)}" style="color:var(--accent);font-weight:400"></p>` : ""}
+        ${e.page ? `<a class="ev-more" href="${esc(e.page)}" data-track="event_open" data-label="${esc(e.title.slice(0, 60))}">Детальніше: програма, фото, ціни →</a>` : e.more ? `<button class="ev-more" onclick="openEvent(${i})">Детальніше про зустріч</button>` : ""}
         <div class="ev-foot">
           <div><div class="ev-price">${evPrice(e)}</div>${e.seats ? `<div class="seats" style="color:var(--mid)">до ${e.seats} учасників</div>` : ""}</div>
-          <button class="btn btn-main btn-sm" onclick="bookEvent(${i})">Зареєструватися</button>
+          ${e.page ? `<a class="btn btn-main btn-sm" href="${esc(e.page)}#book" data-track="event_register" data-label="${esc(e.title.slice(0, 60))}">Забронювати місце</a>` : `<button class="btn btn-main btn-sm" onclick="bookEvent(${i})">Зареєструватися</button>`}
         </div>
       </div></article>`;
   }).join("") : `<p class="s-sub">Нових подій поки немає — слідкуйте за оновленнями в Instagram.</p>`;
+  loadEventSeats();
 }
 function openEvent(i) {
   const e = EVENTS[i];
@@ -1463,6 +1466,15 @@ function openEvent(i) {
     </div>`;
   $("#modal").classList.add("open");
   document.body.style.overflow = "hidden";
+}
+// вільні місця для подій з власною сторінкою бронювання
+function loadEventSeats() {
+  document.querySelectorAll("[data-seats]").forEach(async (el) => {
+    try {
+      const j = await (await fetch(`/.netlify/functions/api?a=event-seats&slug=${el.dataset.seats}`)).json();
+      if (j.ok) el.textContent = j.left ? `Залишилось ${j.left} з ${j.seats} місць · бронювання без передоплати` : "Місць немає — можна записатися в лист очікування";
+    } catch {}
+  });
 }
 $("#evFilters").addEventListener("click", (e) => { const b = e.target.closest(".pill"); if (b) { evFilter = b.dataset.t; renderEvents(); } });
 renderEvents();
@@ -1644,7 +1656,7 @@ const SUBS = PACKAGES.map((p) => ({ id: "sub" + p.n, sub: true, date: "", time: 
 
 const pickedEvent = (v) => (String(v).startsWith("sub") ? SUBS.find((x) => x.id === v) : EVENTS[+v]);
 function renderEvPick() {
-  $("#evPick").innerHTML = (upcoming().map((e) => `<label class="ev-opt"><input type="checkbox" name="ev" value="${EVENTS.indexOf(e)}">
+  $("#evPick").innerHTML = (upcoming().filter((e) => !e.page).map((e) => `<label class="ev-opt"><input type="checkbox" name="ev" value="${EVENTS.indexOf(e)}">
     <span>${esc(e.title)}<small>${esc(evWhen(e))}${evHost(e) ? " · " + esc(evHost(e)) : ""}</small></span><b>${evPrice(e)}</b></label>`).join("")
     + (groupEvents().length ? `<label class="ev-opt"><input type="checkbox" name="pack"><span>Хочу пакет групових зустрічей<small>знижки до −15% · деталі підкаже адміністратор</small></span><b>до −15%</b></label>` : ""))
     || `<p class="pay-note">Найближчих подій поки немає.</p>`;
@@ -1729,6 +1741,7 @@ function openFromHash() {
   const m = /^#event-(.+)$/.exec(location.hash);
   if (m) {
     const i = EVENTS.findIndex((e) => e.slug === m[1]);
+    if (i >= 0 && EVENTS[i].page) { location.replace(EVENTS[i].page); return; }
     if (i >= 0) { $("#events").scrollIntoView(); openEvent(i); }
     return;
   }

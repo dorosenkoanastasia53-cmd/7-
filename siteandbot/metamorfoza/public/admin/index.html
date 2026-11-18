@@ -217,6 +217,7 @@ async function start() {
   $("#loginView").hidden = true; $("#app").hidden = false;
   $("#whoName").textContent = `${me.name}${isAdmin() ? " · адміністратор" : ""}`;
   const tabs = [["slots", "Вільні години"], ["rooms", "Кабінети"], ["sessions", "Консультації"], ["packages", "Пакети"], ["stats", "Статистика"]];
+  try { const ev = await api("event-list"); if (ev.events.length) { tabs.push(["bookings", "Записи на події"]); state.events = ev.events; } } catch {}
   if (isAdmin()) tabs.push(["visits", "Відвідування"], ["users", "Користувачі"], ["settings", "Налаштування"]);
   $("#tabs").innerHTML = tabs.map(([k, t]) => `<button data-t="${k}">${t}</button>`).join("");
   render();
@@ -248,7 +249,7 @@ function bindMonth(rerender) {
 
 function render() {
   document.querySelectorAll("#tabs button").forEach((b) => b.classList.toggle("on", b.dataset.t === state.tab));
-  ({ slots: renderSlots, rooms: renderRooms, sessions: renderSessions, packages: renderPackages, stats: renderStats, visits: renderVisits, users: renderUsers, settings: renderSettings })[state.tab]();
+  ({ slots: renderSlots, rooms: renderRooms, sessions: renderSessions, packages: renderPackages, stats: renderStats, bookings: renderBookings, visits: renderVisits, users: renderUsers, settings: renderSettings })[state.tab]();
 }
 
 // ---------- 1. Вільні години (бачить сайт)
@@ -482,12 +483,58 @@ async function renderStats() {
       : `<div class="card muted">Унікальних клієнтів за місяць: ${sum("clients")} · загальна сума: ${money(sum("total"))}</div>`}`;
 }
 
+// ---------- Записи на події (адмін і ведуча): місця, підтвердження, скасування
+const BK_STATUS = { new: ["нова", "pkg"], confirmed: ["підтверджено", "paid"], cancelled: ["скасовано", "unpaid"] };
+async function renderBookings() {
+  const v = $("#view");
+  state.evSlug ||= state.events[0].slug;
+  v.innerHTML = `<div class="bar"><h2>Записи на події</h2>${state.events.length > 1 ? `<select id="evSel">${state.events.map((e) => `<option value="${e.slug}" ${e.slug === state.evSlug ? "selected" : ""}>${esc(e.title)}</option>`).join("")}</select>` : ""}
+    <button class="btn" id="bkAdd">+ Додати запис</button></div><div id="bkBody">Завантаження…</div>`;
+  const sel = $("#evSel"); if (sel) sel.addEventListener("change", () => { state.evSlug = sel.value; renderBookings(); });
+  const d = await api("event-bookings", null, { slug: state.evSlug });
+  const active = d.bookings.filter((b) => b.status !== "cancelled");
+  const order = { new: 0, confirmed: 1, cancelled: 2 };
+  const list = [...d.bookings].sort((a, b) => order[a.status] - order[b.status] || b.created.localeCompare(a.created));
+  $("#bkBody").innerHTML = `<div class="stat">
+      <div><b>${d.left}</b><span>вільних місць з ${d.seats}</span></div>
+      <div><b>${d.bookings.filter((b) => b.status === "new").length}</b><span>нових (чекають підтвердження)</span></div>
+      <div><b>${d.bookings.filter((b) => b.status === "confirmed").length}</b><span>підтверджено</span></div>
+      <div><b>${d.bookings.filter((b) => b.status === "cancelled").length}</b><span>скасовано</span></div>
+    </div>
+    <div class="card"><h3>${esc(d.title)}</h3>
+      ${list.length ? `<table class="list"><tr><th>Учасниця</th><th>Що обрала</th><th>Статус</th><th></th></tr>${list.map((b) => `<tr>
+        <td>${esc(b.name)}${b.people > 1 ? " +1" : ""}<div class="muted">${esc(b.contact)}${b.comment ? " · " + esc(b.comment) : ""}</div><div class="muted">${new Date(b.created).toLocaleDateString("uk-UA")} · ${esc(b.source || "")}</div></td>
+        <td>${esc(b.option || "—")}</td>
+        <td><span class="tag ${BK_STATUS[b.status][1]}">${BK_STATUS[b.status][0]}</span></td>
+        <td><div class="row">${b.status !== "confirmed" ? `<button class="btn sm" data-st="confirmed" data-id="${b.id}">Підтвердити</button>` : ""}${b.status !== "cancelled" ? `<button class="btn danger sm" data-st="cancelled" data-id="${b.id}">Скасувати</button>` : `<button class="btn out sm" data-st="new" data-id="${b.id}">Відновити</button>`}</div></td></tr>`).join("")}</table>`
+      : `<p class="muted">Записів ще немає. Вони зʼявляться тут, щойно хтось забронює місце на сайті, або додайте запис вручну.</p>`}
+    </div>
+    <p class="muted">Вільні місця на сайті рахуються автоматично: нові й підтверджені записи займають місце, скасовані — звільняють.</p>`;
+  $("#bkBody").addEventListener("click", async (e) => {
+    const b = e.target.closest("[data-st]"); if (!b) return;
+    if (b.dataset.st === "cancelled" && !confirm("Скасувати цей запис? Місце звільниться.")) return;
+    try { await api("event-booking-save", { slug: state.evSlug, id: b.dataset.id, status: b.dataset.st }); renderBookings(); } catch (err) { alert(err.message); }
+  });
+  $("#bkAdd").addEventListener("click", () => {
+    openModal(`<h3>Новий запис</h3>
+      <label>Імʼя<input id="nbName"></label><label>Контакт (Telegram / телефон)<input id="nbContact"></label>
+      <label>Що обрала<input id="nbOpt" placeholder="напр. Перший візит / Пакет 6 зустрічей"></label>
+      <label>Статус<select id="nbSt"><option value="confirmed">Підтверджено</option><option value="new">Нова</option></select></label>
+      <label>Коментар<input id="nbCom"></label>
+      <div class="row"><button class="btn" id="nbSave">Додати</button><button class="btn out" onclick="closeModal()">Скасувати</button></div><div id="nbMsg"></div>`);
+    $("#nbSave").addEventListener("click", async () => {
+      try { await api("event-booking-save", { slug: state.evSlug, name: $("#nbName").value, contact: $("#nbContact").value, option: $("#nbOpt").value, status: $("#nbSt").value, comment: $("#nbCom").value }); closeModal(); renderBookings(); }
+      catch (err) { toast($("#nbMsg"), err.message); }
+    });
+  });
+}
+
 // ---------- Відвідування сайту (лише адмін)
 const EVENT_NAMES = {
   booking_click: "«Записатися» (меню / картка фахівця)", choose_specialist: "«Обрати фахівця» на головному екрані", first_session_click: "Перша зустріч −20%",
   specialist_open: "Відкрили картку фахівця", slot_pick: "Обрали вільну годину", event_open: "«Детальніше про зустріч»", event_register: "«Зареєструватися» на подію",
   form_submit_psy: "✅ Заявка до психолога", form_submit_event: "✅ Реєстрація на подію", pay_click: "«Оплатити онлайн»",
-  telegram_click: "Telegram", instagram_click: "Instagram", map_click: "Адреса на карті", rent_click: "«Деталі оренди»", promo_click: "Чорна пʼятниця (банер і кнопки акції)", qr_zapys: "QR / посилання /zapys", qr_podii: "QR / посилання /podii", qr_rivnovaha: "Посилання /rivnovaha («Точка рівноваги»)",
+  telegram_click: "Telegram", instagram_click: "Instagram", map_click: "Адреса на карті", rent_click: "«Деталі оренди»", promo_click: "Чорна пʼятниця (банер і кнопки акції)", qr_zapys: "QR / посилання /zapys", qr_podii: "QR / посилання /podii", qr_rivnovaha: "Відкрили сторінку «Точка рівноваги»", event_book_click: "«Забронювати місце» («Точка рівноваги»)", event_book: "✅ Бронювання «Точка рівноваги»",
 };
 async function renderVisits() {
   const v = $("#view");

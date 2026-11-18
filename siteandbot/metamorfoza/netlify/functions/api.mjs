@@ -52,10 +52,17 @@ const DEFAULT_CONFIG = {
 };
 // події, які сайт рахує (інші ігноруються); джерела перших відвідувань за день
 const TRACK_EVENTS = ["page_view", "time", "booking_click", "choose_specialist", "first_session_click", "specialist_open", "slot_pick",
-  "event_open", "event_register", "form_submit_psy", "form_submit_event", "pay_click", "telegram_click", "instagram_click", "map_click", "rent_click", "promo_click", "qr_zapys", "qr_podii", "qr_rivnovaha"];
+  "event_open", "event_register", "form_submit_psy", "form_submit_event", "pay_click", "telegram_click", "instagram_click", "map_click", "rent_click", "promo_click", "qr_zapys", "qr_podii", "qr_rivnovaha", "event_book", "event_book_click"];
 const TIME_BUCKETS = ["до 10 с", "10–30 с", "30 с – 1 хв", "1–3 хв", "3–10 хв", "понад 10 хв"];
 const timeBucket = (s) => TIME_BUCKETS[s < 10 ? 0 : s < 30 ? 1 : s < 60 ? 2 : s < 180 ? 3 : s < 600 ? 4 : 5];
 const SOURCES = ["Пряме", "Instagram", "Telegram", "Facebook", "Google", "QR-код", "Інше"];
+// події із записом через сайт: slug → назва, кількість місць, ведуча (id фахівця)
+const EVENTS = {
+  rivnovaha: { title: "Група психологічної підтримки «Точка рівноваги»", seats: 10, host: "ivanna" },
+};
+const BOOKING_STATUSES = ["new", "confirmed", "cancelled"];
+const takenSeats = (list) => list.filter((b) => b.status !== "cancelled").reduce((t, b) => t + (b.people || 1), 0);
+
 const SERVICES = { diag: "Діагностична сесія", consult: "Консультація", pair: "Парна / сімейна сесія", mak: "МАК-сесія", other: "Інше" };
 
 // ---------- допоміжне
@@ -143,6 +150,26 @@ async function handle(req) {
     }
     await db.set(key, st);
     return json({ ok: true });
+  }
+
+  // ----- записи на події: публічно — лише кількість вільних місць і створення заявки
+  if (a === "event-seats") {
+    const ev = EVENTS[q("slug")];
+    if (!ev) return fail(404, "Подію не знайдено");
+    const list = (await db.get(`bookings-event-${q("slug")}`)) || [];
+    return json({ ok: true, seats: ev.seats, left: Math.max(0, ev.seats - takenSeats(list)) });
+  }
+  if (a === "event-book") {
+    const slug = str(body.slug, 40), ev = EVENTS[slug];
+    if (!ev) return fail(404, "Подію не знайдено");
+    const name = str(body.name, 80), contact = str(body.contact, 80);
+    if (!name || !contact) return fail(400, "Вкажіть імʼя та контакт");
+    const key = `bookings-event-${slug}`, list = (await db.get(key)) || [];
+    const people = body.plus1 ? 2 : 1;
+    if (ev.seats - takenSeats(list) < people) return fail(409, "На жаль, місць уже немає — залиште заявку в лист очікування через Telegram.");
+    list.push({ id: uid(), name, contact, people, option: str(body.option, 120), comment: str(body.comment, 300), status: "new", source: "сайт", created: new Date().toISOString() });
+    await db.set(key, list);
+    return json({ ok: true, left: Math.max(0, ev.seats - takenSeats(list)) });
   }
 
   // ----- вхід
@@ -349,6 +376,32 @@ async function handle(req) {
     }
     return json({ ok: true, month, rows });
   }
+
+  // ----- записи на події: адміністратор і ведуча події
+  if (a === "event-bookings" || a === "event-booking-save") {
+    const slug = str(q("slug") || body.slug, 40), ev = EVENTS[slug];
+    if (!ev) return fail(404, "Подію не знайдено");
+    if (!isAdmin && me.specialistId !== ev.host) return fail(403, "Немає доступу");
+    const key = `bookings-event-${slug}`, list = (await db.get(key)) || [];
+    if (a === "event-booking-save") {
+      const old = body.id ? list.find((b) => b.id === body.id) : null;
+      if (body.id && !old) return fail(404, "Запис не знайдено");
+      const status = BOOKING_STATUSES.includes(body.status) ? body.status : old ? old.status : "confirmed";
+      const people = body.people === 2 || body.people === "2" ? 2 : 1;
+      const wasActive = old && old.status !== "cancelled", willBeActive = status !== "cancelled";
+      const need = (willBeActive ? people : 0) - (wasActive ? old.people || 1 : 0);
+      if (need > 0 && ev.seats - takenSeats(list) < need) return fail(409, "Немає вільних місць");
+      if (old) Object.assign(old, { status, people, ...(body.name != null ? { name: str(body.name, 80) } : {}), ...(body.contact != null ? { contact: str(body.contact, 80) } : {}),
+        ...(body.option != null ? { option: str(body.option, 120) } : {}), ...(body.comment != null ? { comment: str(body.comment, 300) } : {}) });
+      else {
+        if (!str(body.name)) return fail(400, "Вкажіть імʼя");
+        list.push({ id: uid(), name: str(body.name, 80), contact: str(body.contact, 80), people, option: str(body.option, 120), comment: str(body.comment, 300), status, source: "адміністратор", created: new Date().toISOString() });
+      }
+      await db.set(key, list);
+    }
+    return json({ ok: true, title: ev.title, seats: ev.seats, left: Math.max(0, ev.seats - takenSeats(list)), bookings: list });
+  }
+  if (a === "event-list") return json({ ok: true, events: Object.entries(EVENTS).filter(([, e]) => isAdmin || e.host === me.specialistId).map(([slug, e]) => ({ slug, ...e })) });
 
   // ----- лише супер-адмін
   if (!isAdmin) return fail(403, "Лише для адміністратора");
