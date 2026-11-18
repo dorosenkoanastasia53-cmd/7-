@@ -673,7 +673,7 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
       <div class="full">
         <div class="f-label">Оберіть зустрічі * <span id="multiHint"></span></div>
         <div class="ev-pick" id="evPick"></div>
-        <p class="pay-note" style="margin-top:6px">Групу «Точка рівноваги» бронюйте на <a href="rivnovaha/#book" style="color:var(--accent)">її сторінці</a>.</p>
+        <p class="pay-note" style="margin-top:6px">Групи «Точка рівноваги» і «Кіно про мене» бронюйте на їхніх сторінках: <a href="rivnovaha/#book" style="color:var(--accent)">«Точка рівноваги»</a> · <a href="kino/#book" style="color:var(--accent)">«Кіно про мене»</a>.</p>
       </div>
       <label class="full check"><input type="checkbox" name="plus1" id="plus1"> Приду з +1 (подруга, партнер чи колега)<span id="plusHint"></span></label>
       <label class="full check" id="firstGroupL" hidden><input type="checkbox" name="firstGroup"> Я вперше на групі — <span id="firstGroupDisc"></span></label>
@@ -1161,7 +1161,8 @@ const EVENTS = [
 ## Бонус
 Кожна учасниця отримає чек-лист для відстоювання своїх кордонів.` },
   { date: "", repeat: "Раз на 2 тижні", day: "Сб", dayFull: "по суботах", time: "14:00 (1,5–2 год)",
-    type: "group", host: "oleksandra", place: "Очно в центрі · вул. Первомайського, 5А, м. Кловська", price: 400,
+    slug: "kino", page: "kino/", // окрема сторінка з бронюванням: /kino
+    type: "group", host: "oleksandra", place: "Очно в центрі · вул. Первомайського, 5А, м. Кловська", price: 700,
     title: "Відкрита арттерапевтична група «Кіно про мене»",
     text: "Відкрита творча група для тих, хто хоче краще зрозуміти себе через кіно та арттерапію. Кожна зустріч — окрема тема. Можна прийти на одну зустріч, без зобовʼязання відвідувати весь цикл.",
     more: `«Кіно про мене» — відкрита творча група для тих, хто хоче краще зрозуміти себе через кіно та арттерапію. На кожній зустрічі ми досліджуватимемо окрему життєву тему, помічатимемо власні почуття й шукатимемо джерела підтримки. Художні навички не потрібні; ділитися можна тим, чим ви готові. Усі зустрічі конфіденційні. Веде психологиня та арт-терапевтка Олександра Байлова.
@@ -1398,7 +1399,7 @@ const evSchedule = (e) => (e.repeat ? `${e.repeat}, ${e.dayFull} о ${e.time}${e
 const dayLabel = (iso) => { if (!iso) return "дата уточнюється"; const d = new Date(iso + "T00:00"); return `${d.getDate()} ${MONTHS_G[d.getMonth()]}`; };
 // group — замість ціни пишемо знижки; price: null — ціну ще не визначено
 function groupPriceText() { return `−${FIRST_DISCOUNT}% на першу зустріч · до −15% на пакет`; }
-const evPrice = (e) => (e.page && e.slug === "rivnovaha" ? `700 грн · −${FIRST_DISCOUNT}% на перший візит` : e.type === "group" ? groupPriceText() : e.priceNote ? e.priceNote : e.price == null ? "Вартість уточнюється" : money(e.price));
+const evPrice = (e) => (e.page ? `${money(e.price)} · −${FIRST_DISCOUNT}% на перший візит` : e.type === "group" ? groupPriceText() : e.priceNote ? e.priceNote : e.price == null ? "Вартість уточнюється" : money(e.price));
 const evHost = (e) => (byId(e.host) || {}).name || e.hostName || "";
 function upcoming() {
   const today = new Date(); today.setHours(0, 0, 0, 0);
