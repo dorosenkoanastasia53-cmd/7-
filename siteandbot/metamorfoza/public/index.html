@@ -673,7 +673,7 @@ footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
       <div class="full">
         <div class="f-label">Оберіть зустрічі * <span id="multiHint"></span></div>
         <div class="ev-pick" id="evPick"></div>
-        <p class="pay-note" style="margin-top:6px">Групи «Точка рівноваги» і «Кіно про мене» бронюйте на їхніх сторінках: <a href="rivnovaha/#book" style="color:var(--accent)">«Точка рівноваги»</a> · <a href="kino/#book" style="color:var(--accent)">«Кіно про мене»</a>.</p>
+        <p class="pay-note" style="margin-top:6px">Групи бронюйте на їхніх сторінках: <a href="rivnovaha/#book" style="color:var(--accent)">«Точка рівноваги»</a> · <a href="kino/#book" style="color:var(--accent)">«Кіно про мене»</a> · <a href="piznannia/#book" style="color:var(--accent)">«Пізнання себе»</a>.</p>
       </div>
       <label class="full check"><input type="checkbox" name="plus1" id="plus1"> Приду з +1 (подруга, партнер чи колега)<span id="plusHint"></span></label>
       <label class="full check" id="firstGroupL" hidden><input type="checkbox" name="firstGroup"> Я вперше на групі — <span id="firstGroupDisc"></span></label>
@@ -1184,6 +1184,12 @@ const EVENTS = [
 • Коли: раз на 2 тижні, по суботах о 14:00 (1,5–2 години)
 • Формат: очно, у центрі «Метаморфоза», вул. Первомайського, 5А, м. Кловська
 • Вартість: −50% на першу зустріч, до −15% на пакет зустрічей` },
+  { date: "", repeat: "Раз на 2 тижні", day: "Пт", dayFull: "по пʼятницях", time: "1,5 год", boxTime: "1,5 год", first: "2026-12-04",
+    slug: "piznannia", page: "piznannia/", // окрема сторінка з бронюванням: /piznannia
+    type: "group", host: "anastasiia-k", place: "Очно в центрі · вул. Первомайського, 5А, м. Кловська", price: 800,
+    title: "Арт-терапевтичні зустрічі «Пізнання себе»",
+    text: "Познайомтеся з собою ближче: фарби, образи, метафоричні карти й розмова в колі. Відкрита група для дорослих — можна прийти на будь-яку зустріч.",
+    more: "Арт-терапевтичні зустрічі для дорослих. Веде психологиня-консультантка Анастасія Курило." },
   { date: "", repeat: "Раз на 2 тижні", day: "Сб", dayFull: "по суботах", time: "15:00–17:30", type: "group", host: "ivanna", place: "Очно в центрі · вул. Первомайського, 5А, м. Кловська", price: 400, seats: 10,
     image: "img/group-moodboard.jpg",
     slug: "rivnovaha", page: "rivnovaha/", priceNote: "700 грн", // окрема сторінка з бронюванням: /rivnovaha
@@ -1395,7 +1401,7 @@ $("#galGrid").addEventListener("click", (e) => {
 
 // events
 const MONTHS_G = ["січня", "лютого", "березня", "квітня", "травня", "червня", "липня", "серпня", "вересня", "жовтня", "листопада", "грудня"];
-const evSchedule = (e) => (e.repeat ? `${e.repeat}, ${e.dayFull} о ${e.time}${e.first && e.first >= kyivToday ? ` · перша зустріч ${dayLabel(e.first)}` : ""}` : `${dayLabel(e.date)}, ${e.time}`);
+const evSchedule = (e) => (e.repeat ? `${e.repeat}, ${e.dayFull}${/^\d{1,2}:\d{2}/.test(e.time) ? " о " : ", "}${e.time}${e.first && e.first >= kyivToday ? ` · перша зустріч ${dayLabel(e.first)}` : ""}` : `${dayLabel(e.date)}, ${e.time}`);
 const dayLabel = (iso) => { if (!iso) return "дата уточнюється"; const d = new Date(iso + "T00:00"); return `${d.getDate()} ${MONTHS_G[d.getMonth()]}`; };
 // group — замість ціни пишемо знижки; price: null — ціну ще не визначено
 function groupPriceText() { return `−${FIRST_DISCOUNT}% на першу зустріч · до −15% на пакет`; }
@@ -1428,7 +1434,7 @@ function renderEvents() {
     const i = EVENTS.indexOf(e);
     return `<article class="ev">
       <div class="ev-date">${e.date ? `<b>${d.getDate()}</b><span>${MONTHS[d.getMonth()]}</span><small>${DAYS[(d.getDay() + 6) % 7]}</small>`
-        : e.repeat ? `<b style="font-size:30px">${esc(e.day)}</b><span>${esc(e.time.split(" ")[0])}</span><small>${esc(e.repeat.toLowerCase())}</small>` : `<b>?</b><small>дата<br>уточнюється</small>`}</div>
+        : e.repeat ? `<b style="font-size:30px">${esc(e.day)}</b><span>${esc(e.boxTime || e.time.split(" ")[0])}</span><small>${esc(e.repeat.toLowerCase())}</small>` : `<b>?</b><small>дата<br>уточнюється</small>`}</div>
       <div class="ev-body">
         <div class="ev-type">${EVENT_TYPES[e.type] || ""}</div>
         <h3>${esc(e.title)}</h3>
