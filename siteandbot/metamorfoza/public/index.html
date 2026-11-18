@@ -1184,6 +1184,7 @@ const EVENTS = [
 • Вартість: −50% на першу зустріч, до −15% на пакет зустрічей` },
   { date: "", repeat: "Раз на 2 тижні", day: "Сб", dayFull: "по суботах", time: "15:00–17:30", type: "group", host: "ivanna", place: "Очно в центрі · вул. Первомайського, 5А, м. Кловська", price: 400, seats: 10,
     image: "img/group-moodboard.jpg",
+    slug: "rivnovaha", // пряме посилання: /rivnovaha (або #event-rivnovaha)
     title: "Група психологічної підтримки «Точка рівноваги»",
     text: "Простір, де можна виговоритися без засудження, знайти друзів, поїсти смачненького й зігрітися — зовні та всередині. 12 зустрічей по суботах, раз на 2 тижні, до 10 учасників.",
     more: `Простір, де можна понити без засудження збоку, знайти друзів, виговоритися, поїсти смачненького та зігрітися — зовнішньо й внутрішньо. Веде психологиня Іванна Ромашко.
@@ -1724,6 +1725,13 @@ $("#evForm").addEventListener("submit", (e) => {
 
 // прямі посилання на запис: #booking — до психолога, #booking-event — на подію (їх відкривають /zapys і /podii)
 function openFromHash() {
+  // #event-<slug> — відкрити конкретну подію (напр. /rivnovaha → #event-rivnovaha)
+  const m = /^#event-(.+)$/.exec(location.hash);
+  if (m) {
+    const i = EVENTS.findIndex((e) => e.slug === m[1]);
+    if (i >= 0) { $("#events").scrollIntoView(); openEvent(i); }
+    return;
+  }
   const tab = { "#booking-event": "evForm", "#booking": "bookForm" }[location.hash];
   if (!tab) return;
   showTab(tab);
