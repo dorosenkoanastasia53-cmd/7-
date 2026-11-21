@@ -66,7 +66,7 @@ h2 em{color:var(--gold);font-style:italic}
 
 /* offers */
 .offers{background:var(--sand);padding-top:48px}
-.off-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px}
+.off-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:8px}
 .off{background:#fff;border:1.5px solid transparent;box-shadow:0 2px 14px rgba(44,32,24,.05);border-radius:var(--r);padding:22px;display:flex;flex-direction:column;gap:8px;cursor:pointer;transition:border-color .2s}
 .off:hover,.off.hot{border-color:var(--gold)}
 .off .big{font-family:var(--serif);font-size:40px;line-height:1;color:var(--gold)}
@@ -181,11 +181,26 @@ details p{color:var(--mid);font-size:15px;margin-top:8px}
 .sh-cta{position:sticky;bottom:0;background:var(--bg);padding:14px 24px calc(14px + env(safe-area-inset-bottom));border-top:1px solid var(--sand)}
 body.lock{overflow:hidden}
 
+/* messenger */
+.chat{position:fixed;right:calc(16px + env(safe-area-inset-right));bottom:calc(16px + env(safe-area-inset-bottom));z-index:40;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.chat-btn{width:60px;height:60px;border-radius:50%;border:3px solid #fff;background:var(--g);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 28px rgba(19,53,18,.4);position:relative;-webkit-tap-highlight-color:transparent}
+.chat-btn svg{width:28px;height:28px}
+.chat-btn::after{content:"";position:absolute;top:4px;right:4px;width:12px;height:12px;border-radius:50%;background:var(--gold-l);border:2px solid var(--g)}
+.chat.open .chat-btn::after,.chat-btn .i-x,.chat.open .chat-btn svg:first-child{display:none}
+.chat.open .chat-btn .i-x{display:block}
+.chat-menu{background:#fff;border-radius:16px;box-shadow:0 14px 40px rgba(44,32,24,.22);padding:14px;display:grid;gap:8px;width:250px}
+.chat-menu p{font-size:13px;color:var(--mid);line-height:1.35}
+.chat-menu p b{display:block;color:var(--dark);font-weight:500;font-size:15px}
+.chat-menu a{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:12px;text-decoration:none;font-weight:500;color:#fff}
+.chat-menu a svg{width:20px;height:20px;flex:0 0 20px}
+.chat-menu .tg{background:#2AABEE}
+.chat-menu .ig{background:linear-gradient(45deg,#F58529,#DD2A7B 55%,#8134AF)}
+
 footer{background:#0B240A;color:#9FB09B;padding:28px 0 32px;font-size:13px}
 footer .wrap{display:grid;gap:10px}
 footer a{color:#C9D2C4}
 .sticky{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:30;display:none;transition:transform .25s,opacity .25s}
-.sticky .btn{width:100%;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.sticky .btn{width:100%;white-space:nowrap;box-shadow:0 10px 30px rgba(0,0,0,.35)}
 .sticky.off,.sticky.pre{transform:translateY(140%);opacity:0;pointer-events:none}
 
 @media(max-width:860px){
@@ -213,7 +228,7 @@ footer a{color:#C9D2C4}
   .sp{flex:0 0 74%;scroll-snap-align:start}
   .book-grid{gap:24px}
   form{padding:20px}
-  .sticky{display:block}
+  .sticky{display:block;right:88px}
   body{padding-bottom:84px}
   .more-grid{grid-template-columns:1fr}
   .modal{align-items:flex-end;padding:0}
@@ -258,8 +273,8 @@ footer a{color:#C9D2C4}
 <!-- 2. ПРОПОЗИЦІЇ -->
 <section class="offers" id="offers">
   <div class="wrap">
-    <div class="label">Що можна купити зі знижкою</div>
-    <h2>Найкращі ціни року на турботу про себе</h2>
+    <div class="label">Консультації зі знижкою</div>
+    <h2>Найкращі ціни року на консультації</h2>
     <div class="off-grid">
       <article class="off hot" data-pick="first">
         <div class="big">−50%</div>
@@ -270,13 +285,7 @@ footer a{color:#C9D2C4}
       <article class="off" data-pick="pack">
         <div class="big">до −20%</div>
         <h3>Пакет сесій</h3>
-        <p>4 або 8 сесій зі знижкою. До пакета на 8 сесій — <b>група підтримки у подарунок</b>. Фахівця можна змінити.</p>
-        <span class="go">Обрати →</span>
-      </article>
-      <article class="off" data-pick="group">
-        <div class="big">−50%</div>
-        <h3>Група підтримки</h3>
-        <p>Тепле коло до 10 людей. <b>−50% на першу зустріч</b> і до −15% на пакет зустрічей.</p>
+        <p>4 або 8 сесій зі знижкою — регулярна робота дає найкращий результат. <b>Фахівця можна змінити</b>, якщо перший не підійшов.</p>
         <span class="go">Обрати →</span>
       </article>
     </div>
@@ -346,8 +355,7 @@ footer a{color:#C9D2C4}
         <div><div class="f-lbl">Що вас цікавить</div>
           <div class="chips" id="interest">
             <label class="chip"><input type="radio" name="interest" value="Перша зустріч −50%" checked><span>Перша зустріч −50%</span></label>
-            <label class="chip"><input type="radio" name="interest" value="Пакет сесій до −20%"><span>Пакет сесій</span></label>
-            <label class="chip"><input type="radio" name="interest" value="Група підтримки −50%"><span>Група підтримки</span></label>
+            <label class="chip"><input type="radio" name="interest" value="Пакет сесій до −20%"><span>Пакет сесій до −20%</span></label>
           </div>
         </div>
         <label>Ваш запит<select name="topic" id="fTopic">
@@ -409,12 +417,31 @@ footer a{color:#C9D2C4}
 
 <div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="shName"><div class="sheet" id="sheet"></div></div>
 
-<div class="sticky pre" id="sticky"><a href="#book" class="btn btn-gold" data-cta="Кнопка знизу">Забронювати зі знижкою −50%</a></div>
+<div class="chat" id="chat">
+  <div class="chat-menu" id="chatMenu" hidden>
+    <p><b>Напишіть адміністратору</b>Відповідаємо швидко, допоможемо обрати фахівця і час</p>
+    <a class="tg" href="https://t.me/dorosenkoanastasia50" target="_blank" rel="noopener" data-msg="Telegram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3 18.7 19.5c-.2 1-.9 1.3-1.7.8l-4.8-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.3-4.9 8.9-8c.4-.3-.1-.5-.6-.2L6.5 13.3 1.8 11.8c-1-.3-1-1 .2-1.5L20.6 3c.9-.3 1.6.2 1.3 1.3z"/></svg>Telegram</a>
+    <a class="ig" id="igLink" href="#" target="_blank" rel="noopener" data-msg="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>Instagram Direct</a>
+  </div>
+  <button class="chat-btn" id="chatBtn" type="button" aria-label="Написати в месенджер" aria-expanded="false" aria-controls="chatMenu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8.5 8.5 0 0 1-12.4 7.6L3 21l1.5-5.2A8.5 8.5 0 1 1 21 12z"/></svg>
+    <svg class="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+  </button>
+</div>
+
+<div class="sticky pre" id="sticky"><a href="#book" class="btn btn-gold" data-cta="Кнопка знизу">Забронювати −50% →</a></div>
 
 <script>
 /* ===== Налаштування ===== */
 const PROMO = { start: "2026-11-16", end: "2026-11-30", endAt: "2026-11-30T23:59:59+02:00", first: 50, regular: 20 };
-const META_PIXEL_ID = "";   // ID пікселя Meta (Facebook/Instagram) — вставте, щоб реклама бачила заявки (подія Lead)
+/* ===== Аналітика =====
+   Вбудована статистика працює завжди: /admin → «Відвідування сайту» → блок «Лендинг Чорна пʼятниця».
+   Щоб реклама в Instagram оптимізувалась на заявки — вставте ID пікселя Meta (Events Manager → Пікселі).
+   Google Analytics 4 — за бажанням, ID виду G-XXXXXXX. */
+const META_PIXEL_ID = "";
+const GA4_ID = "";
+const TELEGRAM_URL = "https://t.me/dorosenkoanastasia50";
+const INSTAGRAM_URL = "https://www.instagram.com/direct/t/18097245023122427/"; // краще: "https://ig.me/m/<нікнейм_акаунта>" — відкриває Direct у будь-якого клієнта
 const SEND_URL = "/.netlify/functions/send";
 const TRACK_URL = "/.netlify/functions/api?a=track";
 // фахівці (дані як на основному сайті). price — ціна консультації; на сторінці показується ціна першої зустрічі зі знижкою
@@ -452,7 +479,7 @@ if (!ON) {
   document.querySelector("#book .sub").textContent = "Перша зустріч −20%. Без передоплати.";
   $("#form h3").textContent = `Отримати знижку −${DISC}%`;
   $("#interest").closest("div").parentElement.hidden = true;
-  document.querySelector(".sticky .btn").textContent = `Записатися зі знижкою −${DISC}%`;
+  document.querySelector(".sticky .btn").textContent = `Записатися −${DISC}% →`;
 }
 const minP = Math.min(...TEAM.map((t) => t.price));
 $("#heroFrom").textContent = money(firstPrice(minP));
@@ -502,11 +529,12 @@ function openSpec(i) {
   $("#modal").hidden = false; document.body.classList.add("lock"); $("#sheet").scrollTop = 0;
   $("#sheet").querySelector(".x").focus();
   track("specialist_open", "BF: " + t.name);
+  adEvent("ViewContent", "view_item", { content_name: t.name });
 }
 function closeSpec() { $("#modal").hidden = true; document.body.classList.remove("lock"); if (lastFocus) lastFocus.focus({ preventScroll: true }); }
 $("#modal").addEventListener("click", (e) => { if (e.target.id === "modal" || e.target.closest("[data-close]")) closeSpec(); });
 document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("#modal").hidden) closeSpec(); });
-const PICK = { first: 0, pack: 1, group: 2 };
+const PICK = { first: 0, pack: 1 };
 document.querySelectorAll(".off").forEach((el) => el.addEventListener("click", () => {
   const r = document.querySelectorAll("#interest input")[PICK[el.dataset.pick]]; r.checked = true;
   track("promo_click", "BF: " + r.value); goForm();
@@ -533,6 +561,16 @@ new IntersectionObserver(([en]) => $("#sticky").classList.toggle("off", en.isInt
 new IntersectionObserver(([en]) => $("#sticky").classList.toggle("pre", en.isIntersecting)).observe($(".cta-row"));
 
 // Meta Pixel (вмикається, лише якщо вказано ID)
+// подія для реклами: Meta Pixel і Google Analytics (якщо підключені)
+function adEvent(meta, ga, params = {}) {
+  try { if (window.fbq) fbq(["Lead", "Contact", "ViewContent", "InitiateCheckout"].includes(meta) ? "track" : "trackCustom", meta, params); } catch {}
+  try { if (window.gtag) gtag("event", ga, params); } catch {}
+}
+if (GA4_ID) {
+  const g = document.createElement("script"); g.async = true; g.src = "https://www.googletagmanager.com/gtag/js?id=" + GA4_ID; document.head.appendChild(g);
+  window.dataLayer = window.dataLayer || []; window.gtag = function () { dataLayer.push(arguments); };
+  gtag("js", new Date()); gtag("config", GA4_ID);
+}
 if (META_PIXEL_ID) {
   !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
   fbq("init", META_PIXEL_ID); fbq("track", "PageView");
@@ -558,7 +596,7 @@ $("#form").addEventListener("submit", async (e) => {
       if (!r.ok || j.ok === false) throw 0;
     }
     track("form_submit_psy", "BF: " + interest);
-    if (window.fbq) fbq("track", "Lead", { content_name: interest });
+    adEvent("Lead", "generate_lead", { content_name: interest });
     $("#formBody").hidden = true; $("#done").hidden = false;
     $("#sticky").hidden = true;
   } catch {
@@ -567,13 +605,46 @@ $("#form").addEventListener("submit", async (e) => {
   }
 });
 
-// перегляд сторінки (джерело — для статистики в /admin)
+// кнопка месенджера
+$("#igLink").href = INSTAGRAM_URL;
+document.querySelectorAll('a[href^="https://t.me/"]').forEach((el) => (el.href = TELEGRAM_URL));
+function chatToggle(open) {
+  $("#chatMenu").hidden = !open; $("#chat").classList.toggle("open", open); $("#chatBtn").setAttribute("aria-expanded", open);
+}
+$("#chatBtn").addEventListener("click", () => { const open = $("#chatMenu").hidden; chatToggle(open); if (open) track("bf_messenger", "Відкрили меню"); });
+document.addEventListener("click", (e) => { if (!$("#chatMenu").hidden && !e.target.closest("#chat")) chatToggle(false); });
+document.querySelectorAll("[data-msg]").forEach((el) => el.addEventListener("click", () => {
+  track(el.dataset.msg === "Telegram" ? "telegram_click" : "instagram_click", "BF: кнопка месенджера");
+  track("bf_messenger", el.dataset.msg);
+  adEvent("Contact", "contact", { method: el.dataset.msg });
+}));
+
+// ===== вбудована аналітика (анонімно, без cookies; бачить лише власниця в /admin)
 (function () {
-  const ref = document.referrer;
-  const src = /instagram/i.test(ref) || /ig|instagram/i.test(qs.get("utm_source") || "") ? "Instagram" : /facebook|fb\./i.test(ref) || /fb|facebook/i.test(qs.get("utm_source") || "") ? "Facebook" : ref ? "Інше" : "Пряме";
+  const ref = document.referrer, us = (qs.get("utm_source") || "").toLowerCase();
+  const src = /instagram/i.test(ref) || /^(ig|instagram)/.test(us) ? "Instagram" : /facebook|fb\./i.test(ref) || /^(fb|facebook|meta)/.test(us) ? "Facebook"
+    : /t\.me|telegram/i.test(ref) || /^(tg|telegram)/.test(us) ? "Telegram" : /google\./i.test(ref) ? "Google" : ref && !ref.startsWith(location.origin) ? "Інше" : "Пряме";
   let isNew = true; try { const k = new Date().toISOString().slice(0, 10); isNew = localStorage.getItem("mf_seen") !== k; localStorage.setItem("mf_seen", k); } catch {}
   track("page_view", "BF лендинг", { src, newVisitor: isNew });
-  track("promo_click", "BF: відкрито лендинг");
+  track("bf_view", src);
+  const ad = qs.get("utm_content") || qs.get("utm_campaign"); if (ad) track("bf_ad", ad);   // який креатив / кампанія привели
+
+  // глибина прокрутки: 25 / 50 / 75 / 100%
+  const marks = [25, 50, 75, 100], seen = new Set();
+  addEventListener("scroll", () => {
+    const h = document.documentElement, pct = ((h.scrollTop + innerHeight) / h.scrollHeight) * 100;
+    marks.forEach((m) => { if (pct >= m - 2 && !seen.has(m)) { seen.add(m); track("bf_scroll", m + "%"); } });
+  }, { passive: true });
+
+  // почали заповнювати форму (щоб бачити, скільки людей кидають її)
+  let started = false;
+  $("#form").addEventListener("input", () => { if (started) return; started = true; track("bf_form_start", "Почали заповнювати"); adEvent("InitiateCheckout", "begin_checkout"); }, { once: false });
+
+  // час на сторінці: рахуємо лише поки вкладка видима
+  let since = document.visibilityState === "visible" ? Date.now() : 0, total = 0, sent = 0;
+  const flush = () => { if (since) { total += (Date.now() - since) / 1000; since = 0; } const t = Math.round(total); if (t > sent) { track("time", "", { total: t, prev: sent }); sent = t; } };
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") flush(); else since = Date.now(); });
+  addEventListener("pagehide", flush);
 })();
 </script>
 </body>

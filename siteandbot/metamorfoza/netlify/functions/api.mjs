@@ -52,7 +52,8 @@ const DEFAULT_CONFIG = {
 };
 // події, які сайт рахує (інші ігноруються); джерела перших відвідувань за день
 const TRACK_EVENTS = ["page_view", "time", "booking_click", "choose_specialist", "first_session_click", "specialist_open", "slot_pick",
-  "event_open", "event_register", "form_submit_psy", "form_submit_event", "pay_click", "telegram_click", "instagram_click", "map_click", "rent_click", "promo_click", "qr_zapys", "qr_podii", "qr_rivnovaha", "event_book", "event_book_click"];
+  "event_open", "event_register", "form_submit_psy", "form_submit_event", "pay_click", "telegram_click", "instagram_click", "map_click", "rent_click", "promo_click", "qr_zapys", "qr_podii", "qr_rivnovaha", "event_book", "event_book_click",
+  "bf_view", "bf_ad", "bf_scroll", "bf_form_start", "bf_messenger"];
 const TIME_BUCKETS = ["до 10 с", "10–30 с", "30 с – 1 хв", "1–3 хв", "3–10 хв", "понад 10 хв"];
 const timeBucket = (s) => TIME_BUCKETS[s < 10 ? 0 : s < 30 ? 1 : s < 60 ? 2 : s < 180 ? 3 : s < 600 ? 4 : 5];
 const SOURCES = ["Пряме", "Instagram", "Telegram", "Facebook", "Google", "QR-код", "Інше"];

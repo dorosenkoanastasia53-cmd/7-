@@ -535,6 +535,7 @@ const EVENT_NAMES = {
   specialist_open: "Відкрили картку фахівця", slot_pick: "Обрали вільну годину", event_open: "«Детальніше про зустріч»", event_register: "«Зареєструватися» на подію",
   form_submit_psy: "✅ Заявка до психолога", form_submit_event: "✅ Реєстрація на подію", pay_click: "«Оплатити онлайн»",
   telegram_click: "Telegram", instagram_click: "Instagram", map_click: "Адреса на карті", rent_click: "«Деталі оренди»", promo_click: "Чорна пʼятниця (банер і кнопки акції)", qr_zapys: "QR / посилання /zapys", qr_podii: "QR / посилання /podii", qr_rivnovaha: "Відкрили сторінку «Точка рівноваги»", event_book_click: "«Забронювати місце» («Точка рівноваги»)", event_book: "✅ Бронювання «Точка рівноваги»",
+  bf_view: "Лендинг ЧП: відкрили (за джерелом)", bf_ad: "Лендинг ЧП: з якої реклами (utm)", bf_scroll: "Лендинг ЧП: прокрутили сторінку", bf_form_start: "Лендинг ЧП: почали заповнювати форму", bf_messenger: "Лендинг ЧП: кнопка месенджера",
 };
 async function renderVisits() {
   const v = $("#view");
@@ -558,6 +559,14 @@ async function renderVisits() {
       <div><b>${leads}</b><span>заявок і реєстрацій</span></div>
       <div><b>${visitors ? ((leads / visitors) * 100).toFixed(1) : "0"}%</b><span>конверсія у заявку</span></div>
     </div>
+    ${count("bf_view") ? (() => {
+      const bfLeads = Object.entries(d.events.form_submit_psy || {}).filter(([l]) => l.startsWith("BF:")).reduce((t, [, c]) => t + c, 0);
+      const sc = d.events.bf_scroll || {}, views = count("bf_view");
+      const steps = [["Відкрили лендинг", views], ["Прокрутили до половини", sc["50%"] || 0], ["Дочитали до кінця", sc["100%"] || 0],
+        ["Почали заповнювати форму", count("bf_form_start")], ["✅ Залишили заявку", bfLeads], ["Написали в месенджер", ((d.events.bf_messenger || {}).Telegram || 0) + ((d.events.bf_messenger || {}).Instagram || 0)]];
+      return `<div class="card"><h3>Лендинг «Чорна пʼятниця» (/bf) — воронка</h3><div class="bars-list">${steps.map(([k, c]) => `<div><span>${k}<div class="mini"><i style="width:${Math.round((c / Math.max(1, views)) * 100)}%"></i></div><small>${views ? Math.round((c / views) * 100) : 0}% від тих, хто відкрив</small></span><b>${c}</b></div>`).join("")}</div>
+        <p class="muted" style="margin-top:8px">Конверсія лендингу у заявку: <b>${views ? ((bfLeads / views) * 100).toFixed(1) : 0}%</b>. Звідки: ${Object.entries(d.events.bf_view).sort((a, b) => b[1] - a[1]).map(([l, c]) => `${esc(l)} — ${c}`).join(" · ")}</p></div>`;
+    })() : ""}
     <div class="card"><h3>Відвідувачі по днях</h3>
       <div class="chart" id="vChart">${days.map((x) => `<div class="col" data-tip="${x.day} ${MONTHS[m - 1]}: ${x.visitors} відвідувачів · ${x.views} переглядів"><div class="bar" style="height:${(x.visitors / max) * 100}%"></div>${x === peak && x.visitors ? `<span class="peak">${x.visitors}</span>` : ""}</div>`).join("")}</div>
       <div class="chart-x">${days.map((x) => `<span>${x.day % 5 === 1 ? x.day : ""}</span>`).join("")}</div>
