@@ -634,7 +634,7 @@ $("#form").addEventListener("submit", async (e) => {
     if (location.protocol !== "file:") {
       const r = await fetch(SEND_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text }) });
       const j = await r.json().catch(() => ({}));
-      if (!r.ok || j.ok === false) throw 0;
+      if (!r.ok || j.ok === false) { console.warn("Заявка не надіслана:", r.status, j); throw 0; }
     }
     track("form_submit_psy", "BF: " + interest);
     adEvent("Lead", "generate_lead", { content_name: interest });
