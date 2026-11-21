@@ -371,7 +371,10 @@ footer a{color:#C9D2C4}
       </div>
       <ul><li>Без передоплати</li><li>Відповімо протягом дня</li><li>Підберемо фахівця під ваш запит</li></ul>
     </div>
-    <form id="form" novalidate>
+    <form id="form" name="bf-lead" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+      <input type="hidden" name="form-name" value="bf-lead">
+      <input type="hidden" name="source"><input type="hidden" name="details">
+      <p hidden><label>Не заповнюйте<input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
       <div id="formBody" style="display:grid;gap:14px">
         <h3>Отримати знижку −50%</h3>
         <label>Ваше імʼя<input name="name" autocomplete="given-name" required placeholder="Наприклад, Олена"></label>
@@ -453,25 +456,26 @@ footer a{color:#C9D2C4}
 <script>
 /* ===== Налаштування ===== */
 const PROMO = { start: "2026-11-16", end: "2026-11-30", endAt: "2026-11-30T23:59:59+02:00", first: 50, regular: 20 };
-/* ===== Куди йдуть заявки і статистика =====
-   Ця сторінка — звичайні файли (можна просто перетягнути на Netlify).
-   Заявки й статистику вона надсилає через ОСНОВНИЙ сайт, де вже налаштований бот:
-     заявки → Telegram-бот основного сайту; статистика → зберігається окремо, дивитися на сторінці /stats цього лендингу
-     (пароль — як для входу адміністратора в /admin основного сайту).
-   Якщо адреса основного сайту зміниться — поміняйте її тут. */
-const MAIN_SITE = "https://psy-centr-kyiv-morphosis.netlify.app";
-/* ===== Додаткова аналітика (за бажанням, працює будь-де) =====
-   META_PIXEL_ID — піксель Meta, щоб реклама в Instagram оптимізувалась на заявки (Events Manager → Пікселі)
-   CLARITY_ID    — Microsoft Clarity (безкоштовно, clarity.microsoft.com): записи сесій, теплові карти кліків,
-                   час на сайті, джерела. Найпростіший спосіб побачити, що люди роблять на сторінці.
-   GA4_ID        — Google Analytics 4, ID виду G-XXXXXXX */
+/* ===== Заявки =====
+   Сайт повністю самостійний: це звичайні файли, їх можна просто перетягнути на Netlify.
+   1) Netlify Forms — працює завжди: заявки видно в Netlify → сайт → Forms → «bf-lead»,
+      там же можна ввімкнути листи на пошту (Forms → Form notifications → Email).
+      Увімкніть один раз: Site configuration → Forms → Enable form detection, потім перетягніть папку ще раз.
+   2) Telegram (за бажанням) — створіть ОКРЕМОГО бота для лендингу в @BotFather і вставте нижче
+      його токен і ваш Telegram id (@userinfobot). Токен буде видно в коді сторінки,
+      тому не використовуйте тут бота основного сайту. */
+const TG_BOT_TOKEN = "";
+const TG_CHAT_ID = "";
+/* ===== Статистика (окремо для цього сайту) =====
+   CLARITY_ID    — Microsoft Clarity (безкоштовно, clarity.microsoft.com → New project → ID проєкту):
+                   відвідувачі, джерела, час на сайті, кліки й теплові карти, записи сесій, події лендингу.
+   GA4_ID        — Google Analytics 4 (analytics.google.com), ID виду G-XXXXXXX: джерела, utm, час, події, заявки.
+   META_PIXEL_ID — піксель Meta, щоб реклама в Instagram оптимізувалась на заявки (Events Manager → Пікселі). */
 const META_PIXEL_ID = "";
 const CLARITY_ID = "";
 const GA4_ID = "";
 const TELEGRAM_URL = "https://t.me/dorosenkoanastasia50";
 const INSTAGRAM_URL = "https://www.instagram.com/direct/t/18097245023122427/"; // краще: "https://ig.me/m/<нікнейм_акаунта>" — відкриває Direct у будь-якого клієнта
-const SEND_URL = MAIN_SITE + "/.netlify/functions/send";
-const TRACK_URL = MAIN_SITE + "/.netlify/functions/api?a=track";
 // фахівці (дані як на основному сайті). price — ціна консультації; на сторінці показується ціна першої зустрічі зі знижкою
 const TEAM = [
   {"id":"ivanna-romashko","name":"Іванна Ромашко","role":"Психологиня, арт-терапевтка","subtitle":"Позитивна психотерапія · дорослі, підлітки 14+","bio":"Членкиня дивізіону психології харчової поведінки НПА. Має підготовку від ООН та UNFPA в допомозі постраждалим від насильства.","approach":"Інтегративний підхід: позитивна психотерапія, арт-терапія, емоційно-образна терапія.","formats":["Офлайн у центрі","Онлайн"],"clients":["Дорослі","Підлітки 14+"],"topics":["Харчова поведінка, РХП","Психотравма","Тривога, депресивні стани","Втрати","Перфекціонізм","Самооцінка"],"about":"У роботі я поєдную мʼякість і турботу з умінням бути вимогливою там, де це необхідно для терапевтичного процесу. У взаємодії з клієнтом для мене найважливішим є довірливий контакт, адже саме в атмосфері прийняття, безпеки й тепла стає можливим зцілення навіть найглибших емоційних ран.\n\nЯ працюю з дорослими та підлітками. У своїй практиці поєдную методи позитивної психотерапії, арт-терапії та емоційно-образної терапії.","requests":["Порушення харчової поведінки та РХП","Психотравматичний досвід","Втрати","Тривога, депресія","Переживання кризи","Дитячо-батьківські стосунки","Стосунки з партнером, взаємодія з соціумом","Особистісне зростання, самореалізація","Перфекціонізм, прокрастинація, досягнення цілей","Самооцінка і впевненість у собі, любов до себе","Емоційна регуляція","Вигорання"],"notWith":["Залежності","Психотичний рівень","Важкі захворювання"],"education":["Травма-консультантка в методі позитивної психотерапії","Позитивна психотерапія","Арт-терапія","Емоційно-образна терапія"],"price":900},
@@ -491,17 +495,13 @@ const ON = today >= PROMO.start && today <= PROMO.end;
 const DISC = ON ? PROMO.first : PROMO.regular;
 const firstPrice = (p) => Math.round(p * (1 - DISC / 100));
 
-// події збираються в пачку й надсилаються одним запитом (так нічого не губиться)
-let trackQueue = [], trackTimer = 0;
-function trackFlush() {
-  clearTimeout(trackTimer); trackTimer = 0;
-  if (!trackQueue.length || location.protocol === "file:") return;
-  const batch = trackQueue.splice(0, 50);
-  try { navigator.sendBeacon(TRACK_URL, new Blob([JSON.stringify({ site: "bf", batch })], { type: "text/plain" })); } catch {}
-}
+// події сторінки → Microsoft Clarity і Google Analytics (якщо підключені)
+const NO_SEND = ["page_view", "time"]; // ці дані Clarity і GA рахують самі
 function track(e, label = "", extra = {}) {
-  trackQueue.push({ e, label, ...extra });
-  if (!trackTimer) trackTimer = setTimeout(trackFlush, 1500);
+  if (NO_SEND.includes(e)) return;
+  label = String(label).replace(/^BF:\s*/, "");
+  try { if (window.clarity) { clarity("event", e); if (label) clarity("set", e, label); } } catch {}
+  try { if (window.gtag) gtag("event", e, { event_label: label, ...extra }); } catch {}
 }
 
 // після акції сторінка не «ламається»: показує звичайну знижку −20%
@@ -652,8 +652,23 @@ $("#form").addEventListener("submit", async (e) => {
     `Джерело: ${utm || (/instagram/i.test(document.referrer) ? "Instagram" : document.referrer ? document.referrer : "пряме / реклама")}`].join("\n");
   try {
     if (location.protocol !== "file:") {
-      // запит на інший сайт: відповідь браузер не показує (no-cors), але заявка доходить до бота
-      await fetch(SEND_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain" }, body: JSON.stringify({ text }) });
+      let sent = false;
+      // 1) Netlify Forms
+      f.source.value = text.split("\n").pop().replace("Джерело: ", "");
+      f.details.value = text;
+      try {
+        const r = await fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: new URLSearchParams(new FormData(f)).toString() });
+        sent = r.ok;
+        if (!r.ok) console.warn("Netlify Forms:", r.status, "— увімкніть Forms → Enable form detection і опублікуйте ще раз");
+      } catch {}
+      // 2) Telegram (якщо вказано окремого бота)
+      if (TG_BOT_TOKEN && TG_CHAT_ID) {
+        try {
+          await fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage`, { method: "POST", mode: "no-cors", body: new URLSearchParams({ chat_id: TG_CHAT_ID, text }) });
+          sent = true;
+        } catch {}
+      }
+      if (!sent) throw 0;
     }
     track("form_submit_psy", "BF: " + interest);
     adEvent("Lead", "generate_lead", { content_name: interest });
@@ -707,8 +722,6 @@ document.querySelectorAll("[data-msg]").forEach((el) => el.addEventListener("cli
   addEventListener("pagehide", flush);
 })();
 // надіслати все, що зібралось, коли людина йде зі сторінки
-document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") trackFlush(); });
-addEventListener("pagehide", trackFlush);
 </script>
 </body>
 </html>
