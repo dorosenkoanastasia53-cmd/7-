@@ -1,0 +1,23 @@
+# Лендинг «Чорна пʼятниця» — окремий сайт на Netlify.
+# Змінні оточення (Site settings → Environment variables):
+#   BOT_TOKEN, ADMIN_CHAT_ID — заявки з форми в Telegram
+#   STATS_PASSWORD           — пароль до сторінки статистики /stats
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[build.environment]
+  SECRETS_SCAN_OMIT_KEYS = "ADMIN_CHAT_ID"
+
+[functions]
+  node_bundler = "esbuild"
+
+[[headers]]
+  for = "/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/stats/*"
+  [headers.values]
+    X-Robots-Tag = "noindex"

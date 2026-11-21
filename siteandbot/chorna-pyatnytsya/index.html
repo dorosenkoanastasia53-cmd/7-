@@ -371,10 +371,7 @@ footer a{color:#C9D2C4}
       </div>
       <ul><li>Без передоплати</li><li>Відповімо протягом дня</li><li>Підберемо фахівця під ваш запит</li></ul>
     </div>
-    <form id="form" name="bf-lead" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
-      <input type="hidden" name="form-name" value="bf-lead">
-      <input type="hidden" name="source"><input type="hidden" name="details">
-      <p hidden><label>Не заповнюйте<input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+    <form id="form" novalidate>
       <div id="formBody" style="display:grid;gap:14px">
         <h3>Отримати знижку −50%</h3>
         <label>Ваше імʼя<input name="name" autocomplete="given-name" required placeholder="Наприклад, Олена"></label>
@@ -453,19 +450,19 @@ footer a{color:#C9D2C4}
 
 <div class="sticky pre" id="sticky"><a href="#book" class="btn btn-gold" data-cta="Кнопка знизу">Забронювати −50% →</a></div>
 
-<script src="config.js"></script>
 <script>
 /* ===== Налаштування ===== */
 const PROMO = { start: "2026-11-16", end: "2026-11-30", endAt: "2026-11-30T23:59:59+02:00", first: 50, regular: 20 };
-/* ===== Заявки і статистика — налаштовуються у файлі config.js =====
-   Заявка йде напряму в Telegram через бота (TG_BOT_TOKEN, TG_CHAT_ID).
-   Запасний варіант — Netlify Forms (форма «bf-lead»): працює, якщо в Netlify увімкнено Forms → form detection. */
-const CFG = window;
-const TG_BOT_TOKEN = String(CFG.TG_BOT_TOKEN || "").trim();
-const TG_CHAT_ID = String(CFG.TG_CHAT_ID || "").trim();
-const META_PIXEL_ID = String(CFG.META_PIXEL_ID || "").trim();
-const CLARITY_ID = String(CFG.CLARITY_ID || "").trim();
-const GA4_ID = String(CFG.GA4_ID || "").trim();
+/* ===== Заявки і статистика — як на основному сайті =====
+   Заявки: функція netlify/functions/send.js → Telegram-бот (змінні BOT_TOKEN, ADMIN_CHAT_ID у Netlify).
+   Статистика: функція netlify/functions/track.mjs → сторінка /stats (пароль — змінна STATS_PASSWORD).
+   Працює, коли сайт публікується з GitHub (не перетягуванням). */
+const SEND_URL = "/.netlify/functions/send";
+const TRACK_URL = "/.netlify/functions/track";
+/* Додатково, за бажанням: META_PIXEL_ID — піксель Meta для реклами; CLARITY_ID — Microsoft Clarity; GA4_ID — Google Analytics 4 */
+const META_PIXEL_ID = "";
+const CLARITY_ID = "";
+const GA4_ID = "";
 const TELEGRAM_URL = "https://t.me/dorosenkoanastasia50";
 const INSTAGRAM_URL = "https://www.instagram.com/direct/t/18097245023122427/"; // краще: "https://ig.me/m/<нікнейм_акаунта>" — відкриває Direct у будь-якого клієнта
 // фахівці (дані як на основному сайті). price — ціна консультації; на сторінці показується ціна першої зустрічі зі знижкою
@@ -487,13 +484,21 @@ const ON = today >= PROMO.start && today <= PROMO.end;
 const DISC = ON ? PROMO.first : PROMO.regular;
 const firstPrice = (p) => Math.round(p * (1 - DISC / 100));
 
-// події сторінки → Microsoft Clarity і Google Analytics (якщо підключені)
-const NO_SEND = ["page_view", "time"]; // ці дані Clarity і GA рахують самі
+// статистика: події збираються в пачку й надсилаються одним запитом (так нічого не губиться) → /stats
+let trackQueue = [], trackTimer = 0;
+function trackFlush() {
+  clearTimeout(trackTimer); trackTimer = 0;
+  if (!trackQueue.length || location.protocol === "file:") return;
+  const batch = trackQueue.splice(0, 50);
+  try { navigator.sendBeacon(TRACK_URL, new Blob([JSON.stringify({ batch })], { type: "text/plain" })); } catch {}
+}
 function track(e, label = "", extra = {}) {
-  if (NO_SEND.includes(e)) return;
-  label = String(label).replace(/^BF:\s*/, "");
-  try { if (window.clarity) { clarity("event", e); if (label) clarity("set", e, label); } } catch {}
-  try { if (window.gtag) gtag("event", e, { event_label: label, ...extra }); } catch {}
+  trackQueue.push({ e, label, ...extra });
+  if (!trackTimer) trackTimer = setTimeout(trackFlush, 1500);
+  if (e === "page_view" || e === "time") return;
+  const l = String(label).replace(/^BF:\s*/, "");
+  try { if (window.clarity) { clarity("event", e); if (l) clarity("set", e, l); } } catch {}
+  try { if (window.gtag) gtag("event", e, { event_label: l }); } catch {}
 }
 
 // після акції сторінка не «ламається»: показує звичайну знижку −20%
@@ -644,22 +649,9 @@ $("#form").addEventListener("submit", async (e) => {
     `Джерело: ${utm || (/instagram/i.test(document.referrer) ? "Instagram" : document.referrer ? document.referrer : "пряме / реклама")}`].join("\n");
   try {
     if (location.protocol !== "file:") {
-      let sent = false;
-      // 1) Telegram — напряму через бота
-      if (TG_BOT_TOKEN && TG_CHAT_ID) {
-        try {
-          await fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage`, { method: "POST", mode: "no-cors", body: new URLSearchParams({ chat_id: TG_CHAT_ID, text }) });
-          sent = true;
-        } catch {}
-      } else console.warn("Заповніть TG_BOT_TOKEN і TG_CHAT_ID у файлі config.js");
-      // 2) запасний варіант — Netlify Forms
-      f.source.value = text.split("\n").pop().replace("Джерело: ", "");
-      f.details.value = text;
-      try {
-        const r = await fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: new URLSearchParams(new FormData(f)).toString() });
-        if (r.ok) sent = true;
-      } catch {}
-      if (!sent) throw 0;
+      const r = await fetch(SEND_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text }) });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok || j.ok === false) { console.warn("Заявка не надіслана:", r.status, j); throw 0; }
     }
     track("form_submit_psy", "BF: " + interest);
     adEvent("Lead", "generate_lead", { content_name: interest });
@@ -713,6 +705,9 @@ document.querySelectorAll("[data-msg]").forEach((el) => el.addEventListener("cli
   addEventListener("pagehide", flush);
 })();
 // надіслати все, що зібралось, коли людина йде зі сторінки
+// надіслати статистику, що зібралась, коли людина йде зі сторінки
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") trackFlush(); });
+addEventListener("pagehide", trackFlush);
 </script>
 </body>
 </html>

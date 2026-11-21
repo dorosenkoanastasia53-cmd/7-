@@ -1,26 +1,32 @@
 # Лендинг «Чорна пʼятниця» — Метаморфоза
 
-Повністю самостійний сайт: звичайні файли `index.html` + `img/`, без сервера і без звʼязку з основним сайтом.
-**Публікація: просто перетягніть папку на Netlify** (Deploys → drag & drop). GitHub не потрібен.
+Окремий сайт (psychorna-pyatnytsya.netlify.app), влаштований як основний:
+власний бот для заявок і власна статистика. Публікується з GitHub.
 
-## Заявки — у Telegram, через того самого бота
-1. Відкрийте **`config.js`** Блокнотом.
-2. Вставте між лапками:
-   - `TG_BOT_TOKEN` — токен бота (@BotFather → /mybots → бот → API Token)
-   - `TG_CHAT_ID` — ваш Telegram id (@userinfobot)
-3. Збережіть і перетягніть папку на Netlify. Більше нічого не потрібно.
+| Файл | Що це |
+|---|---|
+| `index.html`, `img/` | сторінка |
+| `netlify/functions/send.js` | заявки → Telegram-бот |
+| `netlify/functions/track.mjs` | статистика (Netlify Blobs, анонімно) |
+| `stats/` | сторінка статистики `/stats` |
 
-⚠️ Токен буде видно в коді сторінки. Якщо колись бот почне поводитись дивно (чужі повідомлення
-тощо) — у @BotFather зробіть Revoke token і вставте новий токен тут і в Netlify основного сайту.
+## Підключення до GitHub (один раз)
+Netlify → сайт psychorna-pyatnytsya → Site configuration → Build & deploy → Link repository → GitHub →
+репозиторій `dorosenkoanastasia53-cmd/7-`:
+- Branch: `claude/elegant-hopper-766yof`
+- Base directory: `siteandbot/chorna-pyatnytsya`
+- Build command, Publish, Functions — порожньо (усе в `netlify.toml`)
 
-Запасний варіант: Netlify Forms (форма «bf-lead»), якщо в Netlify увімкнено Forms → form detection.
+## Змінні (Site configuration → Environment variables)
+- `BOT_TOKEN` — токен бота (@BotFather → /mybots → бот → API Token)
+- `ADMIN_CHAT_ID` — **ваш особистий** Telegram id (не номер бота!)
+- `STATS_PASSWORD` — пароль до `/stats`
 
-## Статистика (окремо для цього сайту) — теж у `config.js`, за бажанням
-- `CLARITY_ID` — **Microsoft Clarity** (безкоштовно, clarity.microsoft.com → New project):
-  відвідувачі, джерела, час на сайті, кліки й теплові карти, записи сесій.
-  Події лендингу (запити, фахівці, месенджер, заявки) видно у фільтрі «Custom events».
-- `GA4_ID` — **Google Analytics 4**: джерела, utm-мітки реклами, час, події, заявки (generate_lead).
-- `META_PIXEL_ID` — піксель Meta, щоб реклама оптимізувалась на заявки.
+Після зміни змінних: Deploys → Trigger deploy.
+
+## Перевірка
+- бот: `/.netlify/functions/send?check=1` → «Все налаштовано»
+- статистика: `/stats` → пароль
 
 ## Посилання для реклами
-`https://<адреса-лендингу>/?utm_source=ig&utm_content=<назва_креативу>`
+`https://psychorna-pyatnytsya.netlify.app/?utm_source=ig&utm_content=<назва_креативу>`
