@@ -535,7 +535,7 @@ const EVENT_NAMES = {
   specialist_open: "Відкрили картку фахівця", slot_pick: "Обрали вільну годину", event_open: "«Детальніше про зустріч»", event_register: "«Зареєструватися» на подію",
   form_submit_psy: "✅ Заявка до психолога", form_submit_event: "✅ Реєстрація на подію", pay_click: "«Оплатити онлайн»",
   telegram_click: "Telegram", instagram_click: "Instagram", map_click: "Адреса на карті", rent_click: "«Деталі оренди»", promo_click: "Чорна пʼятниця (банер і кнопки акції)", qr_zapys: "QR / посилання /zapys", qr_podii: "QR / посилання /podii", qr_rivnovaha: "Відкрили сторінку «Точка рівноваги»", event_book_click: "«Забронювати місце» («Точка рівноваги»)", event_book: "✅ Бронювання «Точка рівноваги»",
-  bf_view: "Лендинг ЧП: відкрили (за джерелом)", bf_ad: "Лендинг ЧП: з якої реклами (utm)", bf_scroll: "Лендинг ЧП: прокрутили сторінку", bf_form_start: "Лендинг ЧП: почали заповнювати форму", bf_messenger: "Лендинг ЧП: кнопка месенджера",
+  bf_view: "Лендинг ЧП: відкрили (за джерелом)", bf_ad: "Лендинг ЧП: з якої реклами (utm)", bf_scroll: "Лендинг ЧП: прокрутили сторінку", bf_form_start: "Лендинг ЧП: почали заповнювати форму", bf_messenger: "Лендинг ЧП: кнопка месенджера", bf_topic: "Лендинг ЧП: обрали запит",
 };
 async function renderVisits() {
   const v = $("#view");
@@ -583,7 +583,8 @@ async function renderVisits() {
         return tot ? order.map((k) => `<div><span>${k}<div class="mini"><i style="width:${Math.round(((tb[k] || 0) / tot) * 100)}%"></i></div></span><b>${tb[k] || 0}</b></div>`).join("") : `<p class="muted">Ще немає даних</p>`;
       })()}</div></div>
       <div class="card"><h3>Звідки приходять</h3><div class="bars-list">${listOf(d.sources, visitors)}</div></div>
-      <div class="card"><h3>Які фахівці цікавлять</h3><div class="bars-list">${listOf(d.events.specialist_open || {}, count("specialist_open"))}</div></div></div>
+      <div class="card"><h3>Які фахівці цікавлять</h3><div class="bars-list">${listOf(d.events.specialist_open || {}, count("specialist_open"))}</div></div>
+      ${count("bf_topic") ? `<div class="card"><h3>З якими запитами приходять (лендинг)</h3><div class="bars-list">${listOf(d.events.bf_topic, count("bf_topic"))}</div></div>` : ""}</div>
     </div>
     <p class="muted">Статистика анонімна: без cookies, IP-адрес та імен. Відвідувач рахується один раз на день.</p>`;
   let tip = document.querySelector(".tip");
