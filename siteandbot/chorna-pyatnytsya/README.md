@@ -3,18 +3,19 @@
 Повністю самостійний сайт: звичайні файли `index.html` + `img/`, без сервера і без звʼязку з основним сайтом.
 **Публікація: просто перетягніть папку на Netlify** (Deploys → drag & drop). GitHub не потрібен.
 
-## Заявки
-1. **Netlify Forms (працює одразу після одного налаштування)**
-   - Netlify → сайт → **Site configuration → Forms → Enable form detection**
-   - перетягніть папку ще раз (щоб Netlify знайшов форму)
-   - заявки: **Forms → bf-lead**; листи на пошту: **Forms → Form notifications → Add notification → Email**
-   - безкоштовно до 100 заявок на місяць
-2. **Telegram (за бажанням)** — у `index.html` вгорі блоку `<script>`:
-   - створіть **окремого** бота в @BotFather → вставте токен у `TG_BOT_TOKEN`
-   - ваш Telegram id (@userinfobot) → `TG_CHAT_ID`; напишіть боту /start
-   - токен видно в коді сторінки — тому не використовуйте бота основного сайту
+## Заявки — у Telegram, через того самого бота
+1. Відкрийте **`config.js`** Блокнотом.
+2. Вставте між лапками:
+   - `TG_BOT_TOKEN` — токен бота (@BotFather → /mybots → бот → API Token)
+   - `TG_CHAT_ID` — ваш Telegram id (@userinfobot)
+3. Збережіть і перетягніть папку на Netlify. Більше нічого не потрібно.
 
-## Статистика (окремо для цього сайту) — у `index.html`, вгорі блоку `<script>`
+⚠️ Токен буде видно в коді сторінки. Якщо колись бот почне поводитись дивно (чужі повідомлення
+тощо) — у @BotFather зробіть Revoke token і вставте новий токен тут і в Netlify основного сайту.
+
+Запасний варіант: Netlify Forms (форма «bf-lead»), якщо в Netlify увімкнено Forms → form detection.
+
+## Статистика (окремо для цього сайту) — теж у `config.js`, за бажанням
 - `CLARITY_ID` — **Microsoft Clarity** (безкоштовно, clarity.microsoft.com → New project):
   відвідувачі, джерела, час на сайті, кліки й теплові карти, записи сесій.
   Події лендингу (запити, фахівці, месенджер, заявки) видно у фільтрі «Custom events».

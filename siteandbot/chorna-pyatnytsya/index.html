@@ -453,27 +453,19 @@ footer a{color:#C9D2C4}
 
 <div class="sticky pre" id="sticky"><a href="#book" class="btn btn-gold" data-cta="Кнопка знизу">Забронювати −50% →</a></div>
 
+<script src="config.js"></script>
 <script>
 /* ===== Налаштування ===== */
 const PROMO = { start: "2026-11-16", end: "2026-11-30", endAt: "2026-11-30T23:59:59+02:00", first: 50, regular: 20 };
-/* ===== Заявки =====
-   Сайт повністю самостійний: це звичайні файли, їх можна просто перетягнути на Netlify.
-   1) Netlify Forms — працює завжди: заявки видно в Netlify → сайт → Forms → «bf-lead»,
-      там же можна ввімкнути листи на пошту (Forms → Form notifications → Email).
-      Увімкніть один раз: Site configuration → Forms → Enable form detection, потім перетягніть папку ще раз.
-   2) Telegram (за бажанням) — створіть ОКРЕМОГО бота для лендингу в @BotFather і вставте нижче
-      його токен і ваш Telegram id (@userinfobot). Токен буде видно в коді сторінки,
-      тому не використовуйте тут бота основного сайту. */
-const TG_BOT_TOKEN = "";
-const TG_CHAT_ID = "";
-/* ===== Статистика (окремо для цього сайту) =====
-   CLARITY_ID    — Microsoft Clarity (безкоштовно, clarity.microsoft.com → New project → ID проєкту):
-                   відвідувачі, джерела, час на сайті, кліки й теплові карти, записи сесій, події лендингу.
-   GA4_ID        — Google Analytics 4 (analytics.google.com), ID виду G-XXXXXXX: джерела, utm, час, події, заявки.
-   META_PIXEL_ID — піксель Meta, щоб реклама в Instagram оптимізувалась на заявки (Events Manager → Пікселі). */
-const META_PIXEL_ID = "";
-const CLARITY_ID = "";
-const GA4_ID = "";
+/* ===== Заявки і статистика — налаштовуються у файлі config.js =====
+   Заявка йде напряму в Telegram через бота (TG_BOT_TOKEN, TG_CHAT_ID).
+   Запасний варіант — Netlify Forms (форма «bf-lead»): працює, якщо в Netlify увімкнено Forms → form detection. */
+const CFG = window;
+const TG_BOT_TOKEN = String(CFG.TG_BOT_TOKEN || "").trim();
+const TG_CHAT_ID = String(CFG.TG_CHAT_ID || "").trim();
+const META_PIXEL_ID = String(CFG.META_PIXEL_ID || "").trim();
+const CLARITY_ID = String(CFG.CLARITY_ID || "").trim();
+const GA4_ID = String(CFG.GA4_ID || "").trim();
 const TELEGRAM_URL = "https://t.me/dorosenkoanastasia50";
 const INSTAGRAM_URL = "https://www.instagram.com/direct/t/18097245023122427/"; // краще: "https://ig.me/m/<нікнейм_акаунта>" — відкриває Direct у будь-якого клієнта
 // фахівці (дані як на основному сайті). price — ціна консультації; на сторінці показується ціна першої зустрічі зі знижкою
@@ -653,21 +645,20 @@ $("#form").addEventListener("submit", async (e) => {
   try {
     if (location.protocol !== "file:") {
       let sent = false;
-      // 1) Netlify Forms
-      f.source.value = text.split("\n").pop().replace("Джерело: ", "");
-      f.details.value = text;
-      try {
-        const r = await fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: new URLSearchParams(new FormData(f)).toString() });
-        sent = r.ok;
-        if (!r.ok) console.warn("Netlify Forms:", r.status, "— увімкніть Forms → Enable form detection і опублікуйте ще раз");
-      } catch {}
-      // 2) Telegram (якщо вказано окремого бота)
+      // 1) Telegram — напряму через бота
       if (TG_BOT_TOKEN && TG_CHAT_ID) {
         try {
           await fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage`, { method: "POST", mode: "no-cors", body: new URLSearchParams({ chat_id: TG_CHAT_ID, text }) });
           sent = true;
         } catch {}
-      }
+      } else console.warn("Заповніть TG_BOT_TOKEN і TG_CHAT_ID у файлі config.js");
+      // 2) запасний варіант — Netlify Forms
+      f.source.value = text.split("\n").pop().replace("Джерело: ", "");
+      f.details.value = text;
+      try {
+        const r = await fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: new URLSearchParams(new FormData(f)).toString() });
+        if (r.ok) sent = true;
+      } catch {}
       if (!sent) throw 0;
     }
     track("form_submit_psy", "BF: " + interest);
