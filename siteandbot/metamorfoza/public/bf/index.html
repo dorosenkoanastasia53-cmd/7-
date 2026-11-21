@@ -83,8 +83,10 @@ h2 em{color:var(--gold);font-style:italic}
 .why i{font-style:normal;font-size:24px;display:block;margin-bottom:8px}
 .why b{display:block;font-weight:500;margin-bottom:4px}
 .why p{font-size:14px;color:var(--mid)}
-.rooms{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px}
-.rooms img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:14px}
+.rooms{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+.rooms figure{position:relative}
+.rooms figcaption{position:absolute;left:10px;bottom:10px;right:10px;background:rgba(251,248,245,.92);color:var(--g);border-radius:100px;padding:6px 12px;font-size:13px;font-weight:500;width:fit-content;max-width:calc(100% - 20px)}
+.rooms img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:14px}
 
 /* team */
 .team{background:var(--gs)}
@@ -222,7 +224,8 @@ footer a{color:#C9D2C4}
   .off-grid,.why-grid,.steps,.book-grid{grid-template-columns:1fr}
   .why-grid{grid-template-columns:1fr 1fr;gap:10px}
   .why{padding:16px}
-  .rooms{grid-template-columns:1fr 1fr 1fr;gap:6px}
+  .rooms{gap:8px}
+  .rooms figcaption{font-size:11px;left:6px;bottom:6px;padding:4px 10px}
   .rooms img{border-radius:10px}
   .sp-row{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin-right:-16px;padding-right:16px;padding-bottom:6px}
   .sp{flex:0 0 74%;scroll-snap-align:start}
@@ -264,7 +267,7 @@ footer a{color:#C9D2C4}
       <div class="trust"><span>7 перевірених психологів</span><span>м. Кловська або онлайн</span><span>Конфіденційно</span></div>
     </div>
     <div class="hero-photo">
-      <img src="img/hero.webp" alt="Затишний кабінет для консультацій у центрі «Метаморфоза»" width="640" height="853" fetchpriority="high">
+      <img src="img/hero.webp" alt="Затишний кабінет для консультацій у центрі «Метаморфоза»" width="720" height="960" fetchpriority="high">
       <div class="stamp"><small>Лише</small><b>−50%</b><small>до 30.11</small></div>
     </div>
   </div>
@@ -305,9 +308,8 @@ footer a{color:#C9D2C4}
       <div class="why"><i>☕</i><b>Затишно</b><p>Мʼякі крісла, чай, тиша. Або онлайн з дому.</p></div>
     </div>
     <div class="rooms">
-      <img src="img/room1.webp" alt="Кабінет для індивідуальних сесій" loading="lazy" width="640" height="480">
-      <img src="img/room3.webp" alt="Кабінет для парних сесій" loading="lazy" width="640" height="480">
-      <img src="img/room2.webp" alt="Зала для груп" loading="lazy" width="640" height="480">
+      <figure><img src="img/cabinet.webp" alt="Кабінет для індивідуальних консультацій" loading="lazy" width="640" height="850"><figcaption>Кабінет для сесій</figcaption></figure>
+      <figure><img src="img/hall.webp" alt="Зала з чаєм і смаколиками" loading="lazy" width="600" height="800"><figcaption>Чай, кава, смаколики</figcaption></figure>
     </div>
   </div>
 </section>
