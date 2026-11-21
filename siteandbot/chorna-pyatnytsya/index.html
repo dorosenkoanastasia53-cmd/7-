@@ -456,7 +456,8 @@ const PROMO = { start: "2026-11-16", end: "2026-11-30", endAt: "2026-11-30T23:59
 /* ===== Куди йдуть заявки і статистика =====
    Ця сторінка — звичайні файли (можна просто перетягнути на Netlify).
    Заявки й статистику вона надсилає через ОСНОВНИЙ сайт, де вже налаштований бот:
-     заявки → Telegram-бот основного сайту, статистика → основний сайт /admin → «Відвідування сайту».
+     заявки → Telegram-бот основного сайту; статистика → зберігається окремо, дивитися на сторінці /stats цього лендингу
+     (пароль — як для входу адміністратора в /admin основного сайту).
    Якщо адреса основного сайту зміниться — поміняйте її тут. */
 const MAIN_SITE = "https://psy-centr-kyiv-morphosis.netlify.app";
 /* ===== Додаткова аналітика (за бажанням, працює будь-де) =====
@@ -490,9 +491,17 @@ const ON = today >= PROMO.start && today <= PROMO.end;
 const DISC = ON ? PROMO.first : PROMO.regular;
 const firstPrice = (p) => Math.round(p * (1 - DISC / 100));
 
+// події збираються в пачку й надсилаються одним запитом (так нічого не губиться)
+let trackQueue = [], trackTimer = 0;
+function trackFlush() {
+  clearTimeout(trackTimer); trackTimer = 0;
+  if (!trackQueue.length || location.protocol === "file:") return;
+  const batch = trackQueue.splice(0, 50);
+  try { navigator.sendBeacon(TRACK_URL, new Blob([JSON.stringify({ site: "bf", batch })], { type: "text/plain" })); } catch {}
+}
 function track(e, label = "", extra = {}) {
-  if (location.protocol === "file:") return;
-  try { navigator.sendBeacon(TRACK_URL, new Blob([JSON.stringify({ e, label, ...extra })], { type: "text/plain" })); } catch {}
+  trackQueue.push({ e, label, ...extra });
+  if (!trackTimer) trackTimer = setTimeout(trackFlush, 1500);
 }
 
 // після акції сторінка не «ламається»: показує звичайну знижку −20%
@@ -697,6 +706,9 @@ document.querySelectorAll("[data-msg]").forEach((el) => el.addEventListener("cli
   document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") flush(); else since = Date.now(); });
   addEventListener("pagehide", flush);
 })();
+// надіслати все, що зібралось, коли людина йде зі сторінки
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") trackFlush(); });
+addEventListener("pagehide", trackFlush);
 </script>
 </body>
 </html>

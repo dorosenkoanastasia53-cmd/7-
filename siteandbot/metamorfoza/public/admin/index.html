@@ -567,6 +567,7 @@ async function renderVisits() {
       return `<div class="card"><h3>Лендинг «Чорна пʼятниця» (/bf) — воронка</h3><div class="bars-list">${steps.map(([k, c]) => `<div><span>${k}<div class="mini"><i style="width:${Math.round((c / Math.max(1, views)) * 100)}%"></i></div><small>${views ? Math.round((c / views) * 100) : 0}% від тих, хто відкрив</small></span><b>${c}</b></div>`).join("")}</div>
         <p class="muted" style="margin-top:8px">Конверсія лендингу у заявку: <b>${views ? ((bfLeads / views) * 100).toFixed(1) : 0}%</b>. Звідки: ${Object.entries(d.events.bf_view).sort((a, b) => b[1] - a[1]).map(([l, c]) => `${esc(l)} — ${c}`).join(" · ")}</p></div>`;
     })() : ""}
+    <p class="muted">Статистика лендингу «Чорна пʼятниця» ведеться окремо: <a href="/bf/stats/" target="_blank">/bf/stats/</a> (той самий пароль).</p>
     <div class="card"><h3>Відвідувачі по днях</h3>
       <div class="chart" id="vChart">${days.map((x) => `<div class="col" data-tip="${x.day} ${MONTHS[m - 1]}: ${x.visitors} відвідувачів · ${x.views} переглядів"><div class="bar" style="height:${(x.visitors / max) * 100}%"></div>${x === peak && x.visitors ? `<span class="peak">${x.visitors}</span>` : ""}</div>`).join("")}</div>
       <div class="chart-x">${days.map((x) => `<span>${x.day % 5 === 1 ? x.day : ""}</span>`).join("")}</div>

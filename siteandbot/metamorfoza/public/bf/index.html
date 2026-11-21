@@ -454,7 +454,7 @@ footer a{color:#C9D2C4}
 /* ===== Налаштування ===== */
 const PROMO = { start: "2026-11-16", end: "2026-11-30", endAt: "2026-11-30T23:59:59+02:00", first: 50, regular: 20 };
 /* ===== Аналітика =====
-   Вбудована статистика працює завжди: /admin → «Відвідування сайту» → блок «Лендинг Чорна пʼятниця».
+   Вбудована статистика працює завжди: окрема сторінка /bf/stats/ (пароль — як у /admin).
    Щоб реклама в Instagram оптимізувалась на заявки — вставте ID пікселя Meta (Events Manager → Пікселі).
    Google Analytics 4 — за бажанням, ID виду G-XXXXXXX. */
 const META_PIXEL_ID = "";
@@ -462,7 +462,7 @@ const GA4_ID = "";
 const TELEGRAM_URL = "https://t.me/dorosenkoanastasia50";
 const INSTAGRAM_URL = "https://www.instagram.com/direct/t/18097245023122427/"; // краще: "https://ig.me/m/<нікнейм_акаунта>" — відкриває Direct у будь-якого клієнта
 const SEND_URL = "/.netlify/functions/send";
-const TRACK_URL = "/.netlify/functions/api?a=track";
+const TRACK_URL = "/.netlify/functions/api?a=track";   // окрема статистика лендингу: сторінка /bf/stats/
 // фахівці (дані як на основному сайті). price — ціна консультації; на сторінці показується ціна першої зустрічі зі знижкою
 const TEAM = [
   {"id":"ivanna-romashko","name":"Іванна Ромашко","role":"Психологиня, арт-терапевтка","subtitle":"Позитивна психотерапія · дорослі, підлітки 14+","bio":"Членкиня дивізіону психології харчової поведінки НПА. Має підготовку від ООН та UNFPA в допомозі постраждалим від насильства.","approach":"Інтегративний підхід: позитивна психотерапія, арт-терапія, емоційно-образна терапія.","formats":["Офлайн у центрі","Онлайн"],"clients":["Дорослі","Підлітки 14+"],"topics":["Харчова поведінка, РХП","Психотравма","Тривога, депресивні стани","Втрати","Перфекціонізм","Самооцінка"],"about":"У роботі я поєдную мʼякість і турботу з умінням бути вимогливою там, де це необхідно для терапевтичного процесу. У взаємодії з клієнтом для мене найважливішим є довірливий контакт, адже саме в атмосфері прийняття, безпеки й тепла стає можливим зцілення навіть найглибших емоційних ран.\n\nЯ працюю з дорослими та підлітками. У своїй практиці поєдную методи позитивної психотерапії, арт-терапії та емоційно-образної терапії.","requests":["Порушення харчової поведінки та РХП","Психотравматичний досвід","Втрати","Тривога, депресія","Переживання кризи","Дитячо-батьківські стосунки","Стосунки з партнером, взаємодія з соціумом","Особистісне зростання, самореалізація","Перфекціонізм, прокрастинація, досягнення цілей","Самооцінка і впевненість у собі, любов до себе","Емоційна регуляція","Вигорання"],"notWith":["Залежності","Психотичний рівень","Важкі захворювання"],"education":["Травма-консультантка в методі позитивної психотерапії","Позитивна психотерапія","Арт-терапія","Емоційно-образна терапія"],"price":900},
@@ -482,9 +482,17 @@ const ON = today >= PROMO.start && today <= PROMO.end;
 const DISC = ON ? PROMO.first : PROMO.regular;
 const firstPrice = (p) => Math.round(p * (1 - DISC / 100));
 
+// події збираються в пачку й надсилаються одним запитом (так нічого не губиться)
+let trackQueue = [], trackTimer = 0;
+function trackFlush() {
+  clearTimeout(trackTimer); trackTimer = 0;
+  if (!trackQueue.length || location.protocol === "file:") return;
+  const batch = trackQueue.splice(0, 50);
+  try { navigator.sendBeacon(TRACK_URL, new Blob([JSON.stringify({ site: "bf", batch })], { type: "text/plain" })); } catch {}
+}
 function track(e, label = "", extra = {}) {
-  if (location.protocol === "file:") return;
-  try { navigator.sendBeacon(TRACK_URL, new Blob([JSON.stringify({ e, label, ...extra })], { type: "application/json" })); } catch {}
+  trackQueue.push({ e, label, ...extra });
+  if (!trackTimer) trackTimer = setTimeout(trackFlush, 1500);
 }
 
 // після акції сторінка не «ламається»: показує звичайну знижку −20%
@@ -687,6 +695,9 @@ document.querySelectorAll("[data-msg]").forEach((el) => el.addEventListener("cli
   document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") flush(); else since = Date.now(); });
   addEventListener("pagehide", flush);
 })();
+// надіслати все, що зібралось, коли людина йде зі сторінки
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") trackFlush(); });
+addEventListener("pagehide", trackFlush);
 </script>
 </body>
 </html>

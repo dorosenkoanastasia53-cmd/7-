@@ -109,7 +109,49 @@ export default async (req) => {
   }
 };
 
+// ---------- окрема статистика лендингу «Чорна пʼятниця» (зберігається окремо від статистики основного сайту)
+// Лендинг може лежати на іншому сайті, тому ці відповіді дозволені з будь-якої адреси (CORS).
+// Перегляд: сторінка /stats лендингу, пароль — STATS_PASSWORD (якщо не задано — ADMIN_PASSWORD).
+const BF_EVENTS = ["page_view", "time", "bf_view", "bf_ad", "bf_scroll", "bf_form_start", "bf_messenger", "bf_topic",
+  "booking_click", "choose_specialist", "specialist_open", "promo_click", "form_submit_psy", "telegram_click", "instagram_click", "rent_click"];
+const BF_SOURCES = ["Пряме", "Instagram", "Telegram", "Facebook", "Google", "Інше"];
+const CORS = { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "Authorization, Content-Type", "Access-Control-Allow-Methods": "GET, POST, OPTIONS" };
+const corsJson = (data, status = 200) => new Response(JSON.stringify(data), { status, headers: { "Content-Type": "application/json", "Cache-Control": "no-store", ...CORS } });
+function bfPasswordOk(req) {
+  const want = process.env.STATS_PASSWORD || process.env.ADMIN_PASSWORD || "";
+  const got = (req.headers.get("authorization") || "").replace(/^Bearer\s+/i, "");
+  if (!want || !got) return false;
+  const h = (v) => crypto.createHash("sha256").update(String(v)).digest();
+  return crypto.timingSafeEqual(h(want), h(got));
+}
+function bfApply(st, body, day) {
+  const e = str(body.e, 40), label = str(body.label, 80) || "—";
+  if (!BF_EVENTS.includes(e)) return;
+  const d = (st.days[day] ||= { views: 0, visitors: 0, seconds: 0, leads: 0 });
+  if (e === "time") {
+    const total = Math.min(3600, Math.max(0, Math.round(+body.total || 0))), prev = Math.min(total, Math.max(0, Math.round(+body.prev || 0)));
+    d.seconds += total - prev;
+    if (prev > 0) st.timeBuckets[timeBucket(prev)] = Math.max(0, (st.timeBuckets[timeBucket(prev)] || 0) - 1);
+    if (total > 0) st.timeBuckets[timeBucket(total)] = (st.timeBuckets[timeBucket(total)] || 0) + 1;
+  } else if (e === "page_view") {
+    d.views++;
+    if (body.newVisitor) { d.visitors++; const src = BF_SOURCES.includes(body.src) ? body.src : "Інше"; st.sources[src] = (st.sources[src] || 0) + 1; }
+  } else {
+    if (e === "form_submit_psy") d.leads++;
+    const ev = (st.events[e] ||= {}); ev[label] = (ev[label] || 0) + 1;
+  }
+}
+// приймає одну подію або пачку { batch: [...] } — пачка записується одним збереженням
+async function bfTrack(db, body) {
+  const list = (Array.isArray(body.batch) ? body.batch : [body]).slice(0, 50);
+  const day = today(), key = `bf-analytics-${day.slice(0, 7)}`;
+  const st = (await db.get(key)) || { days: {}, events: {}, sources: {}, timeBuckets: {} };
+  list.forEach((ev) => ev && typeof ev === "object" && bfApply(st, ev, day));
+  await db.set(key, st);
+}
+
 async function handle(req) {
+  if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: CORS });
   const url = new URL(req.url);
   const a = url.searchParams.get("a") || "";
   const q = (k) => url.searchParams.get(k) || "";
@@ -127,6 +169,14 @@ async function handle(req) {
   }
 
   // ----- статистика відвідувань (анонімно: без IP, без ідентифікаторів — лише лічильники за днями)
+  if (a === "track" && body.site === "bf") { await bfTrack(db, body); return corsJson({ ok: true }); }
+  if (a === "bf-stats") {
+    if (!process.env.STATS_PASSWORD && !process.env.ADMIN_PASSWORD) return corsJson({ ok: false, error: "На основному сайті не задано STATS_PASSWORD або ADMIN_PASSWORD" }, 500);
+    if (!bfPasswordOk(req)) return corsJson({ ok: false, error: "Невірний пароль" }, 401);
+    const month = /^\d{4}-\d{2}$/.test(q("month")) ? q("month") : today().slice(0, 7);
+    const st = (await db.get(`bf-analytics-${month}`)) || {};
+    return corsJson({ ok: true, month, days: st.days || {}, events: st.events || {}, sources: st.sources || {}, timeBuckets: st.timeBuckets || {} });
+  }
   if (a === "track") {
     const e = str(body.e, 40), label = str(body.label, 60);
     if (!TRACK_EVENTS.includes(e)) return json({ ok: true });
