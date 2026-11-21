@@ -109,18 +109,11 @@ export default async (req) => {
   }
 };
 
-// ---------- окрема статистика сторінки /bf/ (зберігається окремо від статистики основного сайту)
-// Перегляд: /bf/stats/, пароль — STATS_PASSWORD (якщо не задано — ADMIN_PASSWORD).
+// ---------- статистика лендингу «Чорна пʼятниця» (сторінка /bf/ і окремий сайт лендингу)
+// Зберігається окремо від статистики основного сайту; перегляд: /admin → «Відвідування сайту» → «Лендинг ЧП».
 const BF_EVENTS = ["page_view", "time", "bf_view", "bf_ad", "bf_scroll", "bf_form_start", "bf_messenger", "bf_topic",
   "booking_click", "choose_specialist", "specialist_open", "promo_click", "form_submit_psy", "telegram_click", "instagram_click", "rent_click"];
 const BF_SOURCES = ["Пряме", "Instagram", "Telegram", "Facebook", "Google", "Інше"];
-function bfPasswordOk(req) {
-  const want = process.env.STATS_PASSWORD || process.env.ADMIN_PASSWORD || "";
-  const got = (req.headers.get("authorization") || "").replace(/^Bearer\s+/i, "");
-  if (!want || !got) return false;
-  const h = (v) => crypto.createHash("sha256").update(String(v)).digest();
-  return crypto.timingSafeEqual(h(want), h(got));
-}
 function bfApply(st, body, day) {
   const e = str(body.e, 40), label = str(body.label, 80) || "—";
   if (!BF_EVENTS.includes(e)) return;
@@ -166,13 +159,6 @@ async function handle(req) {
 
   // ----- статистика відвідувань (анонімно: без IP, без ідентифікаторів — лише лічильники за днями)
   if (a === "track" && body.site === "bf") { await bfTrack(db, body); return json({ ok: true }); }
-  if (a === "bf-stats") {
-    if (!process.env.STATS_PASSWORD && !process.env.ADMIN_PASSWORD) return json({ ok: false, error: "На основному сайті не задано STATS_PASSWORD або ADMIN_PASSWORD" }, 500);
-    if (!bfPasswordOk(req)) return json({ ok: false, error: "Невірний пароль" }, 401);
-    const month = /^\d{4}-\d{2}$/.test(q("month")) ? q("month") : today().slice(0, 7);
-    const st = (await db.get(`bf-analytics-${month}`)) || {};
-    return json({ ok: true, month, days: st.days || {}, events: st.events || {}, sources: st.sources || {}, timeBuckets: st.timeBuckets || {} });
-  }
   if (a === "track") {
     const e = str(body.e, 40), label = str(body.label, 60);
     if (!TRACK_EVENTS.includes(e)) return json({ ok: true });
@@ -454,7 +440,8 @@ async function handle(req) {
   if (!isAdmin) return fail(403, "Лише для адміністратора");
   if (a === "analytics") {
     const month = /^\d{4}-\d{2}$/.test(q("month")) ? q("month") : today().slice(0, 7);
-    return json({ ok: true, month, ...((await db.get(`analytics-${month}`)) || { days: {}, events: {}, sources: {} }) });
+    const key = q("scope") === "bf" ? `bf-analytics-${month}` : `analytics-${month}`;   // scope=bf — лише лендинг «Чорна пʼятниця»
+    return json({ ok: true, month, ...((await db.get(key)) || { days: {}, events: {}, sources: {} }) });
   }
   if (a === "users") {
     const users = (await db.get("users")) || [];

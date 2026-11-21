@@ -1,32 +1,15 @@
 # Лендинг «Чорна пʼятниця» — Метаморфоза
 
-Окремий сайт (psychorna-pyatnytsya.netlify.app), влаштований як основний:
-власний бот для заявок і власна статистика. Публікується з GitHub.
+Звичайні файли (`index.html` + `img/`). **Публікація: просто перетягніть папку на Netlify.**
 
-| Файл | Що це |
-|---|---|
-| `index.html`, `img/` | сторінка |
-| `netlify/functions/send.js` | заявки → Telegram-бот |
-| `netlify/functions/track.mjs` | статистика (Netlify Blobs, анонімно) |
-| `stats/` | сторінка статистики `/stats` |
+- **Заявки** → той самий Telegram-бот, що й на основному сайті (через функцію основного сайту).
+- **Статистика** → основний сайт `/admin` → «Відвідування сайту» → перемикач
+  **«Лендинг «Чорна пʼятниця»»**: відвідувачі, джерела, реклама (utm), час, воронка,
+  кнопки, прокрутка, запити, фахівці — окремо від статистики основного сайту.
 
-## Підключення до GitHub (один раз)
-Netlify → сайт psychorna-pyatnytsya → Site configuration → Build & deploy → Link repository → GitHub →
-репозиторій `dorosenkoanastasia53-cmd/7-`:
-- Branch: `claude/elegant-hopper-766yof`
-- Base directory: `siteandbot/chorna-pyatnytsya`
-- Build command, Publish, Functions — порожньо (усе в `netlify.toml`)
+Адреса основного сайту — `MAIN_SITE` в `index.html`.
 
-## Змінні (Site configuration → Environment variables)
-- `BOT_TOKEN` — токен бота (@BotFather → /mybots → бот → API Token)
-- `ADMIN_CHAT_ID` — **ваш особистий** Telegram id (не номер бота!)
-- `STATS_PASSWORD` — пароль до `/stats`
-
-Після зміни змінних: Deploys → Trigger deploy.
-
-## Перевірка
-- бот: `/.netlify/functions/send?check=1` → «Все налаштовано»
-- статистика: `/stats` → пароль
+⚠️ Перемикач у `/admin` зʼявиться після оновлення основного сайту до версії з `siteandbot/metamorfoza`.
 
 ## Посилання для реклами
 `https://psychorna-pyatnytsya.netlify.app/?utm_source=ig&utm_content=<назва_креативу>`

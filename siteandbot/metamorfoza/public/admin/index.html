@@ -539,9 +539,14 @@ const EVENT_NAMES = {
 };
 async function renderVisits() {
   const v = $("#view");
-  v.innerHTML = `<div class="bar"><h2>Відвідування сайту</h2>${monthNav()}</div><div id="vBody">Завантаження…</div>`;
+  const bf = state.visitScope === "bf";
+  v.innerHTML = `<div class="bar"><h2>Відвідування сайту</h2>
+      <div style="display:flex;gap:6px;flex-wrap:wrap"><button class="btn sm ${bf ? "out" : ""}" data-scope="all">Весь сайт</button><button class="btn sm ${bf ? "" : "out"}" data-scope="bf">Лендинг «Чорна пʼятниця»</button></div>
+      ${monthNav()}</div><div id="vBody">Завантаження…</div>`;
   bindMonth(renderVisits);
-  const d = await api("analytics", null, { month: state.month });
+  v.querySelectorAll("[data-scope]").forEach((b) => b.addEventListener("click", () => { state.visitScope = b.dataset.scope; renderVisits(); }));
+  const d = await api("analytics", null, { month: state.month, scope: bf ? "bf" : "all" });
+  if (bf) Object.values(d.events || {}).forEach((ev) => Object.keys(ev).forEach((l) => { const k = l.replace(/^BF:\s*/, ""); if (k !== l) { ev[k] = (ev[k] || 0) + ev[l]; delete ev[l]; } }));
   const [y, m] = state.month.split("-").map(Number), n = new Date(y, m, 0).getDate();
   const days = Array.from({ length: n }, (_, i) => { const k = `${state.month}-${pad(i + 1)}`; return { k, day: i + 1, views: 0, visitors: 0, seconds: 0, ...(d.days[k] || {}) }; });
   const dur = (sec) => { sec = Math.round(sec); return sec < 60 ? `${sec} с` : `${Math.floor(sec / 60)} хв ${String(sec % 60).padStart(2, "0")} с`; };
@@ -559,15 +564,14 @@ async function renderVisits() {
       <div><b>${leads}</b><span>заявок і реєстрацій</span></div>
       <div><b>${visitors ? ((leads / visitors) * 100).toFixed(1) : "0"}%</b><span>конверсія у заявку</span></div>
     </div>
-    ${count("bf_view") ? (() => {
-      const bfLeads = Object.entries(d.events.form_submit_psy || {}).filter(([l]) => l.startsWith("BF:")).reduce((t, [, c]) => t + c, 0);
-      const sc = d.events.bf_scroll || {}, views = count("bf_view");
-      const steps = [["Відкрили лендинг", views], ["Прокрутили до половини", sc["50%"] || 0], ["Дочитали до кінця", sc["100%"] || 0],
-        ["Почали заповнювати форму", count("bf_form_start")], ["✅ Залишили заявку", bfLeads], ["Написали в месенджер", ((d.events.bf_messenger || {}).Telegram || 0) + ((d.events.bf_messenger || {}).Instagram || 0)]];
-      return `<div class="card"><h3>Лендинг «Чорна пʼятниця» (/bf) — воронка</h3><div class="bars-list">${steps.map(([k, c]) => `<div><span>${k}<div class="mini"><i style="width:${Math.round((c / Math.max(1, views)) * 100)}%"></i></div><small>${views ? Math.round((c / views) * 100) : 0}% від тих, хто відкрив</small></span><b>${c}</b></div>`).join("")}</div>
-        <p class="muted" style="margin-top:8px">Конверсія лендингу у заявку: <b>${views ? ((bfLeads / views) * 100).toFixed(1) : 0}%</b>. Звідки: ${Object.entries(d.events.bf_view).sort((a, b) => b[1] - a[1]).map(([l, c]) => `${esc(l)} — ${c}`).join(" · ")}</p></div>`;
+    ${bf ? (() => {
+      const sc = d.events.bf_scroll || {}, opened = count("bf_view") || sum("views"), msg = d.events.bf_messenger || {};
+      const steps = [["Відкрили лендинг", opened], ["Прокрутили до половини", sc["50%"] || 0], ["Дочитали до кінця", sc["100%"] || 0],
+        ["Почали заповнювати форму", count("bf_form_start")], ["✅ Залишили заявку", count("form_submit_psy")], ["💬 Написали в месенджер", (msg.Telegram || 0) + (msg.Instagram || 0)]];
+      return `<div class="split"><div class="card"><h3>Воронка лендингу</h3><div class="bars-list">${steps.map(([k, c]) => `<div><span>${k}<div class="mini"><i style="width:${Math.round((c / Math.max(1, opened)) * 100)}%"></i></div><small>${opened ? Math.round((c / opened) * 100) : 0}% від тих, хто відкрив</small></span><b>${c}</b></div>`).join("")}</div></div>
+        <div><div class="card"><h3>З якої реклами (utm_content / utm_campaign)</h3><div class="bars-list">${listOf(d.events.bf_ad || {}, count("bf_ad"))}</div><p class="muted" style="margin-top:8px">У рекламі додавайте до посилання <code>?utm_source=ig&amp;utm_content=назва</code></p></div>
+        <div class="card"><h3>Як далеко прокручують</h3><div class="bars-list">${["25%", "50%", "75%", "100%"].filter((k) => sc[k]).map((k) => `<div><span>До ${k} сторінки<div class="mini"><i style="width:${Math.round((sc[k] / Math.max(1, opened)) * 100)}%"></i></div></span><b>${sc[k]}</b></div>`).join("") || `<p class="muted">Ще немає даних</p>`}</div></div></div></div>`;
     })() : ""}
-    <p class="muted">Статистика лендингу «Чорна пʼятниця» ведеться окремо: <a href="/bf/stats/" target="_blank">/bf/stats/</a> (той самий пароль).</p>
     <div class="card"><h3>Відвідувачі по днях</h3>
       <div class="chart" id="vChart">${days.map((x) => `<div class="col" data-tip="${x.day} ${MONTHS[m - 1]}: ${x.visitors} відвідувачів · ${x.views} переглядів"><div class="bar" style="height:${(x.visitors / max) * 100}%"></div>${x === peak && x.visitors ? `<span class="peak">${x.visitors}</span>` : ""}</div>`).join("")}</div>
       <div class="chart-x">${days.map((x) => `<span>${x.day % 5 === 1 ? x.day : ""}</span>`).join("")}</div>
@@ -585,7 +589,7 @@ async function renderVisits() {
       })()}</div></div>
       <div class="card"><h3>Звідки приходять</h3><div class="bars-list">${listOf(d.sources, visitors)}</div></div>
       <div class="card"><h3>Які фахівці цікавлять</h3><div class="bars-list">${listOf(d.events.specialist_open || {}, count("specialist_open"))}</div></div>
-      ${count("bf_topic") ? `<div class="card"><h3>З якими запитами приходять (лендинг)</h3><div class="bars-list">${listOf(d.events.bf_topic, count("bf_topic"))}</div></div>` : ""}</div>
+      ${count("bf_topic") ? `<div class="card"><h3>З якими запитами приходять</h3><div class="bars-list">${listOf(d.events.bf_topic, count("bf_topic"))}</div></div>` : ""}</div>
     </div>
     <p class="muted">Статистика анонімна: без cookies, IP-адрес та імен. Відвідувач рахується один раз на день.</p>`;
   let tip = document.querySelector(".tip");

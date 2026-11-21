@@ -453,18 +453,25 @@ footer a{color:#C9D2C4}
 <script>
 /* ===== Налаштування ===== */
 const PROMO = { start: "2026-11-16", end: "2026-11-30", endAt: "2026-11-30T23:59:59+02:00", first: 50, regular: 20 };
-/* ===== Заявки і статистика — як на основному сайті =====
-   Заявки: функція netlify/functions/send.js → Telegram-бот (змінні BOT_TOKEN, ADMIN_CHAT_ID у Netlify).
-   Статистика: функція netlify/functions/track.mjs → сторінка /stats (пароль — змінна STATS_PASSWORD).
-   Працює, коли сайт публікується з GitHub (не перетягуванням). */
-const SEND_URL = "/.netlify/functions/send";
-const TRACK_URL = "/.netlify/functions/track";
-/* Додатково, за бажанням: META_PIXEL_ID — піксель Meta для реклами; CLARITY_ID — Microsoft Clarity; GA4_ID — Google Analytics 4 */
+/* ===== Куди йдуть заявки і статистика =====
+   Ця сторінка — звичайні файли (можна просто перетягнути на Netlify).
+   Заявки й статистику вона надсилає через ОСНОВНИЙ сайт, де вже налаштований бот:
+     заявки → Telegram-бот основного сайту;
+     статистика → основний сайт /admin → «Відвідування сайту» → перемикач «Лендинг «Чорна пʼятниця»» (окремо від решти сайту).
+   Якщо адреса основного сайту зміниться — поміняйте її тут. */
+const MAIN_SITE = "https://psy-centr-kyiv-morphosis.netlify.app";
+/* ===== Додаткова аналітика (за бажанням, працює будь-де) =====
+   META_PIXEL_ID — піксель Meta, щоб реклама в Instagram оптимізувалась на заявки (Events Manager → Пікселі)
+   CLARITY_ID    — Microsoft Clarity (безкоштовно, clarity.microsoft.com): записи сесій, теплові карти кліків,
+                   час на сайті, джерела. Найпростіший спосіб побачити, що люди роблять на сторінці.
+   GA4_ID        — Google Analytics 4, ID виду G-XXXXXXX */
 const META_PIXEL_ID = "";
 const CLARITY_ID = "";
 const GA4_ID = "";
 const TELEGRAM_URL = "https://t.me/dorosenkoanastasia50";
 const INSTAGRAM_URL = "https://www.instagram.com/direct/t/18097245023122427/"; // краще: "https://ig.me/m/<нікнейм_акаунта>" — відкриває Direct у будь-якого клієнта
+const SEND_URL = MAIN_SITE + "/.netlify/functions/send";
+const TRACK_URL = MAIN_SITE + "/.netlify/functions/api?a=track";
 // фахівці (дані як на основному сайті). price — ціна консультації; на сторінці показується ціна першої зустрічі зі знижкою
 const TEAM = [
   {"id":"ivanna-romashko","name":"Іванна Ромашко","role":"Психологиня, арт-терапевтка","subtitle":"Позитивна психотерапія · дорослі, підлітки 14+","bio":"Членкиня дивізіону психології харчової поведінки НПА. Має підготовку від ООН та UNFPA в допомозі постраждалим від насильства.","approach":"Інтегративний підхід: позитивна психотерапія, арт-терапія, емоційно-образна терапія.","formats":["Офлайн у центрі","Онлайн"],"clients":["Дорослі","Підлітки 14+"],"topics":["Харчова поведінка, РХП","Психотравма","Тривога, депресивні стани","Втрати","Перфекціонізм","Самооцінка"],"about":"У роботі я поєдную мʼякість і турботу з умінням бути вимогливою там, де це необхідно для терапевтичного процесу. У взаємодії з клієнтом для мене найважливішим є довірливий контакт, адже саме в атмосфері прийняття, безпеки й тепла стає можливим зцілення навіть найглибших емоційних ран.\n\nЯ працюю з дорослими та підлітками. У своїй практиці поєдную методи позитивної психотерапії, арт-терапії та емоційно-образної терапії.","requests":["Порушення харчової поведінки та РХП","Психотравматичний досвід","Втрати","Тривога, депресія","Переживання кризи","Дитячо-батьківські стосунки","Стосунки з партнером, взаємодія з соціумом","Особистісне зростання, самореалізація","Перфекціонізм, прокрастинація, досягнення цілей","Самооцінка і впевненість у собі, любов до себе","Емоційна регуляція","Вигорання"],"notWith":["Залежності","Психотичний рівень","Важкі захворювання"],"education":["Травма-консультантка в методі позитивної психотерапії","Позитивна психотерапія","Арт-терапія","Емоційно-образна терапія"],"price":900},
@@ -484,21 +491,17 @@ const ON = today >= PROMO.start && today <= PROMO.end;
 const DISC = ON ? PROMO.first : PROMO.regular;
 const firstPrice = (p) => Math.round(p * (1 - DISC / 100));
 
-// статистика: події збираються в пачку й надсилаються одним запитом (так нічого не губиться) → /stats
+// події збираються в пачку й надсилаються одним запитом (так нічого не губиться)
 let trackQueue = [], trackTimer = 0;
 function trackFlush() {
   clearTimeout(trackTimer); trackTimer = 0;
   if (!trackQueue.length || location.protocol === "file:") return;
   const batch = trackQueue.splice(0, 50);
-  try { navigator.sendBeacon(TRACK_URL, new Blob([JSON.stringify({ batch })], { type: "text/plain" })); } catch {}
+  try { navigator.sendBeacon(TRACK_URL, new Blob([JSON.stringify({ site: "bf", batch })], { type: "text/plain" })); } catch {}
 }
 function track(e, label = "", extra = {}) {
   trackQueue.push({ e, label, ...extra });
   if (!trackTimer) trackTimer = setTimeout(trackFlush, 1500);
-  if (e === "page_view" || e === "time") return;
-  const l = String(label).replace(/^BF:\s*/, "");
-  try { if (window.clarity) { clarity("event", e); if (l) clarity("set", e, l); } } catch {}
-  try { if (window.gtag) gtag("event", e, { event_label: l }); } catch {}
 }
 
 // після акції сторінка не «ламається»: показує звичайну знижку −20%
@@ -649,9 +652,8 @@ $("#form").addEventListener("submit", async (e) => {
     `Джерело: ${utm || (/instagram/i.test(document.referrer) ? "Instagram" : document.referrer ? document.referrer : "пряме / реклама")}`].join("\n");
   try {
     if (location.protocol !== "file:") {
-      const r = await fetch(SEND_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text }) });
-      const j = await r.json().catch(() => ({}));
-      if (!r.ok || j.ok === false) { console.warn("Заявка не надіслана:", r.status, j); throw 0; }
+      // запит на інший сайт: відповідь браузер не показує (no-cors), але заявка доходить до бота
+      await fetch(SEND_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain" }, body: JSON.stringify({ text }) });
     }
     track("form_submit_psy", "BF: " + interest);
     adEvent("Lead", "generate_lead", { content_name: interest });
@@ -705,7 +707,6 @@ document.querySelectorAll("[data-msg]").forEach((el) => el.addEventListener("cli
   addEventListener("pagehide", flush);
 })();
 // надіслати все, що зібралось, коли людина йде зі сторінки
-// надіслати статистику, що зібралась, коли людина йде зі сторінки
 document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") trackFlush(); });
 addEventListener("pagehide", trackFlush);
 </script>
