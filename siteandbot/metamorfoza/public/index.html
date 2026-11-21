@@ -1,0 +1,1816 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Метаморфоза — психологічний центр</title>
+<link rel="icon" type="image/png" href="img/favicon.png">
+<meta name="theme-color" content="#133512">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="uk_UA">
+<meta property="og:title" content="Метаморфоза — психологічний центр у Києві">
+<meta property="og:description" content="Команда психологів, діагностична сесія −20%, тематичні зустрічі. Київ, м. Кловська · онлайн і офлайн.">
+<meta property="og:image" content="img/og.jpg">
+<meta name="description" content="Метаморфоза (Metamorphosis) — психологічний центр: індивідуальна, парна та групова терапія, івенти і підтримка. Оберіть свого фахівця, перегляньте вартість і вільні години.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FBF8F5;--sand:#EFE8E2;--clay:#D9C5BA;--accent:#133512;--accent-h:#0B240A;--accent-soft:#E3EBE0;
+  --gold:#C9A034;--gold-l:#E8C766;--sage:#7E9A86;--dark:#2C2018;--mid:#6B5A50;--light:#9A8880;--white:#fff;
+  --ok:#5E8C6A;--warn:#C08A3E;--busy:#A86464;
+  --serif:'Cormorant Garamond',Georgia,serif;--sans:'Jost',system-ui,sans-serif;
+  --r:14px;--shadow:0 6px 28px rgba(44,32,24,.08)
+}
+*{margin:0;padding:0;box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--dark);background:var(--bg);font-weight:300;line-height:1.6}
+img{max-width:100%;display:block}
+a{color:inherit}
+button{font-family:var(--sans);cursor:pointer}
+.wrap{max-width:1180px;margin:0 auto;padding:0 32px}
+section{padding:96px 0}
+.s-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);font-weight:500;display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.s-label::before{content:'';width:28px;height:2px;background:var(--accent)}
+.s-title{font-family:var(--serif);font-size:44px;font-weight:300;line-height:1.15;margin-bottom:16px}
+.s-sub{color:var(--mid);max-width:620px;margin-bottom:44px;font-size:15px}
+.btn{display:inline-block;border:none;padding:14px 30px;border-radius:100px;font-size:12px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:all .2s;font-weight:400}
+.btn-main{background:var(--accent);color:#fff}.btn-main:hover{background:var(--accent-h)}
+.btn-out{background:transparent;border:1.5px solid var(--dark);color:var(--dark)}.btn-out:hover{background:var(--dark);color:#fff}
+.btn-sm{padding:10px 20px;font-size:11px}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(251,248,245,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--clay)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:var(--serif);font-size:24px;text-decoration:none;display:flex;align-items:center;gap:10px}
+.logo img{width:38px;height:auto}
+.logo small{display:block;font-family:var(--sans);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--light);margin-top:-4px}
+.nav-links{display:flex;gap:26px}
+.nav-links a{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--mid);text-decoration:none}
+.nav-links a:hover{color:var(--accent)}
+.burger{display:none;background:none;border:none;font-size:26px;color:var(--dark)}
+
+/* HERO */
+.hero{padding:0;background:radial-gradient(ellipse at 20% 30%,#1E4A1C 0%,var(--accent) 55%,#0B240A 100%);color:#F3EEDF}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;min-height:620px;padding:56px 0}
+.hero-tag{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-l);font-weight:500;margin-bottom:18px}
+.hero h1{font-family:var(--serif);font-size:76px;font-weight:300;line-height:1;margin-bottom:22px}
+.hero h1{color:#F3EEDF}.hero h1 em{color:var(--gold-l)}
+.hero-logo{width:150px;margin-bottom:18px;filter:drop-shadow(0 6px 24px rgba(232,199,102,.25))}
+.hero .btn-main{background:var(--gold);color:var(--accent)}.hero .btn-main:hover{background:var(--gold-l)}
+.hero .btn-out{border-color:#F3EEDF;color:#F3EEDF}.hero .btn-out:hover{background:#F3EEDF;color:var(--accent)}
+.hero p{font-size:17px;color:#D6DCCF;max-width:480px;margin-bottom:34px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.hero-promo{display:inline-flex;align-items:center;gap:12px;margin-top:22px;color:#F3EEDF;text-decoration:none;font-size:14px;border-bottom:1px solid rgba(232,199,102,.4);padding-bottom:4px}
+.hero-promo b{background:var(--gold-l);color:var(--accent);border-radius:100px;padding:3px 10px;font-weight:500}
+.hero-promo:hover{color:var(--gold-l)}
+.hero-stats{display:flex;gap:36px;margin-top:48px;flex-wrap:wrap}
+.hero-stats b{display:block;font-family:var(--serif);font-size:36px;font-weight:400;color:var(--gold-l)}
+.hero-stats span{font-size:12px;color:#B9C4B4;letter-spacing:.5px}
+.hero-photos{position:relative;height:540px}
+.hero-photos img{position:absolute;object-fit:cover;border-radius:200px 200px var(--r) var(--r);box-shadow:var(--shadow)}
+.hero-photos .p1{width:62%;height:88%;right:0;top:0}
+.hero-photos .p2{width:44%;height:56%;left:0;bottom:0;border-radius:var(--r);border:6px solid var(--accent)}
+.hero-badge{position:absolute;left:8%;top:12%;background:#fff;color:var(--dark);border-radius:var(--r);padding:14px 18px;box-shadow:var(--shadow);font-size:13px;max-width:200px}
+.hero-badge b{color:var(--ok)}
+
+/* ADVANTAGES */
+.adv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.adv{background:#fff;border-radius:var(--r);padding:32px 28px;box-shadow:var(--shadow);transition:transform .2s}
+.adv:hover{transform:translateY(-4px)}
+.adv-ico{width:52px;height:52px;border-radius:50%;background:var(--sand);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:18px}
+.adv h3{font-family:var(--serif);font-size:24px;font-weight:400;margin-bottom:8px}
+.adv p{color:var(--mid);font-size:14px}
+
+/* PROMO (Чорна пʼятниця) */
+.promo-bar{display:block;background:#111;color:#F3EEDF;text-align:center;padding:9px 16px;font-size:13px;text-decoration:none;letter-spacing:.3px}
+.promo-bar b{color:var(--gold-l);font-weight:500}
+.promo-bar:hover{background:#000}
+#promo{background:#111;color:#F3EEDF;padding:72px 0}
+.promo-head{text-align:center;max-width:760px;margin:0 auto 36px}
+.promo-tag{display:inline-block;border:1px solid var(--gold-l);color:var(--gold-l);border-radius:100px;padding:5px 14px;font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
+.promo-head h2{font-family:var(--serif);font-weight:300;font-size:46px;line-height:1.1;margin-bottom:12px}
+.promo-head p{color:#C9C3BA}
+.promo-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.promo-card{background:#1c1c1c;border:1px solid #2e2e2e;border-radius:var(--r);padding:26px;display:flex;flex-direction:column;gap:10px}
+.promo-card.hot{border-color:var(--gold)}
+.promo-big{font-family:var(--serif);font-size:44px;line-height:1;color:var(--gold-l)}
+.promo-card h3{font-family:var(--serif);font-weight:400;font-size:26px}
+.promo-card p{color:#C9C3BA;font-size:14px}
+.promo-card p b{color:#F3EEDF;font-weight:500}
+.promo-card .btn{align-self:flex-start;margin-top:auto}
+.promo-card .btn-main{background:var(--gold);color:#111}.promo-card .btn-main:hover{background:var(--gold-l)}
+.ptable-wrap{overflow-x:auto}
+.ptable{width:100%;border-collapse:collapse;font-size:13px;margin:4px 0 8px}
+.ptable th{font-weight:400;color:#8f8a82;text-align:left;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:6px 6px 6px 0}
+.ptable td{padding:6px 6px 6px 0;border-top:1px solid #2e2e2e;vertical-align:top}
+.ptable s{color:#8f8a82;white-space:nowrap}
+.ptable b{color:var(--gold-l);font-weight:500;white-space:nowrap}
+.promo-small{font-size:12px;color:#8f8a82}
+
+/* PACKAGES */
+.first-grid>*{min-width:0}
+.pkg-block{background:#fff;border-radius:var(--r);padding:22px;margin-top:22px}
+.pkg-block h3{font-family:var(--serif);font-weight:400;font-size:24px;margin-bottom:6px}
+.pkg-block p{font-size:14px;color:var(--mid);margin-bottom:12px}
+.pkg-wrap{overflow-x:auto}
+.pkg-table{width:100%;border-collapse:collapse;font-size:13px;min-width:460px}
+.pkg-table th{font-weight:500;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--light);text-align:left;padding:6px 8px 6px 0}
+.pkg-table th span{color:var(--accent);letter-spacing:0}
+.pkg-table td{border-top:1px solid var(--sand);padding:7px 8px 7px 0;white-space:nowrap}
+.pkg-table b{color:var(--accent);font-weight:500}
+.pkg-table s{color:var(--light);font-size:12px}
+
+/* MISSION */
+#mission{background:#fff}
+.mission-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:64px;align-items:center}
+.mission-photo{width:100%;height:560px;object-fit:cover;border-radius:var(--r) 200px var(--r) var(--r);box-shadow:var(--shadow)}
+.mission-text{color:var(--mid);font-size:16px;margin-bottom:14px;max-width:620px}
+.mission-text b{color:var(--accent);font-weight:500}
+.comfort{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0}
+.comfort span{background:var(--accent-soft);color:var(--accent);border-radius:100px;padding:8px 16px;font-size:13px}
+.mission-sign{font-family:var(--serif);font-size:22px;font-style:italic;color:var(--accent)}
+
+/* FIRST SESSION */
+#first{background:var(--accent-soft)}
+.first-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:56px;align-items:start}
+.steps{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+.step{background:#fff;border-radius:var(--r);padding:22px}
+.step i{font-style:normal;font-family:var(--serif);font-size:30px;color:var(--gold)}
+.step b{display:block;font-family:var(--serif);font-size:22px;font-weight:400;margin:2px 0 6px}
+.step p{font-size:14px;color:var(--mid)}
+.no-block{display:flex;flex-wrap:wrap;gap:10px}
+.no-block span{background:#fff;border:1.5px solid var(--accent);color:var(--accent);border-radius:100px;padding:8px 16px;font-size:13px}
+.no-block span::before{content:"✓ "}
+.first-card{background:var(--accent);color:#F3EEDF;border-radius:20px;padding:34px;position:sticky;top:90px;box-shadow:var(--shadow)}
+.first-badge{display:inline-block;background:var(--gold-l);color:var(--accent);font-family:var(--serif);font-size:40px;font-weight:500;border-radius:14px;padding:2px 16px;margin-bottom:14px}
+.first-card h3{font-family:var(--serif);font-size:30px;font-weight:300}
+.first-card>p{color:#C9D2C4;font-size:14px}
+.first-prices{margin-top:18px;display:grid;gap:4px}
+.first-prices div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed rgba(232,199,102,.3);padding:8px 0;font-size:14px}
+.first-prices s{color:#8FA08A;margin-right:8px;font-size:13px}
+.first-prices b{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--gold-l)}
+.first-note{font-size:12px;color:#B9C4B4;margin-top:14px}
+.first-card .btn-main{background:var(--gold);color:var(--accent)}.first-card .btn-main:hover{background:var(--gold-l)}
+
+/* GALLERY */
+.gallery{background:var(--sand)}
+.gal-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:220px;gap:14px;grid-auto-flow:dense}
+.gal-grid figure{position:relative;overflow:hidden;border-radius:var(--r);cursor:zoom-in}
+.gal-grid img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.gal-grid figure:hover img{transform:scale(1.05)}
+.gal-grid figcaption{position:absolute;left:0;right:0;bottom:0;padding:24px 16px 12px;background:linear-gradient(transparent,rgba(44,32,24,.65));color:#fff;font-size:13px}
+.g-tall{grid-row:span 2}.g-wide{grid-column:span 2}
+
+/* SHOP */
+#shop{background:#fff}
+.shop-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:56px;align-items:center}
+.shop-items{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.shop-item{background:var(--bg);border-radius:var(--r);padding:20px;display:flex;gap:14px;align-items:flex-start}
+.shop-item span{font-size:26px;line-height:1}
+.shop-item b{display:block;font-family:var(--serif);font-size:21px;font-weight:400}
+.shop-item p{font-size:13px;color:var(--mid)}
+.shop-photo{width:100%;height:520px;object-fit:cover;border-radius:200px 200px var(--r) var(--r);box-shadow:var(--shadow)}
+
+/* EVENTS */
+.ev-filters,.sp-filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px}
+.pill{border:1.5px solid var(--clay);background:#fff;color:var(--mid);padding:8px 18px;border-radius:100px;font-size:13px;transition:all .2s}
+.pill.on,.pill:hover{border-color:var(--accent);color:var(--accent)}
+.pill.on{background:var(--accent);color:#fff}
+.ev-list{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.ev{display:grid;grid-template-columns:110px 1fr;background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+.ev-date{background:linear-gradient(160deg,#1E4A1C,var(--accent));color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px 8px;text-align:center}
+.ev-date b{font-family:var(--serif);font-size:44px;font-weight:400;line-height:1;color:var(--gold-l)}
+.ev-date span{font-size:11px;letter-spacing:2px;text-transform:uppercase}
+.ev-date small{font-size:12px;margin-top:6px;opacity:.85}
+.ev-body{padding:22px 24px}
+.ev-type{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#9C7A1E;font-weight:500}
+.ev h3{font-family:var(--serif);font-size:24px;font-weight:400;line-height:1.2;margin:4px 0 8px}
+.ev p{font-size:14px;color:var(--mid);margin-bottom:12px}
+.ev-meta{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--light);margin-bottom:14px}
+.ev-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.ev-price{font-family:var(--serif);font-size:24px}
+.seats{font-size:12px}
+.seats-bar{height:4px;background:var(--sand);border-radius:4px;overflow:hidden;margin-top:4px;width:120px}
+.seats-bar i{display:block;height:100%;background:var(--ok)}
+
+.opening{background:radial-gradient(ellipse at 15% 20%,#1E4A1C 0%,var(--accent) 60%);color:#F3EEDF;border-radius:20px;padding:40px;margin-bottom:36px}
+.opening .ev-type{color:var(--gold-l)}
+.opening h3{font-family:var(--serif);font-size:34px;font-weight:300;margin:6px 0 8px;line-height:1.15}
+.opening>p{color:#D6DCCF;max-width:640px}
+.perks{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:28px 0}
+.perks div{background:rgba(255,255,255,.06);border:1px solid rgba(232,199,102,.25);border-radius:var(--r);padding:16px;font-size:13px;color:#C9D2C4}
+.perks span{display:block;font-size:26px;margin-bottom:6px}
+.perks b{display:block;color:#F3EEDF;font-weight:400;font-size:15px}
+.deals{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.deal{background:var(--gold);color:var(--accent);border-radius:var(--r);padding:16px 18px;font-size:13px}
+.deal b{display:block;font-family:var(--serif);font-size:22px;font-weight:500}
+.ev-more{background:none;border:none;color:var(--accent);font-size:13px;text-decoration:underline;padding:0;margin-bottom:12px}
+.modal-box.ev-modal{grid-template-columns:1fr;max-width:720px}
+.ev-modal .m-body ul{list-style:none;padding-left:0}
+.ev-modal .m-body li{margin-bottom:6px}
+.ev-modal .m-body p{margin-bottom:10px}
+.ev-head{background:var(--accent);color:#F3EEDF;padding:30px 34px}
+.ev-head .ev-type{color:var(--gold-l)}
+.ev-head h3{font-family:var(--serif);font-size:30px;font-weight:300;line-height:1.15;margin:6px 0 10px;color:#F3EEDF}
+.ev-head .ev-meta{color:#C9D2C4;margin:0}
+
+.ev-host{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--mid);margin:-2px 0 10px}
+.ev-host img{width:36px;height:36px;border-radius:50%;object-fit:cover;object-position:center 25%;border:2px solid var(--accent-soft)}
+.ev-thumb{float:right;width:84px;height:auto;max-height:110px;object-fit:cover;border-radius:10px;margin:0 0 8px 12px;box-shadow:0 4px 14px rgba(44,32,24,.12);cursor:zoom-in}
+.ev-body{overflow:hidden}
+
+/* SPECIALISTS */
+.specialists{background:#fff}
+.sp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.sp{background:var(--bg);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s;text-align:center;border:1px solid var(--sand)}
+.sp:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.sp-photo{position:relative;padding:30px 0 0}
+.arch{width:68%;aspect-ratio:4/5;margin:0 auto;border-radius:999px 999px 18px 18px;overflow:hidden;background:var(--clay);box-shadow:0 10px 30px rgba(44,32,24,.12)}
+.arch img{width:100%;height:100%;object-fit:cover;object-position:center 25%}
+.sp-sub{font-family:var(--serif);font-style:italic;font-size:19px;color:var(--mid);margin:2px 0 10px;line-height:1.25}
+.sp-bio{font-size:14px;color:var(--mid);margin-bottom:14px}
+.sp-label{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:8px}
+.sp .tags{justify-content:center}
+.sp .tag{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-size:12px;padding:5px 12px}
+.sp-format{display:inline-flex;gap:10px;align-items:center;align-self:center;background:var(--sand);border-radius:100px;padding:8px 16px;font-size:13px;margin-bottom:18px}
+.sp-format span{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--light)}
+.sp-initials{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:84px;color:#fff;font-weight:300}
+.status{position:absolute;top:14px;left:14px;background:#fff;border-radius:100px;padding:6px 12px;font-size:12px;display:flex;align-items:center;gap:6px;font-weight:400}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.dot.free{background:var(--ok)}.dot.few{background:var(--warn)}.dot.full{background:var(--busy)}.dot.ask{background:var(--gold)}
+.m-body ul.no li::marker{content:"× ";color:var(--busy)}
+.m-body p+p{margin-top:10px}
+.week-empty{grid-column:1/-1;background:#fff;border-radius:var(--r);padding:28px;color:var(--mid);font-size:15px}
+.sp-body{padding:22px 24px 24px;display:flex;flex-direction:column;flex:1}
+.sp h3{font-family:var(--serif);font-size:26px;font-weight:400;line-height:1.15}
+.sp-role{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin:6px 0 4px;font-weight:500}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.tag{font-size:11px;background:#fff;border:1px solid var(--clay);border-radius:100px;padding:4px 10px;color:var(--mid)}
+.sp-info{font-size:13px;color:var(--mid);display:grid;gap:4px;margin-bottom:18px}
+.sp-info b{color:var(--dark);font-weight:400}
+.sp-foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;text-align:left;border-top:1px solid var(--clay);padding-top:16px}
+.sp-price{font-family:var(--serif);line-height:1.2}
+.sp-price s{font-size:20px;color:var(--mid);margin-right:8px}
+.sp-price b{font-size:26px;font-weight:500;color:var(--accent)}
+.sp-price s,.sp-price b{white-space:nowrap}
+.sp-foot{flex-wrap:wrap;row-gap:14px}
+.sp-price small{display:block;font-family:var(--sans);font-size:12px;color:#9C7A1E;margin-top:4px}
+
+/* RENT */
+#rent{background:#fff;padding:72px 0}
+.rent-box{display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.rent-box .s-sub{margin-bottom:0}
+
+/* AVAILABILITY */
+.avail{background:var(--sand)}
+.av-controls{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px;align-items:center}
+select,input,textarea{font-family:var(--sans);font-size:14px;padding:12px 14px;border:1.5px solid var(--clay);border-radius:10px;background:#fff;color:var(--dark);font-weight:300;width:100%}
+select:focus,input:focus,textarea:focus{outline:none;border-color:var(--accent)}
+.av-controls select{width:auto;min-width:240px}
+.legend{display:flex;gap:16px;font-size:12px;color:var(--mid);flex-wrap:wrap}
+.legend span{display:flex;align-items:center;gap:6px}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+.day{background:#fff;border-radius:var(--r);padding:14px 10px;min-height:180px}
+.day h5{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--light);font-weight:500;margin-bottom:2px}
+.day .d{font-family:var(--serif);font-size:22px;margin-bottom:10px}
+.slot{display:block;width:100%;border:none;border-radius:8px;padding:7px 4px;font-size:13px;margin-bottom:6px;text-align:center}
+.slot.free{background:var(--accent-soft);color:var(--ok)}.slot.free:hover{background:var(--accent);color:#fff}
+.slot.busy{background:var(--sand);color:var(--light);text-decoration:line-through;cursor:not-allowed}
+.day .none{font-size:12px;color:var(--light)}
+.av-note{font-size:13px;color:var(--mid);margin-top:18px}
+
+/* FAQ */
+.faq-item{border-bottom:1px solid var(--clay)}
+.faq-q{width:100%;background:none;border:none;text-align:left;padding:22px 0;font-family:var(--serif);font-size:22px;display:flex;justify-content:space-between;gap:16px;color:var(--dark)}
+.faq-q span{color:var(--accent);transition:transform .2s}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s;color:var(--mid);font-size:15px}
+.faq-item.open .faq-a{max-height:300px;padding-bottom:22px}
+.faq-item.open .faq-q span{transform:rotate(45deg)}
+
+/* BOOKING */
+.booking{background:var(--accent);color:#fff;scroll-margin-top:64px}
+.booking .s-label{color:var(--gold-l)}.booking .s-label::before{background:var(--gold-l)}
+.booking .s-title{color:#fff}.booking .s-sub{color:var(--clay)}
+.book-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px}
+.contacts{display:grid;gap:16px;align-content:start}
+.contact{display:flex;gap:14px;align-items:center;color:var(--clay);text-decoration:none;font-size:15px}
+.contact i{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-style:normal;font-size:18px}
+form{background:#fff;color:var(--dark);border-radius:var(--r);padding:34px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+form label{font-size:12px;color:var(--mid);display:grid;gap:6px}
+form .full{grid-column:1/-1}
+.check{display:flex!important;grid-template-columns:none!important;gap:10px!important;align-items:flex-start;font-size:13px!important}
+.check input{width:auto;margin-top:3px;accent-color:var(--accent)}
+.tabs{scroll-margin-top:80px;display:grid;grid-template-columns:1fr 1fr;gap:6px;background:rgba(255,255,255,.08);border-radius:100px;padding:6px;margin-bottom:16px}
+.tab{border:none;background:transparent;color:#DDE5D8;border-radius:100px;padding:12px 10px;font-size:14px;transition:all .2s}
+.tab.on{background:var(--gold-l);color:var(--accent);font-weight:500}
+.tab:not(.on):hover{background:rgba(255,255,255,.08)}
+.f-label{font-size:12px;color:var(--mid);margin-bottom:8px}
+.f-label span{color:#9C7A1E}
+.ev-pick{display:grid;gap:8px}
+.ev-opt{display:flex;gap:12px;align-items:flex-start;border:1.5px solid var(--clay);border-radius:12px;padding:12px 14px;cursor:pointer;font-size:14px;color:var(--dark);transition:border-color .2s}
+.ev-opt:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.ev-opt input{width:auto;margin-top:4px;accent-color:var(--accent)}
+.ev-opt small{display:block;color:var(--light);font-size:12px;margin-top:2px}
+.ev-opt b{margin-left:auto;font-family:var(--serif);font-size:18px;font-weight:400;white-space:nowrap}
+.sum{background:var(--bg);border-radius:12px;padding:14px 16px;font-size:14px;color:var(--mid)}
+.sum div{display:flex;justify-content:space-between;gap:10px;padding:3px 0}
+.sum .total{border-top:1px solid var(--clay);margin-top:6px;padding-top:8px;color:var(--dark);font-size:16px}
+.sum .total b{font-family:var(--serif);font-size:24px;font-weight:500;color:var(--accent)}
+.sum .disc{color:var(--ok)}
+.ev-actions{display:flex;gap:10px;flex-wrap:wrap}
+.pay-note{font-size:12px;color:var(--light)}
+.confirm-note{font-size:13px;color:var(--accent);background:var(--accent-soft);border-radius:10px;padding:10px 14px}
+.form-msg{grid-column:1/-1;font-size:14px;display:none;padding:12px 14px;border-radius:10px}
+
+/* FOOTER */
+footer{background:#0B240A;color:var(--light);padding:40px 0;font-size:13px}
+.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+#footYear{text-align:right;line-height:1.8}
+#footYear a{color:var(--clay);text-decoration:none}
+#footYear a:hover{color:var(--gold-l)}
+.foot-links{display:flex;gap:10px;justify-content:flex-end;margin-bottom:8px}
+.foot-links a{border:1px solid rgba(232,199,102,.35);border-radius:100px;padding:6px 16px;font-size:13px;color:#F3EEDF!important}
+.foot-links a:hover{background:var(--gold-l);color:var(--accent)!important}
+.help{background:rgba(255,255,255,.05);border-radius:10px;padding:12px 16px;margin-top:20px;font-size:12px}
+
+/* MODAL */
+.modal{position:fixed;inset:0;background:rgba(44,32,24,.7);z-index:500;display:none;align-items:center;justify-content:center;padding:20px}
+.modal.open{display:flex}
+.modal-box{background:#fff;border-radius:18px;max-width:880px;width:100%;max-height:92vh;overflow-y:auto;position:relative;display:grid;grid-template-columns:300px 1fr}
+.modal-close{position:absolute;top:12px;right:14px;background:#fff;border:none;font-size:28px;width:40px;height:40px;border-radius:50%;z-index:2;color:var(--dark);box-shadow:var(--shadow)}
+.m-photo{background:var(--clay);min-height:100%}
+.m-photo img{width:100%;height:100%;object-fit:cover;object-position:top}
+.m-body{padding:36px 34px}
+.m-body h3{font-family:var(--serif);font-size:34px;font-weight:400;line-height:1.1}
+.m-body h4{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin:22px 0 8px;font-weight:500}
+.m-body p,.m-body li{font-size:14px;color:var(--mid)}
+.m-body ul{padding-left:18px}
+.m-prices{display:grid;gap:6px}
+.m-prices div{display:flex;justify-content:space-between;border-bottom:1px dashed var(--clay);padding:6px 0;font-size:14px}
+.m-prices b{font-family:var(--serif);font-size:18px;font-weight:400}
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:600;display:none;align-items:center;justify-content:center;padding:30px;cursor:zoom-out}
+.lightbox.open{display:flex}
+.lightbox img{max-height:90vh;border-radius:8px}
+
+/* RESPONSIVE */
+@media(max-width:1000px){
+  .hero-grid,.book-grid,.shop-grid,.mission-grid,.first-grid{grid-template-columns:1fr}
+  .first-card{position:static}
+  .mission-photo{height:380px}
+  .hero-photos{height:420px}
+  .adv-grid,.sp-grid{grid-template-columns:1fr 1fr}
+  .ev-list{grid-template-columns:1fr}
+  .week{grid-template-columns:repeat(4,1fr)}
+  .gal-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:760px){
+  .wrap{padding:0 16px}
+  section{padding:64px 0}
+  .nav-links{display:none;position:absolute;top:64px;left:0;right:0;background:var(--bg);flex-direction:column;padding:20px 16px;gap:16px;border-bottom:1px solid var(--clay)}
+  .nav-links.open{display:flex}
+  .burger{display:block}
+  .nav-in>.btn{display:none}
+  .hero-grid{padding:40px 16px 48px}
+  .hero-logo{width:110px}
+  .hero h1{font-size:52px}
+  .s-title{font-size:34px}
+  .hero-photos{height:340px}
+  .sp-grid,.deals{grid-template-columns:1fr}
+  /* компактна мобільна версія: менше гортати */
+  section{padding:44px 0}
+  .s-title{font-size:30px;margin-bottom:10px}
+  .s-sub{margin-bottom:22px;font-size:14px}
+  .sp-grid{gap:10px}
+  .sp{display:grid;grid-template-columns:92px 1fr;text-align:left;align-items:start}
+  .sp-photo{padding:12px 0 12px 12px}
+  .arch{width:80px;border-radius:999px 999px 12px 12px}
+  .sp .status{position:static;margin-top:6px;padding:2px 0;background:none;font-size:11px}
+  .sp-body{padding:12px 14px 12px 12px}
+  .sp h3{font-size:20px}
+  .sp-role{font-size:10px;letter-spacing:1.5px;margin:2px 0}
+  .sp-sub{font-size:15px;margin:0 0 6px}
+  .sp-bio,.sp-label,.sp .tags,.sp-format{display:none}
+  .sp-foot{padding-top:8px;gap:8px;row-gap:6px}
+  .sp-price s{font-size:15px}.sp-price b{font-size:20px}.sp-price small{font-size:11px;margin-top:2px}
+  .sp-foot .btn{padding:7px 14px;font-size:10px}
+  .sp-filters,.ev-filters{flex-wrap:nowrap;overflow-x:auto;margin-bottom:16px;padding-bottom:4px}
+  .pill{white-space:nowrap;font-size:12px;padding:6px 14px}
+  .promo-grid,.adv-grid,.steps,.shop-items{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;padding-bottom:8px;margin-right:-16px}
+  .promo-card,.adv,.step,.shop-item{flex:0 0 84%;scroll-snap-align:start}
+  .adv{padding:20px}
+  .mission-photo,.shop-photo{display:none}
+  .shop-grid>*,.first-grid>*,.mission-grid>*{min-width:0}
+  .sp-foot .btn{display:none}
+  .sp-photo{display:flex;flex-direction:column;align-items:center}
+  .gal-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;margin-right:-16px}
+  .gal-grid figure{flex:0 0 78%;height:240px;scroll-snap-align:start}
+  .hero-photos{height:260px}
+  .hero-stats{margin-top:28px;gap:24px}
+  .promo-grid{grid-template-columns:1fr}
+  .promo-head h2{font-size:34px}
+  #promo{padding:56px 0}
+  .promo-card{padding:20px}
+  #footYear{text-align:left}.foot-links{justify-content:flex-start}
+  .first-card{padding:26px 20px}
+  .perks{grid-template-columns:1fr 1fr}
+  .opening{padding:26px 20px}
+  .opening h3{font-size:28px}
+  .ev-head{padding:26px 20px}
+  .week{grid-template-columns:repeat(2,1fr)}
+  .ev{grid-template-columns:84px 1fr}
+  .ev-date b{font-size:34px}
+  form{grid-template-columns:1fr;padding:22px}
+  .tabs{border-radius:16px}.tab{border-radius:12px;font-size:13px}
+  .modal-box{grid-template-columns:1fr}
+  .m-photo{height:260px}
+  .m-body{padding:24px 20px}
+}
+</style>
+</head>
+<body>
+
+<a href="#promo" class="promo-bar" id="promoBar" hidden data-track="promo_click" data-label="Верхній банер"></a>
+<nav>
+  <div class="wrap nav-in">
+    <a href="#top" class="logo">
+      <img src="img/emblem.webp" alt="" width="38" height="43">
+      <span>Метаморфоза<small>психологічний центр</small></span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#mission">Про центр</a>
+      <a href="#first">Перша зустріч</a>
+      <a href="#specialists">Фахівці</a>
+      <a href="#gallery">Простір</a>
+      <a href="#availability">Розклад</a>
+      <a href="#events">Події</a>
+      <a href="#rent">Оренда</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <a href="#booking" class="btn btn-main btn-sm" data-track="booking_click" data-label="Меню">Записатися</a>
+    <button class="burger" aria-label="Меню" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <img class="hero-logo" src="img/emblem.webp" alt="Логотип Метаморфоза">
+      <div class="hero-tag">Психологічний центр · Metamorphosis</div>
+      <h1>Мета<em>морфоза</em></h1>
+      <p>Місце, де зміни стають можливими. Команда фахівців, яка допоможе пройти шлях від тривоги та розгубленості — до опори, ясності й контакту з собою.</p>
+      <div class="hero-btns">
+        <a href="#specialists" class="btn btn-main" data-track="choose_specialist" data-label="Головний екран">Обрати фахівця</a>
+        <a href="#events" class="btn btn-out">Події та зустрічі</a>
+      </div>
+      <a href="#first" class="hero-promo" data-track="first_session_click" data-label="Головний екран"><b id="heroDisc">−20%</b> <span id="heroPromoText">на діагностичну сесію — прийдіть познайомитися з фахівцем</span> →</a>
+      <div class="hero-stats" id="heroStats"></div>
+    </div>
+    <div class="hero-photos">
+      <img class="p1" src="img/room-lounge.jpg" alt="Кабінет для консультацій у центрі Метаморфоза">
+      <img class="p2" src="img/room-cabinet.jpg" alt="Затишний куточок кабінету">
+      <div class="hero-badge" id="heroBadge"></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROMO -->
+<section id="promo" hidden>
+  <div class="wrap">
+    <div class="promo-head">
+      <div class="promo-tag" id="promoDates"></div>
+      <h2>Чорна пʼятниця в Метаморфозі</h2>
+      <p>Найкращі ціни року на турботу про себе. Знижки до −50% на консультації, групи та оренду. Купити можна лише в ці дні, а використати — пізніше.</p>
+    </div>
+    <div class="promo-grid">
+      <article class="promo-card hot">
+        <div class="promo-big">−50%</div>
+        <h3>Перша зустріч з психологом</h3>
+        <p>Зробіть перший крок за пів ціни — консультація від 450 грн. Одна на клієнта, використати протягом місяця. На час акції замість звичайних −20%.</p>
+        <table class="ptable" id="pFirst"></table>
+        <a href="#booking" class="btn btn-main btn-sm" onclick="bookFirst()" data-track="promo_click" data-label="Перша зустріч −50%">Записатися</a>
+      </article>
+      <article class="promo-card">
+        <div class="promo-big">до −20%</div>
+        <h3>Пакети індивідуальних сесій</h3>
+        <p>На пакети сесій діють знижки, а до пакета на 8 сесій — <b>група у подарунок</b>. Можна змінити фахівця, якщо перший не підійшов. Деталі підкаже адміністратор.</p>
+        <a href="#booking" class="btn btn-main btn-sm" onclick="showTab('bookForm')" data-track="promo_click" data-label="Пакети сесій">Обрати пакет</a>
+      </article>
+      <article class="promo-card">
+        <div class="promo-big">−50%</div>
+        <h3>Групи підтримки</h3>
+        <p><b>−50% на першу зустріч</b> і <b>до −15% на пакет</b> зустрічей. Спробуйте, як це — бути серед своїх. Місце у групі за вами.</p>
+        <a href="#booking" class="btn btn-main btn-sm" onclick="showTab('evForm')" data-track="promo_click" data-label="Групи">Записатися на групу</a>
+      </article>
+      <article class="promo-card">
+        <div class="promo-big">−30%</div>
+        <h3>Оренда для психологів</h3>
+        <p>Оренда кабінету від 105 грн/год. Купуйте години зараз — бронюйте до 3 місяців. Години привʼязані до приміщення.</p>
+        <div class="ptable-wrap"><table class="ptable" id="pRent"></table></div>
+        <p class="promo-small">Діють: 1–4 год — 1 місяць, 5–8 год — 2 місяці, 9–12 год — 3 місяці. Зала — від 2 годин. Скасування пізніше ніж за 24 год — години списуються з пакета.</p>
+        <a href="https://psy-centr-kyiv.netlify.app/" target="_blank" rel="noopener" class="btn btn-main btn-sm" data-track="rent_click" data-label="Чорна пʼятниця">Деталі оренди ↗</a>
+      </article>
+    </div>
+    <p class="promo-small" style="margin-top:20px">Термін акції: 16–30 листопада. Купити можна лише в ці дні, використати — пізніше (у межах терміну дії). Знижки не сумуються.</p>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section id="mission">
+  <div class="wrap mission-grid">
+    <img class="mission-photo" src="img/founder.jpg" alt="Анастасія Дорошенко, засновниця центру" loading="lazy">
+    <div>
+      <div class="s-label">Про центр</div>
+      <h2 class="s-title">Якісна допомога, яка вам доступна</h2>
+      <p class="mission-text">Створюючи «Метаморфозу», я мала одну мету — надавати людям перш за все <b>якісну</b> психологічну допомогу, але при цьому <b>доступну</b>. Тож якщо шукаєте психолога не за всі гроші світу — вам точно до нас.</p>
+      <p class="mission-text">Кожен фахівець центру пройшов детальний відбір. Як власниця, я обрала найкваліфікованіших і водночас найприємніших у спілкуванні спеціалістів — щоб поруч із вами була людина, якій хочеться довіряти.</p>
+      <p class="mission-text">А ще мені хотілося створити по-справжньому комфортне місце для вашої трансформації — вашої власної метаморфози.</p>
+      <div class="comfort" id="comfort"></div>
+      <div class="mission-sign">— Анастасія Дорошенко, засновниця «Метаморфози»</div>
+    </div>
+  </div>
+</section>
+
+<!-- FIRST SESSION -->
+<section id="first">
+  <div class="wrap first-grid">
+    <div>
+      <div class="s-label">Перша зустріч</div>
+      <h2 class="s-title">Прийдіть і познайомтеся з фахівцем</h2>
+      <p class="s-sub">Почати терапію буває страшно: невідомо, як усе відбуватиметься, чи підійде фахівець і чи варто це грошей. Тому перша зустріч у нас — діагностична сесія зі знижкою <span class="discN">20</span>%. Це спокійне знайомство, після якого ви самі вирішите, чи продовжувати.</p>
+      <div class="steps" id="firstSteps"></div>
+      <div class="no-block" id="noBlock"></div>
+      <div class="pkg-block">
+        <h3>Пакети сесій — зі знижкою</h3>
+        <p>Регулярна робота дає найкращий результат, тому на пакети сесій діють знижки — до −15%. Пакет обираємо після першої зустрічі, коли зрозуміло, чи комфортно вам з фахівцем. Деталі підкаже адміністратор.</p>
+      </div>
+    </div>
+    <div class="first-card">
+      <div class="first-badge">−<span class="discN">20</span>%</div>
+      <h3>Діагностична сесія</h3>
+      <p>Знижка <span class="discN">20</span>% від вартості консультації обраного фахівця<span id="firstPromoNote"></span></p>
+      <div class="first-prices" id="firstPrices"></div>
+      <button class="btn btn-main" style="width:100%;margin-top:22px" onclick="bookFirst()" data-track="first_session_click" data-label="Блок «Перша зустріч»">Записатися на знайомство</button>
+      <p class="first-note">Не знаєте, кого обрати? Залиште заявку — адміністратор підбере фахівця під ваш запит.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SPECIALISTS -->
+<section class="specialists" id="specialists">
+  <div class="wrap">
+    <div class="s-label">Команда</div>
+    <h2 class="s-title">Наші фахівці</h2>
+    <p class="s-sub">Натисніть на картку, щоб побачити освіту, підхід, вартість та вільні години кожного фахівця.</p>
+    <div class="sp-filters" id="spFilters"></div>
+    <div class="sp-grid" id="spGrid"></div>
+  </div>
+</section>
+
+<!-- ADVANTAGES -->
+<section id="about">
+  <div class="wrap">
+    <div class="s-label">Чому Метаморфоза</div>
+    <h2 class="s-title">Наші переваги</h2>
+    <p class="s-sub">Ми створили центр, у якому безпечно говорити про найважливіше — і де кожен знайде свого фахівця та свій формат.</p>
+    <div class="adv-grid" id="advGrid"></div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="wrap">
+    <div class="s-label">Фото</div>
+    <h2 class="s-title">Наш простір</h2>
+    <p class="s-sub">Кабінети для індивідуальних і парних сесій, зала для груп і лекцій. Мʼякі крісла, диван, чай, кава і смаколики, власна вбиральня — атмосфера, у якій хочеться видихнути.</p>
+    <div class="gal-grid" id="galGrid"></div>
+  </div>
+</section>
+
+<!-- RENT -->
+<section id="rent">
+  <div class="wrap rent-box">
+    <div>
+      <div class="s-label">Оренда</div>
+      <h2 class="s-title">Оренда кабінетів і зали</h2>
+      <p class="s-sub">Затишні кабінети для консультацій і зала для груп, лекцій та воркшопів — погодинно, у центрі Києва біля м. Кловська. Умови, ціни та вільний час — на окремій сторінці.</p>
+    </div>
+    <a class="btn btn-main" href="https://psy-centr-kyiv.netlify.app/" target="_blank" rel="noopener" data-track="rent_click" data-label="Блок «Оренда»">Деталі оренди ↗</a>
+  </div>
+</section>
+
+<!-- AVAILABILITY -->
+<section class="avail" id="availability">
+  <div class="wrap">
+    <div class="s-label">Доступність</div>
+    <h2 class="s-title">Вільні години</h2>
+    <p class="s-sub">Оберіть фахівця і натисніть на вільний час — він підставиться у форму запису. Зверніть увагу: запис підтверджується лише після звʼязку з адміністратором.</p>
+    <div class="av-controls">
+      <select id="avSelect" aria-label="Фахівець"></select>
+      <div class="legend">
+        <span><i class="dot free"></i> вільно</span>
+        <span><i class="dot full"></i> зайнято</span>
+      </div>
+    </div>
+    <div class="week" id="week"></div>
+    <p class="av-note" id="avNote"></p>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section id="events">
+  <div class="wrap">
+    <div class="s-label">Афіша</div>
+    <h2 class="s-title">Події та зустрічі</h2>
+    <div class="deals" id="evDeals" style="margin-bottom:28px"></div>
+    <div class="ev-filters" id="evFilters"></div>
+    <div class="ev-list" id="evList"></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap" style="max-width:860px">
+    <div class="s-label">Q&amp;A</div>
+    <h2 class="s-title">Часті запитання</h2>
+    <div id="faqList"></div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking" id="booking">
+  <div class="wrap book-grid">
+    <div>
+      <div class="s-label">Запис</div>
+      <h2 class="s-title">Зробіть перший крок</h2>
+      <p class="s-sub">Оберіть, куди хочете записатися. Адміністратор зв'яжеться з вами протягом дня, щоб підтвердити запис.</p>
+      <div class="contacts" id="contacts"></div>
+    </div>
+    <div>
+    <div class="tabs" role="tablist">
+      <button type="button" class="tab on" data-tab="bookForm" role="tab">🧠 Запис до психолога</button>
+      <button type="button" class="tab" data-tab="evForm" role="tab">🎟 Запис на подію / групу</button>
+    </div>
+    <form id="bookForm" class="tab-pane" novalidate>
+      <label>Ваше ім'я *<input name="name" required></label>
+      <label>Телефон / Telegram / Instagram *<input name="contact" required></label>
+      <label>Фахівець<select name="specialist" id="fSpec"></select></label>
+      <label>Послуга<select name="service" id="fService"></select></label>
+      <label>Формат<select name="format"><option>Онлайн</option><option>Офлайн у просторі</option><option>Не важливо</option></select></label>
+      <label>Бажаний час (підтвердимо після звʼязку)<input name="time" id="fTime" placeholder="напр. Вт 18:00"></label>
+      <label class="full">Коротко про запит (необов'язково)<textarea name="request" rows="3"></textarea></label>
+      <p class="full confirm-note">ⓘ Запис підтверджується лише після звʼязку з адміністратором — ми напишемо вам протягом дня.</p>
+      <label class="full check"><input type="checkbox" name="agree" required> Погоджуюсь на обробку персональних даних. Інформація конфіденційна.</label>
+      <div class="form-msg" id="formMsg"></div>
+      <div class="full"><button class="btn btn-main" type="submit">Надіслати заявку</button></div>
+    </form>
+
+    <form id="evForm" class="tab-pane" novalidate hidden>
+      <label>Ваше ім'я *<input name="name" required></label>
+      <label>Телефон / Telegram / Instagram *<input name="contact" required></label>
+      <div class="full">
+        <div class="f-label">Оберіть зустрічі * <span id="multiHint"></span></div>
+        <div class="ev-pick" id="evPick"></div>
+        <p class="pay-note" style="margin-top:6px">Групу «Точка рівноваги» бронюйте на <a href="rivnovaha/#book" style="color:var(--accent)">її сторінці</a>.</p>
+      </div>
+      <label class="full check"><input type="checkbox" name="plus1" id="plus1"> Приду з +1 (подруга, партнер чи колега)<span id="plusHint"></span></label>
+      <label class="full check" id="firstGroupL" hidden><input type="checkbox" name="firstGroup"> Я вперше на групі — <span id="firstGroupDisc"></span></label>
+      <label class="full" id="plus1Name" hidden>Ім'я вашого +1 (необов'язково)<input name="plus1name"></label>
+      <div class="full sum" id="evSum"></div>
+      <label class="full">Коментар (необов'язково)<textarea name="comment" rows="2"></textarea></label>
+      <p class="full confirm-note">ⓘ Реєстрація підтверджується лише після звʼязку з адміністратором.</p>
+      <label class="full check"><input type="checkbox" name="paid"> Я вже оплатив(-ла) онлайн</label>
+      <label class="full check"><input type="checkbox" name="agree" required> Погоджуюсь на обробку персональних даних. Інформація конфіденційна.</label>
+      <div class="form-msg" id="evMsg"></div>
+      <div class="full ev-actions">
+        <button class="btn btn-main" type="submit">Зареєструватися</button>
+        <a class="btn btn-out" id="payBtn" target="_blank" rel="noopener" data-track="pay_click" data-label="Форма події">Оплатити онлайн ↗</a>
+      </div>
+      <p class="full pay-note">Можна одразу оплатити за посиланням: у призначенні платежу вкажіть ваше ім'я та назву зустрічі.</p>
+    </form>
+    </div>
+  </div>
+</section>
+
+<!-- SHOP -->
+<section id="shop">
+  <div class="wrap shop-grid">
+    <div>
+      <div class="s-label">Крамничка в центрі</div>
+      <h2 class="s-title">Все потрібне — одразу на місці</h2>
+      <p class="s-sub">Прямо в центрі можна придбати антистреси, книги, робочі зошити та блокноти. Не треба потім іти в магазин і щось шукати — усе, що підтримує вас між сесіями, є в одному місці.</p>
+      <div class="shop-items" id="shopItems"></div>
+    </div>
+    <img class="shop-photo" src="img/room-cabinet.jpg" alt="Книги та зошити на столику в кабінеті" loading="lazy">
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div style="display:flex;align-items:center;gap:14px"><img src="img/logo.webp" alt="Metamorphosis — психологічний центр" style="width:110px"><div><b style="font-family:var(--serif);font-size:22px;color:var(--gold-l);font-weight:400">Метаморфоза</b><br>психологічний центр</div></div>
+      <div id="footYear"></div>
+    </div>
+    <div class="help">Якщо вам або близьким загрожує небезпека — телефонуйте 112. Лінія психологічної підтримки Lifeline Ukraine: 7333 (цілодобово, безкоштовно). Психологічна консультація не замінює екстрену допомогу.</div>
+  </div>
+</footer>
+
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box" id="modalBox"></div>
+</div>
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('open')"><img id="lbImg" alt=""></div>
+
+<script>
+/* =====================================================================
+   ДАНІ САЙТУ — редагуйте тут. Розмітка нижче оновиться автоматично.
+   ===================================================================== */
+
+const ADDRESS = "Київ, вул. Первомайського, 5А · м. Кловська";
+const CONTACTS = [
+  { icon: "✈", label: "Telegram: @dorosenkoanastasia50", href: "https://t.me/dorosenkoanastasia50" },
+  { icon: "◎", label: "Instagram: написати в Direct", href: "https://www.instagram.com/direct/t/18097245023122427/" },
+  { icon: "⌂", label: "Психологічний простір · " + ADDRESS, href: "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("Київ, вулиця Первомайського, 5А") },
+];
+
+/* ===== ПАКЕТИ СЕСІЙ (постійні) =====
+   Знижка залежить від кількості сесій. Ціна пакета округлюється до 50 грн. Пакет — для консультацій і парних сесій. */
+const PACKAGES = [{ n: 4, disc: 5 }, { n: 6, disc: 10 }, { n: 8, disc: 12 }, { n: 10, disc: 15 }];
+const pkgPrice = (price, p) => Math.round((price * p.n * (1 - p.disc / 100)) / 50) * 50;
+
+/* ===== АКЦІЯ «Чорна пʼятниця» =====
+   Діє з start по end включно (за київським часом). Після end сайт сам повертається до звичайних умов (−20%).
+   Купити можна лише в ці дні, використати — пізніше (терміни нижче). */
+const PROMO = {
+  start: "2026-11-16", end: "2026-11-30",
+  title: "Чорна пʼятниця в Метаморфозі",
+  firstDiscount: 50, // % на першу зустріч замість звичайних 20%, одна на клієнта, діє місяць
+  // пакети індивідуальних сесій: ціна сесії → [4 сесії звичайна, 4 акція, 8 звичайна, 8 акція]
+  packages: { 900: [3600, 3050, 7200, 5750], 1200: [4800, 4100, 9600, 7700], 1300: [5200, 4400, 10400, 8300], 1400: [5600, 4750, 11200, 8950], 1500: [6000, 5100, 12000, 9600], 1800: [7200, 6100, 14400, 11500] },
+
+  // оренда, грн/год: [без знижки, 1–4 год −20%, 5–8 год −25%, 9–12 год −30%]
+  rent: [["Малий кабінет", "будні", [150, 120, 110, 105]], ["", "вечір / вихідні", [200, 160, 150, 140]],
+         ["Великий кабінет", "будні", [200, 160, 150, 140]], ["", "вечір / вихідні", [250, 200, 185, 175]],
+         ["Зала (від 2 год)", "будні", [700, 560, 525, 490]], ["", "вечір / вихідні", [900, 720, 675, 630]]],
+};
+const kyivToday = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Kyiv" }).format(new Date());
+const PROMO_ON = kyivToday >= PROMO.start && kyivToday <= PROMO.end;
+const FIRST_DISCOUNT = PROMO_ON ? PROMO.firstDiscount : 20; // % знижки на першу (діагностичну) сесію
+
+const ADVANTAGES = [
+  { icon: "🦋", title: "Ретельний відбір", text: "Кожен фахівець пройшов детальний відбір: у команді — найкваліфікованіші й найприємніші в контакті спеціалісти." },
+  { icon: "🔒", title: "Конфіденційність", text: "Дотримуємось етичного кодексу НПАУ. Все, що ви розповідаєте, залишається між вами і фахівцем." },
+  { icon: "🤝", title: `Перша зустріч −${FIRST_DISCOUNT}%`, text: "Діагностична сесія зі знижкою: познайомтеся з фахівцем і вирішіть, чи комфортно вам працювати разом." },
+  { icon: "💻", title: "Онлайн і офлайн", text: "Затишні кабінети в Києві біля м. Кловська або зустрічі через Zoom / Google Meet — з будь-якої точки світу." },
+  { icon: "🛍", title: "Все в одному місці", text: "Антистреси, книги, робочі зошити та блокноти можна придбати прямо в центрі — не треба потім шукати по магазинах." },
+  { icon: "💛", title: "Якісно і доступно", text: "Шукаєте психолога не за всі гроші світу? Вам точно до нас. Ціни кожного фахівця — відкрито на сайті." },
+];
+
+const COMFORT = ["🛋 Мʼякі крісла і диван", "☕ Чай і кава", "🍪 Смаколики", "🚻 Власна вбиральня", "🪴 Тиша, світло і затишок", "🌿 Затишні кабінети"];
+
+const FIRST_STEPS = [
+  { title: "Знайомство", text: "Ви знайомитеся з фахівцем у спокійній атмосфері — без поспіху й оцінок." },
+  { title: "Діагностика стану", text: "Фахівець ставить уточнювальні запитання, щоб зрозуміти, що з вами відбувається і що турбує." },
+  { title: "Як піде робота", text: "Вам детально розповідають, як буде побудована робота і чого можна очікувати від зустрічей." },
+  { title: "Ваше рішення", text: "Після зустрічі ви вирішуєте, чи комфортно вам у контакті з цією людиною. Без жодних зобовʼязань." },
+];
+const NO_BLOCKERS = ["Ні до чого не зобовʼязує", "Не треба знати, з чого почати", "Конфіденційно", "Офлайн або онлайн"];
+
+const SHOP = [
+  { icon: "🧸", title: "Антистреси", text: "Сквіші, м'ячики та інші дрібнички, щоб зняти напругу" },
+  { icon: "📚", title: "Книги", text: "Психологічна література, яку радять наші фахівці" },
+  { icon: "📓", title: "Робочі зошити", text: "Вправи й практики для самостійної роботи між сесіями" },
+  { icon: "🗒", title: "Блокноти", text: "Для щоденника емоцій, нотаток і домашніх завдань" },
+];
+
+const GALLERY = [
+  { src: "img/room-group.jpg", caption: "Зала для груп, лекцій і воркшопів", cls: "g-wide g-tall" },
+  { src: "img/room-lounge.jpg", caption: "Кабінет із мʼякими кріслами", cls: "g-tall" },
+  { src: "img/room-sofa.jpg", caption: "Кабінет для парних і сімейних сесій", cls: "g-tall" },
+  { src: "img/room-cozy.jpg", caption: "Затишний кабінет для індивідуальних сесій", cls: "g-wide" },
+  { src: "img/room-cabinet.jpg", caption: "Куточок для консультацій", cls: "g-wide" },
+];
+
+/* status: "free" — приймає клієнтів, "full" — лист очікування. Вільні години — в адмін-панелі (/admin)
+   Поля картки (однакові для всіх): role, subtitle (підхід · з ким працює), bio (1–3 речення), topics (до 6 тегів «З чим працює»).
+   Необов'язкові поля: languages, requests (повний список запитів), notWith (з чим не працює),
+   docs (посилання на документи про освіту), photoPos (кадрування фото, напр. "60% 20%").
+   price: null — ціна «за запитом»
+   slots: вільні години на тиждень (1 = Пн ... 7 = Нд); busy — зайняті години */
+const SPECIALISTS = [
+  {
+    id: "anastasiia",
+    name: "Анастасія Дорошенко",
+    role: "Засновниця · психологиня",
+    subtitle: "Парна терапевтка · КПТ, МАК",
+    bio: "Членкиня НПАУ. Понад 2000 консультацій. Працює з дорослими 16+ і парами.",
+    photo: "img/anastasiia-doroshenko.jpg",
+    approach: "Інтегративний підхід: КПТ · МАК · сексологія · сімейна психологія",
+    formats: ["Офлайн у центрі", "Онлайн"],
+    languages: ["Українська", "Русский", "Polski"],
+    clients: ["Дорослі 16+", "Пари"],
+    topics: ["Тривожність", "Стосунки", "Самооцінка", "Кордони", "Вигорання", "Парні стосунки"],
+    about: "Магістр психології, членкиня Національної психологічної асоціації України. Допомагає знайти власні інструменти, щоб надалі самостійно справлятися з труднощами. На сесіях можна плакати, сміятися, лаятися або мовчати — це ваш безпечний простір.",
+    education: [
+      "Магістр психології — Таврійський нац. університет ім. В. І. Вернадського",
+      "КПТ — теорія і практика, Міжнародний інститут психології (48 год)",
+      "Сексологія: базовий і поглиблений рівні, International Education Center",
+      "МАК — метафоричні асоціативні карти, «PSY-ART» (30 год)",
+      "Сімейна психологія у воєнний час, «PSY-ART» (30 год)",
+      "Член НПАУ",
+    ],
+    prices: [
+      { service: "Індивідуальна консультація", duration: "60 хв", price: 1300 },
+      { service: "Парна сесія", duration: "60 хв", price: 1500 },
+      { service: "МАК-сесія", duration: "90 хв", price: 1200 },
+    ],
+    status: "full",
+  },
+  {
+    id: "olha",
+    name: "Ольга Ситніченко",
+    role: "Психологиня, нейропсихологиня",
+    subtitle: "КПТ-підхід · дорослі 18+",
+    bio: "Працює з широким спектром психологічних запитів, поєднуючи доказові методи психології та нейропсихології. Має досвід роботи зі складними психологічними станами, зокрема у військових і ветеранів. Пройшла спеціалізоване навчання в Israel Trauma Coalition.",
+    photo: "img/olha-sytnichenko.jpg",
+    approach: "Когнітивно-поведінкова терапія (КПТ) в інтегративному підході з опорою на нейропсихологію. Методи з доказовою ефективністю, рекомендовані NICE, МОЗ та іншими міжнародними інститутами психічного здоров'я.",
+    formats: ["Офлайн у центрі", "Онлайн"],
+    clients: ["Дорослі 18+"],
+    topics: ["Тривога та панічні атаки", "Стрес і вигорання", "Самооцінка та стосунки", "Емоційні та кризові стани", "Психотравма та ПТСР", "Втрата і горювання"],
+    about: "Мені близька психологія, яка не лише пояснює, чому нам буває складно, а й допомагає знаходити шляхи до змін. У своїй практиці поєдную науково обґрунтовані методи психологічної допомоги, знання з нейропсихології та уважність до індивідуальної історії кожної людини. Працюю з дорослими, які стикаються з тривогою, емоційним виснаженням, життєвими кризами, труднощами у стосунках та наслідками травматичного досвіду.\n\nДотримуюся міждисциплінарного підходу, адже психічне та фізичне здоров'я тісно пов'язані, тому за потреби співпрацюю з психіатрами, неврологами та іншими лікарями. Для мене важливо бачити за кожним запитом не лише симптоми, а передусім людину з її історією, досвідом і можливостями, допомагаючи їй не просто зрозуміти свій стан, а й знайти дієві способи покращити якість життя.",
+    requests: [
+      "Травма, переживання втрати і горя, посттравматичний стресовий розлад",
+      "Наслідки дитячих травм",
+      "Депресія, депресивні стани",
+      "Тривожні стани, генералізований тривожний розлад",
+      "Панічні атаки (панічний розлад)",
+      "Надмірна тривога про здоров'я",
+      "Соціальна тривога",
+      "Міжособистісні стосунки: розуміння потреб, очікувань і характеру взаємодії, плекання стосунків",
+      "Труднощі емоційної регуляції: менеджмент і регуляція злості, самоцінність, навички асертивності",
+      "Низька самооцінка, невпевненість у собі",
+      "Вигорання",
+      "Труднощі в навчальному / робочому процесі, хронічний стрес, вирішення конфліктів",
+      "Адаптація до нових умов і обставин життя, емоційна нестійкість",
+      "Самоактуалізація, саморозвиток, внутрішній ресурс і стресостійкість",
+      "Невизначеність у житті, пошук цінностей і цілей, планування життя на основі цінностей",
+    ],
+    notWith: [
+      "Залежності (наркотична, важка лудоманія)",
+      "Розлади харчової поведінки (РХП)",
+      "Тяжкі психічні розлади: шизофренія та шизотипові розлади (F20)",
+      "Органічні психічні розлади (F00–F09)",
+    ],
+    education: [
+      "Психологиня, нейропсихологиня за освітою",
+      "Когнітивно-поведінкова терапія (КПТ)",
+      "Міждисциплінарна співпраця з психіатрами, неврологами та іншими лікарями",
+    ],
+    docs: "https://fex.net/uk/s/1mftlm2",
+    prices: [
+      { service: "Індивідуальна консультація", duration: "", price: 1800 },
+    ],
+    status: "free",
+  },
+  {
+    id: "anastasiia-k",
+    name: "Анастасія Курило",
+    role: "Психологиня-консультантка",
+    subtitle: "Інтегративний підхід · дорослі, підлітки 14+, сімʼї",
+    bio: "Працює з підлітками, сімʼями та дорослими, а також із групами. Цінує прояви особистості й підтримує на кожному кроці до вирішення запиту.",
+    photo: "img/anastasiia-k.jpg",
+    approach: "Інтегративний підхід",
+    formats: ["Офлайн у центрі", "Онлайн"],
+    clients: ["Дорослі", "Підлітки 14+", "Сімʼї", "Групи"],
+    topics: ["Самооцінка", "Сепарація", "Вікові кризи", "Стосунки", "Харчова поведінка", "Тривожність"],
+    about: "Вітаю! Мене звати Анастасія — я психологиня-консультантка.\n\nМій шлях у психології почався з прагнення допомагати ще у шкільному віці. Уже тоді я переконалась, що вміння формулювати думки й почуття словами творить дива, тому спираюсь на цей принцип у своїй роботі і зараз. Я ціную прояви особистості, тому консультація зі мною — це ваш простір, де я буду підтримувати вас на кожному кроці до вирішення вашого запиту.\n\nЗапрошую вас до себе на консультацію!",
+    requests: [
+      "Самооцінка",
+      "Самовизначення і самобутність",
+      "Сепарація",
+      "Вікові кризи",
+      "Міжособистісні стосунки",
+      "Розлади харчової поведінки",
+      "Депресивні і тривожні стани",
+      "Самотність",
+      "Травматичні події",
+    ],
+    notWith: ["Переживання втрати"],
+    education: ["Психологиня-консультантка", "Зараз завершує кілька навчань — документи доповнюються"],
+    docs: "https://drive.google.com/drive/folders/13-ilbiNjvFdMWKV9WYFYL7SBzl5DChy8?usp=sharing",
+    prices: [
+      { service: "Консультація", duration: "", price: 1300 },
+    ],
+    status: "free",
+  },
+  {
+    id: "nataliia",
+    name: "Наталія Горбулевич",
+    role: "Практична психологиня",
+    subtitle: "КПТ, нейропсихологія, майндфулнес · дорослі 18+",
+    bio: "Понад пʼять років працює індивідуально з дорослими. Допомагає, щоб зміни ставали частиною життя, а не лише темою розмов.",
+    photo: "img/nataliia-horbulevych.jpg",
+    approach: "Інтегративний підхід: когнітивно-поведінкова терапія (КПТ), знання з нейропсихології та практики майндфулнес.",
+    formats: ["Офлайн у центрі", "Онлайн"],
+    clients: ["Дорослі 18+"],
+    topics: ["Тривожність", "Стрес і вигорання", "Самооцінка і самокритика", "Кордони", "Емоційна регуляція", "Життєві зміни"],
+    about: "Я Наталія Горбулевич, практична психологиня, понад п'ять років працюю індивідуально з дорослими.\n\nПрацюю інтегративно: використовую когнітивно-поведінковий підхід, знання з нейропсихології та практики майндфулнес. Я дивлюсь на труднощі в контексті досвіду людини — це допомагає зрозуміти, на чому варто зосередитися в роботі й які інструменти будуть доречними.\n\nМені важливо, щоб зміни були не лише темою наших розмов з клієнтом, а поступово ставали частиною життя людини.",
+    requests: [
+      "Тривога, підвищена тривожність, постійне напруження",
+      "Стрес, емоційне вигорання, виснаження",
+      "Самооцінка і самокритика, особисті кордони",
+      "Труднощі в розумінні і регуляції своїх емоцій",
+      "Життєві зміни, складні рішення",
+      "Труднощі в стосунках (в межах компетентності)",
+    ],
+    education: [
+      "Практична психологиня",
+      "Понад 5 років індивідуальної практики з дорослими",
+      "КПТ, нейропсихологія, майндфулнес",
+    ],
+    docs: "https://drive.google.com/drive/folders/1-KT1rGgbZikI7URiJgpP3gnSKsSDNGcm?usp=sharing",
+    prices: [
+      { service: "Індивідуальна консультація", duration: "", price: 1200 },
+    ],
+    status: "free",
+  },
+  {
+    id: "oleksandra",
+    name: "Олександра Байлова",
+    role: "Психологиня, арт-терапевтка",
+    subtitle: "ТА, арт-терапія · дорослі, підлітки",
+    bio: "Із 2020 року розвивається у сфері психології, має досвід роботи в соціальній та клінічній сферах.",
+    photo: "img/oleksandra-bailova.jpg",
+    photoPos: "62% 15%", // кадрування фото (по горизонталі, по вертикалі)
+    approach: "Транзакційний аналіз та арттерапія — інструменти добираю індивідуально під запит клієнта.",
+    formats: ["Офлайн у центрі", "Онлайн"],
+    clients: ["Дорослі", "Підлітки"],
+    topics: ["Тривожність", "Вигорання", "Самооцінка", "Прокрастинація", "Пошук себе", "Стосунки і кордони"],
+    about: "Я практична психологиня та магістр психології, працюю з дорослими й підлітками. Допомагаю впоратися з тривожністю, емоційним виснаженням, невпевненістю в собі, прокрастинацією, труднощами у стосунках та пошуком власних життєвих орієнтирів.\n\nУ роботі поєдную транзакційний аналіз та арттерапію, добираючи інструменти індивідуально під запит клієнта. Для мене важливо створити безпечний і приймаючий простір, у якому можна краще зрозуміти себе, знайти внутрішню опору та поступово перейти від усвідомлення проблеми до реальних змін у житті.",
+    requests: [
+      "Тривожність та внутрішня напруга",
+      "Емоційне виснаження та вигорання",
+      "Втома, відчуття нестачі сил і ресурсу",
+      "Труднощі із самоцінністю та прийняттям себе",
+      "Прокрастинація та труднощі з мотивацією",
+      "Самовизначення, пошук себе та власних орієнтирів",
+      "Труднощі у прийнятті рішень",
+      "Труднощі в особистих, романтичних і сімейних стосунках",
+      "Складнощі у вибудовуванні особистих кордонів",
+      "Конфлікти у стосунках із партнером, батьками, близькими чи колегами",
+      "Відчуття розгубленості, нереалізованості або незадоволеності власним життям",
+    ],
+    notWith: [
+      "Залежності",
+      "Суїцидальна поведінка",
+      "ПТСР",
+      "Розлади харчової поведінки",
+      "Питання сексуальності та інтимної сфери",
+      "Проживання гострої втрати та горя",
+      "Випадки, що потребують спеціалізованої психіатричної допомоги",
+    ],
+    education: ["Магістр психології", "Практична психологиня", "Транзакційний аналіз", "Арттерапія"],
+    docs: "https://drive.google.com/drive/folders/1AXVJMngrOVzIVvaRB_ts4noAAu6IN7UY?usp=sharing",
+    prices: [
+      { service: "Індивідуальна консультація", duration: "", price: 1200 },
+    ],
+    status: "free",
+  },
+  {
+    id: "yana",
+    name: "Яна Турчанінова",
+    role: "Психологиня",
+    subtitle: "Гештальт-підхід · дорослі 18+",
+    bio: "Гештальт-терапевтка в навчанні. Проходить спеціалізацію з підтримки військових та їхніх родин.",
+    photo: "img/yana.jpg",
+    approach: "Гештальт-терапія (у процесі сертифікації в методі).",
+    formats: ["Офлайн у центрі", "Онлайн"],
+    clients: ["Дорослі 18+", "Військові та їхні родини", "ЛГБТ+"],
+    topics: ["Стосунки", "Тривожність", "Втрата і горе", "Кордони", "Сепарація", "Військові та родини"],
+    about: "Привіт, мене звати Яна, і я — психолог. У своїй роботі спираюся на гештальт-терапію і зараз знаходжуся в процесі сертифікації в цьому методі.\n\nУ роботі з клієнтами для мене важливо:\n— допомогти навести ясність там, де є внутрішній хаос;\n— знайти опору замість створення ілюзій;\n— підтримувати без інфантилізації;\n— зміцнювати автономію, а не залежність.\n\nЯ працюю з темами стосунків, тривожності, контролю, самоцінності, особистих меж та внутрішньої опори. До мене можна звернутись, якщо ти старше 18 років. Поряд зі мною можна трохи розслабитися та видихнути.",
+    requests: [
+      "Стосунки: з собою, з оточенням, з близькими, партнерські",
+      "Адаптація",
+      "Підтримка в кризі, втраті та горюванні",
+      "Особисті кордони",
+      "Розуміти свої емоції та жити з ними, а не ховати",
+      "Сепарація в дорослому віці",
+      "Робота з військовими та їхніми родинами",
+      "Супровід людей, які проходять лікування депресії та тривожних розладів",
+      "Робота з представниками ЛГБТ+",
+    ],
+    notWith: [
+      "Залежності",
+      "Розлади харчової поведінки (РХП)",
+      "Тяжкі психіатричні розлади — навчена помічати їх і направляти до відповідних спеціалістів",
+    ],
+    education: ["Гештальт-терапія — у процесі сертифікації"],
+    docs: "https://gleaming-wrist-b76.notion.site/2a1b880aafe8801b9075c6575947953d?v=2a1b880aafe880d08544000cf470356f",
+    prices: [
+      { service: "Індивідуальна консультація", duration: "", price: 1500 },
+    ],
+    status: "free",
+  },
+  {
+    id: "ivanna",
+    name: "Іванна Ромашко",
+    role: "Психологиня, арт-терапевтка",
+    subtitle: "Позитивна психотерапія · дорослі, підлітки 14+",
+    bio: "Членкиня дивізіону психології харчової поведінки НПА. Має підготовку від ООН та UNFPA в допомозі постраждалим від насильства.",
+    photo: "img/ivanna-romashko.jpg",
+    approach: "Інтегративний підхід: позитивна психотерапія, арт-терапія, емоційно-образна терапія.",
+    formats: ["Офлайн у центрі", "Онлайн"],
+    clients: ["Дорослі", "Підлітки 14+"],
+    topics: ["Харчова поведінка, РХП", "Психотравма", "Тривога, депресивні стани", "Втрати", "Перфекціонізм", "Самооцінка"],
+    about: "У роботі я поєдную мʼякість і турботу з умінням бути вимогливою там, де це необхідно для терапевтичного процесу. У взаємодії з клієнтом для мене найважливішим є довірливий контакт, адже саме в атмосфері прийняття, безпеки й тепла стає можливим зцілення навіть найглибших емоційних ран.\n\nЯ працюю з дорослими та підлітками. У своїй практиці поєдную методи позитивної психотерапії, арт-терапії та емоційно-образної терапії.",
+    requests: [
+      "Порушення харчової поведінки та РХП",
+      "Психотравматичний досвід",
+      "Втрати",
+      "Тривога, депресія",
+      "Переживання кризи",
+      "Дитячо-батьківські стосунки",
+      "Стосунки з партнером, взаємодія з соціумом",
+      "Особистісне зростання, самореалізація",
+      "Перфекціонізм, прокрастинація, досягнення цілей",
+      "Самооцінка і впевненість у собі, любов до себе",
+      "Емоційна регуляція",
+      "Вигорання",
+    ],
+    notWith: ["Залежності", "Психотичний рівень", "Важкі захворювання"],
+    education: ["Травма-консультантка в методі позитивної психотерапії", "Позитивна психотерапія", "Арт-терапія", "Емоційно-образна терапія"],
+    prices: [
+      { service: "Індивідуальна консультація", duration: "", price: 900 },
+    ],
+    status: "free",
+  },
+  {
+    id: "nataliia-s",
+    name: "Наталія Сидоркіна",
+    role: "Психологиня, магістр психології",
+    subtitle: "Гештальт-підхід · дорослі 18+ · лише онлайн",
+    bio: "Гештальт-терапевтка в навчанні. Має понад 100 годин власної терапії в гештальт-підході, досвід КПТ і позитивної психотерапії як клієнтка.",
+    photo: "img/nataliia-sydorkina.jpg",
+    photoPos: "50% 20%",
+    approach: "Гештальт-терапія (у навчанні). Власний досвід терапії в КПТ, позитивній психотерапії та понад 100 годин у гештальт-підході.",
+    formats: ["Онлайн"],
+    clients: ["Дорослі 18+"],
+    topics: ["Тривога та панічні атаки", "Сімейні кризи і стосунки", "Труднощі еміграції", "Вигорання", "Складнощі батьківства", "РХП (компульсивне переїдання)"],
+    about: "Я магістр психології, гештальт-терапевтка в навчанні. Мій шлях у психологію почався з власної терапії: мала доволі багато запитів і цікавості. У своїй терапії спробувала КПТ, позитивну терапію і маю понад 100 годин власної терапії в гештальт-підході.\n\nТепер на власному досвіді розумію, що терапія — це не чарівна пігулка, а цікавий шлях пізнання себе.\n\nЗапрошую вас пройти разом цей цікавий і хвилюючий шлях до вирішення вашого запиту. Обіцяю бути поруч, створити максимально сприятливі умови та підтримку. Разом ми точно доберемося до важливого й помітимо нові способи вирішення ситуацій.\n\nКонсультації — онлайн. На групи та заходи може бути офлайн у центрі.",
+    requests: [
+      "Тривога та панічні атаки",
+      "Сімейні кризи та складнощі у стосунках",
+      "Труднощі еміграції",
+      "Пошук себе",
+      "Вигорання",
+      "Складнощі батьківства",
+      "РХП (компульсивне переїдання)",
+      "Проблеми з упевненістю в собі",
+    ],
+    education: ["Магістр психології", "Гештальт-терапія — у навчанні", "Понад 100 годин власної терапії в гештальт-підході"],
+    docs: "https://drive.google.com/drive/folders/1LLW8is7QbMNzDpzxDz0iix8wlHPCBkPr?usp=sharing",
+    prices: [
+      { service: "Індивідуальна консультація (онлайн)", duration: "", price: 1400 },
+    ],
+    status: "free",
+  },
+];
+
+/* Дата у форматі РРРР-ММ-ДД. Події, дата яких минула, ховаються автоматично.
+   host — id фахівця з команди (необов'язково); hostName — ім'я ведучої, якщо її немає в команді.
+   more — повний опис: рядки з «✨» або «•» стають пунктами списку, рядки з «## » — підзаголовками.
+   date: "" — дата ще невідома (на сайті: «дата уточнюється»). seats — максимум учасників.
+   Регулярні зустрічі: repeat («Раз на 2 тижні»), day («Сб»), dayFull («по суботах») + time — замість дати;
+   first — дата першої зустрічі (показується, доки не минула), firstNote — примітка до неї */
+const EVENTS = [
+  { date: "2026-11-07", time: "12:00", type: "circle", hostName: "Світлана", place: "Офлайн у центрі", price: 800,
+    title: "А що хочу саме я? Жіночі посиденьки з метафоричними картами",
+    text: "Тепла зустріч у жіночому колі з метафоричними асоціативними картами.",
+    more: `На тебе чекає простір, де ти зможеш:
+• подивитися на свою ситуацію по-новому;
+• краще зрозуміти свої бажання та відчути, що для тебе дійсно важливо саме зараз;
+• побачити, що заважає тобі рухатися до бажаного, і знайти власні ресурси;
+• визначити перші кроки до того, чого тобі хочеться;
+• отримати підтримку, познайомитися з цікавими жінками й просто приємно провести час у теплій компанії.
+
+Можливо, саме зараз час запитати себе: «А чого хочу саме я?»` },
+  { date: "2026-11-07", time: "16:00", type: "meetup", hostName: "Настя", place: "Офлайн у центрі", price: 900,
+    title: "Секс у великому місті: як стрес та кар'єра впливають на наше лібідо і що з цим робити ❤️‍🔥",
+    text: "Робочі завдання закриті, повідомлення прочитані, вечеря готова. Нарешті можна побути удвох — але хочеться лише, щоб тебе ніхто не чіпав. Знайомо?",
+    more: `Робочі завдання закриті, повідомлення прочитані, вечеря готова. Нарешті можна побути удвох — але хочеться лише, щоб тебе ніхто не чіпав. Знайомо?
+
+На зустрічі ми:
+✨ Розберемо, як стрес, перевтома та постійне «треба» можуть впливати на сексуальне бажання.
+✨ Дослідимо, за яких умов вам хочеться близькості, а коли потрібні сон, тиша чи час на себе — і як краще розпізнавати власні потреби.
+✨ Поговоримо про тиск очікувань: чи обов'язково хотіти спонтанно, часто та після насиченого робочого дня.
+✨ Спробуємо практики уваги до тіла, щоб помічати свої відчуття й потреби, коли думки все ще на роботі.
+✨ Знайдемо реалістичні способи залишати місце для чуттєвості у щільному графіку — без перетворення сексу на ще один пункт списку справ.
+✨ Обговоримо, коли варто звернутися по фахову допомогу, адже зміни бажання не завжди пов'язані лише зі стресом.
+
+Із собою ви заберете краще розуміння власного бажання, карту того, що на нього впливає, та прості практики, які можна спробувати у своєму темпі.
+
+Буде простір для практичних вправ, анонімних запитань і теплої розмови. Ділитися особистим — лише за бажанням 🤍` },
+  { date: "2026-11-08", time: "12:00", type: "practice", hostName: "Альона",
+    hostBio: "психологиня, психотерапевтка екзистенційного методу (в навчанні), блогерка", place: "Офлайн у центрі", price: 800,
+    title: "На що спиратися, коли все змінюється: цінності як внутрішній компас",
+    text: "Що для тебе наразі справді важливо? Як це проявляється в житті? Чи рухаєшся ти в тому напрямку, який хочеш обрати для себе?",
+    more: `Практична зустріч з Альоною — психологинею, психотерапевткою екзистенційного методу в навчанні, блогеркою.
+
+Що для тебе наразі справді важливо? Як це проявляється в житті? Чи рухаєшся ти в тому напрямку, який хочеш обрати для себе?
+
+На зустрічі дослідимо власні цінності та чесно поглянемо, яке місце вони займають у наших рішеннях і вчинках. Помітимо, що вже підтримуємо своїми діями, а чому хочемо дати більше простору — з урахуванням реальних обставин і можливостей.
+
+Ця зустріч для тебе, якщо ти:
+• хочеш краще зрозуміти себе та свої пріоритети;
+• губишся між власними бажаннями й чужими «треба»;
+• стоїш перед вибором і шукаєш орієнтири;
+• відчуваєш відстань між тим, що важливо, і тим, як живеш.
+
+На тебе чекають розмова, запитання для самодослідження та творча практика, що допоможе побачити свій світ з іншого ракурсу й окреслити невеликі кроки до бажаних змін 🫶
+
+Уміти малювати не потрібно. Ділитися особистим — лише за бажанням ✨` },
+  { date: "2026-11-08", time: "16:00", type: "meetup", hostName: "Настя", place: "Офлайн у центрі", price: 900,
+    title: "Секс після «довго і щасливо»: близькість, бажання і трохи побуту ❤️‍🔥",
+    text: "Ви знаєте одне про одного майже все. Ділите покупки, плани та домашні справи. А як щодо бажання, флірту й дотиків, які не обов'язково мають закінчуватися сексом?",
+    more: `Ви знаєте одне про одного майже все. Ділите покупки, плани та домашні справи. А як щодо бажання, флірту й дотиків, які не обов'язково мають закінчуватися сексом?
+
+На зустрічі ми:
+✨ Розберемо, як змінюється сексуальне життя у тривалих стосунках і чому порівнювати його з першими місяцями знайомства не завжди корисно.
+✨ Дослідимо, що підтримує саме ваше бажання, а що його приглушує: від побуту й невисловлених образ до браку особистого простору.
+✨ Поговоримо про різницю в бажанні: як бути, коли одному хочеться частіше, а іншому — рідше, без тиску та почуття провини.
+✨ Попрактикуємося говорити про секс, свої потреби й фантазії так, щоб запрошувати до діалогу.
+✨ Знайдемо місце для цікавості та новизни — без вимоги постійно дивувати партнера чи відповідати чужим стандартам.
+
+Із собою ви заберете краще розуміння власних потреб, фрази для розмови з партнером і конкретні ідеї, які захочеться спробувати разом.
+
+Буде простір для практичних вправ, анонімних запитань і теплої розмови. Ділитися особистим — лише за бажанням 🤍` },
+  { date: "2026-11-15", time: "16:00–18:00", type: "workshop", host: "anastasiia", place: "Простір «Метаморфоза» · вул. Первомайського, 5А", price: 500,
+    title: "Особисті кордони: як відчути свою межу і вміти відмовляти",
+    text: "Двогодинна зустріч з Анастасією Дорошенко про те, де проходять ваші межі, як помітити, що їх порушено, і як відмовляти без провини. Кожна учасниця отримає бонус — чек-лист для відстоювання своїх кордонів.",
+    more: `Зустріч триває близько 2 годин. Веде засновниця «Метаморфози», психологиня Анастасія Дорошенко.
+
+## Поговоримо про те
+• що таке особисті кордони;
+• 5 видів кордонів — і де саме проходить ваша межа;
+• як розпізнати, що кордон порушено (тілесні та емоційні сигнали);
+• як відмовляти — прості техніки й алгоритм;
+• що робити зі складними емоціями після відмови;
+• усі ваші питання по темі.
+
+## Бонус
+Кожна учасниця отримає чек-лист для відстоювання своїх кордонів.` },
+  { date: "", repeat: "Раз на 2 тижні", day: "Сб", dayFull: "по суботах", time: "14:00 (1,5–2 год)",
+    type: "group", host: "oleksandra", place: "Очно в центрі · вул. Первомайського, 5А, м. Кловська", price: 400,
+    title: "Відкрита арттерапевтична група «Кіно про мене»",
+    text: "Відкрита творча група для тих, хто хоче краще зрозуміти себе через кіно та арттерапію. Кожна зустріч — окрема тема. Можна прийти на одну зустріч, без зобовʼязання відвідувати весь цикл.",
+    more: `«Кіно про мене» — відкрита творча група для тих, хто хоче краще зрозуміти себе через кіно та арттерапію. На кожній зустрічі ми досліджуватимемо окрему життєву тему, помічатимемо власні почуття й шукатимемо джерела підтримки. Художні навички не потрібні; ділитися можна тим, чим ви готові. Усі зустрічі конфіденційні. Веде психологиня та арт-терапевтка Олександра Байлова.
+
+## Формат
+Відкрита група: можна долучитися до окремої зустрічі без зобовʼязання відвідувати весь цикл.
+
+## Приклади тем
+• «Коли ресурс на нулі» — вигорання, втома та відновлення;
+• «У пошуках себе» — цінності, бажання та зміни;
+• «Мені можна бути собою» — невпевненість, самокритика й прийняття себе;
+• «Мої межі та моє „ні“» — потреби й стосунки;
+• «Крок у невідоме» — страх змін і внутрішня опора.
+
+## Як проходить зустріч
+Перегляд відеоролика на тему зустрічі, коментарі ведучої, рефлексія групи й запитання. Далі — творча частина для глибшого усвідомлення теми: малюнок (ізотерапія), пластилін (глинотерапія) або метафоричні асоціативні карти. Ви підете з усвідомленням, рефлексією та власним образом — малюнком, картою чи фігуркою з пластиліну.
+
+## Деталі
+• Коли: раз на 2 тижні, по суботах о 14:00 (1,5–2 години)
+• Формат: очно, у центрі «Метаморфоза», вул. Первомайського, 5А, м. Кловська
+• Вартість: −50% на першу зустріч, до −15% на пакет зустрічей` },
+  { date: "", repeat: "Раз на 2 тижні", day: "Сб", dayFull: "по суботах", time: "15:00–17:30", type: "group", host: "ivanna", place: "Очно в центрі · вул. Первомайського, 5А, м. Кловська", price: 400, seats: 10,
+    image: "img/group-moodboard.jpg",
+    slug: "rivnovaha", page: "rivnovaha/", priceNote: "700 грн", // окрема сторінка з бронюванням: /rivnovaha
+    title: "Група психологічної підтримки «Точка рівноваги»",
+    text: "Простір, де можна виговоритися без засудження, знайти друзів, поїсти смачненького й зігрітися — зовні та всередині. 12 зустрічей по суботах, раз на 2 тижні, до 10 учасників.",
+    more: `Простір, де можна понити без засудження збоку, знайти друзів, виговоритися, поїсти смачненького та зігрітися — зовнішньо й внутрішньо. Веде психологиня Іванна Ромашко.
+
+## Як проходить зустріч
+• шеринг (~40 хв);
+• теорія, щось корисне (~15 хв);
+• психологічна техніка й обговорення (~1 год 15 хв);
+• завершення (~20 хв).
+
+## Блок 1. Знайомство й почуття опори
+• Зустріч 1. Ти не сама — знайомство, очікування, ромб балансу + МАК;
+• Зустріч 2. Що зі мною сталося? — вплив стресу, підсумки року;
+• Зустріч 3. Мої точки опори — внутрішня опора, техніка «Генератор».
+
+## Блок 2. Турбота про себе й відновлення
+• Зустріч 4. Емоційні гойдалки війни — емоції та потреби за ними;
+• Зустріч 5. Турбота про себе без провини;
+• Зустріч 6. Мої межі та право на підтримку.
+
+## Блок 3. Життя в умовах невизначеності
+• Зустріч 7. Контроль у моєму житті — вправа «Зони контролю»;
+• Зустріч 8. Втрати;
+• Зустріч 9. Принцип надії — колаж «Моє бажане життя».
+
+## Блок 4. Інтеграція
+• Зустріч 10. Я — більше за мої проблеми;
+• Зустріч 11. Мій план;
+• Зустріч 12. Мої підсумки — лист собі в майбутнє.
+
+## Деталі
+• Коли: по суботах, 15:00–17:30, раз на 2 тижні
+• Група: до 10 учасників, 12 зустрічей (можна продовжити, якщо група складеться)
+• Формат: очно, у центрі «Метаморфоза», вул. Первомайського, 5А, м. Кловська
+• Вартість: −50% на першу зустріч, до −15% на пакет зустрічей
+
+Група підтримки не замінює індивідуальну терапію. Якщо вам зараз дуже важко, наші фахівці можуть працювати з вами індивідуально.` },
+  { date: "", repeat: "Раз на місяць", day: "Пт", dayFull: "по пʼятницях", time: "17:30 (2,5 год)", type: "club", host: "ivanna", place: "Очно в центрі · вул. Первомайського, 5А", price: 700, seats: 10,
+    priceNote: "700 грн перша зустріч · далі 500 грн", image: "img/reading-journal.jpg",
+    title: "Психологічний книжковий клуб «Third place»",
+    text: "Читаємо художні книги й розбираємо їх очима психолога: мотиви персонажів, архетипи, паралелі з нашим життям. Перша книга — «Мій рік відпочинку та розслаблення». Раз на місяць, до 10 учасників.",
+    more: `«Третє місце» — це місце, де людина проводить час, окрім дому й роботи. Хочеться, щоб цей клуб став віддушиною. Веде дипломована практикуюча психологиня Іванна Ромашко.
+
+## Чим він відрізняється від звичайного книжкового клубу
+• розбиратимемо глибинні мотиви персонажів;
+• визначимо характерологію й архетипи героїв;
+• поставимо їм діагнози (жартома);
+• проведемо паралелі між сюжетом і нашим сьогоденням;
+• спробуємо зазирнути між рядків;
+• обговоримо те, про що складно мовчати після прочитання;
+• і найголовніше — поглянемо всередину себе.
+
+## Як проходить
+На кожній зустрічі — презентація з цікавими фактами, питаннями й роздумами ведучої, обговорення ваших питань, а іноді й вікторина з призом. Кожен учасник отримує читацький щоденник.
+
+## Перша книга
+«Мій рік відпочинку та розслаблення».
+
+## Деталі
+• Коли: раз на місяць, по пʼятницях о 17:30, 2,5 години
+• Група: до 10 учасників
+• Вартість: 700 грн перша зустріч, далі 500 грн` },
+];
+
+/* Знижки на події. Зараз вимкнено. Щоб повернути: додайте рядки сюди і поставте EVENT_DISCOUNT нижче, напр.:
+  { title: "Приходь з +1", text: "Беріть із собою подругу, партнера чи колегу — знижка 20% для обох." },
+  { title: "Кілька зустрічей −20%", text: "Купуйте квитки одразу на дві або більше зустрічей — знижка 20% на всі квитки." }, */
+const EVENT_DEALS = [
+];
+
+const EVENT_TYPES = { club: "Книжковий клуб", meetup: "Тематична зустріч", practice: "Практична зустріч", circle: "Жіноче коло", group: "Група", workshop: "Воркшоп", lecture: "Лекція" };
+
+const FAQ = [
+  ["Як обрати фахівця?", "Подивіться картки фахівців: напрям, теми та формат. Якщо сумніваєтеся — залиште заявку з коротким описом запиту, адміністратор порекомендує спеціаліста."],
+  ["Як проходить перша зустріч?", `Перша зустріч — діагностична сесія зі знижкою ${FIRST_DISCOUNT}%${PROMO_ON ? " (акція «Чорна пʼятниця», зазвичай −20%)" : ""}.`+" Фахівець знайомиться з вами, проводить діагностику вашого стану і детально розповідає, як піде робота та чого очікувати. Після цього ви вирішуєте, чи комфортно вам продовжувати з цією людиною."],
+  ["Онлайн-сесії так само ефективні?", "Так, дослідження підтверджують співставну ефективність. Потрібні тільки тихе приватне місце, навушники і стабільний інтернет."],
+  ["Як скасувати або перенести сесію?", "Повідомте не пізніше ніж за 24 години — і ми перенесемо зустріч без оплати. Пізніше скасування оплачується, крім форс-мажорів."],
+  ["Де ви знаходитесь?", "Київ, вул. Первомайського, 5А — поруч зі станцією метро «Кловська». Також можна працювати онлайн."],
+  ["Чи можна купити книги чи зошити на місці?", "Так, прямо в центрі можна придбати антистреси, книги, робочі зошити та блокноти — все в одному місці."],
+  ["Чи все конфіденційно?", "Так. Єдиний виняток — ситуації, що загрожують вашому або чужому життю. Фахівці дотримуються етичного кодексу НПАУ."],
+];
+
+/* Вільні години фахівців — з адмін-панелі (/admin): фахівці вносять їх самі, сайт показує лише вільні вікна */
+const SCHEDULE_URL = "/.netlify/functions/api?a=public";
+const TODAY_KEY = new Date().toISOString().slice(0, 10);
+const SCHEDULE_DAYS = 21; // скільки днів наперед показувати
+const CONFIRM_NOTE = "Запис підтверджується лише після звʼязку з адміністратором.";
+
+/* Посилання на онлайн-оплату (IBAN / QR) */
+const PAY_URL = "https://ibanoplata.com/iban-qr/1b0d2dac3420435cbc0a0ea9bbb5c86e";
+const EVENT_DISCOUNT = 0; // % — за +1 або за дві й більше зустрічей (0 — знижок немає; знижки не сумуються)
+
+/* Куди надсилається заявка: Netlify-функція з ../netlify/functions/send.js */
+const SEND_URL = "/.netlify/functions/send";
+
+/* =====================================================================
+   РЕНДЕР
+   ===================================================================== */
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const money = (n) => n == null ? "за запитом" : n === 0 ? "Безкоштовно" : n.toLocaleString("uk-UA") + " грн";
+const DAYS = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд"];
+const MONTHS = ["січ", "лют", "бер", "кві", "тра", "чер", "лип", "сер", "вер", "жов", "лис", "гру"];
+const STATUS = { free: "Є вільні години", few: "Мало вільних годин", full: "Лист очікування", ask: "Запис через адміністратора" };
+const byId = (id) => SPECIALISTS.find((s) => s.id === id);
+const isDiag = (p) => p.service.startsWith("Діагностична");
+// Кожному фахівцю — діагностична сесія −20% від консультації (якщо її не вказано окремо)
+SPECIALISTS.forEach((sp) => {
+  const base = sp.prices.find((p) => !isDiag(p) && p.price != null);
+  if (!sp.prices.some(isDiag) && base) sp.prices.unshift({ service: "Діагностична сесія", duration: base.duration, price: Math.round(base.price * (1 - FIRST_DISCOUNT / 100)) });
+  const d = sp.prices.find(isDiag); if (d && base) { d.full = base.price; d.service = `Діагностична сесія (−${FIRST_DISCOUNT}%)`; }
+});
+const known = (sp) => sp.prices.filter((p) => !isDiag(p)).map((p) => p.price).filter((n) => n != null);
+// Ціна на картці: консультація перекреслена + ціна першої діагностичної сесії зі знижкою
+const priceFrom = (sp) => {
+  const d = sp.prices.find(isDiag);
+  if (d && d.full) return `<s>${money(d.full)}</s><b>${money(d.price)}</b><small>−${FIRST_DISCOUNT}% на першу діагностичну сесію</small>`;
+  return known(sp).length ? `<b>${money(Math.min(...known(sp)))}</b>` : `<b>Ціна за запитом</b>`;
+};
+const dur = (p) => p.duration ? ` · ${esc(p.duration)}` : "";
+// розклад із Google Таблиці: [{ name, date: Date, time: "10:00", free: true }]
+let SCHEDULE = null; // null — ще завантажується, [] — немає даних або помилка
+const norm = (t) => String(t || "").trim().toLowerCase().replace(/\s+/g, " ");
+const slotsOf = (sp) => {
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const until = new Date(today); until.setDate(today.getDate() + SCHEDULE_DAYS);
+  return (SCHEDULE || []).filter((x) => (x.id ? x.id === sp.id : norm(x.name) === norm(sp.name)) && x.date >= today && x.date < until)
+    .sort((a, b) => a.date - b.date || a.time.localeCompare(b.time));
+};
+const hasSchedule = (sp) => slotsOf(sp).length > 0;
+const initials = (n) => n.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase();
+const photoHTML = (sp) => sp.photo
+  ? `<img src="${esc(sp.photo)}" alt="${esc(sp.name)}" loading="lazy"${sp.photoPos ? ` style="object-position:${esc(sp.photoPos)}"` : ""}>`
+  : `<div class="sp-initials" style="background:${["#4F7A4B", "#B99A4A", "#7E9A86", "#2F5A2C"][SPECIALISTS.indexOf(sp) % 4]}">${initials(sp.name)}</div>`;
+
+// акція «Чорна пʼятниця»
+const fmtD = (iso) => { const [y, m, d] = iso.split("-").map(Number); return `${d}.${String(m).padStart(2, "0")}`; };
+document.querySelectorAll(".discN").forEach((el) => (el.textContent = FIRST_DISCOUNT));
+$("#heroDisc").textContent = `−${FIRST_DISCOUNT}%`;
+if (PROMO_ON) {
+  $("#promo").hidden = false;
+  $("#promoBar").hidden = false;
+  $("#promoBar").innerHTML = `<b>${PROMO.title}</b> · ${fmtD(PROMO.start)}–${fmtD(PROMO.end)} · знижки до −50% на консультації, групи та оренду →`;
+  $("#promoDates").textContent = `${fmtD(PROMO.start)}–${fmtD(PROMO.end)} листопада`;
+  $("#heroPromoText").textContent = "перша зустріч з психологом · від 450 грн · Чорна пʼятниця";
+  $("#firstPromoNote").textContent = ". Акція «Чорна пʼятниця»: одна на клієнта, використати протягом місяця. Зазвичай −20%.";
+  const firstRows = {};
+  SPECIALISTS.forEach((sp) => sp.prices.filter((p) => !isDiag(p) && !/^МАК/.test(p.service) && p.price).forEach((p) => {
+    const key = p.price + "|" + (p.service.startsWith("Парна") ? "pair" : "");
+    const who = p.service.startsWith("Парна") ? `${sp.name.split(" ")[1] || sp.name}, парна сесія` : sp.name;
+    (firstRows[key] ||= { price: p.price, who: [] }).who.push(who);
+  }));
+  $("#pFirst").innerHTML = `<tr><th>Фахівець</th><th>Звичайно</th><th>−20%</th><th>Акція</th></tr>` + Object.values(firstRows).sort((a, b) => a.price - b.price)
+    .map((r) => `<tr><td>${esc(r.who.join(", "))}</td><td><s>${money(r.price)}</s></td><td><s>${money(Math.round(r.price * 0.8))}</s></td><td><b>${money(Math.round(r.price * (1 - PROMO.firstDiscount / 100)))}</b></td></tr>`).join("");
+  if ($("#pPkg")) $("#pPkg").innerHTML = `<tr><th>Ціна сесії</th><th>4 сесії</th><th>8 сесій</th></tr>` + Object.entries(PROMO.packages)
+    .map(([pr, [f4, p4, f8, p8]]) => `<tr><td>${money(+pr)}${+pr === 1500 ? " (і парні)" : ""}</td><td><s>${money(f4)}</s> <b>${money(p4)}</b></td><td><s>${money(f8)}</s> <b>${money(p8)}</b></td></tr>`).join("");
+  $("#pRent").innerHTML = `<tr><th>Приміщення</th><th>Тариф</th><th>Звичайно</th><th>1–4 год</th><th>5–8 год</th><th>9–12 год</th></tr>` + PROMO.rent
+    .map(([room, t, [f, a, b, c]]) => `<tr><td>${room}</td><td>${t}</td><td><s>${f}</s></td><td><b>${a}</b></td><td><b>${b}</b></td><td><b>${c}</b></td></tr>`).join("");
+  FAQ.unshift(["Які умови акції «Чорна пʼятниця»?", "Акція діє з 16 по 30 листопада. Купити пропозицію можна лише в ці дні, а використати — пізніше: першу зустріч −50% — протягом місяця (одна на клієнта), пакет на 4 сесії — 3 місяці, на 8 сесій — 6 місяців, години оренди — 1–3 місяці залежно від кількості. Пакет можна перенести на іншого фахівця, якщо перший не підійшов. Знижки не сумуються."]);
+}
+
+// пакети: постійні знижки; під час акції 4 і 8 сесій — за ціною акції (вигідніше)
+function pkgEligible(p) { return !isDiag(p) && !/^МАК/.test(p.service) && p.price; }
+function packagesFor(price) {
+  return PACKAGES.map((p) => {
+    const promo = PROMO_ON && price && PROMO.packages[price] && (p.n === 4 || p.n === 8);
+    const [f4, p4, f8, p8] = promo ? PROMO.packages[price] : [];
+    const disc = PROMO_ON && (p.n === 4 || p.n === 8) ? (p.n === 4 ? 15 : 20) : p.disc;
+    return { n: p.n, disc, full: price ? price * p.n : 0, price: promo ? (p.n === 4 ? p4 : p8) : price ? pkgPrice(price, p) : 0,
+      label: `Пакет ${p.n} ${p.n < 5 ? "сесії" : "сесій"} −${disc}%${PROMO_ON && p.n === 8 ? " + група у подарунок" : ""}` };
+  });
+}
+
+// mission & first session
+$("#comfort").innerHTML = COMFORT.map((c) => `<span>${esc(c)}</span>`).join("");
+$("#firstSteps").innerHTML = FIRST_STEPS.map((x, i) => `<div class="step"><i>0${i + 1}</i><b>${esc(x.title)}</b><p>${esc(x.text)}</p></div>`).join("");
+$("#noBlock").innerHTML = NO_BLOCKERS.map((x) => `<span>${esc(x)}</span>`).join("");
+$("#firstPrices").innerHTML = SPECIALISTS.filter((sp) => sp.prices.some(isDiag)).map((sp) => {
+  const d = sp.prices.find(isDiag);
+  return `<div><span>${esc(sp.name)}</span><span>${d.full ? `<s>${money(d.full)}</s>` : ""}<b>${money(d.price)}</b></span></div>`;
+}).join("");
+
+// hero
+const allTopics = [...new Set(SPECIALISTS.flatMap((s) => s.topics))];
+$("#heroStats").innerHTML = [
+  [SPECIALISTS.length, "фахівців"], [allTopics.length + "+", "напрямів роботи"], [`−${FIRST_DISCOUNT}%`, "на першу зустріч"],
+].map(([n, t]) => `<div><b>${n}</b><span>${t}</span></div>`).join("");
+const freeNow = SPECIALISTS.filter((s) => s.status !== "full").length;
+$("#heroBadge").innerHTML = `<b>●</b> ${freeNow} з ${SPECIALISTS.length} фахівців приймають нових клієнтів`;
+
+// advantages
+$("#advGrid").innerHTML = ADVANTAGES.map((a) =>
+  `<div class="adv"><div class="adv-ico">${a.icon}</div><h3>${esc(a.title)}</h3><p>${esc(a.text)}</p></div>`).join("");
+
+// shop
+$("#shopItems").innerHTML = SHOP.map((x) =>
+  `<div class="shop-item"><span>${x.icon}</span><div><b>${esc(x.title)}</b><p>${esc(x.text)}</p></div></div>`).join("");
+
+// gallery
+$("#galGrid").innerHTML = GALLERY.map((g) =>
+  `<figure class="${g.cls || ""}" data-src="${esc(g.src)}"><img src="${esc(g.src)}" alt="${esc(g.caption)}" loading="lazy"><figcaption>${esc(g.caption)}</figcaption></figure>`).join("");
+$("#galGrid").addEventListener("click", (e) => {
+  const f = e.target.closest("figure"); if (!f) return;
+  $("#lbImg").src = f.dataset.src; $("#lightbox").classList.add("open");
+});
+
+// events
+const MONTHS_G = ["січня", "лютого", "березня", "квітня", "травня", "червня", "липня", "серпня", "вересня", "жовтня", "листопада", "грудня"];
+const evSchedule = (e) => (e.repeat ? `${e.repeat}, ${e.dayFull} о ${e.time}${e.first && e.first >= kyivToday ? ` · перша зустріч ${dayLabel(e.first)}` : ""}` : `${dayLabel(e.date)}, ${e.time}`);
+const dayLabel = (iso) => { if (!iso) return "дата уточнюється"; const d = new Date(iso + "T00:00"); return `${d.getDate()} ${MONTHS_G[d.getMonth()]}`; };
+// group — замість ціни пишемо знижки; price: null — ціну ще не визначено
+function groupPriceText() { return `−${FIRST_DISCOUNT}% на першу зустріч · до −15% на пакет`; }
+const evPrice = (e) => (e.page && e.slug === "rivnovaha" ? `700 грн · −${FIRST_DISCOUNT}% на перший візит` : e.type === "group" ? groupPriceText() : e.priceNote ? e.priceNote : e.price == null ? "Вартість уточнюється" : money(e.price));
+const evHost = (e) => (byId(e.host) || {}).name || e.hostName || "";
+function upcoming() {
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  // подія без дати (date: "") показується з позначкою «дата уточнюється» і стоїть останньою
+  return EVENTS.filter((e) => !e.date || new Date(e.date + "T00:00") >= today)
+    .sort((a, b) => ((a.date || "9999") + a.time).localeCompare((b.date || "9999") + b.time));
+}
+const richText = (txt) => txt.split("\n\n").map((block) => {
+  const lines = block.split("\n");
+  const items = lines.filter((l) => /^(✨|•)/.test(l));
+  const plain = lines.filter((l) => !/^(✨|•)/.test(l));
+  return plain.map((l) => (l.startsWith("## ") ? `<h4>${esc(l.slice(3))}</h4>` : `<p>${esc(l)}</p>`)).join("") + (items.length ? `<ul>${items.map((l) => `<li>${esc(l)}</li>`).join("")}</ul>` : "");
+}).join("");
+
+$("#evDeals").hidden = !upcoming().length || !EVENT_DEALS.length; // знижки — лише коли вони є і є найближчі зустрічі
+$("#evDeals").innerHTML = EVENT_DEALS.map((d) => `<div class="deal"><b>${esc(d.title)}</b>${esc(d.text)}</div>`).join("");
+let evFilter = "all";
+function renderEvents() {
+  const all = upcoming();
+  const dates = [...new Set(all.map((e) => e.date).filter(Boolean))];
+  $("#evFilters").innerHTML = dates.length > 1 ? ["all", ...dates].map((t) =>
+    `<button class="pill ${t === evFilter ? "on" : ""}" data-t="${t}">${t === "all" ? "Усі дні" : dayLabel(t)}</button>`).join("") : "";
+  const list = all.filter((e) => evFilter === "all" || e.date === evFilter);
+  $("#evList").innerHTML = list.length ? list.map((e) => {
+    const d = new Date(e.date + "T00:00");
+    const i = EVENTS.indexOf(e);
+    return `<article class="ev">
+      <div class="ev-date">${e.date ? `<b>${d.getDate()}</b><span>${MONTHS[d.getMonth()]}</span><small>${DAYS[(d.getDay() + 6) % 7]}</small>`
+        : e.repeat ? `<b style="font-size:30px">${esc(e.day)}</b><span>${esc(e.time.split(" ")[0])}</span><small>${esc(e.repeat.toLowerCase())}</small>` : `<b>?</b><small>дата<br>уточнюється</small>`}</div>
+      <div class="ev-body">
+        <div class="ev-type">${EVENT_TYPES[e.type] || ""}</div>
+        <h3>${esc(e.title)}</h3>
+        <div class="ev-meta"><span>🕐 ${esc(e.repeat ? evSchedule(e) : e.time)}</span><span>📍 ${esc(e.place)}</span>${evHost(e) && !byId(e.host) ? `<span>👤 ${esc(evHost(e))}</span>` : ""}</div>
+        ${byId(e.host) ? `<div class="ev-host">${byId(e.host).photo ? `<img src="${esc(byId(e.host).photo)}" alt="">` : ""}<span>Веде ${esc(byId(e.host).name)}</span></div>` : ""}
+        <p>${e.image ? `<img class="ev-thumb" src="${esc(e.image)}" alt="" onclick="openEvent(${i})">` : ""}${esc(e.text)}</p>
+        ${e.date ? "" : `<p class="seats" style="color:var(--accent)">${e.first && e.first >= kyivToday ? `Перша зустріч — ${dayLabel(e.first)}${e.firstNote ? ` (${esc(e.firstNote)})` : ""}.` : e.repeat ? "Зареєструйтеся — ми повідомимо дату найближчої зустрічі." : "Зареєструйтеся — ми повідомимо дату першої зустрічі."}</p>`}
+        ${e.page ? `<p class="seats" data-seats="${esc(e.slug)}" style="color:var(--accent);font-weight:400"></p>` : ""}
+        ${e.page ? `<a class="ev-more" href="${esc(e.page)}" data-track="event_open" data-label="${esc(e.title.slice(0, 60))}">Детальніше: програма, фото, ціни →</a>` : e.more ? `<button class="ev-more" onclick="openEvent(${i})">Детальніше про зустріч</button>` : ""}
+        <div class="ev-foot">
+          <div><div class="ev-price">${evPrice(e)}</div>${e.seats ? `<div class="seats" style="color:var(--mid)">до ${e.seats} учасників</div>` : ""}</div>
+          ${e.page ? `<a class="btn btn-main btn-sm" href="${esc(e.page)}#book" data-track="event_register" data-label="${esc(e.title.slice(0, 60))}">Забронювати місце</a>` : `<button class="btn btn-main btn-sm" onclick="bookEvent(${i})">Зареєструватися</button>`}
+        </div>
+      </div></article>`;
+  }).join("") : `<p class="s-sub">Нових подій поки немає — слідкуйте за оновленнями в Instagram.</p>`;
+  loadEventSeats();
+}
+function openEvent(i) {
+  const e = EVENTS[i];
+  track("event_open", e.title.slice(0, 60));
+  $("#modalBox").className = "modal-box ev-modal";
+  $("#modalBox").innerHTML = `
+    <button class="modal-close" onclick="closeModal()" aria-label="Закрити">×</button>
+    <div class="ev-head">
+      <div class="ev-type">${EVENT_TYPES[e.type] || ""} · ${esc(evSchedule(e))}</div>
+      <h3>${esc(e.title)}</h3>
+      <div class="ev-meta"><span>📍 ${esc(e.place)}</span>${evHost(e) ? `<span>👤 ${esc(evHost(e))}${e.hostBio ? ` — ${esc(e.hostBio)}` : ""}</span>` : ""}</div>
+    </div>
+    <div class="m-body">
+      ${byId(e.host) && byId(e.host).photo ? `<div class="ev-host"><img src="${esc(byId(e.host).photo)}" alt=""><span>Веде ${esc(byId(e.host).name)}</span></div>` : ""}
+      ${e.image ? `<img class="ev-thumb" src="${esc(e.image)}" alt="" style="width:120px">` : ""}
+      ${richText(e.more || e.text)}
+      <h4>Вартість</h4><p><span class="ev-price">${evPrice(e)}</span></p>
+      <p style="font-size:13px" ${EVENT_DEALS.length ? "" : "hidden"}>${EVENT_DEALS.map((d) => `<b>${esc(d.title)}:</b> ${esc(d.text)}`).join("<br>")}</p>
+      <button class="btn btn-main btn-sm" style="margin-top:14px" onclick="bookEvent(${i})">Зареєструватися</button>
+    </div>`;
+  $("#modal").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+// вільні місця для подій з власною сторінкою бронювання
+function loadEventSeats() {
+  document.querySelectorAll("[data-seats]").forEach(async (el) => {
+    try {
+      const j = await (await fetch(`/.netlify/functions/api?a=event-seats&slug=${el.dataset.seats}`)).json();
+      if (j.ok) el.textContent = j.left ? `Залишилось ${j.left} з ${j.seats} місць · бронювання без передоплати` : "Місць немає — можна записатися в лист очікування";
+    } catch {}
+  });
+}
+$("#evFilters").addEventListener("click", (e) => { const b = e.target.closest(".pill"); if (b) { evFilter = b.dataset.t; renderEvents(); } });
+renderEvents();
+
+// specialists
+// фільтр за запитом: шукає слова в тегах, повному списку запитів, описі та «з ким працює»
+const FILTERS = [
+  ["Усі", null], ["Тривожність", /тривог|панічн/], ["Стосунки", /стосун|сепарац/], ["Пари і сімʼї", /пар[иаі]|сімʼ|сім'|сімей/],
+  ["Самооцінка", /самооцін|самоцін|перфекц|впевнен/], ["Вигорання і стрес", /вигоран|стрес|прокрастин/], ["Травма і ПТСР", /травм|птср|насильств/],
+  ["Втрата і горе", /втрат|горюв|горе/], ["Кордони", /кордон|меж/], ["Харчова поведінка", /харчов|рхп/], ["Військові", /військ|ветеран/], ["Підлітки", /підліт/],
+];
+const spText = (s) => [...s.topics, ...(s.requests || []), ...s.clients, s.bio || "", s.subtitle || ""].join(" ").toLowerCase();
+let spFilter = "Усі";
+function renderSpecialists() {
+  $("#spFilters").innerHTML = FILTERS.map(([t]) => `<button class="pill ${t === spFilter ? "on" : ""}">${esc(t)}</button>`).join("");
+  const re = (FILTERS.find(([t]) => t === spFilter) || [])[1];
+  const list = SPECIALISTS.filter((s) => !re || re.test(spText(s)));
+  $("#spGrid").innerHTML = list.map((s) => `
+    <article class="sp" onclick="openModal('${s.id}')" style="cursor:pointer" data-track="specialist_open" data-label="${esc(s.name)}">
+      <div class="sp-photo"><div class="arch">${photoHTML(s)}</div><div class="status"><i class="dot ${s.status}"></i>${STATUS[s.status]}</div></div>
+      <div class="sp-body">
+        <h3>${esc(s.name)}</h3>
+        <div class="sp-role">${esc(s.role)}</div>
+        <div class="sp-sub">${esc(s.subtitle || "")}</div>
+        <p class="sp-bio">${esc(s.bio || "")}</p>
+        <div class="sp-label">З чим працює</div>
+        <div class="tags">${s.topics.slice(0, 6).map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>
+        <div class="sp-format"><span>Формат</span>${s.formats.join(" · ").toLowerCase()}</div>
+        <div class="sp-foot">
+          <div class="sp-price">${priceFrom(s)}</div>
+          <span class="btn btn-out btn-sm">Детальніше</span>
+        </div>
+      </div>
+    </article>`).join("");
+}
+$("#spFilters").addEventListener("click", (e) => { const b = e.target.closest(".pill"); if (b) { spFilter = b.textContent; renderSpecialists(); } });
+renderSpecialists();
+
+const plural = (n, one, few, many) => (n % 10 === 1 && n % 100 !== 11 ? one : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? few : many);
+function slotCount(s) { return slotsOf(s).filter((x) => x.free).length; }
+
+function openModal(id) {
+  const s = byId(id);
+  $("#modalBox").className = "modal-box";
+  $("#modalBox").innerHTML = `
+    <button class="modal-close" onclick="closeModal()" aria-label="Закрити">×</button>
+    <div class="m-photo">${photoHTML(s)}</div>
+    <div class="m-body">
+      <div class="status" style="position:static;display:inline-flex;background:var(--bg);margin-bottom:12px"><i class="dot ${s.status}"></i>${STATUS[s.status]}${s.status !== "full" && slotCount(s) ? " · є вільні вікна" : ""}</div>
+      <h3>${esc(s.name)}</h3>
+      <div class="sp-role">${esc(s.role)}</div>
+      <div class="sp-sub">${esc(s.subtitle || "")}</div>
+      ${s.about.split("\n\n").map((t) => `<p>${esc(t)}</p>`).join("")}
+      <h4>Підхід</h4><p>${esc(s.approach)}</p>
+      <h4>З якими запитами працює</h4>${s.requests
+        ? `<ul>${s.requests.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>`
+        : `<div class="tags">${s.topics.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>`}
+      ${s.notWith ? `<h4>З чим не працює</h4><ul class="no">${s.notWith.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}
+      <h4>Освіта і кваліфікація</h4><ul>${s.education.map((e) => `<li>${esc(e)}</li>`).join("")}</ul>
+      ${s.docs ? `<p style="margin-top:10px"><a href="${esc(s.docs)}" target="_blank" rel="noopener" style="color:var(--accent);font-weight:400">Документи про освіту ↗</a></p>` : ""}
+      <h4>Вартість</h4>
+      <div class="m-prices">${s.prices.map((p) => `<div><span>${esc(p.service)}${dur(p)}</span><b>${money(p.price)}</b></div>`).join("")}
+        ${s.prices.some(pkgEligible) ? `<div><span>Пакети сесій</span><b>знижки до −15%</b></div>` : ""}</div>
+      <h4>Доступність</h4>
+      <p>Формат: ${s.formats.join(" · ").toLowerCase()}<br>${s.languages ? `Мови: ${s.languages.join(", ")}<br>` : ""}Працює з: ${s.clients.join(", ")}<br>
+      ${s.status === "full" ? "Зараз лист очікування" : slotCount(s) ? `Найближче вільне вікно: ${((d) => `${d.getDate()} ${MONTHS_G[d.getMonth()]}`)(slotsOf(s).find((x) => x.free).date)}` : "Час узгоджується через адміністратора"}</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:24px">
+        <button class="btn btn-main btn-sm" onclick="bookSpec('${s.id}')">${s.status === "full" ? "У лист очікування" : "Записатися"}</button>
+        ${s.status !== "full" ? `<button class="btn btn-out btn-sm" onclick="showSchedule('${s.id}')">Вільні години</button>` : ""}
+      </div>
+    </div>`;
+  $("#modal").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+function closeModal() { $("#modal").classList.remove("open"); document.body.style.overflow = ""; }
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") { closeModal(); $("#lightbox").classList.remove("open"); } });
+
+// availability
+$("#avSelect").innerHTML = SPECIALISTS.map((s) => `<option value="${s.id}">${esc(s.name)} — ${esc(s.role)}</option>`).join("");
+function renderWeek() {
+  const s = byId($("#avSelect").value);
+  const empty = (text, btn) => `<div class="week-empty">${text}
+    <div style="margin-top:16px"><button class="btn btn-main btn-sm" onclick="bookSpec('${s.id}')">${btn}</button></div></div>`;
+  $("#avNote").innerHTML = `Формат: ${s.formats.join(", ")}. ${CONFIRM_NOTE}`;
+  if (s.status === "full") {
+    $("#week").innerHTML = empty(`<b>${esc(s.name)}</b> — зараз лист очікування. Залиште заявку — ми повідомимо, щойно звільниться час.`, "У лист очікування");
+    return;
+  }
+  if (SCHEDULE === null) { $("#week").innerHTML = `<div class="week-empty">Завантажуємо розклад…</div>`; return; }
+  const slots = slotsOf(s);
+  if (!slots.length) {
+    $("#week").innerHTML = empty(`<b>${esc(s.name)}</b> — вільні вікна ще не внесені в розклад. Залиште заявку — адміністратор підбере зручний час.`, "Залишити заявку");
+    return;
+  }
+  const days = [...new Set(slots.map((x) => x.date.getTime()))];
+  $("#week").innerHTML = days.map((t) => {
+    const date = new Date(t), d = DAYS[(date.getDay() + 6) % 7];
+    return `<div class="day"><h5>${d}</h5><div class="d">${date.getDate()} ${MONTHS[date.getMonth()]}</div>
+      ${slots.filter((x) => x.date.getTime() === t).map((x) => x.free
+        ? `<button class="slot free" onclick="pickSlot('${s.id}','${d} ${date.getDate()} ${MONTHS[date.getMonth()]}, ${x.time}')">${x.time}</button>`
+        : `<span class="slot busy">${x.time}</span>`).join("")}</div>`;
+  }).join("");
+}
+// завантаження вільних вікон з адмін-панелі (фахівці вносять їх у /admin)
+async function loadSchedule() {
+  SCHEDULE = [];
+  try {
+    const r = await fetch(SCHEDULE_URL);
+    const j = await r.json();
+    (j.slots || []).forEach((x) => {
+      const [y, m, d] = x.date.split("-").map(Number);
+      SCHEDULE.push({ id: x.specialistId, name: x.name, date: new Date(y, m - 1, d), time: x.time, free: true });
+    });
+  } catch { SCHEDULE = []; }
+  renderWeek();
+}
+$("#avSelect").addEventListener("change", renderWeek);
+$("#avSelect").value = (SPECIALISTS.find((x) => x.status !== "full") || SPECIALISTS[0]).id;
+renderWeek();
+loadSchedule();
+function showSchedule(id) { closeModal(); $("#avSelect").value = id; renderWeek(); $("#availability").scrollIntoView(); }
+
+// faq
+$("#faqList").innerHTML = FAQ.map(([q, a]) =>
+  `<div class="faq-item"><button class="faq-q">${esc(q)}<span>+</span></button><div class="faq-a">${esc(a)}</div></div>`).join("");
+$("#faqList").addEventListener("click", (e) => { const q = e.target.closest(".faq-q"); if (q) q.parentElement.classList.toggle("open"); });
+
+// contacts & footer
+$("#contacts").innerHTML = CONTACTS.map((c) =>
+  `<a class="contact" href="${esc(c.href)}" ${c.href.startsWith("http") ? 'target="_blank" rel="noopener"' : ""}><i>${c.icon}</i>${esc(c.label)}</a>`).join("");
+$("#footYear").innerHTML = `
+  <div class="foot-links">${CONTACTS.filter((c) => c.href.startsWith("http")).slice(0, 2).map((c) =>
+    `<a href="${esc(c.href)}" target="_blank" rel="noopener">${c.icon} ${esc(c.label.split(":")[0])}</a>`).join("")}</div>
+  <a href="${esc(CONTACTS[2].href)}" target="_blank" rel="noopener">${esc(ADDRESS)}</a><br>© ${new Date().getFullYear()} · Метаморфоза · <a href="https://psy-centr-kyiv.netlify.app/" target="_blank" rel="noopener">Оренда</a> · <a href="admin/" style="opacity:.6">Вхід для фахівців</a>`;
+
+// booking form
+$("#fSpec").innerHTML = `<option value="">Допоможіть обрати</option>` + SPECIALISTS.map((s) => `<option value="${s.id}">${esc(s.name)}</option>`).join("");
+function fillServices() {
+  const s = byId($("#fSpec").value);
+  const services = s ? s.prices.map((p) => `${p.service} (${money(p.price)})`) : [`Діагностична сесія (−${FIRST_DISCOUNT}%)`];
+  if (!s || s.prices.some(pkgEligible)) services.push("Пакет сесій зі знижкою — уточнити в адміністратора");
+  $("#fService").innerHTML = services.map((x) => `<option>${esc(x)}</option>`).join("");
+}
+$("#fSpec").addEventListener("change", fillServices);
+fillServices();
+
+function showTab(id) {
+  document.querySelectorAll(".tab").forEach((t) => t.classList.toggle("on", t.dataset.tab === id));
+  document.querySelectorAll(".tab-pane").forEach((f) => { f.hidden = f.id !== id; });
+}
+document.querySelector(".tabs").addEventListener("click", (e) => { const t = e.target.closest(".tab"); if (t) showTab(t.dataset.tab); });
+
+function bookSpec(id, time) {
+  track(time ? "slot_pick" : "booking_click", (byId(id) || {}).name || "Фахівець");
+  closeModal(); showTab("bookForm");
+  $("#fSpec").value = id; fillServices();
+  if (time) $("#fTime").value = time;
+  $("#booking").scrollIntoView();
+}
+function pickSlot(id, time) { bookSpec(id, time); }
+function bookFirst() { showTab("bookForm"); $("#fSpec").value = ""; fillServices(); $("#booking").scrollIntoView(); }
+function bookEvent(i) {
+  track("event_register", EVENTS[i].title.slice(0, 60));
+  closeModal(); showTab("evForm");
+  const box = document.querySelector(`#evPick input[value="${i}"]`);
+  if (box) { box.checked = true; calcEvent(); }
+  $("#booking").scrollIntoView();
+}
+
+// event form: вибір зустрічей, +1 і підрахунок суми
+$("#payBtn").href = PAY_URL;
+if (EVENT_DISCOUNT) { $("#multiHint").textContent = `(дві або більше — знижка ${EVENT_DISCOUNT}% на всі квитки)`; $("#plusHint").textContent = ` — знижка ${EVENT_DISCOUNT}% для обох`; }
+const evWhen = (e) => (e.sub ? "пакет зустрічей групи" : evSchedule(e));
+// групи: перша зустріч −FIRST_DISCOUNT%, пакети зустрічей — та сама шкала, що й для сесій (до −15%); ціну на сайті не пишемо
+const GROUP_PRICE = 400; // базова ціна зустрічі групи — для підрахунку суми у формі
+const groupEvents = () => upcoming().filter((e) => e.type === "group");
+const SUBS = PACKAGES.map((p) => ({ id: "sub" + p.n, sub: true, date: "", time: "", type: "groupPack", n: p.n, disc: p.disc,
+  title: `Пакет групових зустрічей: ${p.n} ${p.n < 5 ? "зустрічі" : "зустрічей"}`, price: pkgPrice(GROUP_PRICE, p) }));
+
+const pickedEvent = (v) => (String(v).startsWith("sub") ? SUBS.find((x) => x.id === v) : EVENTS[+v]);
+function renderEvPick() {
+  $("#evPick").innerHTML = (upcoming().filter((e) => !e.page).map((e) => `<label class="ev-opt"><input type="checkbox" name="ev" value="${EVENTS.indexOf(e)}">
+    <span>${esc(e.title)}<small>${esc(evWhen(e))}${evHost(e) ? " · " + esc(evHost(e)) : ""}</small></span><b>${evPrice(e)}</b></label>`).join("")
+    + (groupEvents().length ? `<label class="ev-opt"><input type="checkbox" name="pack"><span>Хочу пакет групових зустрічей<small>знижки до −15% · деталі підкаже адміністратор</small></span><b>до −15%</b></label>` : ""))
+    || `<p class="pay-note">Найближчих подій поки немає.</p>`;
+  $("#firstGroupL").hidden = !groupEvents().length;
+  $("#firstGroupDisc").textContent = `−${FIRST_DISCOUNT}% на першу зустріч`;
+}
+function evOrder() {
+  const f = $("#evForm");
+  const picked = [...f.querySelectorAll('input[name="ev"]:checked')].map((x) => pickedEvent(x.value));
+  const people = f.plus1.checked ? 2 : 1;
+  const sum = picked.reduce((a, e) => a + (e.price || 0), 0) * people;
+  const reasons = EVENT_DISCOUNT ? [people > 1 && "+1", picked.length > 1 && "кілька зустрічей"].filter(Boolean) : [];
+  let disc = reasons.length && EVENT_DISCOUNT ? Math.round(sum * EVENT_DISCOUNT / 100) : 0;
+  // акція: перший візит на групу — 200 грн замість 400 (одна людина, одна група)
+  const grp = f.firstGroup.checked && picked.find((e) => e.type === "group" && e.price);
+  if (grp) { disc += Math.round((grp.price * FIRST_DISCOUNT) / 100); reasons.push(`перша зустріч групи −${FIRST_DISCOUNT}%`); }
+  const tbd = picked.some((e) => e.price == null); // є зустріч без ціни
+  const fmt = (n) => (tbd ? (n ? money(n) + " + уточнимо" : "уточнимо після звʼязку") : money(n));
+  const isGroup = picked.some((e) => e.type === "group" || e.sub); // для груп базову ціну не показуємо
+  return { picked, people, sum, reasons, disc, total: sum - disc, fmt, isGroup };
+}
+function calcEvent() {
+  const o = evOrder();
+  $("#plus1Name").hidden = o.people < 2;
+  $("#evSum").innerHTML = o.picked.length ? `
+    ${o.isGroup ? "" : `<div><span>Квитків: ${o.picked.length} × ${o.people} ${o.people > 1 ? "особи" : "особа"}</span><span>${o.fmt(o.sum)}</span></div>`}
+    ${o.disc ? `<div class="disc"><span>Знижка (${o.reasons.join(", ")})</span><span>${o.isGroup ? "враховано" : "−" + money(o.disc)}</span></div>` : ""}
+    <div class="total"><span>До сплати</span><b>${o.fmt(o.total)}</b></div>`
+    : `Оберіть одну або кілька зустрічей — тут зʼявиться сума до сплати.`;
+}
+renderEvPick(); calcEvent();
+$("#evForm").addEventListener("change", calcEvent);
+
+// надсилання заявки (спільне для обох форм)
+async function sendRequest(f, msg, text, onSuccess) {
+  const show = (t, ok) => { msg.style.display = "block"; msg.textContent = t; msg.style.background = ok ? "#E6F0E8" : "#F6E3E3"; msg.style.color = ok ? "var(--ok)" : "var(--busy)"; };
+  if (location.protocol === "file:") { // тестовий режим: файл відкрито локально, без сервера
+    alert("ТЕСТОВИЙ РЕЖИМ — заявка не надсилається.\nОсь що прийде в Telegram на справжньому сайті:\n\n" + text);
+    onSuccess();
+    return show("Тестовий режим: форма працює. На опублікованому сайті заявка прийде в Telegram.", true);
+  }
+  const btn = f.querySelector("button[type=submit]"), label = btn.textContent;
+  btn.disabled = true; btn.textContent = "Надсилаємо…";
+  try {
+    const r = await fetch(SEND_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text }) });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok || j.ok === false) throw new Error();
+    onSuccess();
+    show("Дякуємо! Заявку отримано 🤍 Запис буде підтверджено після звʼязку з адміністратором — ми напишемо вам протягом дня.", true);
+  } catch {
+    show("Не вдалося надіслати. Напишіть нам у Telegram @dorosenkoanastasia50 — відповімо швидко.", false);
+  } finally {
+    btn.disabled = false; btn.textContent = label;
+  }
+}
+function formError(msg, text) { msg.style.display = "block"; msg.textContent = text; msg.style.background = "#F6E3E3"; msg.style.color = "var(--busy)"; }
+
+$("#evForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const f = e.target, msg = $("#evMsg"), o = evOrder();
+  if (!f.name.value.trim() || !f.contact.value.trim()) return formError(msg, "Будь ласка, вкажіть ім'я та контакт.");
+  if (!o.picked.length) return formError(msg, "Оберіть хоча б одну зустріч.");
+  if (!f.agree.checked) return formError(msg, "Потрібна згода на обробку даних.");
+  const text = [
+    "🎟 Реєстрація на подію — Метаморфоза",
+    `Ім'я: ${f.name.value.trim()}`,
+    `Контакт: ${f.contact.value.trim()}`,
+    "Зустрічі:", ...o.picked.map((ev) => `• ${ev.title} (${evWhen(ev)}) — ${evPrice(ev)}`),
+    `Осіб: ${o.people}${o.people > 1 && f.plus1name.value.trim() ? ` (+1: ${f.plus1name.value.trim()})` : ""}`,
+    o.disc && `Знижка (${o.reasons.join(", ")}): −${money(o.disc)}`,
+    `До сплати: ${o.fmt(o.total)}`,
+    f.pack && f.pack.checked && "Цікавить пакет групових зустрічей (знижка до −15%)",
+    `Оплата: ${f.paid.checked ? "клієнт вказав, що оплатив онлайн" : "ще не оплачено"}`,
+    f.comment.value.trim() && `Коментар: ${f.comment.value.trim()}`,
+  ].filter(Boolean).join("\n");
+  sendRequest(f, msg, text, () => { track("form_submit_event", o.picked.map((x) => x.title).join(" + ").slice(0, 60)); f.reset(); calcEvent(); });
+});
+
+// прямі посилання на запис: #booking — до психолога, #booking-event — на подію (їх відкривають /zapys і /podii)
+function openFromHash() {
+  // #event-<slug> — відкрити конкретну подію (напр. /rivnovaha → #event-rivnovaha)
+  const m = /^#event-(.+)$/.exec(location.hash);
+  if (m) {
+    const i = EVENTS.findIndex((e) => e.slug === m[1]);
+    if (i >= 0 && EVENTS[i].page) { location.replace(EVENTS[i].page); return; }
+    if (i >= 0) { $("#events").scrollIntoView(); openEvent(i); }
+    return;
+  }
+  const tab = { "#booking-event": "evForm", "#booking": "bookForm" }[location.hash];
+  if (!tab) return;
+  showTab(tab);
+  const go = () => document.querySelector(".tabs").scrollIntoView();
+  go(); setTimeout(go, 400); setTimeout(go, 1200); // фото вище підвантажуються і зсувають сторінку
+}
+window.addEventListener("hashchange", openFromHash);
+window.addEventListener("load", openFromHash);
+
+// ---------- анонімна статистика відвідувань (без cookies, IP та ідентифікаторів; бачить лише власниця в /admin)
+const TRACK_URL = "/.netlify/functions/api?a=track";
+function track(e, label = "", extra = {}) {
+  if (location.protocol === "file:") return;
+  try {
+    const body = JSON.stringify({ e, label, ...extra });
+    if (navigator.sendBeacon) navigator.sendBeacon(TRACK_URL, new Blob([body], { type: "application/json" }));
+    else fetch(TRACK_URL, { method: "POST", body, keepalive: true });
+  } catch {}
+}
+(function pageView() {
+  const ref = document.referrer, qs = new URLSearchParams(location.search);
+  const src = qs.get("src") === "qr" ? "QR-код" : /instagram/i.test(ref) ? "Instagram" : /t\.me|telegram/i.test(ref) ? "Telegram"
+    : /facebook|fb\./i.test(ref) ? "Facebook" : /google\./i.test(ref) ? "Google" : !ref || ref.startsWith(location.origin) ? "Пряме" : "Інше";
+  let newVisitor = true;
+  try { newVisitor = localStorage.getItem("mf_seen") !== TODAY_KEY; localStorage.setItem("mf_seen", TODAY_KEY); } catch {}
+  track("page_view", "", { src, newVisitor });
+  // час на сайті: рахуємо лише поки вкладка видима; надсилаємо, коли людина йде або перемикає вкладку
+  let visibleSince = document.visibilityState === "visible" ? Date.now() : 0, total = 0, sent = 0;
+  const flush = () => {
+    if (visibleSince) { total += (Date.now() - visibleSince) / 1000; visibleSince = 0; }
+    const t = Math.round(total);
+    if (t > sent) { track("time", "", { total: t, prev: sent }); sent = t; }
+  };
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") flush(); else visibleSince = Date.now(); });
+  addEventListener("pagehide", flush);
+})();
+document.addEventListener("click", (e) => {
+  const el = e.target.closest("[data-track]");
+  if (el) track(el.dataset.track, el.dataset.label || "");
+  const a = e.target.closest("a[href]");
+  if (!a) return;
+  const where = a.closest("footer") ? "Футер" : a.closest("#booking") ? "Блок «Запис»" : "Сайт";
+  if (/t\.me\//.test(a.href)) track("telegram_click", where);
+  else if (/instagram\.com/.test(a.href)) track("instagram_click", where);
+  else if (/google\.[a-z.]+\/maps/.test(a.href)) track("map_click", where);
+  else if (/psy-centr-kyiv\.netlify\.app/.test(a.href) && !a.dataset.track) track("rent_click", where);
+});
+
+$("#bookForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const f = e.target, msg = $("#formMsg");
+  if (!f.name.value.trim() || !f.contact.value.trim()) return formError(msg, "Будь ласка, вкажіть ім'я та контакт.");
+  if (!f.agree.checked) return formError(msg, "Потрібна згода на обробку даних.");
+  const spec = byId(f.specialist.value);
+  const text = [
+    "🦋 Запис до психолога — Метаморфоза",
+    `Ім'я: ${f.name.value.trim()}`,
+    `Контакт: ${f.contact.value.trim()}`,
+    `Фахівець: ${spec ? spec.name : "допомогти обрати"}`,
+    `Послуга: ${f.service.value}`,
+    `Формат: ${f.format.value}`,
+    f.time.value.trim() && `Час: ${f.time.value.trim()}`,
+    f.request.value.trim() && `Запит: ${f.request.value.trim()}`,
+  ].filter(Boolean).join("\n");
+  sendRequest(f, msg, text, () => { track("form_submit_psy", spec ? spec.name : "Допомогти обрати"); f.reset(); fillServices(); });
+});
+</script>
+</body>
+</html>

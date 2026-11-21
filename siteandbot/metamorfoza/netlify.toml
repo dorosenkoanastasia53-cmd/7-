@@ -1,0 +1,19 @@
+# Окремий сайт «Метаморфози» на Netlify.
+# У Netlify: Base directory = siteandbot/metamorfoza (решта підтягнеться з цього файлу).
+[build]
+  publish = "public"
+  functions = "netlify/functions"
+
+# Netlify шукає значення змінних оточення у файлах сайту.
+# Логін адміна і Telegram-ID не секретні (логін може збігатися зі словами на сайті),
+# тому їх не перевіряємо. BOT_TOKEN, ADMIN_PASSWORD і AUTH_SECRET перевіряються далі.
+[build.environment]
+  SECRETS_SCAN_OMIT_KEYS = "ADMIN_LOGIN,ADMIN_CHAT_ID"
+
+[functions]
+  node_bundler = "esbuild"
+
+[[headers]]
+  for = "/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"

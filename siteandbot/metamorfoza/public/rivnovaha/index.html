@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>«Точка рівноваги» — група підтримки · Метаморфоза</title>
+<meta name="description" content="Група психологічної підтримки «Точка рівноваги» у Києві біля м. Кловська. Тепле коло до 10 учасників, 12 зустрічей, веде психологиня Іванна Ромашко.">
+<meta property="og:title" content="«Точка рівноваги» — група психологічної підтримки">
+<meta property="og:description" content="Ти не сама. Тепле коло, де можна видихнути, бути почутою і знову знайти опору. Субота 15:00–17:30, раз на 2 тижні, м. Кловська.">
+<meta property="og:image" content="../img/rivnovaha-poster.jpg">
+<meta name="theme-color" content="#133512">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--g:#133512;--g2:#1E4A1C;--gs:#E3EBE0;--gold:#C9A034;--gold-l:#E8C766;--bg:#FBF8F5;--sand:#EFE8E2;--clay:#D9C5BA;--dark:#2C2018;--mid:#6B5A50;--light:#9A8880;--ok:#5E8C6A;--busy:#A86464;
+  --serif:'Cormorant Garamond',Georgia,serif;--sans:'Jost',system-ui,sans-serif;--r:16px}
+*{margin:0;padding:0;box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);font-weight:300;color:var(--dark);background:var(--bg);line-height:1.6}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.btn{display:inline-block;border:none;border-radius:100px;padding:15px 30px;font-family:var(--sans);font-size:13px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background .2s}
+.btn-gold{background:var(--gold);color:var(--g)}.btn-gold:hover{background:var(--gold-l)}
+.btn-green{background:var(--g);color:#fff}.btn-green:hover{background:var(--g2)}
+.label{font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:500;color:var(--gold)}
+h2{font-family:var(--serif);font-weight:400;font-size:40px;line-height:1.15;margin:8px 0 18px}
+h2 em{color:var(--gold)}
+section{padding:72px 0}
+
+/* top */
+.top{background:var(--g);padding:14px 0}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#F3EEDF;font-family:var(--serif);font-size:22px}
+.logo img{width:30px}
+.top a.back{color:#C9D2C4;font-size:13px;text-decoration:none}
+
+/* hero */
+.hero{background:radial-gradient(ellipse at 20% 25%,var(--g2),var(--g) 60%,#0B240A);color:#F3EEDF;padding:56px 0 64px}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.badge{display:inline-block;background:var(--gold-l);color:var(--g);border-radius:100px;padding:6px 16px;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:500;margin-bottom:18px}
+.hero h1{font-family:var(--serif);font-weight:400;font-size:72px;line-height:1;margin:6px 0 10px}
+.hero h1 em{color:var(--gold-l);font-style:italic}
+.hero .tag{font-family:var(--serif);font-style:italic;font-size:30px;margin-bottom:10px}
+.hero p.lead{color:#D6DCCF;font-size:17px;max-width:470px;margin-bottom:24px}
+.facts{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}
+.facts span{border:1px solid rgba(232,199,102,.45);border-radius:100px;padding:8px 16px;font-size:14px}
+.seats{display:flex;align-items:center;gap:14px;margin-bottom:26px;font-size:15px}
+.seats-bar{flex:1;max-width:220px;height:8px;border-radius:8px;background:rgba(255,255,255,.15);overflow:hidden}
+.seats-bar i{display:block;height:100%;background:var(--gold-l);border-radius:8px;transition:width .6s}
+.seats b{color:var(--gold-l);font-weight:500}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.hero-cta small{color:#B9C4B4;font-size:13px}
+.hero-photo{position:relative}
+.hero-photo .arch{border-radius:999px 999px 20px 20px;overflow:hidden;border:6px solid #F3EEDF;aspect-ratio:4/5;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.hero-photo .arch img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.host{margin-top:16px;text-align:right}
+.host .label{color:var(--gold-l)}
+.host b{display:block;font-family:var(--serif);font-weight:400;font-size:28px}
+.host span{color:#B9C4B4;font-size:14px}
+.stamp{position:absolute;left:-30px;bottom:70px;width:150px;height:150px;border-radius:50%;background:var(--gold-l);color:var(--g);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.3);transform:rotate(-8deg);border:2px dashed var(--g)}
+.stamp b{font-family:var(--serif);font-size:46px;line-height:1;font-weight:500}
+.stamp small{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;padding:0 14px}
+
+/* benefits */
+.benefits{background:var(--g);color:#F3EEDF}
+.ben-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.photos{display:grid;grid-template-columns:1.2fr 1fr;grid-template-rows:repeat(2,minmax(0,1fr));gap:10px;height:440px;overflow:hidden}
+.photos img{min-height:0;min-width:0}
+.photos img{width:100%;height:100%;object-fit:cover;border-radius:14px}
+.photos img:first-child{grid-row:span 2;border-radius:999px 999px 14px 14px}
+.ben-list{list-style:none;display:grid;gap:12px;margin:18px 0 26px}
+.ben-list li{display:flex;gap:12px;font-size:17px}
+.ben-list li::before{content:"✓";color:var(--gold-l);font-weight:500}
+.benefits h2{color:#F3EEDF}
+
+/* program */
+.prog-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px 40px;margin-top:10px}
+.block{border-top:1.5px solid var(--g);padding-top:14px}
+.block h3{font-size:12px;letter-spacing:2.5px;text-transform:uppercase;font-weight:500;color:var(--g);margin-bottom:8px}
+.block ol{list-style:none;display:grid;gap:6px}
+.block li{display:flex;gap:12px;font-family:var(--serif);font-size:21px}
+.block li span{font-family:var(--sans);font-size:13px;color:var(--gold);font-weight:500;min-width:22px;padding-top:6px}
+.flow{background:var(--g);color:#F3EEDF;border-radius:var(--r);padding:24px 28px;margin-top:30px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.flow b{display:block;font-family:var(--serif);font-weight:400;font-size:24px}
+.flow span{color:var(--gold-l);font-size:14px}
+.flow .lbl{grid-column:1/-1;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold-l);font-weight:500}
+
+/* prices */
+.prices{background:var(--sand)}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.pcard{background:#fff;border-radius:var(--r);padding:22px;border:1.5px solid transparent}
+.pcard.hot{border-color:var(--gold)}
+.pcard .t{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--light);font-weight:500}
+.pcard .v{font-family:var(--serif);font-size:38px;font-weight:500;color:var(--g);line-height:1.1;margin:6px 0}
+.pcard s{color:var(--light);font-size:15px}
+.pcard p{font-size:13px;color:var(--mid)}
+.pkg-table{width:100%;border-collapse:collapse;background:#fff;border-radius:var(--r);overflow:hidden;margin-top:16px;font-size:15px}
+.pkg-table th,.pkg-table td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--sand)}
+.pkg-table th{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--light);font-weight:500}
+.pkg-table b{color:var(--g);font-weight:500}
+.pkg-table .d{color:var(--gold);font-weight:500}
+.note{font-size:13px;color:var(--mid);margin-top:12px}
+
+/* booking */
+.book{background:radial-gradient(ellipse at 80% 20%,var(--g2),var(--g) 60%);color:#F3EEDF}
+.book-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:44px;align-items:start}
+.book h2{color:#F3EEDF}
+.steps{list-style:none;display:grid;gap:14px;margin:18px 0}
+.steps li{display:flex;gap:14px;align-items:flex-start;color:#D6DCCF}
+.steps li b{flex:0 0 32px;height:32px;border-radius:50%;background:var(--gold-l);color:var(--g);display:flex;align-items:center;justify-content:center;font-weight:500}
+form{background:#fff;color:var(--dark);border-radius:var(--r);padding:28px;display:grid;gap:14px}
+label{display:grid;gap:6px;font-size:13px;color:var(--mid)}
+input,select,textarea{font-family:var(--sans);font-size:15px;padding:12px 14px;border:1.5px solid var(--clay);border-radius:10px;background:#fff;color:var(--dark);width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--g)}
+.opts{display:grid;gap:8px}
+.opt{display:flex;align-items:center;gap:12px;border:1.5px solid var(--clay);border-radius:12px;padding:12px 14px;cursor:pointer;font-size:15px;color:var(--dark)}
+.opt:has(input:checked){border-color:var(--g);background:var(--gs)}
+.opt input{width:auto;accent-color:var(--g)}
+.opt b{margin-left:auto;font-family:var(--serif);font-size:20px;font-weight:500;white-space:nowrap}
+.opt small{display:block;color:var(--light);font-size:12px}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:13px}
+.check input{width:auto;margin-top:3px;accent-color:var(--g)}
+.msg{padding:12px 14px;border-radius:10px;font-size:14px}
+.msg.ok{background:var(--gs);color:var(--ok)}.msg.err{background:#F6E3E3;color:var(--busy)}
+.done{text-align:center;padding:20px 6px}
+.done b{display:block;font-family:var(--serif);font-size:30px;font-weight:400;color:var(--g);margin-bottom:6px}
+footer{background:#0B240A;color:#9fb09b;padding:28px 0;font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+footer a{color:#C9D2C4}
+.sticky{position:fixed;left:12px;right:12px;bottom:12px;z-index:20;display:none}
+.sticky .btn{width:100%;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+
+@media(max-width:860px){
+  section{padding:48px 0}
+  .wrap{padding:0 16px}
+  h2{font-size:32px}
+  .hero{padding:32px 0 44px}
+  .hero-grid,.ben-grid,.book-grid{grid-template-columns:1fr;gap:28px}
+  .hero-photo{order:-1;max-width:300px;margin:0 auto}
+  .hero h1{font-size:52px}
+  .hero .tag{font-size:24px}
+  .stamp{width:112px;height:112px;left:-14px;bottom:56px}
+  .stamp b{font-size:34px}
+  .host{text-align:center}
+  .photos{height:300px}
+  .prog-grid{grid-template-columns:1fr}
+  .block li{font-size:19px}
+  .flow{grid-template-columns:1fr 1fr;padding:20px}
+  .price-grid{grid-template-columns:1fr}
+  form{padding:20px}
+  .sticky{display:block}
+  body{padding-bottom:76px}
+}
+</style>
+</head>
+<body>
+
+<div class="top"><div class="wrap">
+  <a class="logo" href="../"><img src="../img/emblem.webp" alt="">Метаморфоза</a>
+  <a class="back" href="../#events">← Усі події</a>
+</div></div>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="badge" id="badge">Набір відкрито</span>
+      <div class="label" style="color:var(--gold-l)">Група психологічної підтримки</div>
+      <h1>Точка <em>рівноваги</em></h1>
+      <div class="tag">Ти не сама.</div>
+      <p class="lead">Тепле коло, де можна видихнути, бути почутою і знову знайти опору. 12 зустрічей у психологічному просторі «Метаморфоза».</p>
+      <div class="facts"><span>Субота · 15:00–17:30</span><span>раз на 2 тижні</span><span>до 10 учасниць</span><span>м. Кловська</span></div>
+      <div class="seats" id="seatsBox"><span>Залишилось <b id="seatsLeft">…</b></span><div class="seats-bar"><i id="seatsBar" style="width:0"></i></div></div>
+      <div class="hero-cta">
+        <a href="#book" class="btn btn-gold" data-track="event_book_click" data-label="Головний екран">Забронювати місце</a>
+        <small>Без передоплати · підтвердимо в Telegram</small>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <div class="arch"><img src="../img/ivanna-romashko.jpg" alt="Психологиня Іванна Ромашко"></div>
+      <div class="stamp" id="stamp"><small>Чорна пʼятниця</small><b>−50%</b><small>на перший візит</small></div>
+      <div class="host"><div class="label">Ведуча</div><b>Іванна Ромашко</b><span>психологиня, арт-терапевтка</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="benefits">
+  <div class="wrap ben-grid">
+    <div class="photos">
+      <img src="../img/rivnovaha-table.jpg" alt="Стіл для зустрічі групи з квітами, чаєм і смаколиками">
+      <img src="../img/rivnovaha-cards.jpg" alt="Метафоричні карти на столі">
+      <img src="../img/rivnovaha-drawing.jpg" alt="Учасниця малює під час вправи">
+    </div>
+    <div>
+      <div class="label">У нашому просторі</div>
+      <h2>Тепло. Чай. <em>Свої люди.</em></h2>
+      <ul class="ben-list">
+        <li>знайти точки опори</li>
+        <li>виговоритися — і бути почутою, без засудження</li>
+        <li>знайти друзів, які розуміють</li>
+        <li>поїсти смачненького й зігрітися — зовні та всередині</li>
+        <li>отримати прості техніки, які працюють у звичайному житті</li>
+      </ul>
+      <p style="color:#C9D2C4">Мʼякі крісла, пледи, книги й гарячий чай. Група невелика — до 10 людей, тож кожну почують.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="label">Програма</div>
+    <h2>12 зустрічей — <em>шлях до рівноваги</em></h2>
+    <div class="prog-grid">
+      <div class="block"><h3>Блок 1 · Опора</h3><ol><li><span>01</span>Ти не сама</li><li><span>02</span>Що зі мною сталося?</li><li><span>03</span>Мої точки опори</li></ol></div>
+      <div class="block"><h3>Блок 2 · Турбота про себе</h3><ol><li><span>04</span>Емоційні гойдалки війни</li><li><span>05</span>Турбота про себе без провини</li><li><span>06</span>Мої межі та право на підтримку</li></ol></div>
+      <div class="block"><h3>Блок 3 · Невизначеність</h3><ol><li><span>07</span>Контроль у моєму житті</li><li><span>08</span>Втрати</li><li><span>09</span>Принцип надії</li></ol></div>
+      <div class="block"><h3>Блок 4 · Інтеграція</h3><ol><li><span>10</span>Я — більше за мої проблеми</li><li><span>11</span>Мій план</li><li><span>12</span>Мої підсумки</li></ol></div>
+    </div>
+    <div class="flow">
+      <div class="lbl">Як проходить кожна зустріч · 2,5 год</div>
+      <div><b>Шеринг</b><span>40 хв</span></div><div><b>Теорія</b><span>15 хв</span></div><div><b>Практика</b><span>75 хв</span></div><div><b>Завершення</b><span>20 хв</span></div>
+    </div>
+    <p class="note">Можна приєднатися з будь-якої зустрічі. Група підтримки не замінює індивідуальну терапію — якщо зараз дуже важко, наші фахівці можуть працювати з вами індивідуально.</p>
+  </div>
+</section>
+
+<section class="prices">
+  <div class="wrap">
+    <div class="label">Вартість</div>
+    <h2>Скільки коштує</h2>
+    <div class="price-grid" id="priceCards"></div>
+    <table class="pkg-table" id="pkgTable"></table>
+    <p class="note" id="pkgNote"></p>
+  </div>
+</section>
+
+<section class="book" id="book">
+  <div class="wrap book-grid">
+    <div>
+      <div class="label" style="color:var(--gold-l)">Бронювання</div>
+      <h2>Забронюйте місце за хвилину</h2>
+      <ul class="steps">
+        <li><b>1</b><span>Залиште імʼя і контакт — це займе хвилину.</span></li>
+        <li><b>2</b><span>Ми напишемо вам у Telegram і підтвердимо місце.</span></li>
+        <li><b>3</b><span>Приходьте на Первомайського, 5А (м. Кловська) — чай уже чекатиме.</span></li>
+      </ul>
+      <p style="color:#B9C4B4;font-size:14px">Передоплата не потрібна. Якщо плани зміняться — просто напишіть нам.</p>
+    </div>
+    <form id="bookForm" novalidate>
+      <div id="formBody">
+        <div style="display:grid;gap:14px">
+          <label>Ваше імʼя *<input name="name" autocomplete="name" required></label>
+          <label>Telegram або телефон *<input name="contact" autocomplete="tel" required></label>
+          <div><div style="font-size:13px;color:var(--mid);margin-bottom:6px">Що обираєте</div><div class="opts" id="opts"></div></div>
+          <label>Коментар (необовʼязково)<textarea name="comment" rows="2"></textarea></label>
+          <label class="check"><input type="checkbox" name="agree" required> Погоджуюсь на обробку персональних даних. Інформація конфіденційна.</label>
+          <div id="msg"></div>
+          <button class="btn btn-green" type="submit" id="submitBtn">Забронювати місце</button>
+        </div>
+      </div>
+      <div class="done" id="done" hidden><b>Дякуємо! 🤍</b><p>Ваше місце заброньоване. Ми напишемо вам у Telegram протягом дня, щоб підтвердити.</p></div>
+    </form>
+  </div>
+</section>
+
+<footer><div class="wrap">
+  <span>Психологічний простір «Метаморфоза» · Київ, вул. Первомайського, 5А · м. Кловська</span>
+  <span><a href="https://t.me/dorosenkoanastasia50" target="_blank" rel="noopener">Telegram</a> · <a href="../">На головну</a></span>
+</div></footer>
+
+<div class="sticky" id="sticky"><a href="#book" class="btn btn-gold" data-track="event_book_click" data-label="Кнопка знизу (телефон)">Забронювати місце</a></div>
+
+<script>
+/* ===== Налаштування сторінки ===== */
+const SLUG = "rivnovaha";
+const PRICE = 700;                                   // разова зустріч, грн
+const PROMO = { start: "2026-11-16", end: "2026-11-30", first: 50, pkg: 20 }; // Чорна пʼятниця: перший візит −50%, будь-який пакет −20%
+const FIRST_REGULAR = 20;                            // звичайна знижка на перший візит, %
+const PACKS = [{ n: 4, d: 5 }, { n: 6, d: 7 }, { n: 8, d: 10 }, { n: 12, d: 20 }]; // пакети зустрічей, знижка %
+const API = "/.netlify/functions/api";
+const SEND_URL = "/.netlify/functions/send";
+
+const $ = (s) => document.querySelector(s);
+const money = (n) => n.toLocaleString("uk-UA") + " грн";
+const round50 = (n) => Math.round(n / 50) * 50;
+const today = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Kyiv" }).format(new Date());
+const PROMO_ON = today >= PROMO.start && today <= PROMO.end;
+const FIRST = PROMO_ON ? PROMO.first : FIRST_REGULAR;
+const packs = PACKS.map((p) => { const d = PROMO_ON ? Math.max(p.d, PROMO.pkg) : p.d; return { ...p, d, full: PRICE * p.n, price: round50(PRICE * p.n * (1 - d / 100)) }; });
+const firstPrice = round50(PRICE * (1 - FIRST / 100));
+const track = (e, label = "") => { try { navigator.sendBeacon(API + "?a=track", new Blob([JSON.stringify({ e, label })], { type: "application/json" })); } catch {} };
+
+// акція
+if (PROMO_ON) { $("#badge").textContent = "Набір відкрито · Чорна пʼятниця"; }
+else { $("#stamp").innerHTML = `<small>Перший візит</small><b>−${FIRST}%</b><small>для новеньких</small>`; }
+
+// ціни
+$("#priceCards").innerHTML = `
+  <div class="pcard hot"><div class="t">Перший візит${PROMO_ON ? " · Чорна пʼятниця" : ""}</div><div class="v">${money(firstPrice)}</div><s>${money(PRICE)}</s><p>−${FIRST}% для тих, хто приходить уперше</p></div>
+  <div class="pcard"><div class="t">Разова зустріч</div><div class="v">${money(PRICE)}</div><p>2,5 години · чай і смаколики</p></div>
+  <div class="pcard"><div class="t">Пакет зустрічей</div><div class="v">до −20%</div><p>Місце в групі за вами на весь пакет</p></div>`;
+$("#pkgTable").innerHTML = `<tr><th>Пакет</th><th>Знижка</th><th>Вартість</th><th>За зустріч</th></tr>` +
+  packs.map((p) => `<tr><td>${p.n} зустрічей</td><td class="d">−${p.d}%</td><td><b>${money(p.price)}</b> <s style="color:var(--light);font-size:13px">${money(p.full)}</s></td><td>${money(Math.round(p.price / p.n))}</td></tr>`).join("");
+$("#pkgNote").textContent = PROMO_ON
+  ? `Під час Чорної пʼятниці (16–30 листопада) на будь-який пакет −20%. Звичайні знижки: 4 зустрічі −5%, 6 — −7%, 8 — −10%, 12 — −20%.`
+  : `Пакет можна використати протягом циклу групи. Перший візит і пакет не сумуються.`;
+
+// варіанти у формі
+const OPTS = [{ id: "first", title: `Перший візит (−${FIRST}%)`, sub: "для тих, хто приходить уперше", price: firstPrice },
+  { id: "single", title: "Разова зустріч", sub: "2,5 години", price: PRICE },
+  ...packs.map((p) => ({ id: "pack" + p.n, title: `Пакет ${p.n} зустрічей (−${p.d}%)`, sub: `${money(Math.round(p.price / p.n))} за зустріч`, price: p.price }))];
+$("#opts").innerHTML = OPTS.map((o, i) => `<label class="opt"><input type="radio" name="option" value="${o.id}" ${i === 0 ? "checked" : ""}><span>${o.title}<small>${o.sub}</small></span><b>${money(o.price)}</b></label>`).join("");
+
+// вільні місця
+let left = null, seats = 10;
+async function loadSeats() {
+  try {
+    const r = await fetch(`${API}?a=event-seats&slug=${SLUG}`); const j = await r.json();
+    if (!j.ok) throw 0;
+    left = j.left; seats = j.seats;
+  } catch { left = null; }
+  if (left == null) { $("#seatsBox").hidden = true; return; }
+  $("#seatsLeft").textContent = left ? `${left} з ${seats} місць` : "місць немає";
+  $("#seatsBar").style.width = `${Math.round(((seats - left) / seats) * 100)}%`;
+  if (!left) { $("#submitBtn").textContent = "Записатися в лист очікування"; }
+}
+loadSeats();
+
+// бронювання
+$("#bookForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const f = e.target, msg = $("#msg");
+  const err = (t) => (msg.innerHTML = `<div class="msg err">${t}</div>`);
+  if (!f.name.value.trim() || !f.contact.value.trim()) return err("Будь ласка, вкажіть імʼя та контакт.");
+  if (!f.agree.checked) return err("Потрібна згода на обробку даних.");
+  const opt = OPTS.find((o) => o.id === f.option.value);
+  const btn = $("#submitBtn"); btn.disabled = true; btn.textContent = "Бронюємо…";
+  const waitlist = left === 0;
+  let stored = false;
+  try {
+    if (!waitlist) {
+      const r = await fetch(`${API}?a=event-book`, { method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ slug: SLUG, name: f.name.value, contact: f.contact.value, option: `${opt.title} — ${money(opt.price)}`, comment: f.comment.value }) });
+      const j = await r.json().catch(() => ({}));
+      if (r.status === 409) { left = 0; loadSeats(); btn.disabled = false; return err(j.error || "Місця закінчилися."); }
+      stored = !!j.ok;
+    }
+    const text = [`🎟 ${waitlist ? "Лист очікування" : "Бронювання"} — «Точка рівноваги»`, `Імʼя: ${f.name.value.trim()}`, `Контакт: ${f.contact.value.trim()}`,
+      `Обрано: ${opt.title} — ${money(opt.price)}`, f.comment.value.trim() && `Коментар: ${f.comment.value.trim()}`, stored ? "Запис збережено в кабінеті (/admin → Записи на події)" : ""].filter(Boolean).join("\n");
+    if (location.protocol !== "file:") await fetch(SEND_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text }) }).catch(() => {});
+    if (!stored && !waitlist && location.protocol !== "file:") {
+      // сервер недоступний — заявка все одно пішла в Telegram
+    }
+    track("event_book", waitlist ? "Лист очікування" : opt.title);
+    $("#formBody").hidden = true; $("#done").hidden = false;
+    loadSeats();
+  } catch {
+    btn.disabled = false; btn.textContent = "Забронювати місце";
+    err("Не вдалося надіслати. Напишіть нам у Telegram @dorosenkoanastasia50 — відповімо швидко.");
+  }
+});
+
+// статистика переходу і кліків
+track("qr_rivnovaha", "Сторінка «Точка рівноваги»");
+document.addEventListener("click", (e) => { const el = e.target.closest("[data-track]"); if (el) track(el.dataset.track, el.dataset.label || ""); });
+</script>
+</body>
+</html>
