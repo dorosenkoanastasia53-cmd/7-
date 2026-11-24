@@ -41,7 +41,7 @@ const DEFAULT_CONFIG = {
     { id: "oleksandra", name: "Олександра Байлова", prices: { consult: 1200 } },
     { id: "yana", name: "Яна Турчанінова", prices: { consult: 1500 } },
     { id: "ivanna", name: "Іванна Ромашко", prices: { consult: 900 } },
-    { id: "nataliia-s", name: "Наталія Сидоркіна", prices: { consult: 1400 } },
+    { id: "nataliia-s", name: "Наталія Сидоркіна", prices: { consult: 1100 } },
   ],
   rooms: [
     { id: "r1", name: "Кабінет з кріслами" },
@@ -119,6 +119,8 @@ async function handle(req) {
 
   const db = await openStore();
   const config = (await db.get("config")) || DEFAULT_CONFIG;
+  // нові фахівці з DEFAULT_CONFIG зʼявляються в адмінці, навіть якщо налаштування вже зберігали раніше
+  for (const sp of DEFAULT_CONFIG.specialists) if (!config.specialists.some((x) => x.id === sp.id)) config.specialists.push(sp);
   const specName = (id) => (config.specialists.find((s) => s.id === id) || {}).name || id;
 
   // ----- публічне: вільні вікна для сайту (без жодних даних клієнтів)
