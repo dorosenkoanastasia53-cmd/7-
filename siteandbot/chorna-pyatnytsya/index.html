@@ -161,6 +161,30 @@ summary::after{content:"+";color:var(--gold);font-size:22px;line-height:1}
 details[open] summary::after{content:"−"}
 details p{color:var(--mid);font-size:15px;margin-top:8px}
 
+/* events */
+.events-sec{background:#fff}
+.ev-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:10px}
+.ev{background:var(--bg);border:1px solid var(--sand);border-radius:var(--r);overflow:hidden;cursor:pointer;display:flex;flex-direction:column;transition:border-color .2s,transform .15s;text-align:left;font:inherit;color:inherit;padding:0}
+.ev:hover{border-color:var(--gold)}
+.ev:active{transform:scale(.98)}
+.ev-ph{position:relative}
+.ev-ph img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block}
+.ev-when{position:absolute;left:10px;top:10px;background:var(--g);color:#fff;border-radius:10px;padding:5px 10px;font-size:12px;line-height:1.25;font-weight:500}
+.ev-when b{display:block;font-size:15px;color:var(--gold-l)}
+.ev-disc{position:absolute;right:10px;top:10px;background:var(--gold-l);color:var(--g);border-radius:100px;padding:4px 10px;font-size:12px;font-weight:500}
+.ev-body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.ev-type{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:500}
+.ev h3{font-family:var(--serif);font-weight:500;font-size:22px;line-height:1.12;color:var(--g)}
+.ev .host{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mid)}
+.ev .host img{width:26px;height:26px;border-radius:50%;object-fit:cover}
+.ev .pr{margin-top:auto;padding-top:6px;font-size:14px}
+.ev .pr s{color:var(--light);margin-right:4px}
+.ev .pr b{color:var(--g);font-weight:500;font-size:16px}
+.ev .go{color:var(--g);font-size:13px;font-weight:500}
+.ev-note{font-size:13px;color:var(--mid);margin-top:14px}
+.sh-photo{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;display:block}
+.sh-facts{display:grid;gap:6px;font-size:15px}
+
 /* more links */
 .more-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:10px}
 .more{display:flex;gap:14px;align-items:center;background:#fff;border:1px solid var(--sand);border-radius:var(--r);padding:18px;text-decoration:none;transition:border-color .2s}
@@ -246,6 +270,9 @@ footer a{color:#C9D2C4}
   .sticky{display:block;right:88px}
   body{padding-bottom:84px}
   .more-grid{grid-template-columns:1fr}
+  .ev-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin-right:-16px;padding-right:16px;padding-bottom:6px;gap:12px}
+  .ev{flex:0 0 78%;scroll-snap-align:start}
+  .ev h3{font-size:20px}
   .modal{align-items:flex-end;padding:0}
   .sheet{border-radius:20px 20px 0 0;max-height:92vh}
   .sh-head{padding:22px 16px 16px}
@@ -315,6 +342,17 @@ footer a{color:#C9D2C4}
       </article>
     </div>
     <p class="small">Купити можна лише 16–30 листопада, а прийти — пізніше. Знижки не сумуються. Психологам: <a href="https://psy-centr-kyiv.netlify.app/" target="_blank" rel="noopener" data-track="rent_click" data-label="BF лендинг">оренда кабінетів −30% ↗</a></p>
+  </div>
+</section>
+
+<!-- 3б. ГРУПИ ТА КЛУБИ -->
+<section class="events-sec" id="events">
+  <div class="wrap">
+    <div class="label">Групи та клуби</div>
+    <h2>Зустрічі в колі — <em id="evHead">перша −50%</em></h2>
+    <p class="t-sub" id="evSub">Знижка −50% на перший візит — при реєстрації до 30 листопада. Натисніть на зустріч, щоб побачити деталі.</p>
+    <div class="ev-grid" id="evGrid"></div>
+    <p class="ev-note">Без передоплати · до 10 учасників · вул. Первомайського, 5А, м. Кловська</p>
   </div>
 </section>
 
@@ -593,6 +631,73 @@ function closeSpec() { $("#modal").hidden = true; document.body.classList.remove
 $("#modal").addEventListener("click", (e) => { if (e.target.id === "modal" || e.target.closest("[data-close]")) closeSpec(); });
 document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("#modal").hidden) closeSpec(); });
 const PICK = { first: 0, pack: 1 };
+
+// ===== групи та клуби (знижка на перший візит — лише під час акції, при реєстрації до 30.11)
+const PLACE = "Очно в центрі · вул. Первомайського, 5А, м. Кловська";
+const EVENTS = [
+  { id: "piznannia", img: "ev-piznannia", day: "Пт", time: "1,5 год", repeat: "раз на 2 тижні", type: "Група",
+    title: "Арт-терапевтичні зустрічі «Пізнання себе»", host: "Анастасія Курило", hostImg: "anastasiia-k",
+    when: "Раз на 2 тижні, по пʼятницях, 1,5 год · перша зустріч 4 грудня",
+    about: "Познайомтеся з собою ближче: фарби, образи, метафоричні карти й розмова в колі. Відкрита група для дорослих — можна прийти на будь-яку зустріч.",
+    next: "Перша зустріч — 4 грудня.", price: 800, more: "https://psy-centr-kyiv-morphosis.netlify.app/piznannia/" },
+  { id: "kino", img: "ev-kino", day: "Сб", time: "14:00", repeat: "раз на 2 тижні", type: "Група",
+    title: "Відкрита арттерапевтична група «Кіно про мене»", host: "Олександра Байлова", hostImg: "oleksandra-bailova",
+    when: "Раз на 2 тижні, по суботах о 14:00 (1,5–2 год)",
+    about: "Відкрита творча група для тих, хто хоче краще зрозуміти себе через кіно та арттерапію. Кожна зустріч — окрема тема. Можна прийти на одну зустріч, без зобовʼязання відвідувати весь цикл.",
+    next: "Зареєструйтеся — ми повідомимо дату найближчої зустрічі.", price: 700, more: "https://psy-centr-kyiv-morphosis.netlify.app/kino/" },
+  { id: "rivnovaha", img: "ev-rivnovaha", day: "Сб", time: "15:00–17:30", repeat: "раз на 2 тижні", type: "Група підтримки",
+    title: "Група психологічної підтримки «Точка рівноваги»", host: "Іванна Ромашко", hostImg: "ivanna-romashko",
+    when: "Раз на 2 тижні, по суботах о 15:00–17:30",
+    about: "Простір, де можна виговоритися без засудження, знайти друзів, поїсти смачненького й зігрітися — зовні та всередині. 12 зустрічей по суботах, раз на 2 тижні, до 10 учасників.",
+    next: "Зареєструйтеся — ми повідомимо дату найближчої зустрічі.", price: 400, more: "https://psy-centr-kyiv-morphosis.netlify.app/rivnovaha/" },
+  { id: "club", img: "ev-club", day: "Пт", time: "17:30", repeat: "раз на місяць", type: "Книжковий клуб",
+    title: "Психологічний книжковий клуб «Third place»", host: "Іванна Ромашко", hostImg: "ivanna-romashko",
+    when: "Раз на місяць, по пʼятницях о 17:30 (2,5 год)",
+    about: "Читаємо художні книги й розбираємо їх очима психолога: мотиви персонажів, архетипи, паралелі з нашим життям. Перша книга — «Мій рік відпочинку та розслаблення». Раз на місяць, до 10 учасників.",
+    next: "Зареєструйтеся — ми повідомимо дату найближчої зустрічі.", price: 700, after: 500 },
+];
+const EV_DISC = ON ? 50 : 0;
+const evFirst = (e) => Math.round(e.price * (1 - EV_DISC / 100));
+const evPrice = (e, long) => (EV_DISC ? `<s>${money(e.price)}</s><b>${money(evFirst(e))}</b> перша зустріч` : `<b>${money(e.price)}</b>${e.after ? " перша зустріч" : ""}`) + (e.after ? ` · далі ${money(e.after)}` : "");
+if (!EV_DISC) { $("#evHead").textContent = "приходьте"; $("#evSub").textContent = "Натисніть на зустріч, щоб побачити деталі."; }
+$("#evGrid").innerHTML = EVENTS.map((e, i) => `<button type="button" class="ev" data-ev="${i}">
+  <div class="ev-ph"><img src="img/${e.img}.webp" alt="${esc(e.title)}" loading="lazy" width="480" height="360">
+    <span class="ev-when"><b>${e.day}</b>${e.time}<br>${e.repeat}</span>${EV_DISC ? `<span class="ev-disc">−50% перший візит</span>` : ""}</div>
+  <div class="ev-body"><span class="ev-type">${e.type}</span><h3>${esc(e.title.replace(/^.*?«/, "«"))}</h3>
+    <span class="host"><img src="img/${e.hostImg}.webp" alt="" width="26" height="26">${e.host}</span>
+    <span class="pr">${evPrice(e)}</span><span class="go">Деталі →</span></div></button>`).join("");
+function openEvent(i) {
+  const e = EVENTS[i]; lastFocus = document.activeElement;
+  $("#sheet").innerHTML = `
+    <button class="x" type="button" aria-label="Закрити" data-close>×</button>
+    <img class="sh-photo" src="img/${e.img}.webp" alt="${esc(e.title)}">
+    <div class="sh-body">
+      <div><div class="ev-type" style="margin-bottom:4px">${e.type}</div><h3 id="shName" style="font-family:var(--serif);font-weight:500;font-size:28px;line-height:1.1;color:var(--g)">${esc(e.title)}</h3></div>
+      <div class="sh-facts"><span>🕐 ${e.when}</span><span>📍 ${PLACE}</span></div>
+      <div class="sh-price" style="flex-wrap:wrap">${EV_DISC ? `<b>${money(evFirst(e))}</b><s>${money(e.price)}</s><span style="font-size:13px;color:var(--mid)">перша зустріч −50% · при реєстрації до 30.11${e.after ? ` · далі ${money(e.after)}` : ""}</span>` : `<b>${money(e.price)}</b>${e.after ? `<span style="font-size:13px;color:var(--mid)">перша зустріч · далі ${money(e.after)}</span>` : ""}`}</div>
+      <div style="display:flex;align-items:center;gap:12px"><img src="img/${e.hostImg}.webp" alt="" width="52" height="52" style="width:52px;height:52px;border-radius:50%;object-fit:cover"><div><h4 style="margin:0">Веде</h4><p>${e.host}</p></div></div>
+      <p>${esc(e.about)}</p>
+      <p><b style="font-weight:500">${esc(e.next)}</b></p>
+      <p style="font-size:14px;color:var(--mid)">Бронювання без передоплати · до 10 учасників</p>
+      ${e.more ? `<p><a href="${e.more}" target="_blank" rel="noopener" style="color:var(--g);font-weight:500" data-track="promo_click" data-label="BF: група — детальніше">Програма, фото, ціни ↗</a></p>` : ""}
+    </div>
+    <div class="sh-cta"><button class="btn btn-green" type="button" data-book>Забронювати місце${EV_DISC ? " −50%" : ""}</button></div>`;
+  $("#sheet").querySelector("[data-book]").onclick = () => { closeSpec(); pickEvent(i); };
+  $("#modal").hidden = false; document.body.classList.add("lock"); $("#sheet").scrollTop = 0;
+  $("#sheet").querySelector(".x").focus();
+  track("event_open", "BF: " + e.title);
+}
+function pickEvent(i) {
+  const e = EVENTS[i], val = `🎟 ${e.title}${EV_DISC ? " — перша зустріч −50%" : ""}`;
+  let chip = $("#evChip");
+  if (!chip) { chip = document.createElement("label"); chip.className = "chip"; chip.id = "evChip"; $("#interest").appendChild(chip); }
+  chip.innerHTML = `<input type="radio" name="interest" value="${esc(val)}"><span>🎟 ${esc(e.title.replace(/^.*?«/, "«"))}</span>`;
+  chip.querySelector("input").checked = true;
+  $("#fSpec").value = ""; topicHint();
+  track("event_register", "BF: " + e.title);
+  goForm(); setTimeout(() => $("#form [name=name]").focus({ preventScroll: true }), 700);
+}
+$("#evGrid").addEventListener("click", (ev) => { const b = ev.target.closest("[data-ev]"); if (b) openEvent(+b.dataset.ev); });
 document.querySelectorAll(".off").forEach((el) => el.addEventListener("click", () => {
   const r = document.querySelectorAll("#interest input")[PICK[el.dataset.pick]]; r.checked = true;
   track("promo_click", "BF: " + r.value); goForm();
@@ -646,7 +751,7 @@ $("#form").addEventListener("submit", async (e) => {
   if (f.querySelector(".bad")) { msg.hidden = false; msg.textContent = "Вкажіть, будь ласка, імʼя і телефон або Telegram."; f.querySelector(".bad").focus(); return; }
   msg.hidden = true; btn.disabled = true; btn.textContent = "Надсилаємо…";
   const utm = ["utm_source", "utm_medium", "utm_campaign", "utm_content"].map((k) => qs.get(k)).filter(Boolean).join(" / ");
-  const interest = ON ? f.interest.value : `Перша зустріч −${DISC}%`;
+  const interest = ON || /^🎟/.test(f.interest.value) ? f.interest.value : `Перша зустріч −${DISC}%`;
   const text = [`🖤 Заявка — Чорна пʼятниця (лендинг)`, `Імʼя: ${name}`, `Контакт: ${contact}`, `Цікавить: ${interest}`,
     `Запит: ${f.topic.value || "—"}`, `Фахівець: ${f.spec.value || "підібрати"}`, `Формат: ${f.format.value}`,
     `Джерело: ${utm || (/instagram/i.test(document.referrer) ? "Instagram" : document.referrer ? document.referrer : "пряме / реклама")}`].join("\n");

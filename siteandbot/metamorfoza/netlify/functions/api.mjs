@@ -112,7 +112,8 @@ export default async (req) => {
 // ---------- статистика лендингу «Чорна пʼятниця» (сторінка /bf/ і окремий сайт лендингу)
 // Зберігається окремо від статистики основного сайту; перегляд: /admin → «Відвідування сайту» → «Лендинг ЧП».
 const BF_EVENTS = ["page_view", "time", "bf_view", "bf_ad", "bf_scroll", "bf_form_start", "bf_messenger", "bf_topic",
-  "booking_click", "choose_specialist", "specialist_open", "promo_click", "form_submit_psy", "telegram_click", "instagram_click", "rent_click"];
+  "booking_click", "choose_specialist", "specialist_open", "promo_click", "form_submit_psy", "telegram_click", "instagram_click", "rent_click",
+  "event_open", "event_register"];
 const BF_SOURCES = ["Пряме", "Instagram", "Telegram", "Facebook", "Google", "Інше"];
 function bfApply(st, body, day) {
   const e = str(body.e, 40), label = str(body.label, 80) || "—";
